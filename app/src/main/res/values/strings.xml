@@ -15,4 +15,5 @@
     <string name="login_button">Confirm PIN</string>
     <string name="succ_logged_msg">Successfully loged in</string>
     <string name="succ_logged_btn">OK, go to dashboard</string>
+    <string name="select_account">Select your account</string>
 </resources>
