@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
-
+//123
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
