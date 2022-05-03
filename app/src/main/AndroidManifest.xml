@@ -10,13 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DeutschlandApp">
         <activity
-            android:name=".ui.AccountSelectActivity"
+            android:name=".login.LoginNewSessionActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.SuccessLoggedActivity"
+            android:name=".login.AccountSelectActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".login.SuccessLoggedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".login.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

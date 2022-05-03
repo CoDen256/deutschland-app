@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.AccountSelectActivity">
+        tools:context=".login.AccountSelectActivity">
         <!--todo reusable greet element-->
         <TextView
             android:id="@+id/name"
@@ -37,7 +37,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@android:color/holo_blue_light"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
