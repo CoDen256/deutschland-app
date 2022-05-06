@@ -3,14 +3,14 @@ package de.app.login
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import de.app.R
-import de.app.databinding.ActivityLoginBinding
+import de.app.databinding.ActivityLoginConfirmBinding
 
-class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityLoginBinding
+class LoginConfirmActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityLoginConfirmBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityLoginConfirmBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 

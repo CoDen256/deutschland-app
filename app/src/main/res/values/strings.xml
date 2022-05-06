@@ -16,4 +16,11 @@
     <string name="succ_logged_msg">Successfully loged in</string>
     <string name="succ_logged_btn">OK, go to dashboard</string>
     <string name="select_account">Select your account</string>
+    <string name="login">Login</string>
+    <string name="login_string">LOGIN</string>
+    <string name="change_account_string">CHANGE ACCOUNT</string>
+    <string name="private_or_business_str">For Business</string>
+    <string name="common_info_wellcome_string">Hello %username%</string>
+    <string name="title_activity_drawer">DrawerActivity</string>
+    <string name="title_activity_google_maps">GoogleMapsActivity</string>
 </resources>

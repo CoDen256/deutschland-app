@@ -30,7 +30,8 @@
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name"
-            app:layout_constraintVertical_bias="0.931" />
+            app:layout_constraintVertical_bias="0.931"
+            android:text="@string/private_or_business_str"/>
 
         <EditText
             android:id="@+id/priv_bus_id_input"
@@ -46,6 +47,7 @@
             android:id="@+id/login_button"
             android:layout_width="120dp"
             android:layout_height="82dp"
+            android:text="@string/login_string"
             app:layout_constraintBottom_toTopOf="@+id/change_acc_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +63,8 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name"
-            app:layout_constraintVertical_bias="0.839" />
+            app:layout_constraintVertical_bias="0.839"
+            android:text="@string/change_account_string"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
