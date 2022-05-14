@@ -13,7 +13,8 @@ import android.widget.EditText
 import android.widget.Toast
 
 import de.app.R
-import de.app.core.LoginDataSource
+import de.app.core.AccountDataSource
+import de.app.core.SessionManager
 import de.app.databinding.ActivityAccountLoginBinding
 
 class AccountLoginActivity : AppCompatActivity() {
@@ -32,7 +33,7 @@ class AccountLoginActivity : AppCompatActivity() {
         val login = binding.login
         val loading = binding.loading
 
-        loginViewModel = LoginViewModel(LoginRepository(LoginDataSource()))
+        loginViewModel = LoginViewModel(SessionManager(AccountDataSource()))
 
         loginViewModel.loginFormState.observe(this, Observer {
             val loginState = it ?: return@Observer

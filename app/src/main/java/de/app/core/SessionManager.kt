@@ -3,7 +3,7 @@ package de.app.core
 import de.app.data.Result
 import de.app.data.model.Account
 
-class SessionManager(val dataSource: LoginDataSource) {
+class SessionManager(val dataSource: AccountDataSource) {
     // in-memory cache of the loggedInUser object
     var currentAccount: Account? = null
         private set
@@ -11,18 +11,14 @@ class SessionManager(val dataSource: LoginDataSource) {
     val isLoggedIn: Boolean
         get() = currentAccount != null
 
-    init {
-        currentAccount = null
-    }
 
     fun logout() {
         currentAccount = null
-        dataSource.logout()
     }
 
-    fun login(username: String, password: String): Result<Account> {
+    fun login(accountId: String, pin: String): Result<Account> {
         // handle login
-        val result = dataSource.login(username, password)
+        val result = dataSource.login(accountId, pin)
 
         if (result is Result.Success) {
             currentAccount = result.data

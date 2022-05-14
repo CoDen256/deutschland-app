@@ -4,20 +4,21 @@ import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.app.R
+import de.app.core.SessionManager
 import de.app.data.Result
 
-class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+class LoginViewModel(private val sessionManager: SessionManager) : ViewModel() {
 
     val loginFormState = MutableLiveData<LoginFormState>()
     val loginResult = MutableLiveData<LoginResult>()
 
-    fun login(username: String, password: String) {
+    fun login(accountId: String, password: String) {
         // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
+        val result = sessionManager.login(accountId, password)
 
         if (result is Result.Success) {
             loginResult.value =
-                LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
+                LoginResult(success = LoggedInUserView(displayName = result.data.name))
         } else {
             loginResult.value = LoginResult(error = R.string.login_failed)
         }
