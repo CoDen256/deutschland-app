@@ -1,6 +1,6 @@
 package de.app.ui.account.login
 
-import android.util.Patterns
+import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.app.R
@@ -12,9 +12,8 @@ class LoginViewModel(private val sessionManager: SessionManager) : ViewModel() {
     val loginFormState = MutableLiveData<LoginFormState>()
     val loginResult = MutableLiveData<LoginResult>()
 
-    fun login(accountId: String, password: String) {
-        // can be launched in a separate asynchronous job
-        val result = sessionManager.login(accountId, password)
+    fun login(accountId: String, pin: String) {
+        val result = sessionManager.login(accountId, pin)
 
         if (result is Result.Success) {
             loginResult.value =
@@ -24,27 +23,15 @@ class LoginViewModel(private val sessionManager: SessionManager) : ViewModel() {
         }
     }
 
-    fun loginDataChanged(username: String, password: String) {
-        if (!isUserNameValid(username)) {
-            loginFormState.value = LoginFormState(usernameError = R.string.invalid_username)
-        } else if (!isPasswordValid(password)) {
+    fun loginDataChanged(accountId: String, password: String) {
+        if (!isPasswordValid(password)) {
             loginFormState.value = LoginFormState(passwordError = R.string.invalid_password)
         } else {
             loginFormState.value = LoginFormState(isDataValid = true)
         }
     }
 
-    // A placeholder username validation check
-    private fun isUserNameValid(username: String): Boolean {
-        return if (username.contains('@')) {
-            Patterns.EMAIL_ADDRESS.matcher(username).matches()
-        } else {
-            username.isNotBlank()
-        }
-    }
-
-    // A placeholder password validation check
-    private fun isPasswordValid(password: String): Boolean {
-        return password.length > 5
+    private fun isPasswordValid(pin: String): Boolean {
+        return pin.length == 4 && pin.isDigitsOnly()
     }
 }

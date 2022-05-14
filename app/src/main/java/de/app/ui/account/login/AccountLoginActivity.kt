@@ -28,12 +28,13 @@ class AccountLoginActivity : AppCompatActivity() {
         binding = ActivityAccountLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val username = binding.username
-        val password = binding.password
+        val pin = binding.pin
         val login = binding.login
         val loading = binding.loading
 
-        loginViewModel = LoginViewModel(SessionManager(AccountDataSource()))
+        val dataSource = AccountDataSource()
+        val selectedAccount = dataSource.getAccounts()[0]
+        loginViewModel = LoginViewModel(SessionManager(dataSource))
 
         loginViewModel.loginFormState.observe(this, Observer {
             val loginState = it ?: return@Observer
@@ -41,11 +42,8 @@ class AccountLoginActivity : AppCompatActivity() {
             // disable login button unless both username / password is valid
             login.isEnabled = loginState.isDataValid
 
-            if (loginState.usernameError != null) {
-                username.error = getString(loginState.usernameError)
-            }
             if (loginState.passwordError != null) {
-                password.error = getString(loginState.passwordError)
+                pin.error = getString(loginState.passwordError)
             }
         })
 
@@ -65,18 +63,12 @@ class AccountLoginActivity : AppCompatActivity() {
             finish()
         })
 
-        username.afterTextChanged {
-            loginViewModel.loginDataChanged(
-                username.text.toString(),
-                password.text.toString()
-            )
-        }
 
-        password.apply {
+        pin.apply {
             afterTextChanged {
                 loginViewModel.loginDataChanged(
-                    username.text.toString(),
-                    password.text.toString()
+                    selectedAccount.accountId,
+                    pin.text.toString()
                 )
             }
 
@@ -84,8 +76,8 @@ class AccountLoginActivity : AppCompatActivity() {
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
-                            username.text.toString(),
-                            password.text.toString()
+                            selectedAccount.accountId,
+                            pin.text.toString()
                         )
                 }
                 false
@@ -93,7 +85,7 @@ class AccountLoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+                loginViewModel.login(selectedAccount.accountId, pin.text.toString())
             }
         }
     }
