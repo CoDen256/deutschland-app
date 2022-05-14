@@ -10,9 +10,4 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="login_greet">Deutschland App</string>
-    <string name="pass_placeholder">Enter PIN</string>
-    <string name="login_button">Confirm PIN</string>
-    <string name="succ_logged_msg">Successfully loged in</string>
-    <string name="succ_logged_btn">OK, go to dashboard</string>
 </resources>
