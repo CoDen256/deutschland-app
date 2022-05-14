@@ -28,16 +28,18 @@
         <activity
             android:name=".ui.GeoDataActivity"
             android:exported="true"
-            android:label="@string/title_activity_geo_data"></activity>
-        <activity
-            android:name=".ui.account.login.AccountLoginActivity"
-            android:exported="true"
-            android:label="@string/title_activity_register_account">
+            android:label="@string/title_activity_geo_data">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".ui.account.login.AccountLoginActivity"
+            android:exported="true"
+            android:label="@string/title_activity_register_account">
         </activity>
         <activity
             android:name=".MainActivity"
