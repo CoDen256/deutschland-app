@@ -1,4 +1,4 @@
-package de.app.ui.login
+package de.app.ui.account.login
 
 /**
  * Authentication result : success (user details) or error message.

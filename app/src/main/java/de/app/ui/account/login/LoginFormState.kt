@@ -1,4 +1,4 @@
-package de.app.ui.login
+package de.app.ui.account.login
 
 /**
  * Data validation state of the login form.

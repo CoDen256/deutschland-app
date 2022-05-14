@@ -1,8 +1,7 @@
-package de.app.ui.login
+package de.app.ui.account.login
 
 import android.app.Activity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -12,19 +11,20 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
-import de.app.databinding.ActivityRegisterAccountBinding
 
 import de.app.R
+import de.app.core.LoginDataSource
+import de.app.databinding.ActivityAccountLoginBinding
 
-class RegisterAccountActivity : AppCompatActivity() {
+class AccountLoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
-    private lateinit var binding: ActivityRegisterAccountBinding
+    private lateinit var binding: ActivityAccountLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityRegisterAccountBinding.inflate(layoutInflater)
+        binding = ActivityAccountLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val username = binding.username
@@ -32,10 +32,9 @@ class RegisterAccountActivity : AppCompatActivity() {
         val login = binding.login
         val loading = binding.loading
 
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
+        loginViewModel = LoginViewModel(LoginRepository(LoginDataSource()))
 
-        loginViewModel.loginFormState.observe(this@RegisterAccountActivity, Observer {
+        loginViewModel.loginFormState.observe(this, Observer {
             val loginState = it ?: return@Observer
 
             // disable login button unless both username / password is valid
@@ -49,7 +48,7 @@ class RegisterAccountActivity : AppCompatActivity() {
             }
         })
 
-        loginViewModel.loginResult.observe(this@RegisterAccountActivity, Observer {
+        loginViewModel.loginResult.observe(this, Observer {
             val loginResult = it ?: return@Observer
 
             loading.visibility = View.GONE

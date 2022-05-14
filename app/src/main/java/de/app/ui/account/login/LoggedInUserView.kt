@@ -1,4 +1,4 @@
-package de.app.ui.login
+package de.app.ui.account.login
 
 /**
  * User details post authentication that is exposed to the UI

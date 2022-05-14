@@ -1,5 +1,6 @@
-package de.app.data
+package de.app.core
 
+import de.app.data.Result
 import de.app.data.model.Account
 import java.io.IOException
 
@@ -8,7 +9,7 @@ import java.io.IOException
  */
 class LoginDataSource {
 
-    fun login(username: String, password: String): Result<Account> {
+    fun login(id: String, password: String): Result<Account> {
         try {
             // TODO: handle loggedInUser authentication
             val fakeUser = Account(java.util.UUID.randomUUID().toString(), "Jane Doe")
