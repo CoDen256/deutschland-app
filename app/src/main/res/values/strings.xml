@@ -20,4 +20,6 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_geo_data">GeoDataActivity</string>
+    <string name="welcome_user">Welcome</string>
+    <string name="welcome_username">Welcome %s %s!</string>
 </resources>

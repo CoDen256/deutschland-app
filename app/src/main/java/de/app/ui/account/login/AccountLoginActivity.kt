@@ -31,10 +31,14 @@ class AccountLoginActivity : AppCompatActivity() {
         val pin = binding.pin
         val login = binding.login
         val loading = binding.loading
+        val loginAsUsername = binding.loginUsername
 
         val dataSource = AccountDataSource()
         val selectedAccount = dataSource.getAccounts()[0]
         loginViewModel = LoginViewModel(SessionManager(dataSource))
+
+
+        loginAsUsername.text = getString(R.string.welcome_username, selectedAccount.name, selectedAccount.surname)
 
         loginViewModel.loginFormState.observe(this, Observer {
             val loginState = it ?: return@Observer
@@ -52,15 +56,11 @@ class AccountLoginActivity : AppCompatActivity() {
 
             loading.visibility = View.GONE
             if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
+                onLoginFailed(loginResult.error)
             }
             if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
+                onSuccessfulLogin(loginResult.success)
             }
-            setResult(Activity.RESULT_OK)
-
-            //Complete and destroy login activity once successful
-            finish()
         })
 
 
@@ -90,7 +90,7 @@ class AccountLoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
+    private fun onSuccessfulLogin(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
         // TODO : initiate successful logged in experience
@@ -99,9 +99,14 @@ class AccountLoginActivity : AppCompatActivity() {
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
+
+        setResult(Activity.RESULT_OK)
+
+        //Complete and destroy login activity once successful
+        finish()
     }
 
-    private fun showLoginFailed(@StringRes errorString: Int) {
+    private fun onLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
 }
