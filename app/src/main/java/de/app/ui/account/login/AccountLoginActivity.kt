@@ -1,9 +1,9 @@
 package de.app.ui.account.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import android.os.Bundle
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,6 +16,10 @@ import de.app.R
 import de.app.core.AccountDataSource
 import de.app.core.SessionManager
 import de.app.databinding.ActivityAccountLoginBinding
+import de.app.ui.MainActivity
+import de.app.ui.account.login.data.LoggedInUserView
+
+const val LOGGED_IN_ACCOUNT = "de.app.ui.account.login.ACCOUNT"
 
 class AccountLoginActivity : AppCompatActivity() {
 
@@ -91,22 +95,19 @@ class AccountLoginActivity : AppCompatActivity() {
     }
 
     private fun onSuccessfulLogin(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
-        // TODO : initiate successful logged in experience
-        Toast.makeText(
-            applicationContext,
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
-        ).show()
+        val loggedInAccount = model.account
+
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra(LOGGED_IN_ACCOUNT, loggedInAccount)
+        }
+        startActivity(intent)
 
         setResult(Activity.RESULT_OK)
-
         //Complete and destroy login activity once successful
         finish()
     }
 
-    private fun onLoginFailed(@StringRes errorString: Int) {
+    private fun onLoginFailed(errorString: String) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
 }

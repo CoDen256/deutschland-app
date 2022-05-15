@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import de.app.R
 import de.app.core.SessionManager
 import de.app.data.Result
+import de.app.ui.account.login.data.LoggedInUserView
+import de.app.ui.account.login.data.LoginFormState
+import de.app.ui.account.login.data.LoginResult
 
 class LoginViewModel(private val sessionManager: SessionManager) : ViewModel() {
 
@@ -17,9 +20,9 @@ class LoginViewModel(private val sessionManager: SessionManager) : ViewModel() {
 
         if (result is Result.Success) {
             loginResult.value =
-                LoginResult(success = LoggedInUserView(displayName = result.data.name))
-        } else {
-            loginResult.value = LoginResult(error = R.string.login_failed)
+                LoginResult(success = LoggedInUserView(account = result.data))
+        } else if (result is Result.Error) {
+            loginResult.value = LoginResult(error = result.exception.message)
         }
     }
 

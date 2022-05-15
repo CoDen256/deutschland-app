@@ -1,5 +1,7 @@
 package de.app.data.model
 
+import java.io.Serializable
+
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
  */
@@ -10,7 +12,7 @@ data class Account(
     val formOfAddress: String,
     val type: Type,
     // address?
-) {
+): Serializable {
     enum class Type {
         CITIZEN, COMPANY
     }

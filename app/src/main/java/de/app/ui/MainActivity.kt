@@ -1,4 +1,4 @@
-package de.app
+package de.app.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -11,7 +11,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import de.app.R
+import de.app.data.model.Account
 import de.app.databinding.ActivityMainBinding
+import de.app.ui.account.login.LOGGED_IN_ACCOUNT
+import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
+        val account = intent.getSerializableExtra(LOGGED_IN_ACCOUNT) as Account
+
         binding.appBarMain.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own test", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
@@ -36,7 +42,8 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout)
+            R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+        ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
