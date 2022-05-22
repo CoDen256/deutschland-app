@@ -12,10 +12,9 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import de.app.R
-import de.app.data.model.Account
+import de.app.data.model.account.Account
 import de.app.databinding.ActivityMainBinding
 import de.app.ui.account.login.LOGGED_IN_ACCOUNT
-import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
 

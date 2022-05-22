@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.GeoDataActivity">
+    tools:context=".ui.geo.GeoDataActivity">
 
 
     <EditText
@@ -18,7 +18,7 @@
         android:spinnerMode="dropdown" />
 
     <com.mapbox.mapboxsdk.maps.MapView
-        android:id="@+id/mapView"
+        android:id="@+id/map_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

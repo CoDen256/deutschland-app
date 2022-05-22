@@ -1,4 +1,4 @@
-package de.app.ui
+package de.app.ui.geo
 
 import android.R
 import android.content.pm.PackageManager

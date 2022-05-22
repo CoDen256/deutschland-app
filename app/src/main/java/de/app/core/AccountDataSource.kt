@@ -1,8 +1,8 @@
 package de.app.core
 
 import de.app.data.Result
-import de.app.data.model.Account
-import de.app.data.model.LoginInfo
+import de.app.data.model.account.Account
+import de.app.data.model.account.AccountHeader
 import java.io.IOException
 import java.lang.IllegalArgumentException
 import java.util.*
@@ -26,7 +26,7 @@ class AccountDataSource {
             map
         }
 
-        private val accountInfo: List<LoginInfo> = accounts.keys.map { LoginInfo(it.name, it.surname, it.accountId) }
+        private val ACCOUNT_INFO: List<AccountHeader> = accounts.keys.map { AccountHeader(it.name, it.surname, it.accountId) }
 
     }
 
@@ -46,8 +46,8 @@ class AccountDataSource {
         }
     }
 
-    fun getAccounts(): List<LoginInfo> {
-        return accountInfo
+    fun getAccounts(): List<AccountHeader> {
+        return ACCOUNT_INFO
     }
 
     fun remove(account: Account){

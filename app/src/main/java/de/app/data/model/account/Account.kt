@@ -1,4 +1,4 @@
-package de.app.data.model
+package de.app.data.model.account
 
 import java.io.Serializable
 

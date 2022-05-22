@@ -1,6 +1,6 @@
-package de.app.data.model
+package de.app.data.model.account
 
-data class LoginInfo(
+data class AccountHeader(
     val name: String,
     val surname: String,
     val accountId: String

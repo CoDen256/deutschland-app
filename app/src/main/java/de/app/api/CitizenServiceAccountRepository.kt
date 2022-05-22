@@ -1,4 +1,4 @@
-package de.app.external
+package de.app.api
 
 interface CitizenServiceAccountRepository {
 }

@@ -12,7 +12,7 @@
     tools:context=".ui.account.login.AccountLoginActivity">
 
     <TextView
-        android:id="@+id/loginUsername"
+        android:id="@+id/login_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
@@ -34,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/login_username" />
 
     <Button
         android:id="@+id/login"
