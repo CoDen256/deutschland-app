@@ -2,12 +2,8 @@ package de.app.ui.mailbox
 
 import android.os.Bundle
 import android.view.View
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.app.R
@@ -15,6 +11,7 @@ import de.app.data.model.mail.MailMessageHeader
 import de.app.databinding.ActivityMailBoxBinding
 import java.time.Instant
 import java.util.*
+import kotlin.random.Random
 
 class MailBoxActivity : AppCompatActivity() {
 
@@ -31,12 +28,40 @@ class MailBoxActivity : AppCompatActivity() {
 
         val rvMailMessages = findViewById<View>(R.id.rvMailMessages) as RecyclerView
 
-        rvMailMessages.adapter = MailMessageAdapter(listOf(
-            MailMessageHeader("Hello", Instant.now(), removed=false, important = false, UUID.randomUUID()),
-            MailMessageHeader("Hello 2", Instant.now(), removed=false, important = false, UUID.randomUUID()),
-            MailMessageHeader("Hello 3", Instant.now(), removed=false, important = false, UUID.randomUUID()
-        )))
+
+        val mailMessages = getMails()
+        rvMailMessages.adapter = MailMessageAdapter(mailMessages)
         rvMailMessages.layoutManager = LinearLayoutManager(this)
+
+         Timer().scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                updateMails(rvMailMessages, mailMessages)
+            }
+        }, 0, 10000)
     }
+
+    private fun updateMails(rv: RecyclerView, origin: MutableList<MailMessageHeader>) {
+        val newMails = getMails()
+        runOnUiThread { rv.adapter?.apply {
+            val curSize = itemCount
+            origin.addAll(newMails)
+            notifyItemRangeChanged(curSize, newMails.size)
+        } }
+    }
+
+    private fun getMails(): MutableList<MailMessageHeader> = ArrayList<MailMessageHeader>().apply {
+        for (i in 0..Random.nextInt(1, 10)) {
+            add(
+                MailMessageHeader(
+                    "Hello $i",
+                    Instant.now(),
+                    removed = false,
+                    important = false,
+                    UUID.randomUUID()
+                )
+            )
+        }
+    }
+
 
 }
