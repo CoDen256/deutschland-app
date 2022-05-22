@@ -1,5 +1,6 @@
 package de.app.ui
 
+import android.R
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,43 +16,50 @@ class GeoDataActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityGeoDataBinding
 
+    private var style = "basic"
+    private val apiKey: String
+        get() = getMapTilerKey()
+    private val styleUrl : String
+       get() = "https://api.maptiler.com/maps/$style/style.json?key=$apiKey"
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val mapTilerKey = getMapTilerKey()
-//        validateKey(mapTilerKey)
-        val styleUrl = "https://api.maptiler.com/maps/streets/style.json?key=${mapTilerKey}";
-        // Get the MapBox context
         Mapbox.getInstance(this, null)
-
 
         binding = ActivityGeoDataBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val items = arrayOf("Shutzgebiete", "Umwelt", "Landwirtschaft")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, items)
-        binding.dropdown.setAdapter(adapter)
+        setupCategories()
+        setupMap(savedInstanceState)
+    }
 
-
+    private fun setupMap(savedInstanceState: Bundle?) {
         val mapView: MapView = binding.mapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync { map ->
             // Set the style after mapView was loaded
             map.setStyle(styleUrl) {
-                map.uiSettings.setAttributionMargins(15, 0, 0, 15)
+                map.uiSettings.isAttributionEnabled = false
                 // Set the map view center
                 map.cameraPosition = CameraPosition.Builder()
-                    .target(LatLng(47.127757, 8.579139))
-                    .zoom(10.0)
+                    .target(LatLng(51.3563, 11.9917))
+                    .zoom(14.0)
                     .build()
             }
         }
     }
 
-    private fun getMapTilerKey(): String? {
+    private fun setupCategories() {
+        val items = arrayOf("Shutzgebiete", "Umwelt", "Landwirtschaft")
+        val adapter = ArrayAdapter(this, R.layout.simple_spinner_dropdown_item, items)
+        binding.dropdown.setAdapter(adapter)
+    }
+
+    private fun getMapTilerKey(): String {
         return packageManager.getApplicationInfo(
             packageName,
             PackageManager.GET_META_DATA
-        ).metaData.getString("com.maptiler.simplemap.mapTilerKey")
+        ).metaData.getString("com.maptiler.simplemap.mapTilerKey")!!
     }
 }
