@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        val account = intent.getSerializableExtra(LOGGED_IN_ACCOUNT) as Account
-
+//        val account = intent.getSerializableExtra(LOGGED_IN_ACCOUNT) as Account
+        // just ask session manager?
         binding.appBarMain.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own test", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()

@@ -18,13 +18,7 @@
             android:name=".ui.mailbox.MailBoxActivity"
             android:exported="true"
             android:label="@string/title_activity_mail_box"
-            android:theme="@style/Theme.DeutschlandApp.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.DeutschlandApp.NoActionBar"></activity>
 
         <activity
             android:name=".ui.geo.GeoDataActivity"
@@ -38,7 +32,13 @@
             android:name=".ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.DeutschlandApp.NoActionBar" />
+            android:theme="@style/Theme.DeutschlandApp.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
