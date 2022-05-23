@@ -12,14 +12,52 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/nav_geodata"
-        android:name="de.app.ui.geo.GeoDataFragment"
-        android:label="@string/menu_geodata"
-        tools:layout="@layout/fragment_geo_data" />
+        android:id="@+id/nav_finder"
+        android:name="de.app.ui.finder.AdministrativeServiceFinder"
+        android:label="@string/menu_finder"
+        tools:layout="@layout/fragment_administrative_service_finder" />
 
     <fragment
         android:id="@+id/nav_mailbox"
         android:name="de.app.ui.mailbox.MailBoxFragment"
         android:label="@string/menu_mailbox"
         tools:layout="@layout/fragment_mail_box_list" />
+
+    <fragment
+        android:id="@+id/nav_applications"
+        android:name="de.app.ui.application.ApplicationFragment"
+        android:label="@string/menu_applications"
+        tools:layout="@layout/fragment_application" />
+
+    <fragment
+        android:id="@+id/nav_appointments"
+        android:name="de.app.ui.appoinment.AppointmentFragment"
+        android:label="@string/menu_appointments"
+        tools:layout="@layout/fragment_appointment" />
+
+    <fragment
+        android:id="@+id/nav_data_safe"
+        android:name="de.app.ui.safe.DataSafeFragment"
+        android:label="@string/menu_data_safe"
+        tools:layout="@layout/fragment_data_safe" />
+
+    <fragment
+        android:id="@+id/nav_signature"
+        android:name="de.app.ui.signature.DataSignatureFragment"
+        android:label="@string/menu_signature"
+        tools:layout="@layout/fragment_signature" />
+
+    <fragment
+        android:id="@+id/nav_geodata"
+        android:name="de.app.ui.geo.GeoDataFragment"
+        android:label="@string/menu_geodata"
+        tools:layout="@layout/fragment_geo_data" />
+
+    <fragment
+        android:id="@+id/nav_law_registry"
+        android:name="de.app.ui.law.LawRegistryFragment"
+        android:label="@string/menu_law_registry"
+        tools:layout="@layout/fragment_law_registry" />
+
+
 </navigation>
