@@ -16,10 +16,6 @@
 
 
         <activity
-            android:name=".ui.geo.GeoDataActivity"
-            android:exported="true"
-            android:label="@string/title_activity_geo_data"></activity>
-        <activity
             android:name=".ui.account.login.AccountLoginActivity"
             android:exported="true"
             android:label="@string/title_activity_register_account"></activity>

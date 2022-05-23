@@ -9,6 +9,10 @@
             android:icon="@android:drawable/ic_dialog_dialer"
             android:title="@string/menu_home" />
         <item
+            android:id="@+id/nav_geodata"
+            android:icon="@android:drawable/ic_dialog_map"
+            android:title="@string/menu_geodata" />
+        <item
             android:id="@+id/nav_mailbox"
             android:icon="@android:drawable/ic_dialog_email"
             android:title="@string/menu_mailbox" />

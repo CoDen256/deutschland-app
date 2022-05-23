@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         // (without the id, clicking on appbar will result in going back instead of
         // viewing the menu, so its kind like not top level and here is only top levels)
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_dashboard, R.id.nav_mailbox
+            R.id.nav_dashboard, R.id.nav_geodata, R.id.nav_mailbox
         ), drawerLayout)
 
         setupActionBarWithNavController(navController, appBarConfiguration)

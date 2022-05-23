@@ -19,6 +19,7 @@
         <entry key="app/src/main/res/layout/fragment_mail_box.xml" value="0.11351079859367152" />
         <entry key="app/src/main/res/layout/fragment_mail_box_item.xml" value="0.14414866901054746" />
         <entry key="app/src/main/res/layout/fragment_mail_box_list.xml" value="0.19746376811594202" />
+        <entry key="app/src/main/res/layout/geo_data_fragment.xml" value="0.1539855072463768" />
         <entry key="app/src/main/res/layout/item_mailmessage.xml" value="0.265625" />
       </map>
     </option>

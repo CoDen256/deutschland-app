@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
+        android:id="@+id/nav_geodata"
+        android:name="de.app.ui.geo.GeoDataFragment"
+        android:label="@string/menu_geodata"
+        tools:layout="@layout/fragment_geo_data" />
+
+    <fragment
         android:id="@+id/nav_mailbox"
         android:name="de.app.ui.mailbox.MailBoxFragment"
         android:label="@string/menu_mailbox"
