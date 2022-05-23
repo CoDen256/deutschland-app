@@ -10,7 +10,6 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import de.app.R
 import de.app.databinding.ActivityMainBinding
 
@@ -28,19 +27,20 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
 
 //        val account = intent.getSerializableExtra(LOGGED_IN_ACCOUNT) as Account
-        // just ask session manager?
-        binding.appBarMain.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own test", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+        // TODO: just ask session manager?
+
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
+
+        // TODO: why is this needed?
+        // (without the id, clicking on appbar will result in going back instead of
+        // viewing the menu, so its kind like not top level and here is only top levels)
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_mailbox
+            R.id.nav_dashboard, R.id.nav_mailbox
         ), drawerLayout)
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }

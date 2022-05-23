@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import de.app.data.model.mail.MailMessageHeader
 import de.app.databinding.FragmentMailBoxItemBinding
 
-class MailMessageHeaderAdapter(
+class MailMessageViewAdapter(
     private val mailMessages: List<MailMessageHeader>
-) : RecyclerView.Adapter<MailMessageHeaderAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<MailMessageViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

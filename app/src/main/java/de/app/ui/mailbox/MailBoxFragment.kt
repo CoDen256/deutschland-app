@@ -2,7 +2,6 @@ package de.app.ui.mailbox
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -29,7 +28,7 @@ class MailBoxFragment : Fragment() {
         val mailMessages = getMails()
         with(view) {
             layoutManager = LinearLayoutManager(context)
-            adapter = MailMessageHeaderAdapter(mailMessages)
+            adapter = MailMessageViewAdapter(mailMessages)
         }
 
         runUpdatesWithIntervals(view, mailMessages)
