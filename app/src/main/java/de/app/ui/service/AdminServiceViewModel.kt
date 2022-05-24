@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import de.app.api.AdministrativeServiceRegistry
 import de.app.data.model.adminservice.AdministrativeService
 import de.app.data.model.adminservice.ApplicationForm
-import de.app.dummy.BaseAdministrativeServiceRegistry
+import de.app.api.dummy.BaseAdministrativeServiceRegistry
 
 class AdminServiceViewModel : ViewModel() {
 

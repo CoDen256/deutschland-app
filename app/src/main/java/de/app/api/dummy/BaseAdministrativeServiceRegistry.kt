@@ -1,4 +1,4 @@
-package de.app.dummy
+package de.app.api.dummy
 
 import de.app.api.AdministrativeServiceRegistry
 import de.app.data.model.adminservice.*
@@ -26,7 +26,7 @@ class BaseAdministrativeServiceRegistry : AdministrativeServiceRegistry {
             "This administrative service allows you to send an application to sell a dog",
             service,
             ArrayList<TextField>().apply {
-                for (i in 0..20){
+                for (i in 0..100){
                     add(
                         TextField(
                             name = "name",
