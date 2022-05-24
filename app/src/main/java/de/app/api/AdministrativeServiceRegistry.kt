@@ -1,9 +1,9 @@
 package de.app.api
 
-import de.app.data.model.adminservice.AdministrativeService
-import de.app.data.model.adminservice.AdministrativeServiceProvider
-import de.app.data.model.adminservice.ApplicationForm
-import de.app.data.model.adminservice.SubmittedForm
+import de.app.data.model.service.AdministrativeService
+import de.app.data.model.service.AdministrativeServiceProvider
+import de.app.data.model.service.form.ApplicationForm
+import de.app.data.model.service.SubmittedForm
 
 interface AdministrativeServiceRegistry {
 

@@ -12,6 +12,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.44375" />
         <entry key="app/src/main/res/layout/activity_register_account.xml" value="0.11820652173913043" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.13284781516825717" />
+        <entry key="app/src/main/res/layout/application_form_bigtext.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/layout/application_form_text.xml" value="0.4466666666666667" />
         <entry key="app/src/main/res/layout/content_mail_box.xml" value="0.265625" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_admin_service.xml" value="0.17889492753623187" />

@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import de.app.data.model.adminservice.TextField
-import de.app.databinding.ApplicationFormTextBinding
+import de.app.data.model.service.form.*
 import de.app.databinding.FragmentAdministrativeServiceBinding
 
 class AdministrativeServiceFragment : Fragment() {
@@ -21,24 +20,38 @@ class AdministrativeServiceFragment : Fragment() {
     ): View {
         binding = FragmentAdministrativeServiceBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[AdminServiceViewModel::class.java]
-        val root = binding.root
 
-
-        val context = requireContext()
+        val formInflater = FormFieldInflater(inflater, binding.layout)
         viewModel.applicationForm.form.forEach {
-            val textBinding = ApplicationFormTextBinding.inflate(inflater, binding.layout, false)
-            val textView = textBinding.root
-
-
-            textView.text = (it as TextField).label
-
-
-            binding.layout.addView(textView)
+            binding.layout.addView(convertFormFieldToView(it, formInflater))
         }
 
-
-
-        return root
+        return binding.root
     }
+
+    private fun convertFormFieldToView(
+        actual: FormField,
+        inflater: FormFieldInflater
+    ) = when (actual) {
+        is InfoField -> inflater.inflateTextView().apply {
+            root.text = actual.text
+        }
+        is DocumentField -> TODO()
+        is ImageField -> TODO()
+        is TextField -> inflater.inflateEditText().apply {
+            label.text = actual.label
+            field.hint = actual.hint
+        }
+        is BigTextField -> inflater.inflateEditTextBig().apply {
+            label.text = actual.label
+            field.hint = actual.hint
+        }
+        is EmailField -> TODO()
+        is NumberField -> TODO()
+        is SingleChoiceField -> TODO()
+        is MultipleChoiceField -> TODO()
+        is DateField -> TODO()
+        is AttachmentField -> TODO()
+    }.root
 
 }

@@ -1,4 +1,4 @@
-package de.app.data.model.adminservice
+package de.app.data.model.service
 
 import java.util.*
 

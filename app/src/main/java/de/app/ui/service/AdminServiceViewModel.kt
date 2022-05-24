@@ -2,8 +2,8 @@ package de.app.ui.service
 
 import androidx.lifecycle.ViewModel
 import de.app.api.AdministrativeServiceRegistry
-import de.app.data.model.adminservice.AdministrativeService
-import de.app.data.model.adminservice.ApplicationForm
+import de.app.data.model.service.AdministrativeService
+import de.app.data.model.service.form.ApplicationForm
 import de.app.api.dummy.BaseAdministrativeServiceRegistry
 
 class AdminServiceViewModel : ViewModel() {

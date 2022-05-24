@@ -1,7 +1,8 @@
 package de.app.api.dummy
 
 import de.app.api.AdministrativeServiceRegistry
-import de.app.data.model.adminservice.*
+import de.app.data.model.service.*
+import de.app.data.model.service.form.*
 import java.util.*
 
 class BaseAdministrativeServiceRegistry : AdministrativeServiceRegistry {
@@ -25,20 +26,27 @@ class BaseAdministrativeServiceRegistry : AdministrativeServiceRegistry {
             "Sell a dog",
             "This administrative service allows you to send an application to sell a dog",
             service,
-            ArrayList<TextField>().apply {
-                for (i in 0..100){
+            ArrayList<FormField>().apply {
+                for (i in 0..2){
+                    add(
+                        InfoField(
+                            text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                        ),
+                    )
                     add(
                         TextField(
                             name = "name",
                             label = "Name $i",
-                            hint = "John"
+                            hint = "John",
+                            required = true
                         )
                     )
                     add(
-                        TextField(
+                        BigTextField(
                             name = "surname",
                             label = "Nachname $i",
-                            hint = "Doe"
+                            hint = "Doe",
+                            required = true
                         ),
                     )
                 }
