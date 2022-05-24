@@ -20,7 +20,7 @@
 
         <item
             android:id="@+id/nav_applications"
-            android:icon="@android:drawable/checkbox_on_background"
+            android:icon="?attr/actionModePasteDrawable"
             android:title="@string/menu_applications" />
 
         <item
@@ -30,12 +30,12 @@
 
         <item
             android:id="@+id/nav_data_safe"
-            android:icon="@android:drawable/ic_dialog_dialer"
+            android:icon="@android:drawable/ic_menu_save"
             android:title="@string/menu_data_safe" />
 
         <item
             android:id="@+id/nav_signature"
-            android:icon="@android:drawable/ic_dialog_dialer"
+            android:icon="@android:drawable/ic_menu_edit"
             android:title="@string/menu_signature" />
 
         <item
@@ -45,7 +45,7 @@
 
         <item
             android:id="@+id/nav_law_registry"
-            android:icon="@android:drawable/ic_dialog_dialer"
+            android:icon="?android:attr/actionModeFindDrawable"
             android:title="@string/menu_law_registry" />
     </group>
 </menu>
