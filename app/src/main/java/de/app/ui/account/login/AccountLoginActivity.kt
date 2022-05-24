@@ -20,7 +20,7 @@ import de.app.ui.MainActivity
 import de.app.ui.account.login.data.LoggedInUserView
 
 const val LOGGED_IN_ACCOUNT = "de.app.ui.account.login.ACCOUNT"
-
+// TODO: nav graph between login screens, make as fragment
 class AccountLoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel

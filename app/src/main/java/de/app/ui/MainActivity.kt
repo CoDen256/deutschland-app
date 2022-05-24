@@ -34,6 +34,18 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
 
+        binding.switchAccount.setOnClickListener {
+
+        }
+
+        binding.logout.setOnClickListener {
+
+        }
+
+        binding.switchLanguage.setOnClickListener {
+
+        }
+
         // TODO: why is this needed?
         // (without the id, clicking on appbar will result in going back instead of
         // viewing the menu, so its kind like not top level and here is only top levels)

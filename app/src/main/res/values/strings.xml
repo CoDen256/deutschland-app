@@ -37,4 +37,7 @@
     <string name="menu_appointments">Appointments</string>
     <string name="menu_applications">Applications</string>
     <string name="menu_finder">Admin. Service Finder</string>
+    <string name="log_out">Log out</string>
+    <string name="switch_account">Switch Account</string>
+    <string name="switch_language">Switch Language</string>
 </resources>
