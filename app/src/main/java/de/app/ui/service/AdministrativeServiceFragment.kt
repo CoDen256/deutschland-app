@@ -1,13 +1,18 @@
 package de.app.ui.service
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import de.app.data.model.service.form.*
 import de.app.databinding.FragmentAdministrativeServiceBinding
+import de.app.ui.service.picker.DatePickerFragment
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AdministrativeServiceFragment : Fragment() {
 
@@ -50,7 +55,23 @@ class AdministrativeServiceFragment : Fragment() {
         is NumberField -> TODO()
         is SingleChoiceField -> TODO()
         is MultipleChoiceField -> TODO()
-        is DateField -> TODO()
+        is DateField -> inflater.inflateDate().apply {
+            label.text = actual.label
+//            field.hint = actual.hint
+            dateField.setOnFocusChangeListener { _, isFocused ->
+                if(isFocused) DatePickerFragment { view, selectedyear, selectedmonth, selectedday ->
+                    val myCalendar: Calendar = Calendar.getInstance()
+                    myCalendar.set(Calendar.YEAR, selectedyear)
+                    myCalendar.set(Calendar.MONTH, selectedmonth)
+                    myCalendar.set(Calendar.DAY_OF_MONTH, selectedday)
+                    val myFormat = "dd/MM/yy" //Change as you need
+
+                    val sdf = SimpleDateFormat(myFormat, Locale.GERMANY)
+                    dateField.setText(sdf.format(myCalendar.time))
+
+                }.show(parentFragmentManager, "timePicker")
+            }
+        }
         is AttachmentField -> TODO()
     }.root
 

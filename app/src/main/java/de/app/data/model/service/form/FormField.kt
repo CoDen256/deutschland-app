@@ -63,6 +63,7 @@ data class MultipleChoiceField(
 data class DateField(
     val name: String,
     val required: Boolean,
+    val hint: String?,
     val label: String,
 ): FormField
 

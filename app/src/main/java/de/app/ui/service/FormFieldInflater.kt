@@ -2,9 +2,8 @@ package de.app.ui.service
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
 import de.app.databinding.ApplicationFormBigtextBinding
+import de.app.databinding.ApplicationFormDateBinding
 import de.app.databinding.ApplicationFormInfoBinding
 import de.app.databinding.ApplicationFormTextBinding
 
@@ -26,6 +25,12 @@ class FormFieldInflater(
 
     fun inflateEditTextBig(): ApplicationFormBigtextBinding {
         return ApplicationFormBigtextBinding
+            .inflate(inflater, parent, false)
+    }
+
+
+    fun inflateDate(): ApplicationFormDateBinding {
+        return ApplicationFormDateBinding
             .inflate(inflater, parent, false)
     }
 
