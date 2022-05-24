@@ -5,5 +5,5 @@ sealed interface ApplicationField
 data class TextField(
     val label: String,
     val hint: String?,
-    val name: String?
-)
+    val name: String
+): ApplicationField
