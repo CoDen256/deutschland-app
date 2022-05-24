@@ -59,5 +59,10 @@
         android:label="@string/menu_law_registry"
         tools:layout="@layout/fragment_law_registry" />
 
+    <fragment
+        android:id="@+id/nav_admin_service"
+        android:name="de.app.ui.adminservice.AdminServiceFragment"
+        android:label="@string/menu_law_registry"
+        tools:layout="@layout/fragment_admin_service" />
 
 </navigation>

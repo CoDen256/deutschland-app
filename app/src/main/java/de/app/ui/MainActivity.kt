@@ -53,7 +53,8 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_dashboard, R.id.nav_geodata, R.id.nav_mailbox,
             R.id.nav_applications, R.id.nav_appointments,
             R.id.nav_data_safe, R.id.nav_finder,
-            R.id.nav_signature, R.id.nav_law_registry
+            R.id.nav_signature, R.id.nav_law_registry,
+            R.id.nav_admin_service
         ), drawerLayout)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
