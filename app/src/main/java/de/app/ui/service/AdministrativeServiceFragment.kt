@@ -31,6 +31,8 @@ class AdministrativeServiceFragment : Fragment() {
             binding.layout.addView(convertFormFieldToView(it, formInflater))
         }
 
+
+        binding.layout.addView(formInflater.inflateButton().root)
         return binding.root
     }
 

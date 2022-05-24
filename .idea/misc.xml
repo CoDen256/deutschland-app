@@ -14,14 +14,18 @@
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.13284781516825717" />
         <entry key="app/src/main/res/layout/application_form_bigtext.xml" value="0.5" />
         <entry key="app/src/main/res/layout/application_form_date.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/layout/application_form_submit.xml" value="0.11594202898550725" />
         <entry key="app/src/main/res/layout/application_form_text.xml" value="0.4466666666666667" />
         <entry key="app/src/main/res/layout/content_mail_box.xml" value="0.265625" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_admin_service.xml" value="0.17889492753623187" />
         <entry key="app/src/main/res/layout/fragment_administrative_service.xml" value="0.3333333333333333" />
+        <entry key="app/src/main/res/layout/fragment_administrative_service_finder.xml" value="0.11594202898550725" />
+        <entry key="app/src/main/res/layout/fragment_appointment.xml" value="0.11594202898550725" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.20208333333333334" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.265625" />
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.19746376811594202" />
+        <entry key="app/src/main/res/layout/fragment_geo_data.xml" value="0.11594202898550725" />
         <entry key="app/src/main/res/layout/fragment_mail_box.xml" value="0.11351079859367152" />
         <entry key="app/src/main/res/layout/fragment_mail_box_item.xml" value="0.14414866901054746" />
         <entry key="app/src/main/res/layout/fragment_mail_box_list.xml" value="0.19746376811594202" />

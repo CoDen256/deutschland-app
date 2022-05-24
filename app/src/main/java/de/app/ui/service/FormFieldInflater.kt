@@ -2,10 +2,7 @@ package de.app.ui.service
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import de.app.databinding.ApplicationFormBigtextBinding
-import de.app.databinding.ApplicationFormDateBinding
-import de.app.databinding.ApplicationFormInfoBinding
-import de.app.databinding.ApplicationFormTextBinding
+import de.app.databinding.*
 
 class FormFieldInflater(
     private val inflater: LayoutInflater,
@@ -34,6 +31,11 @@ class FormFieldInflater(
             .inflate(inflater, parent, false)
     }
 
+
+    fun inflateButton(): ApplicationFormSubmitBinding{
+        return ApplicationFormSubmitBinding
+            .inflate(inflater, parent, false)
+    }
 
 
 }
