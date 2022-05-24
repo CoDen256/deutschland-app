@@ -3,7 +3,7 @@ package de.app.api
 import de.app.data.model.service.AdministrativeService
 import de.app.data.model.service.AdministrativeServiceProvider
 import de.app.data.model.service.form.ApplicationForm
-import de.app.data.model.service.SubmittedForm
+import de.app.data.model.service.submit.SubmittedForm
 
 interface AdministrativeServiceRegistry {
 
