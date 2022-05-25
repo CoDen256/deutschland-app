@@ -1,6 +1,7 @@
 package de.app.api.dummy
 
 import de.app.api.AdministrativeServiceRegistry
+import de.app.data.Result
 import de.app.data.model.service.*
 import de.app.data.model.service.form.*
 import de.app.data.model.service.submit.SubmittedForm
@@ -58,7 +59,7 @@ class BaseAdministrativeServiceRegistry : AdministrativeServiceRegistry {
         )
     }
 
-    override fun sendApplicationForm(service: AdministrativeService, submittedForm: SubmittedForm) {
-        TODO("Not yet implemented")
+    override fun sendApplicationForm(service: AdministrativeService, submittedForm: SubmittedForm): Result<Any> {
+        return Result.Success("")
     }
 }

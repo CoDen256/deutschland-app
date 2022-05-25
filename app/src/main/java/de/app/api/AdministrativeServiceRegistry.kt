@@ -1,5 +1,6 @@
 package de.app.api
 
+import de.app.data.Result
 import de.app.data.model.service.AdministrativeService
 import de.app.data.model.service.AdministrativeServiceProvider
 import de.app.data.model.service.form.ApplicationForm
@@ -11,6 +12,6 @@ interface AdministrativeServiceRegistry {
     fun getAllServices(): List<AdministrativeService>
 
     fun getApplicationForm(service: AdministrativeService): ApplicationForm
-    fun sendApplicationForm(service: AdministrativeService, submittedForm: SubmittedForm)
+    fun sendApplicationForm(service: AdministrativeService, submittedForm: SubmittedForm): Result<Any>
 }
 

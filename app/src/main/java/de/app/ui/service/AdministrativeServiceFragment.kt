@@ -1,15 +1,23 @@
 package de.app.ui.service
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import de.app.data.model.service.form.*
+import de.app.databinding.ApplicationFormBigtextBinding
 import de.app.databinding.FragmentAdministrativeServiceBinding
+import de.app.ui.account.login.afterTextChanged
+import de.app.ui.service.inflater.FormFieldInflater
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -19,6 +27,8 @@ class AdministrativeServiceFragment : Fragment() {
     private lateinit var viewModel: AdminServiceViewModel
     private lateinit var binding: FragmentAdministrativeServiceBinding
 
+    private val fields = ArrayList<View>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,13 +37,58 @@ class AdministrativeServiceFragment : Fragment() {
         viewModel = ViewModelProvider(this)[AdminServiceViewModel::class.java]
 
         val formInflater = FormFieldInflater(inflater, binding.layout)
-        viewModel.applicationForm.form.forEach {
-            binding.layout.addView(convertFormFieldToView(it, formInflater))
+        inflateForm(formInflater)
+
+
+        fields.forEach {
+            (it as EditText).afterTextChanged {
+                viewModel.formDataChanged(
+                    (fields[0] as TextView).text.toString(),
+                    (fields[1] as TextView).text.toString(),
+                    (fields[2] as TextView).text.toString()
+                )
+            }
         }
 
+        val submitButton = formInflater.inflateButton().root.apply {
+            setOnClickListener {
+                viewModel.submit(
+                    (fields[0] as TextView).text.toString(),
+                    (fields[1] as TextView).text.toString(),
+                    (fields[2] as TextView).text.toString()
+                )
+            }
+        }
+        binding.layout.addView(submitButton)
 
-        binding.layout.addView(formInflater.inflateButton().root)
+        viewModel.formState.observe(viewLifecycleOwner, Observer {
+            val state = it ?: return@Observer
+            submitButton.isEnabled = state.isDataValid
+            if (state.birthdayError != null) {
+                val date = fields[2] as TextView
+                date.error = state.birthdayError
+            }
+        })
+
+        viewModel.result.observe(viewLifecycleOwner, Observer {
+            val result = it ?: return@Observer
+
+            if (result.success != null) {
+                Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
+            }
+            if (result.error != null) {
+                Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+            }
+        })
+
         return binding.root
+    }
+
+    private fun inflateForm(formInflater: FormFieldInflater) {
+        viewModel.applicationForm.form.forEach {
+            val view = convertFormFieldToView(it, formInflater)
+            binding.layout.addView(view)
+        }
     }
 
     private fun convertFormFieldToView(
@@ -48,10 +103,12 @@ class AdministrativeServiceFragment : Fragment() {
         is TextField -> inflater.inflateEditText().apply {
             label.text = actual.label
             field.hint = actual.hint
+            fields.add(field)
         }
         is BigTextField -> inflater.inflateEditTextBig().apply {
             label.text = actual.label
             field.hint = actual.hint
+            fields.add(field)
         }
         is EmailField -> TODO()
         is NumberField -> TODO()
@@ -64,6 +121,7 @@ class AdministrativeServiceFragment : Fragment() {
                 if (isFocused) dateField.showPicker()
             }
             dateField.setOnClickListener { dateField.showPicker() }
+            fields.add(dateField)
         }
         is AttachmentField -> TODO()
     }.root
@@ -82,4 +140,16 @@ class AdministrativeServiceFragment : Fragment() {
             .show(parentFragmentManager, "datePicker")
     }
 
+}
+
+fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+    this.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(editable: Editable?) {
+            afterTextChanged.invoke(editable.toString())
+        }
+
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+    })
 }

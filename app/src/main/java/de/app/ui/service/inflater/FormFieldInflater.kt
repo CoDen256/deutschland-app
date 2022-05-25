@@ -1,4 +1,4 @@
-package de.app.ui.service
+package de.app.ui.service.inflater
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
