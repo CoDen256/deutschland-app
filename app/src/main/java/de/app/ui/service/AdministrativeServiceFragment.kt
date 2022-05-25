@@ -4,16 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import de.app.data.model.service.form.*
-import de.app.databinding.ApplicationFormDateBinding
 import de.app.databinding.FragmentAdministrativeServiceBinding
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class AdministrativeServiceFragment : Fragment() {
 
@@ -62,30 +61,25 @@ class AdministrativeServiceFragment : Fragment() {
             label.text = actual.label
             dateField.hint = actual.hint
             dateField.setOnFocusChangeListener { _, isFocused ->
-                if(isFocused) {
-                    showPicker()
-                }
+                if (isFocused) dateField.showPicker()
             }
-            dateField.setOnClickListener { showPicker() }
+            dateField.setOnClickListener { dateField.showPicker() }
         }
         is AttachmentField -> TODO()
     }.root
 
-    private fun ApplicationFormDateBinding.showPicker() {
-        val picker = MaterialDatePicker.Builder.datePicker()
+    private fun TextView.showPicker() {
+        MaterialDatePicker.Builder.datePicker()
             .setTitleText("Select date")
             .build()
-        picker.addOnPositiveButtonClickListener {
-            val selected = Instant.ofEpochMilli(it)
-            dateField.setText(
-                DateTimeFormatter.ofPattern("dd.MM.yyyy")
-                    .withZone(ZoneId.of("CET"))
-                    .format(selected)
-            )
-        }
-
-        picker
-            .show(parentFragmentManager, "timePicker")
+            .apply {
+                addOnPositiveButtonClickListener {
+                    text = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+                        .withZone(ZoneId.of("CET"))
+                        .format(Instant.ofEpochMilli(it))
+                }
+            }
+            .show(parentFragmentManager, "datePicker")
     }
 
 }
