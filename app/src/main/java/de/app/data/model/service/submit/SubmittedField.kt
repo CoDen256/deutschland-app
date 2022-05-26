@@ -1,6 +1,6 @@
 package de.app.data.model.service.submit
 
 data class SubmittedField(
-    val name: String,
+    val id: String,
     val value: Any
 )

@@ -13,7 +13,8 @@ import de.app.ui.service.data.result.FormResult
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.result.FormView
 import de.app.ui.service.data.state.FieldState
-import de.app.ui.service.verificator.Verificator
+import de.app.ui.service.data.value.FormValue
+import de.app.ui.service.verificator.FieldValidator
 
 class AdminServiceViewModel : ViewModel() {
 
@@ -24,11 +25,10 @@ class AdminServiceViewModel : ViewModel() {
     val formState = MutableLiveData<FormState>()
     val result = MutableLiveData<FormResult>()
 
-    fun submit(data: Map<String, Any>){
-
-        val submittedForm = SubmittedForm(service, ArrayList<SubmittedField>().apply {
-            data.forEach{
-                add(SubmittedField(it.key, it.value))
+    fun submit(data: FormValue){
+        val submittedForm = SubmittedForm(ArrayList<SubmittedField>().apply {
+            data.values.forEach{
+                add(SubmittedField(it.id, it.value))
             }
         })
         val rs = registry.sendApplicationForm(service, submittedForm)
@@ -38,14 +38,15 @@ class AdminServiceViewModel : ViewModel() {
         }
     }
 
-    fun formDataChanged(data: Map<String, Pair<Any, Verificator>>){
-        val states = HashMap<String, FieldState>()
-        for ((name, rest) in data) {
-            val (value, verificator) = rest
-            states[name] = verificator.verify(name, value)
+    fun formDataChanged(data: FormValue, validators: Map<String, FieldValidator>){
+        val states = HashSet<FieldState>()
+        for (value in data.values) {
+            states.add(validators[value.id]!!.validate(value))
         }
-        formState.value = FormState(fieldStates = states,
-            isDataValid = states.all { it.value.error == null })
+        formState.value = FormState(
+            states = states,
+            isDataValid = states.all { it.error == null }
+        )
     }
 
 }

@@ -12,10 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import de.app.data.model.service.form.*
 import de.app.databinding.FragmentAdministrativeServiceBinding
-import de.app.ui.service.inflater.FormFieldInflater
-import de.app.ui.service.verificator.DateFieldVerificator
-import de.app.ui.service.verificator.TextFieldVerificator
-import de.app.ui.service.view.FormFieldView
+import de.app.ui.service.data.value.FormValue
+import de.app.ui.service.inflater.FieldInflater
+import de.app.ui.service.verificator.DateFieldValidator
+import de.app.ui.service.verificator.TextFieldValidator
+import de.app.ui.service.verificator.FieldValidator
+import de.app.ui.service.view.FieldView
 import de.app.ui.service.view.EditTextView
 import java.time.Instant
 import java.time.ZoneId
@@ -26,7 +28,8 @@ class AdministrativeServiceFragment : Fragment() {
     private lateinit var viewModel: AdminServiceViewModel
     private lateinit var binding: FragmentAdministrativeServiceBinding
 
-    private val fields = HashMap<String, FormFieldView>()
+    private val fields = HashMap<String, FieldView>()
+    private val validators = HashMap<String, FieldValidator>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,32 +38,32 @@ class AdministrativeServiceFragment : Fragment() {
         binding = FragmentAdministrativeServiceBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[AdminServiceViewModel::class.java]
 
-        val formInflater = FormFieldInflater(inflater, binding.layout)
+        val formInflater = FieldInflater(inflater, binding.layout)
         inflateForm(formInflater)
 
 
         fields.values.forEach { view ->
             view.onValueChanged {
                 viewModel.formDataChanged(
-                    fields.mapValues { it.value.getValue() to it.value.verificator })
+                    FormValue(HashSet(fields.values.map { it.getValue()})), validators)
             }
         }
 
         val submitButton = formInflater.inflateButton().root.apply {
             setOnClickListener {
                 viewModel.submit(
-                    fields.mapValues { it.value.getValue() }
+                    FormValue(HashSet(fields.values.map { it.getValue()}))
                 )
             }
         }
         binding.layout.addView(submitButton)
 
-        viewModel.formState.observe(viewLifecycleOwner, Observer {
-            val state = it ?: return@Observer
-            submitButton.isEnabled = state.isDataValid
-            fields.forEach{ entry->
-                val (name, view) = entry
-                state.fieldStates[name]?.let { state -> view.applyState(state) }
+        viewModel.formState.observe(viewLifecycleOwner, Observer { state ->
+            val formState = state ?: return@Observer
+            submitButton.isEnabled = formState.isDataValid
+
+            formState.states.forEach {
+                fields[it.id]?.applyState(it)
             }
         })
 
@@ -78,7 +81,7 @@ class AdministrativeServiceFragment : Fragment() {
         return binding.root
     }
 
-    private fun inflateForm(formInflater: FormFieldInflater) {
+    private fun inflateForm(formInflater: FieldInflater) {
         viewModel.form.form.forEach {
             val view = convertFormFieldToView(it, formInflater)
             binding.layout.addView(view)
@@ -87,7 +90,7 @@ class AdministrativeServiceFragment : Fragment() {
 
     private fun convertFormFieldToView(
         actual: Field,
-        inflater: FormFieldInflater
+        inflater: FieldInflater
     ) = when (actual) {
         is InfoField -> inflater.inflateTextView().apply {
             root.text = actual.text
@@ -97,12 +100,14 @@ class AdministrativeServiceFragment : Fragment() {
         is TextField -> inflater.inflateEditText().apply {
             label.text = actual.label
             field.hint = actual.hint
-            fields[actual.name] = EditTextView(field,TextFieldVerificator())
+            fields[actual.name] = EditTextView(actual.name, field)
+            validators[actual.name] = TextFieldValidator()
         }
         is BigTextField -> inflater.inflateEditTextBig().apply {
             label.text = actual.label
             field.hint = actual.hint
-            fields[actual.name] = EditTextView(field,TextFieldVerificator())
+            fields[actual.name] = EditTextView(actual.name, field)
+            validators[actual.name] = TextFieldValidator()
         }
         is EmailField -> TODO()
         is NumberField -> TODO()
@@ -115,7 +120,8 @@ class AdministrativeServiceFragment : Fragment() {
                 if (isFocused) dateField.showPicker()
             }
             dateField.setOnClickListener { dateField.showPicker() }
-            fields[actual.name] = EditTextView(dateField, DateFieldVerificator())
+            fields[actual.name] = EditTextView(actual.name, dateField)
+            validators[actual.name] = DateFieldValidator()
         }
         is AttachmentField -> TODO()
     }.root

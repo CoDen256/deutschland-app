@@ -1,9 +1,21 @@
 package de.app.ui.service.data.value
 
-import de.app.ui.service.verificator.Verificator
-
 data class FieldValue(
-    val name: String,
+    val id: String,
     val value: Any,
-) {
+){
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as FieldValue
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id.hashCode()
+    }
 }

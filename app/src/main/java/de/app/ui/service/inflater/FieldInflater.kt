@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import de.app.databinding.*
 
-class FormFieldInflater(
+class FieldInflater(
     private val inflater: LayoutInflater,
     private val parent: ViewGroup,
 ) {
