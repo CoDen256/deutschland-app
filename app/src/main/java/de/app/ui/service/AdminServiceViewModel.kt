@@ -9,11 +9,11 @@ import de.app.api.dummy.BaseAdministrativeServiceRegistry
 import de.app.data.Result
 import de.app.data.model.service.submit.SubmittedField
 import de.app.data.model.service.submit.SubmittedForm
-import de.app.ui.account.login.data.LoginFormState
-import de.app.ui.account.login.data.LoginResult
-import de.app.ui.service.data.FormResult
-import de.app.ui.service.data.FormState
-import de.app.ui.service.data.FormView
+import de.app.ui.service.data.result.FormResult
+import de.app.ui.service.data.state.FormState
+import de.app.ui.service.data.result.FormView
+import de.app.ui.service.data.state.FieldState
+import de.app.ui.service.verificator.Verificator
 
 class AdminServiceViewModel : ViewModel() {
 
@@ -24,12 +24,13 @@ class AdminServiceViewModel : ViewModel() {
     val formState = MutableLiveData<FormState>()
     val result = MutableLiveData<FormResult>()
 
-    fun submit(name: String, surname: String, birthday: String){
-        val submittedForm = SubmittedForm(service, listOf(
-            SubmittedField("name", name),
-            SubmittedField("surname", surname),
-            SubmittedField("birthday", birthday)
-        ))
+    fun submit(data: Map<String, Any>){
+
+        val submittedForm = SubmittedForm(service, ArrayList<SubmittedField>().apply {
+            data.forEach{
+                add(SubmittedField(it.key, it.value))
+            }
+        })
         val rs = registry.sendApplicationForm(service, submittedForm)
         result.value = when(rs){
             is Result.Success -> FormResult(success = FormView())
@@ -37,12 +38,14 @@ class AdminServiceViewModel : ViewModel() {
         }
     }
 
-    fun formDataChanged(name: String, surname: String, birthday: String){
-        if (birthday.endsWith("2022")){
-            formState.value = FormState(birthdayError = "Can't be 2022")
-        }else {
-            formState.value = FormState(isDataValid = true)
+    fun formDataChanged(data: Map<String, Pair<Any, Verificator>>){
+        val states = HashMap<String, FieldState>()
+        for ((name, rest) in data) {
+            val (value, verificator) = rest
+            states[name] = verificator.verify(name, value)
         }
+        formState.value = FormState(fieldStates = states,
+            isDataValid = states.all { it.value.error == null })
     }
 
 }

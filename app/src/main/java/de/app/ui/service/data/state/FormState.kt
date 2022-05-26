@@ -1,9 +1,9 @@
-package de.app.ui.service.data
+package de.app.ui.service.data.state
 
 /**
  * Data validation state of the login form.
  */
 data class FormState(
-    val birthdayError: String? = null,
+    val fieldStates: Map<String, FieldState>,
     val isDataValid: Boolean = false
 )

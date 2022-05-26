@@ -18,6 +18,7 @@ import de.app.core.SessionManager
 import de.app.databinding.ActivityAccountLoginBinding
 import de.app.ui.MainActivity
 import de.app.ui.account.login.data.LoggedInUserView
+import de.app.ui.util.afterTextChanged
 
 const val LOGGED_IN_ACCOUNT = "de.app.ui.account.login.ACCOUNT"
 // TODO: nav graph between login screens, make as fragment
@@ -110,19 +111,4 @@ class AccountLoginActivity : AppCompatActivity() {
     private fun onLoginFailed(errorString: String) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
-}
-
-/**
- * Extension function to simplify setting an afterTextChanged action to EditText components.
- */
-fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
-        }
-
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-    })
 }

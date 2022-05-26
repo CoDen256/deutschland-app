@@ -1,4 +1,4 @@
-package de.app.ui.service.data
+package de.app.ui.service.data.result
 
 import de.app.data.model.account.Account
 

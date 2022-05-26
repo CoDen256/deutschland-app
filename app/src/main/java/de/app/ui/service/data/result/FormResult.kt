@@ -1,4 +1,4 @@
-package de.app.ui.service.data
+package de.app.ui.service.data.result
 
 /**
  * Authentication result : success (user details) or error message.
