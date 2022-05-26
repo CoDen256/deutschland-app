@@ -1,41 +1,41 @@
 package de.app.data.model.service.form
 
-sealed interface FormField
+sealed interface Field
 
 data class InfoField(
     val text: String,
-): FormField
+): Field
 
 data class DocumentField(
     val label: String,
     val document: String,
-): FormField
+): Field
 
 data class ImageField(
     val label: String,
     val image: String,
-): FormField
+): Field
 
 data class TextField(
     val name: String,
     val required: Boolean,
     val label: String,
     val hint: String?
-): FormField
+): Field
 
 data class BigTextField(
     val name: String,
     val required: Boolean,
     val label: String,
     val hint: String?
-): FormField
+): Field
 
 data class EmailField(
     val name: String,
     val required: Boolean,
     val label: String,
     val hint: String?
-): FormField
+): Field
 
 
 data class NumberField(
@@ -43,21 +43,21 @@ data class NumberField(
     val required: Boolean,
     val label: String,
     val hint: String?
-): FormField
+): Field
 
 data class SingleChoiceField(
     val name: String,
     val required: Boolean,
     val label: String,
     val options: List<String>
-): FormField
+): Field
 
 data class MultipleChoiceField(
     val name: String,
     val required: Boolean,
     val label: String,
     val options: List<String>
-): FormField
+): Field
 
 
 data class DateField(
@@ -65,10 +65,10 @@ data class DateField(
     val required: Boolean,
     val hint: String?,
     val label: String,
-): FormField
+): Field
 
 data class AttachmentField(
     val name: String,
     val required: Boolean,
     val label: String,
-): FormField
+): Field

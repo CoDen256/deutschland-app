@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.app.api.AdministrativeServiceRegistry
 import de.app.data.model.service.AdministrativeService
-import de.app.data.model.service.form.ApplicationForm
+import de.app.data.model.service.form.Form
 import de.app.api.dummy.BaseAdministrativeServiceRegistry
 import de.app.data.Result
 import de.app.data.model.service.submit.SubmittedField
@@ -19,7 +19,7 @@ class AdminServiceViewModel : ViewModel() {
 
     private val registry: AdministrativeServiceRegistry = BaseAdministrativeServiceRegistry()
     private val service: AdministrativeService = registry.getAllServices()[0]
-    val applicationForm: ApplicationForm = registry.getApplicationForm(service)
+    val form: Form = registry.getApplicationForm(service)
 
     val formState = MutableLiveData<FormState>()
     val result = MutableLiveData<FormResult>()

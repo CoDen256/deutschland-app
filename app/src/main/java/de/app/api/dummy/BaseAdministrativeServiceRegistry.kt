@@ -23,12 +23,12 @@ class BaseAdministrativeServiceRegistry : AdministrativeServiceRegistry {
         )
     }
 
-    override fun getApplicationForm(service: AdministrativeService): ApplicationForm {
-        return ApplicationForm(
+    override fun getApplicationForm(service: AdministrativeService): Form {
+        return Form(
             "Sell a dog",
             "This administrative service allows you to send an application to sell a dog",
             service,
-            ArrayList<FormField>().apply {
+            ArrayList<Field>().apply {
                 for (i in 0..0){
                     addAll(listOf(
                         InfoField(
