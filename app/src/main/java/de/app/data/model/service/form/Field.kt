@@ -1,6 +1,9 @@
 package de.app.data.model.service.form
 
 sealed interface Field
+sealed interface InputField{
+    val id: String
+}
 
 data class InfoField(
     val text: String,
@@ -17,58 +20,58 @@ data class ImageField(
 ): Field
 
 data class TextField(
-    val name: String,
+    override val id: String,
     val required: Boolean,
     val label: String,
     val hint: String?
-): Field
+): Field, InputField
 
 data class BigTextField(
-    val name: String,
+    override val id: String,
     val required: Boolean,
     val label: String,
     val hint: String?
-): Field
+): Field, InputField
 
 data class EmailField(
-    val name: String,
+    override val id: String,
     val required: Boolean,
     val label: String,
     val hint: String?
-): Field
+): Field, InputField
 
 
 data class NumberField(
-    val name: String,
+    override val id: String,
     val required: Boolean,
     val label: String,
     val hint: String?
-): Field
+): Field, InputField
 
 data class SingleChoiceField(
-    val name: String,
+    override val id: String,
     val required: Boolean,
     val label: String,
     val options: List<String>
-): Field
+): Field, InputField
 
 data class MultipleChoiceField(
-    val name: String,
+    override val id: String,
     val required: Boolean,
     val label: String,
     val options: List<String>
-): Field
+): Field, InputField
 
 
 data class DateField(
-    val name: String,
+    override val id: String,
     val required: Boolean,
     val hint: String?,
     val label: String,
-): Field
+): Field, InputField
 
 data class AttachmentField(
-    val name: String,
+    override val id: String,
     val required: Boolean,
     val label: String,
-): Field
+): Field, InputField

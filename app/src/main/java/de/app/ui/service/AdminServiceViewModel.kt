@@ -7,6 +7,7 @@ import de.app.data.model.service.AdministrativeService
 import de.app.data.model.service.form.Form
 import de.app.api.dummy.BaseAdministrativeServiceRegistry
 import de.app.data.Result
+import de.app.data.model.service.form.InputField
 import de.app.data.model.service.submit.SubmittedField
 import de.app.data.model.service.submit.SubmittedForm
 import de.app.ui.service.data.result.FormResult
@@ -14,7 +15,7 @@ import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.result.FormView
 import de.app.ui.service.data.state.FieldState
 import de.app.ui.service.data.value.FormValue
-import de.app.ui.service.verificator.FieldValidator
+import de.app.ui.service.validator.FieldValidator
 
 class AdminServiceViewModel : ViewModel() {
 
@@ -24,6 +25,16 @@ class AdminServiceViewModel : ViewModel() {
 
     val formState = MutableLiveData<FormState>()
     val result = MutableLiveData<FormResult>()
+
+    private val validators = HashMap<String, FieldValidator>().apply {
+        val provider = ValidatorProvider()
+        form.fields.forEach {
+            if (it is InputField){
+                put(it.id, provider.getValidator(it))
+            }
+        }
+    }
+
 
     fun submit(data: FormValue){
         val submittedForm = SubmittedForm(ArrayList<SubmittedField>().apply {
@@ -38,7 +49,7 @@ class AdminServiceViewModel : ViewModel() {
         }
     }
 
-    fun formDataChanged(data: FormValue, validators: Map<String, FieldValidator>){
+    fun formDataChanged(data: FormValue){
         val states = HashSet<FieldState>()
         for (value in data.values) {
             states.add(validators[value.id]!!.validate(value))

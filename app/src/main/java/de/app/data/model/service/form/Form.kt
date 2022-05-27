@@ -6,5 +6,5 @@ data class Form(
     val name: String,
     val description: String,
     val service: AdministrativeService,
-    val form: List<Field>
+    val fields: List<Field>
 )
