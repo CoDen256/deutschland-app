@@ -14,9 +14,11 @@
         android:layout_height="wrap_content"
         android:ems="10"/>
 
-    <ImageView
-        android:id="@+id/image"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/documents"
+        android:orientation="horizontal">
+    </LinearLayout>
 
 </LinearLayout>

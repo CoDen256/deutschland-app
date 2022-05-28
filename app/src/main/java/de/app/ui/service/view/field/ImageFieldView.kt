@@ -1,7 +1,6 @@
 package de.app.ui.service.view.field
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,7 @@ import de.app.data.Result
 import de.app.data.model.service.form.ImageField
 import de.app.databinding.ApplicationFormImageBinding
 import de.app.ui.util.getImage
-import java.net.HttpURLConnection
-import java.net.URL
+import de.app.ui.util.openFile
 import java.util.concurrent.Executors
 
 
@@ -31,10 +29,9 @@ class ImageFieldView (  private val binding: ApplicationFormImageBinding
 
         fun populate(field: ImageField, fragment: Fragment): Inflater = apply {
             binding.label.text = field.label
+
             Executors.newSingleThreadExecutor().execute {
-
-                val result = getImage(field.imageUrl)
-
+                val result = getImage(field.imageUri)
                 fragment.requireActivity().runOnUiThread {
                     when(result){
                         is Result.Success ->

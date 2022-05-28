@@ -1,5 +1,7 @@
 package de.app.data.model.service.form
 
+import de.app.data.model.FileHeader
+
 sealed interface Field
 sealed interface InputField{
     val id: String
@@ -11,12 +13,12 @@ data class TextInfoField(
 
 data class DocumentInfoField(
     val label: String,
-    val document: String,
+    val documents: List<FileHeader>,
 ): Field
 
 data class ImageField(
     val label: String,
-    val imageUrl: String,
+    val imageUri: String,
 ): Field
 
 data class TextField(
