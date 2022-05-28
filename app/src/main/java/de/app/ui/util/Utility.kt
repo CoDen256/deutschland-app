@@ -1,5 +1,7 @@
 package de.app.ui.util
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
@@ -7,6 +9,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.datepicker.MaterialDatePicker
+import de.app.data.Result
+import java.net.HttpURLConnection
+import java.net.URL
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -35,4 +40,12 @@ fun TextView.showPicker(fragmentManager: FragmentManager) {
             }
         }
         .show(fragmentManager, "datePicker")
+}
+
+fun getImage(url: String): Result<Bitmap> {
+    val imageUrl = URL(url)
+    (imageUrl.openConnection() as? HttpURLConnection)?.run {
+        return Result.Success(BitmapFactory.decodeStream(inputStream))
+    }
+    return Result.Error(Exception("Cannot open HttpURLConnection"))
 }

@@ -16,7 +16,7 @@ data class DocumentInfoField(
 
 data class ImageField(
     val label: String,
-    val image: String,
+    val imageUrl: String,
 ): Field
 
 data class TextField(

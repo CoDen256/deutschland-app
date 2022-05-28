@@ -16,6 +16,7 @@
         <entry key="app/src/main/res/layout/application_form_bigtext.xml" value="0.5" />
         <entry key="app/src/main/res/layout/application_form_date.xml" value="0.20833333333333334" />
         <entry key="app/src/main/res/layout/application_form_email.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/application_form_info_document.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/application_form_submit.xml" value="0.11594202898550725" />
         <entry key="app/src/main/res/layout/application_form_text.xml" value="0.4466666666666667" />
         <entry key="app/src/main/res/layout/content_mail_box.xml" value="0.265625" />
