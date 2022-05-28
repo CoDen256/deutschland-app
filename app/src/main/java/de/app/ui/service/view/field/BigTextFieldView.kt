@@ -3,23 +3,26 @@ package de.app.ui.service.view.field
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import de.app.data.model.service.form.BigTextField
+import de.app.data.model.service.form.DateField
 import de.app.databinding.ApplicationFormBigTextBinding
+import de.app.databinding.ApplicationFormDateBinding
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue
 import de.app.ui.util.afterTextChanged
+import de.app.ui.util.showPicker
 
 internal class BigTextFieldView(
-    private val binding: ApplicationFormBigTextBinding
-): InputFieldView {
-
-    private lateinit var id: String
+    private val binding: ApplicationFormBigTextBinding,
+    private val id: String
+) : InputFieldView {
 
     override fun applyState(formState: FormState) {
         formState.getFieldState(id)?.apply {
-            if (error != null){
+            if (error != null) {
                 binding.field.error = error
-            }else{
+            } else {
                 binding.field.error = null
             }
         }
@@ -39,15 +42,20 @@ internal class BigTextFieldView(
         return binding.root
     }
 
-    internal fun populate(field: BigTextField): FieldView {
-        binding.label.text = field.label
-        binding.field.hint = field.hint
-        id = field.id
-        return this
-    }
+    class Inflater {
+        private lateinit var binding: ApplicationFormBigTextBinding
+        private lateinit var id: String
 
-    companion object {
-        fun inflate(inflater: LayoutInflater, parent: ViewGroup) = BigTextFieldView(
-            ApplicationFormBigTextBinding.inflate(inflater, parent, false))
+        fun inflate(inflater: LayoutInflater, parent: ViewGroup): Inflater = apply {
+            binding = ApplicationFormBigTextBinding.inflate(inflater, parent, false)
+        }
+
+        fun populate(field: BigTextField): Inflater = apply {
+            binding.label.text = field.label
+            binding.field.hint = field.hint
+            id = field.id
+        }
+
+        fun build() = BigTextFieldView(binding, id)
     }
 }

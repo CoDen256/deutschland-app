@@ -5,10 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import de.app.data.model.service.form.BigTextField
 import de.app.data.model.service.form.Field
+import de.app.data.model.service.form.TextField
 import de.app.data.model.service.form.TextInfoField
 import de.app.databinding.ApplicationFormBigTextBinding
 import de.app.databinding.ApplicationFormInfoBinding
 import de.app.databinding.ApplicationFormSubmitBinding
+import de.app.databinding.ApplicationFormTextBinding
 
 internal class TextInfoFieldView(
     private val binding: ApplicationFormInfoBinding
@@ -18,13 +20,17 @@ internal class TextInfoFieldView(
         return binding.root
     }
 
-    internal fun populate(field: TextInfoField): FieldView {
-        binding.root.text = field.text
-        return this
-    }
+    class Inflater {
+        private lateinit var binding: ApplicationFormInfoBinding
 
-    companion object {
-        fun inflate(inflater: LayoutInflater, parent: ViewGroup) = TextInfoFieldView(
-            ApplicationFormInfoBinding.inflate(inflater, parent, false))
+        fun inflate(inflater: LayoutInflater, parent: ViewGroup): Inflater = apply {
+            binding = ApplicationFormInfoBinding.inflate(inflater, parent, false)
+        }
+
+        fun populate(field: TextInfoField): Inflater = apply {
+            binding.root.text = field.text
+        }
+
+        fun build() = TextInfoFieldView(binding)
     }
 }

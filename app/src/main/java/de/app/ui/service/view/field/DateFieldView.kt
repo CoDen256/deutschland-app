@@ -3,29 +3,24 @@ package de.app.ui.service.view.field
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.google.android.material.datepicker.MaterialDatePicker
 import de.app.data.model.service.form.DateField
 import de.app.databinding.ApplicationFormDateBinding
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue
 import de.app.ui.util.afterTextChanged
-import java.time.Instant
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
+import de.app.ui.util.showPicker
 
-internal class DateFieldView(
+class DateFieldView(
     private val binding: ApplicationFormDateBinding,
+    private val id: String
 ) : InputFieldView {
-
-    private lateinit var id: String
 
     override fun applyState(formState: FormState) {
         formState.getFieldState(id)?.apply {
-            if (error != null){
+            if (error != null) {
                 binding.dateField.error = error
-            }else{
+            } else {
                 binding.dateField.error = null
             }
         }
@@ -45,36 +40,26 @@ internal class DateFieldView(
         return binding.root
     }
 
+    class Inflater {
+        private lateinit var binding: ApplicationFormDateBinding
+        private lateinit var id: String
 
-    internal fun populate(field: DateField, fragment: Fragment): FieldView{
-        binding.label.text = field.label
-        binding.dateField.apply {
-            hint = field.hint
-            setOnFocusChangeListener { _, isFocused ->
-                if (isFocused) showPicker(fragment)
-            }
-            setOnClickListener { showPicker(fragment) }
+        fun inflate(inflater: LayoutInflater, parent: ViewGroup): Inflater = apply {
+            binding = ApplicationFormDateBinding.inflate(inflater, parent, false)
         }
-        id = field.id
-        return this
-    }
 
-    companion object {
-        fun inflate(inflater: LayoutInflater, parent: ViewGroup) = DateFieldView(
-            ApplicationFormDateBinding.inflate(inflater, parent, false))
-    }
-
-    private fun TextView.showPicker(fragment: Fragment) {
-        MaterialDatePicker.Builder.datePicker()
-            .setTitleText("Select date")
-            .build()
-            .apply {
-                addOnPositiveButtonClickListener {
-                    text = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-                        .withZone(ZoneId.of("CET"))
-                        .format(Instant.ofEpochMilli(it))
+        fun populate(field: DateField, fragment: Fragment): Inflater = apply {
+            binding.label.text = field.label
+            binding.dateField.apply {
+                hint = field.hint
+                setOnFocusChangeListener { _, isFocused ->
+                    if (isFocused) showPicker(fragment.parentFragmentManager)
                 }
+                setOnClickListener { showPicker(fragment.parentFragmentManager) }
             }
-            .show(fragment.parentFragmentManager, "datePicker")
+            id = field.id
+        }
+
+        fun build(): DateFieldView = DateFieldView(binding, id)
     }
 }

@@ -5,16 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import de.app.data.model.service.form.BigTextField
 import de.app.data.model.service.form.TextField
+import de.app.databinding.ApplicationFormBigTextBinding
 import de.app.databinding.ApplicationFormTextBinding
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue
 import de.app.ui.util.afterTextChanged
 
 internal class TextFieldView(
-    private val binding: ApplicationFormTextBinding
+    private val binding: ApplicationFormTextBinding,
+    private val id: String
 ) : InputFieldView {
-
-    private lateinit var id: String
 
     override fun applyState(formState: FormState) {
         formState.getFieldState(id)?.apply {
@@ -40,15 +40,20 @@ internal class TextFieldView(
         return binding.root
     }
 
-    internal fun populate(field: TextField): FieldView {
-        binding.label.text = field.label
-        binding.field.hint = field.hint
-        id = field.id
-        return this
-    }
+    class Inflater {
+        private lateinit var binding: ApplicationFormTextBinding
+        private lateinit var id: String
 
-    companion object {
-        fun inflate(inflater: LayoutInflater, parent: ViewGroup) = TextFieldView(
-            ApplicationFormTextBinding.inflate(inflater, parent, false))
+        fun inflate(inflater: LayoutInflater, parent: ViewGroup): Inflater = apply {
+            binding = ApplicationFormTextBinding.inflate(inflater, parent, false)
+        }
+
+        fun populate(field: TextField): Inflater = apply {
+            binding.label.text = field.label
+            binding.field.hint = field.hint
+            id = field.id
+        }
+
+        fun build() = TextFieldView(binding, id)
     }
 }
