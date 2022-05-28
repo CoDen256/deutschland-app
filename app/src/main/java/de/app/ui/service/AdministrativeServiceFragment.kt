@@ -35,14 +35,12 @@ class AdministrativeServiceFragment : Fragment() {
 
         // Inflate fields and add to root
         val fields = inflateFields(this, inflater, root)
-        fields.forEach { root.addView(it.getView()) }
 
         // Filter only input fields
         inputFields = fields.filterIsInstance<InputFieldView>()
 
         // Inflate submit button and add to root
         submitButtonView = inflateSubmitButton(inflater, root)
-        root.addView(submitButtonView.getView())
 
         observeInputFields()
         observeSubmitButton()

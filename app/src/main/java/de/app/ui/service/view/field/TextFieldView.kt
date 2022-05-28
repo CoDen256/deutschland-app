@@ -45,7 +45,7 @@ class TextFieldView(
         private lateinit var id: String
 
         fun inflate(inflater: LayoutInflater, parent: ViewGroup): Inflater = apply {
-            binding = ApplicationFormTextBinding.inflate(inflater, parent, false)
+            binding = ApplicationFormTextBinding.inflate(inflater, parent, true)
         }
 
         fun populate(field: TextField): Inflater = apply {

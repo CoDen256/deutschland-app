@@ -47,7 +47,7 @@ class BigTextFieldView(
         private lateinit var id: String
 
         fun inflate(inflater: LayoutInflater, parent: ViewGroup): Inflater = apply {
-            binding = ApplicationFormBigTextBinding.inflate(inflater, parent, false)
+            binding = ApplicationFormBigTextBinding.inflate(inflater, parent, true)
         }
 
         fun populate(field: BigTextField): Inflater = apply {

@@ -24,7 +24,7 @@ internal class SubmitButtonView(
 
     companion object {
         fun inflate(inflater: LayoutInflater, parent: ViewGroup) = SubmitButtonView(
-            ApplicationFormSubmitBinding.inflate(inflater, parent, false)
+            ApplicationFormSubmitBinding.inflate(inflater, parent, true)
         )
     }
 }

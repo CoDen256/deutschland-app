@@ -43,7 +43,7 @@ class EmailFieldView(
         private lateinit var id: String
 
         fun inflate(inflater: LayoutInflater, parent: ViewGroup): Inflater = apply {
-            binding = ApplicationFormEmailBinding.inflate(inflater, parent, false)
+            binding = ApplicationFormEmailBinding.inflate(inflater, parent, true)
         }
 
         fun populate(field: EmailField): Inflater = apply {

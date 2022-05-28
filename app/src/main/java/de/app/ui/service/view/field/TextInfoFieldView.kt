@@ -24,7 +24,7 @@ class TextInfoFieldView(
         private lateinit var binding: ApplicationFormInfoBinding
 
         fun inflate(inflater: LayoutInflater, parent: ViewGroup): Inflater = apply {
-            binding = ApplicationFormInfoBinding.inflate(inflater, parent, false)
+            binding = ApplicationFormInfoBinding.inflate(inflater, parent, true)
         }
 
         fun populate(field: TextInfoField): Inflater = apply {

@@ -23,9 +23,9 @@ class DocumentInfoFieldView (private val binding: ApplicationFormDocumentInfoBin
         private lateinit var documentBinding : () -> ApplicationFormDocumentInfoItemBinding
 
         fun inflate(inflater: LayoutInflater, parent: ViewGroup): Inflater = apply {
-            binding = ApplicationFormDocumentInfoBinding.inflate(inflater, parent, false)
+            binding = ApplicationFormDocumentInfoBinding.inflate(inflater, parent, true)
             documentBinding = {
-                ApplicationFormDocumentInfoItemBinding.inflate(inflater, binding.documents, false)
+                ApplicationFormDocumentInfoItemBinding.inflate(inflater, binding.documents, true)
             }
         }
 
@@ -39,7 +39,6 @@ class DocumentInfoFieldView (private val binding: ApplicationFormDocumentInfoBin
                     val uri: Uri = Uri.parse(file.fileUri)
                     fragment.requireActivity().openFile(uri, file.mimeType)
                 }
-                binding.documents.addView(documentBinding.root)
             }
 
         }

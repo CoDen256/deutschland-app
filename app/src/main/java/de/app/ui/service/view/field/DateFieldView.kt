@@ -45,7 +45,7 @@ class DateFieldView(
         private lateinit var id: String
 
         fun inflate(inflater: LayoutInflater, parent: ViewGroup): Inflater = apply {
-            binding = ApplicationFormDateBinding.inflate(inflater, parent, false)
+            binding = ApplicationFormDateBinding.inflate(inflater, parent, true)
         }
 
         fun populate(field: DateField, fragment: Fragment): Inflater = apply {

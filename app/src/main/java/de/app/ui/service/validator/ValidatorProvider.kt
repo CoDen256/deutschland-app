@@ -7,7 +7,7 @@ import de.app.ui.service.validator.TextFieldValidator
 
 class ValidatorProvider {
     fun getValidator(field: InputField): FieldValidator = when(field){
-        is AttachmentField -> TODO()
+        is AttachmentField -> AttachmentFieldValidator()
         is BigTextField -> TextFieldValidator()
         is DateField -> DateFieldValidator()
         is EmailField -> EmailFieldValidator()

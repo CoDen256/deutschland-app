@@ -24,7 +24,7 @@ class ImageFieldView (  private val binding: ApplicationFormImageBinding
         private lateinit var binding: ApplicationFormImageBinding
 
         fun inflate(inflater: LayoutInflater, parent: ViewGroup): Inflater = apply {
-            binding = ApplicationFormImageBinding.inflate(inflater, parent, false)
+            binding = ApplicationFormImageBinding.inflate(inflater, parent, true)
         }
 
         fun populate(field: ImageField, fragment: Fragment): Inflater = apply {
