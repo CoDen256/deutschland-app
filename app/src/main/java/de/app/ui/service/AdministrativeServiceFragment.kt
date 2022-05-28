@@ -99,6 +99,7 @@ class AdministrativeServiceFragment : Fragment() {
             if (result.error != null) {
                 onError(result)
             }
+            viewModel.result.value = null
         })
     }
 
