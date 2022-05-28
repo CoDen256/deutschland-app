@@ -41,6 +41,12 @@ class BaseAdministrativeServiceRegistry : AdministrativeServiceRegistry {
                             hint = "John",
                             required = true
                         ),
+                        EmailField(
+                            id = "email$i",
+                            label ="Email",
+                            hint="Email",
+                            required = false
+                        ),
                         BigTextField(
                             id =  "surname$i",
                             label = "Nachname $i",

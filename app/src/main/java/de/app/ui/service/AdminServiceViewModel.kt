@@ -16,6 +16,7 @@ import de.app.ui.service.data.state.FieldState
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FormValue
 import de.app.ui.service.validator.FieldValidator
+import de.app.ui.service.validator.ValidatorProvider
 
 class AdminServiceViewModel : ViewModel() {
 

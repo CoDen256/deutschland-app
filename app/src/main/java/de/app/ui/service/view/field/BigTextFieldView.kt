@@ -13,7 +13,7 @@ import de.app.ui.service.data.value.FieldValue
 import de.app.ui.util.afterTextChanged
 import de.app.ui.util.showPicker
 
-internal class BigTextFieldView(
+class BigTextFieldView(
     private val binding: ApplicationFormBigTextBinding,
     private val id: String
 ) : InputFieldView {

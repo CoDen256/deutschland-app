@@ -19,19 +19,19 @@ class DateFieldView(
     override fun applyState(formState: FormState) {
         formState.getFieldState(id)?.apply {
             if (error != null) {
-                binding.dateField.error = error
+                binding.field.error = error
             } else {
-                binding.dateField.error = null
+                binding.field.error = null
             }
         }
     }
 
     override fun getValue(): FieldValue {
-        return FieldValue(id, binding.dateField.text.toString())
+        return FieldValue(id, binding.field.text.toString())
     }
 
     override fun onValueChanged(handler: () -> Unit) {
-        binding.dateField.afterTextChanged {
+        binding.field.afterTextChanged {
             handler()
         }
     }
@@ -50,7 +50,7 @@ class DateFieldView(
 
         fun populate(field: DateField, fragment: Fragment): Inflater = apply {
             binding.label.text = field.label
-            binding.dateField.apply {
+            binding.field.apply {
                 hint = field.hint
                 setOnFocusChangeListener { _, isFocused ->
                     if (isFocused) showPicker(fragment.parentFragmentManager)

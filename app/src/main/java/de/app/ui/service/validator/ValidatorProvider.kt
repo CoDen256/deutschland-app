@@ -1,4 +1,4 @@
-package de.app.ui.service
+package de.app.ui.service.validator
 
 import de.app.data.model.service.form.*
 import de.app.ui.service.validator.DateFieldValidator
@@ -10,7 +10,7 @@ class ValidatorProvider {
         is AttachmentField -> TODO()
         is BigTextField -> TextFieldValidator()
         is DateField -> DateFieldValidator()
-        is EmailField -> TODO()
+        is EmailField -> EmailFieldValidator()
         is MultipleChoiceField -> TODO()
         is NumberField -> TODO()
         is SingleChoiceField -> TODO()

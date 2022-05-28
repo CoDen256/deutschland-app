@@ -12,7 +12,7 @@ import de.app.databinding.ApplicationFormInfoBinding
 import de.app.databinding.ApplicationFormSubmitBinding
 import de.app.databinding.ApplicationFormTextBinding
 
-internal class TextInfoFieldView(
+class TextInfoFieldView(
     private val binding: ApplicationFormInfoBinding
 ): FieldView {
 
