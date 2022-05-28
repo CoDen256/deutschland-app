@@ -4,23 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import de.app.databinding.FragmentAdministrativeServiceBinding
+import de.app.ui.service.data.result.FormResult
 import de.app.ui.service.data.value.FormValue
-import de.app.ui.service.inflater.FieldInflater
-import de.app.ui.service.view.FieldView
-import de.app.ui.service.view.InputFieldView
+import de.app.ui.service.view.button.ButtonView
+import de.app.ui.service.view.button.ButtonViewFactory
+import de.app.ui.service.view.field.FieldView
+import de.app.ui.service.view.field.FieldViewFactory
+import de.app.ui.service.view.field.InputFieldView
 
 class AdministrativeServiceFragment : Fragment() {
 
     private lateinit var viewModel: AdminServiceViewModel
     private lateinit var binding: FragmentAdministrativeServiceBinding
 
-    private val fields = HashMap<String, InputFieldView>()
+    private lateinit var inputFields: List<InputFieldView>
+    private lateinit var submitButtonView: ButtonView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,53 +31,61 @@ class AdministrativeServiceFragment : Fragment() {
     ): View {
         binding = FragmentAdministrativeServiceBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[AdminServiceViewModel::class.java]
+        val root = binding.layout
 
-        val formInflater = FieldInflater(inflater, binding.layout)
+        // Inflate fields and add to root
+        val fields = inflateFields(this, inflater, root)
+        fields.forEach { root.addView(it.getView()) }
 
-        inflateFields(formInflater)
-        val submitButton = inflateSubmitButton(formInflater)
+        // Filter only input fields
+        inputFields = fields.filterIsInstance<InputFieldView>()
 
-        observeFormState(submitButton)
+        // Inflate submit button and add to root
+        submitButtonView = inflateSubmitButton(inflater, root)
+        root.addView(submitButtonView.getView())
+
+        observeInputFields()
+        observeSubmitButton()
+
+        observeFormState()
         observeResult()
 
         return binding.root
     }
 
-    private fun inflateFields(fieldInflater: FieldInflater) {
-        viewModel.form.fields.forEach { field ->
-            val view: FieldView = fieldInflater.convertFormFieldToView(field, this)
-            if (view is InputFieldView){
-                view.onValueChanged {
-                    viewModel.formDataChanged(
-                        FormValue(HashSet(fields.values.map { it.getCurrentValue() }))
-                    )
-                }
-                fields.put("", view)
-            }
-            binding.layout.addView(view.view)
-        }
+    private fun inflateFields(fragment: Fragment, inflater: LayoutInflater, parent: ViewGroup): List<FieldView> {
+        val factory = FieldViewFactory(fragment, inflater, parent)
+        return viewModel.form.fields.map { factory.createFieldView(it) }
     }
 
-    private fun inflateSubmitButton(formInflater: FieldInflater): Button {
-        val submitButton = formInflater.inflateButton().root.apply {
-            setOnClickListener {
-                viewModel.submit(
-                    FormValue(HashSet(fields.values.map { it.getCurrentValue() }))
+    private fun inflateSubmitButton(inflater: LayoutInflater, parent: ViewGroup): ButtonView {
+        return ButtonViewFactory(inflater, parent).createSubmitButtonView()
+    }
+
+    private fun observeInputFields() {
+        inputFields.forEach { field ->
+            field.onValueChanged {
+                viewModel.formDataChanged(
+                    FormValue(HashSet(inputFields.map { it.getValue() }))
                 )
             }
         }
-        binding.layout.addView(submitButton)
-        return submitButton
     }
 
-    private fun observeFormState(submitButton: Button) {
-        viewModel.formState.observe(viewLifecycleOwner, Observer { state ->
-            val formState = state ?: return@Observer
-            submitButton.isEnabled = formState.isDataValid
+    private fun observeSubmitButton() {
+        submitButtonView.setOnClickListener {
+            viewModel.submit(
+                FormValue(HashSet(inputFields.map { it.getValue() }))
+            )
+        }
+    }
 
-            formState.states.forEach {
-                fields[it.id]?.applyState(it)
-            }
+    private fun observeFormState() {
+        viewModel.formState.observe(viewLifecycleOwner, Observer { newState ->
+            val formState = newState ?: return@Observer
+
+            submitButtonView.applyState(formState)
+            inputFields.forEach {  it.applyState(formState) }
         })
     }
 
@@ -83,13 +94,19 @@ class AdministrativeServiceFragment : Fragment() {
             val result = it ?: return@Observer
 
             if (result.success != null) {
-                Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
+                onSuccess()
             }
             if (result.error != null) {
-                Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+                onError(result)
             }
         })
     }
 
+    private fun onSuccess() {
+        Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
+    }
 
+    private fun onError(result: FormResult) {
+        Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+    }
 }

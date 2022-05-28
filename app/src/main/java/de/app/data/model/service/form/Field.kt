@@ -5,11 +5,11 @@ sealed interface InputField{
     val id: String
 }
 
-data class InfoField(
+data class TextInfoField(
     val text: String,
 ): Field
 
-data class DocumentField(
+data class DocumentInfoField(
     val label: String,
     val document: String,
 ): Field

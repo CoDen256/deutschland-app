@@ -3,17 +3,17 @@ package de.app.ui.service
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.app.api.AdministrativeServiceRegistry
-import de.app.data.model.service.AdministrativeService
-import de.app.data.model.service.form.Form
 import de.app.api.dummy.BaseAdministrativeServiceRegistry
 import de.app.data.Result
+import de.app.data.model.service.AdministrativeService
+import de.app.data.model.service.form.Form
 import de.app.data.model.service.form.InputField
 import de.app.data.model.service.submit.SubmittedField
 import de.app.data.model.service.submit.SubmittedForm
 import de.app.ui.service.data.result.FormResult
-import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.result.FormView
 import de.app.ui.service.data.state.FieldState
+import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FormValue
 import de.app.ui.service.validator.FieldValidator
 
@@ -21,6 +21,7 @@ class AdminServiceViewModel : ViewModel() {
 
     private val registry: AdministrativeServiceRegistry = BaseAdministrativeServiceRegistry()
     private val service: AdministrativeService = registry.getAllServices()[0]
+
     val form: Form = registry.getApplicationForm(service)
 
     val formState = MutableLiveData<FormState>()
