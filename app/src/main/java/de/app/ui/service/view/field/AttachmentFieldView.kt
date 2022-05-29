@@ -33,7 +33,7 @@ class AttachmentFieldView(
     }
 
     override fun getValue(): FieldValue {
-        return FieldValue(id, uriHolder.value?:"")
+        return FieldValue(id, uriHolder.value)
     }
 
 

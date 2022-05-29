@@ -2,7 +2,7 @@ package de.app.ui.service.data.value
 
 data class FieldValue(
     val id: String,
-    val value: Any,
+    val value: Any?,
 ){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

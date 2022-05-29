@@ -51,6 +51,9 @@ class FieldViewFactory(
             .inflate(inflater, parent)
             .populate(field, fragment)
             .build()
-        is RadioChoiceField -> TODO()
+        is RadioChoiceField -> RadioChoiceFieldView.Inflater()
+            .inflate(inflater,parent)
+            .populate(field)
+            .build()
     }
 }

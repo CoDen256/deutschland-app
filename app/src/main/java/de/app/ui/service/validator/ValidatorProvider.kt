@@ -15,6 +15,6 @@ class ValidatorProvider {
         is NumberField -> TODO()
         is SingleChoiceField -> TextFieldValidator()
         is TextField -> TextFieldValidator()
-        is RadioChoiceField -> TODO()
+        is RadioChoiceField -> AttachmentFieldValidator()
     }
 }

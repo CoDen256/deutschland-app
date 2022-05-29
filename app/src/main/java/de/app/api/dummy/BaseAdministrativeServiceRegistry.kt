@@ -36,11 +36,18 @@ class BaseAdministrativeServiceRegistry : AdministrativeServiceRegistry {
                     addAll(
                         listOf(
 
+                            RadioChoiceField(
+                                id="radiochoice$i",
+                                required = true,
+                                label = "Radio Choice",
+                                listOf("Yes", "no", "maybe")
+                            ),
+
                             SingleChoiceField(
                                 id = "singlechoice$i",
                                 required = true,
                                 label = "Single choice",
-                                listOf("Womne", "man", "John")
+                                listOf("Woman", "Man", "John")
                             ),
 
                             AttachmentField(
