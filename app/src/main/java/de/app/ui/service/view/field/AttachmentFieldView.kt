@@ -2,6 +2,7 @@ package de.app.ui.service.view.field
 
 import android.content.Intent
 import android.net.Uri
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -11,6 +12,8 @@ import de.app.databinding.ApplicationFormAttachmentBinding
 import de.app.ui.service.IntentLauncher
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue
+import de.app.ui.util.afterTextChanged
+import de.app.ui.util.editable
 import java.lang.IllegalStateException
 
 
@@ -34,9 +37,9 @@ class AttachmentFieldView(
     }
 
     override fun onValueChanged(handler: () -> Unit) {
-//        binding.field.afterTextChanged {
-//            handler()
-//        }
+        binding.filePath.afterTextChanged {
+            handler()
+        }
     }
 
     class Inflater {
@@ -50,10 +53,14 @@ class AttachmentFieldView(
         fun populate(field: AttachmentField, fragment: Fragment): Inflater = apply {
             val launcher = IntentLauncher<String, Result<Uri>>(
                 fragment.requireActivity().activityResultRegistry,
-                key = "chooseAttachment",
+                key = field.id,
                 createIntent = { _, input -> createIntent(input) },
                 parseResult = { _, intent -> parseResult(intent) },
-                handleResult = { if (it is Result.Success) binding.field.setImageURI(it.data) }
+                handleResult = {
+                    if (it is Result.Success){
+                        binding.filePath.text = it.data.path!!.editable()
+                    }
+                }
             )
 
             fragment.lifecycle.addObserver(launcher.getObserver())

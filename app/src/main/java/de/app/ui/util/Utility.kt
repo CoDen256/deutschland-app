@@ -5,23 +5,24 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Environment
 import android.text.Editable
+import android.text.SpannableStringBuilder
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import de.app.data.Result
 import java.net.HttpURLConnection
-import java.net.URI
 import java.net.URL
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
+
+fun String.editable(): Editable{
+    return SpannableStringBuilder(this)
+}
 
 fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
