@@ -20,16 +20,7 @@ class AccountLoginActivity : AppCompatActivity() {
         binding = ActivityAccountLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navController: NavController = findNavController(R.id.nav_host_fragment_login_content)
-
-        val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_enter_pin
-        ), null)
-
-        setupActionBarWithNavController(
-            navController,
-            appBarConfiguration
-        )
+        supportActionBar?.hide()
     }
 
 }

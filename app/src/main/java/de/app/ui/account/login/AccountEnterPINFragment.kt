@@ -35,9 +35,9 @@ class AccountEnterPINFragment : Fragment() {
         val loginAsUsername = binding.loginUsername
 
         val dataSource = AccountDataSource()
-        val selectedAccount = dataSource.getAccounts()[0]
+        val accountId = arguments?.getString("accountId")!!
+        val selectedAccount = dataSource.getAccounts().find { it.accountId == accountId}!!
         viewModel = AccountEnterPINViewModel(SessionManager(dataSource))
-
 
         loginAsUsername.text = getString(R.string.welcome_username, selectedAccount.name, selectedAccount.surname)
 

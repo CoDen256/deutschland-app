@@ -43,6 +43,8 @@
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.265625" />
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.19746376811594202" />
         <entry key="app/src/main/res/layout/fragment_geo_data.xml" value="0.11594202898550725" />
+        <entry key="app/src/main/res/layout/fragment_login_enter_pin.xml" value="0.1956521739130435" />
+        <entry key="app/src/main/res/layout/fragment_login_select_account.xml" value="0.1956521739130435" />
         <entry key="app/src/main/res/layout/fragment_login_set_pin.xml" value="0.18568840579710144" />
         <entry key="app/src/main/res/layout/fragment_mail_box.xml" value="0.11351079859367152" />
         <entry key="app/src/main/res/layout/fragment_mail_box_item.xml" value="0.14414866901054746" />

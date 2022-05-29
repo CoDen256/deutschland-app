@@ -3,12 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_enter_pin">
+    app:startDestination="@+id/nav_select_account">
 
     <fragment
         android:id="@+id/nav_enter_pin"
         android:name="de.app.ui.account.login.AccountEnterPINFragment"
         android:label="Enter PIN"
-        tools:layout="@layout/fragment_login_enter_pin" />
+        tools:layout="@layout/fragment_login_enter_pin" >
+        <argument
+            android:name="accountId"
+            app:argType="string" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/nav_select_account"
+        android:name="de.app.ui.account.select.SelectAccountFragment"
+        android:label="Select Account"
+        tools:layout="@layout/fragment_login_select_account" >
+        <action
+            android:id="@+id/action_nav_select_account_to_nav_enter_pin"
+            app:destination="@id/nav_enter_pin" />
+    </fragment>
 </navigation>
