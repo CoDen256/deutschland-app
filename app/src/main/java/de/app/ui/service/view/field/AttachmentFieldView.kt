@@ -2,10 +2,10 @@ package de.app.ui.service.view.field
 
 import android.content.Intent
 import android.net.Uri
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import de.app.data.Result
 import de.app.data.model.service.form.AttachmentField
 import de.app.databinding.ApplicationFormAttachmentBinding
@@ -13,38 +13,39 @@ import de.app.ui.service.IntentLauncher
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue
 import de.app.ui.util.afterTextChanged
-import de.app.ui.util.editable
-import java.lang.IllegalStateException
+import de.app.ui.util.getFileName
 
 
 class AttachmentFieldView(
     private val binding: ApplicationFormAttachmentBinding,
-    private val id: String
+    private val id: String,
+    private val uriHolder: MutableLiveData<Uri>
 ) : InputFieldView {
 
     override fun applyState(formState: FormState) {
         formState.getFieldState(id)?.apply {
-//            if (error != null) {
-//                binding.field.error = error
-//            } else {
-//                binding.field.error = null
-//            }
+            if (error != null) {
+                binding.label.error = error
+            } else {
+                binding.label.error = null
+            }
         }
     }
 
     override fun getValue(): FieldValue {
-        return FieldValue(id, "")
+        return FieldValue(id, uriHolder.value?:"")
     }
 
+
     override fun onValueChanged(handler: () -> Unit) {
-        binding.filePath.afterTextChanged {
-            handler()
-        }
+        binding.filePath.afterTextChanged { handler() }
     }
 
     class Inflater {
         private lateinit var binding: ApplicationFormAttachmentBinding
         private lateinit var id: String
+        private val uriHolder: MutableLiveData<Uri> = MutableLiveData()
+
 
         fun inflate(inflater: LayoutInflater, parent: ViewGroup): Inflater = apply {
             binding = ApplicationFormAttachmentBinding.inflate(inflater, parent, true)
@@ -57,8 +58,9 @@ class AttachmentFieldView(
                 createIntent = { _, input -> createIntent(input) },
                 parseResult = { _, intent -> parseResult(intent) },
                 handleResult = {
-                    if (it is Result.Success){
-                        binding.filePath.text = it.data.path!!.editable()
+                    if (it is Result.Success) {
+                        binding.filePath.text = it.data.getFileName(fragment.requireActivity().contentResolver)
+                        uriHolder.value = it.data
                     }
                 }
             )
@@ -82,12 +84,13 @@ class AttachmentFieldView(
         }
 
         private fun createIntent(input: String?): Intent {
-            val chooseFile = Intent(Intent.ACTION_GET_CONTENT)
+            val chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            chooseFile.addCategory(Intent.CATEGORY_OPENABLE)
             chooseFile.type = input!!
             return Intent.createChooser(chooseFile, "Choose a file")
         }
 
-        fun build() = AttachmentFieldView(binding, id)
+        fun build() = AttachmentFieldView(binding, id, uriHolder)
     }
 }
 

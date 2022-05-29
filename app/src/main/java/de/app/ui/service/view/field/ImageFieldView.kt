@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import de.app.data.Result
 import de.app.data.model.service.form.ImageField
 import de.app.databinding.ApplicationFormImageBinding
-import de.app.ui.util.getImage
+import de.app.ui.util.loadImageFromUrl
 import java.util.concurrent.Executors
 
 
@@ -24,7 +24,7 @@ class ImageFieldView (  private val binding: ApplicationFormImageBinding
             binding.label.text = field.label
 
             Executors.newSingleThreadExecutor().execute {
-                val result = getImage(field.imageUri)
+                val result = loadImageFromUrl(field.imageUri)
                 fragment.requireActivity().runOnUiThread {
                     when(result){
                         is Result.Success ->

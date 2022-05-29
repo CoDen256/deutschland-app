@@ -1,7 +1,5 @@
 package de.app.ui.service.view.field
 
-import androidx.lifecycle.Lifecycle
-import de.app.ui.service.IntentLauncher
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue
 
@@ -12,5 +10,4 @@ interface InputFieldView: FieldView {
 
     fun onValueChanged(handler: () -> Unit)
 
-    fun registerIntentLauncher(lifeCycle: Lifecycle) {}
 }
