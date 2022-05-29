@@ -2,7 +2,6 @@ package de.app.ui.service.view.field
 
 import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import de.app.data.model.service.form.DocumentInfoField
@@ -13,10 +12,6 @@ import de.app.ui.util.openFile
 
 class DocumentInfoFieldView (private val binding: ApplicationFormDocumentInfoBinding
 ): FieldView {
-
-    override fun getView(): View {
-        return binding.root
-    }
 
     class Inflater {
         private lateinit var binding: ApplicationFormDocumentInfoBinding

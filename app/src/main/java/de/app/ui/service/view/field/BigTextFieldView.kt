@@ -1,17 +1,12 @@
 package de.app.ui.service.view.field
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import de.app.data.model.service.form.BigTextField
-import de.app.data.model.service.form.DateField
 import de.app.databinding.ApplicationFormBigTextBinding
-import de.app.databinding.ApplicationFormDateBinding
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue
 import de.app.ui.util.afterTextChanged
-import de.app.ui.util.showPicker
 
 class BigTextFieldView(
     private val binding: ApplicationFormBigTextBinding,
@@ -36,10 +31,6 @@ class BigTextFieldView(
         binding.field.afterTextChanged {
             handler()
         }
-    }
-
-    override fun getView(): View {
-        return binding.root
     }
 
     class Inflater {

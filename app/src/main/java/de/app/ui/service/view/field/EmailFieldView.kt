@@ -1,7 +1,6 @@
 package de.app.ui.service.view.field
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import de.app.data.model.service.form.EmailField
 import de.app.databinding.ApplicationFormEmailBinding
@@ -32,10 +31,6 @@ class EmailFieldView(
         binding.field.afterTextChanged {
             handler()
         }
-    }
-
-    override fun getView(): View {
-        return binding.root
     }
 
     class Inflater {

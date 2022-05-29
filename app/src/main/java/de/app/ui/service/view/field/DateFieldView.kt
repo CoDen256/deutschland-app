@@ -1,7 +1,6 @@
 package de.app.ui.service.view.field
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import de.app.data.model.service.form.DateField
@@ -34,10 +33,6 @@ class DateFieldView(
         binding.field.afterTextChanged {
             handler()
         }
-    }
-
-    override fun getView(): View {
-        return binding.root
     }
 
     class Inflater {

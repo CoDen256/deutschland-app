@@ -1,11 +1,8 @@
 package de.app.ui.service.view.field
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import de.app.data.model.service.form.BigTextField
 import de.app.data.model.service.form.TextField
-import de.app.databinding.ApplicationFormBigTextBinding
 import de.app.databinding.ApplicationFormTextBinding
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue
@@ -34,10 +31,6 @@ class TextFieldView(
         binding.field.afterTextChanged {
             handler()
         }
-    }
-
-    override fun getView(): View {
-        return binding.root
     }
 
     class Inflater {

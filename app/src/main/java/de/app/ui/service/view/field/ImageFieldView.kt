@@ -1,24 +1,17 @@
 package de.app.ui.service.view.field
 
-import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import de.app.data.Result
 import de.app.data.model.service.form.ImageField
 import de.app.databinding.ApplicationFormImageBinding
 import de.app.ui.util.getImage
-import de.app.ui.util.openFile
 import java.util.concurrent.Executors
 
 
 class ImageFieldView (  private val binding: ApplicationFormImageBinding
 ): FieldView {
-
-    override fun getView(): View {
-        return binding.root
-    }
 
     class Inflater {
         private lateinit var binding: ApplicationFormImageBinding
