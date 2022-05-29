@@ -27,7 +27,7 @@ class BigTextFieldView(
         return FieldValue(id, binding.field.text.toString())
     }
 
-    override fun onValueChanged(handler: () -> Unit) {
+    override fun setOnValueChangedListener(handler: () -> Unit) {
         binding.field.afterTextChanged {
             handler()
         }

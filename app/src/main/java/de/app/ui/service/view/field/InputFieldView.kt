@@ -8,6 +8,6 @@ interface InputFieldView: FieldView {
 
     fun getValue(): FieldValue
 
-    fun onValueChanged(handler: () -> Unit)
+    fun setOnValueChangedListener(handler: () -> Unit)
 
 }

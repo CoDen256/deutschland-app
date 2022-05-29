@@ -47,6 +47,10 @@ class FieldViewFactory(
             .build()
         is MultipleChoiceField -> TODO()
         is NumberField -> TODO()
-        is SingleChoiceField -> TODO()
+        is SingleChoiceField -> SingleChoiceFieldView.Inflater()
+            .inflate(inflater, parent)
+            .populate(field, fragment)
+            .build()
+        is RadioChoiceField -> TODO()
     }
 }

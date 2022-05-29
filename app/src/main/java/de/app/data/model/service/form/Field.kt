@@ -57,6 +57,13 @@ data class SingleChoiceField(
     val options: List<String>
 ): Field, InputField
 
+data class RadioChoiceField(
+    override val id: String,
+    val required: Boolean,
+    val label: String,
+    val options: List<String>
+): Field, InputField
+
 data class MultipleChoiceField(
     override val id: String,
     val required: Boolean,

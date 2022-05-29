@@ -61,7 +61,7 @@ class AdministrativeServiceFragment : Fragment() {
 
     private fun observeInputFields() {
         inputFields.forEach { field ->
-            field.onValueChanged {
+            field.setOnValueChangedListener {
                 viewModel.formDataChanged(
                     FormValue(HashSet(inputFields.map { it.getValue() }))
                 )

@@ -37,7 +37,7 @@ class AttachmentFieldView(
     }
 
 
-    override fun onValueChanged(handler: () -> Unit) {
+    override fun setOnValueChangedListener(handler: () -> Unit) {
         binding.filePath.afterTextChanged { handler() }
     }
 
