@@ -121,7 +121,8 @@ class BaseAdministrativeServiceRegistry : AdministrativeServiceRegistry {
                     )
                 }
 
-            }
+            },
+            paymentRequired = true
         )
     }
 
