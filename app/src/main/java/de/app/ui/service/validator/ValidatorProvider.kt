@@ -11,7 +11,7 @@ class ValidatorProvider {
         is BigTextField -> TextFieldValidator()
         is DateField -> DateFieldValidator()
         is EmailField -> EmailFieldValidator()
-        is MultipleChoiceField -> TODO()
+        is MultipleChoiceField -> MultipleChoiceFieldValidator()
         is NumberField -> TODO()
         is SingleChoiceField -> TextFieldValidator()
         is TextField -> TextFieldValidator()

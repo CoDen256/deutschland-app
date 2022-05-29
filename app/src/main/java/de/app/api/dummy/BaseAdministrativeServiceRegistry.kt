@@ -36,6 +36,13 @@ class BaseAdministrativeServiceRegistry : AdministrativeServiceRegistry {
                     addAll(
                         listOf(
 
+                            MultipleChoiceField(
+                                id="multiplechoice$i",
+                                required = true,
+                                label="Multiple Choice",
+                                listOf("One", "Two", "Three")
+                            ),
+
                             RadioChoiceField(
                                 id="radiochoice$i",
                                 required = true,
