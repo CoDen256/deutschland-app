@@ -1,10 +1,14 @@
 package de.app.ui.service
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +28,14 @@ class AdministrativeServiceFragment : Fragment() {
 
     private lateinit var inputFields: List<InputFieldView>
     private lateinit var submitButtonView: ButtonView
+    private lateinit var observer: LifecycleObserver
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        observer = LifecycleObserver(requireActivity().activityResultRegistry)
+        lifecycle.addObserver(observer)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,13 +45,12 @@ class AdministrativeServiceFragment : Fragment() {
         viewModel = ViewModelProvider(this)[AdminServiceViewModel::class.java]
         val root = binding.layout
 
-        // Inflate fields and add to root
-        val fields = inflateFields(this, inflater, root)
 
-        // Filter only input fields
+        // Inflate fields
+        val fields = inflateFields(this, inflater, root)
         inputFields = fields.filterIsInstance<InputFieldView>()
 
-        // Inflate submit button and add to root
+        // Inflate submit button
         submitButtonView = inflateSubmitButton(inflater, root)
 
         observeInputFields()
@@ -49,6 +60,14 @@ class AdministrativeServiceFragment : Fragment() {
         observeResult()
 
         return binding.root
+    }
+
+    private fun handleActivityResult(result: ActivityResult) {
+        if (result.resultCode == Activity.RESULT_OK) {
+            inputFields.forEach {
+                it.onActivityResult(result)
+            }
+        }
     }
 
     private fun inflateFields(fragment: Fragment, inflater: LayoutInflater, parent: ViewGroup): List<FieldView> {
@@ -72,9 +91,10 @@ class AdministrativeServiceFragment : Fragment() {
 
     private fun observeSubmitButton() {
         submitButtonView.setOnClickListener {
-            viewModel.submit(
-                FormValue(HashSet(inputFields.map { it.getValue() }))
-            )
+            observer.getContent.launch("application/pdf")
+//            viewModel.submit(
+//                FormValue(HashSet(inputFields.map { it.getValue() }))
+//            )
         }
     }
 

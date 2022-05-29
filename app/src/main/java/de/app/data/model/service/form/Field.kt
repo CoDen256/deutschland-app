@@ -76,4 +76,5 @@ data class AttachmentField(
     override val id: String,
     val required: Boolean,
     val label: String,
+    val mimeType: String,
 ): Field, InputField

@@ -32,9 +32,15 @@ class BaseAdministrativeServiceRegistry : AdministrativeServiceRegistry {
             "This administrative service allows you to send an application to sell a dog",
             service,
             ArrayList<Field>().apply {
-                for (i in 0..0){
+                for (i in 0..10){
                     addAll(listOf(
 
+                        AttachmentField(
+                          id ="attachment$i",
+                          required = true,
+                          label = "Attachment",
+                          mimeType = "application/pdf"
+                        ),
                         DocumentInfoField(
                             label = "Documents",
                             documents = listOf(
