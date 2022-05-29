@@ -10,7 +10,7 @@ import de.app.ui.account.login.data.LoggedInUserView
 import de.app.ui.account.login.data.LoginFormState
 import de.app.ui.account.login.data.LoginResult
 
-class LoginViewModel(private val sessionManager: SessionManager) : ViewModel() {
+class AccountEnterPINViewModel(private val sessionManager: SessionManager) : ViewModel() {
 
     val loginFormState = MutableLiveData<LoginFormState>()
     val loginResult = MutableLiveData<LoginResult>()

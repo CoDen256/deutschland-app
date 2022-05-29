@@ -2,36 +2,32 @@ package de.app.ui.account.login
 
 import android.app.Activity
 import android.content.Intent
-import androidx.lifecycle.Observer
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import android.text.Editable
-import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.Toast
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import de.app.R
 import de.app.core.AccountDataSource
 import de.app.core.SessionManager
-import de.app.databinding.ActivityAccountLoginBinding
+import de.app.databinding.FragmentLoginEnterPinBinding
 import de.app.ui.MainActivity
 import de.app.ui.account.login.data.LoggedInUserView
 import de.app.ui.util.afterTextChanged
 
-const val LOGGED_IN_ACCOUNT = "de.app.ui.account.login.ACCOUNT"
-// TODO: nav graph between login screens, make as fragment
-class AccountLoginActivity : AppCompatActivity() {
+class AccountEnterPINFragment : Fragment() {
 
-    private lateinit var loginViewModel: LoginViewModel
-    private lateinit var binding: ActivityAccountLoginBinding
+    private lateinit var viewModel: AccountEnterPINViewModel
+    private lateinit var binding: FragmentLoginEnterPinBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = ActivityAccountLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentLoginEnterPinBinding.inflate(inflater, container, false)
 
         val pin = binding.pin
         val login = binding.login
@@ -40,12 +36,12 @@ class AccountLoginActivity : AppCompatActivity() {
 
         val dataSource = AccountDataSource()
         val selectedAccount = dataSource.getAccounts()[0]
-        loginViewModel = LoginViewModel(SessionManager(dataSource))
+        viewModel = AccountEnterPINViewModel(SessionManager(dataSource))
 
 
         loginAsUsername.text = getString(R.string.welcome_username, selectedAccount.name, selectedAccount.surname)
 
-        loginViewModel.loginFormState.observe(this, Observer {
+        viewModel.loginFormState.observe(viewLifecycleOwner, Observer {
             val loginState = it ?: return@Observer
 
             // disable login button unless both username / password is valid
@@ -56,7 +52,7 @@ class AccountLoginActivity : AppCompatActivity() {
             }
         })
 
-        loginViewModel.loginResult.observe(this, Observer {
+        viewModel.loginResult.observe(viewLifecycleOwner, Observer {
             val loginResult = it ?: return@Observer
 
             loading.visibility = View.GONE
@@ -71,7 +67,7 @@ class AccountLoginActivity : AppCompatActivity() {
 
         pin.apply {
             afterTextChanged {
-                loginViewModel.loginDataChanged(
+                viewModel.loginDataChanged(
                     selectedAccount.accountId,
                     pin.text.toString()
                 )
@@ -80,7 +76,7 @@ class AccountLoginActivity : AppCompatActivity() {
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
+                        viewModel.login(
                             selectedAccount.accountId,
                             pin.text.toString()
                         )
@@ -90,25 +86,27 @@ class AccountLoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(selectedAccount.accountId, pin.text.toString())
+                viewModel.login(selectedAccount.accountId, pin.text.toString())
             }
         }
+
+        return binding.root
     }
 
     private fun onSuccessfulLogin(model: LoggedInUserView) {
         val loggedInAccount = model.account
 
-        val intent = Intent(this, MainActivity::class.java).apply {
-            putExtra(LOGGED_IN_ACCOUNT, loggedInAccount)
+        val intent = Intent(requireActivity(), MainActivity::class.java).apply {
+            putExtra("LOGGED_IN_ACCOUNT", loggedInAccount)
         }
         startActivity(intent)
 
-        setResult(Activity.RESULT_OK)
+        requireActivity().setResult(Activity.RESULT_OK)
         //Complete and destroy login activity once successful
-        finish()
+        requireActivity().finish()
     }
 
     private fun onLoginFailed(errorString: String) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), errorString, Toast.LENGTH_SHORT).show()
     }
 }
