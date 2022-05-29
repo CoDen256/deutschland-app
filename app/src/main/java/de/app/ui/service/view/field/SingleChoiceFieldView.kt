@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import de.app.R
 import de.app.data.model.service.form.SingleChoiceField
 import de.app.databinding.ApplicationFormSingleChoiceBinding
 import de.app.ui.service.data.state.FormState
@@ -50,7 +51,7 @@ class SingleChoiceFieldView(
             binding.label.text = field.label
             binding.field.adapter = ArrayAdapter(
                 fragment.requireContext(),
-                android.R.layout.simple_spinner_dropdown_item,
+                R.layout.application_form_single_choice_item,
                 field.options
             )
             id = field.id
