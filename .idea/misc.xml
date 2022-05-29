@@ -24,6 +24,7 @@
         <entry key="app/src/main/res/layout/application_form_info_document.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/application_form_multiple_choice.xml" value="0.16304347826086957" />
         <entry key="app/src/main/res/layout/application_form_multiple_choice_item.xml" value="0.16304347826086957" />
+        <entry key="app/src/main/res/layout/application_form_number.xml" value="0.1263184329482672" />
         <entry key="app/src/main/res/layout/application_form_radio_choice.xml" value="0.11367753623188406" />
         <entry key="app/src/main/res/layout/application_form_radio_choice_item.xml" value="0.13677536231884058" />
         <entry key="app/src/main/res/layout/application_form_single_choice_item.xml" value="0.16666666666666666" />

@@ -36,6 +36,13 @@ class BaseAdministrativeServiceRegistry : AdministrativeServiceRegistry {
                     addAll(
                         listOf(
 
+                            NumberField(
+                              id="numberchoice$i",
+                              required = true,
+                              label="Number Choice",
+                              hint="Age"
+                            ),
+
                             MultipleChoiceField(
                                 id="multiplechoice$i",
                                 required = true,

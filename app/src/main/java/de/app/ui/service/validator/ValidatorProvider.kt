@@ -12,7 +12,7 @@ class ValidatorProvider {
         is DateField -> DateFieldValidator()
         is EmailField -> EmailFieldValidator()
         is MultipleChoiceField -> MultipleChoiceFieldValidator()
-        is NumberField -> TODO()
+        is NumberField -> NumberFieldValidator()
         is SingleChoiceField -> TextFieldValidator()
         is TextField -> TextFieldValidator()
         is RadioChoiceField -> AttachmentFieldValidator()
