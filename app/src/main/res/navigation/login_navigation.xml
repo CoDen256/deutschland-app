@@ -21,7 +21,7 @@
         android:label="Select Account"
         tools:layout="@layout/fragment_login_select_account" >
         <action
-            android:id="@+id/action_nav_select_account_to_nav_enter_pin"
+            android:id="@+id/account_nav_select_to_enter_pin"
             app:destination="@id/nav_enter_pin" />
     </fragment>
 </navigation>

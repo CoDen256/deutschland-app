@@ -5,6 +5,7 @@ import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -26,12 +27,14 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
-//        val account = intent.getSerializableExtra(LOGGED_IN_ACCOUNT) as Account
-        // TODO: just ask session manager?
+        // TODO: just ask session manager for logged in account
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        val navController = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment_content_main)!!
+            .findNavController()
+
 
 
         binding.switchAccount.setOnClickListener {

@@ -94,11 +94,7 @@ class AccountEnterPINFragment : Fragment() {
     }
 
     private fun onSuccessfulLogin(model: LoggedInUserView) {
-        val loggedInAccount = model.account
-
-        val intent = Intent(requireActivity(), MainActivity::class.java).apply {
-            putExtra("LOGGED_IN_ACCOUNT", loggedInAccount)
-        }
+        val intent = Intent(requireActivity(), MainActivity::class.java)
         startActivity(intent)
 
         requireActivity().setResult(Activity.RESULT_OK)

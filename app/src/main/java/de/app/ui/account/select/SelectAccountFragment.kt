@@ -11,9 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import de.app.R
 import de.app.core.AccountDataSource
-import de.app.core.SessionManager
 import de.app.databinding.FragmentLoginSelectAccountBinding
-import de.app.ui.account.login.AccountEnterPINFragment
 
 class SelectAccountFragment : Fragment() {
 
@@ -36,7 +34,7 @@ class SelectAccountFragment : Fragment() {
 
         binding.select.setOnClickListener {
 
-            navController.navigate(R.id.action_nav_select_account_to_nav_enter_pin,
+            navController.navigate(R.id.account_nav_select_to_enter_pin,
                 bundleOf("accountId" to selectedAccount.accountId),
                 navOptions {
                     anim {
