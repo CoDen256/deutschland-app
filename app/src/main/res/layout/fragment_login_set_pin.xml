@@ -12,41 +12,56 @@
     tools:context=".ui.account.login.AccountEnterPINFragment">
 
     <TextView
-        android:id="@+id/welcome"
+        android:id="@+id/set_pin_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
-        android:hint="@string/welcome_user"
+        android:hint="@string/set_pin_message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/accountId"
+        android:id="@+id/pin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
-        android:hint="@string/prompt_citizen_id"
-        android:imeActionLabel="@string/action_sign_in_short"
-        android:imeOptions="actionDone"
+        android:hint="@string/prompt_password"
+        android:inputType="numberPassword"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome" />
+        app:layout_constraintTop_toBottomOf="@+id/set_pin_message" />
+
+    <EditText
+        android:id="@+id/confirmation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:hint="@string/confirm_password"
+        android:imeActionLabel="@string/action_sign_in_short"
+        android:imeOptions="actionDone"
+        android:inputType="numberPassword"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pin" />
 
     <Button
-        android:id="@+id/register"
+        android:id="@+id/set_pin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="64dp"
-        android:text="@string/register"
+        android:enabled="false"
+        android:text="@string/action_sign_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountId"
+        app:layout_constraintTop_toBottomOf="@+id/confirmation"
         app:layout_constraintVertical_bias="0.2" />
 
     <ProgressBar
@@ -58,9 +73,9 @@
         android:layout_marginBottom="64dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/accountId"
+        app:layout_constraintEnd_toEndOf="@+id/pin"
         app:layout_constraintHorizontal_bias="0.184"
-        app:layout_constraintStart_toStartOf="@+id/accountId"
+        app:layout_constraintStart_toStartOf="@+id/pin"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.082" />
 

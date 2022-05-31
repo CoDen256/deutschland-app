@@ -15,9 +15,9 @@ class AccountDataSource {
 
     companion object {
         private val accounts: Map<Account, String> = mapOf(
-            Account(UUID.randomUUID().toString(),"Jane", "Doe",
+            Account("janeDoe","Jane", "Doe",
                 "Herr", Account.Type.CITIZEN) to "0000",
-            Account(UUID.randomUUID().toString(),"NoJane", "NoDoe",
+            Account("noJaneDoe","NoJane", "NoDoe",
                 "Herr", Account.Type.CITIZEN) to "0000"
         )
         private val infoToAccount: Map<String, Pair<Account, String>> = run {

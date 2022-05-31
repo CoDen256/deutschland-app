@@ -33,7 +33,7 @@ class RegisterResultFragment : Fragment() {
                 this.result.setTextColor(resources.getColor(R.color.successful))
                 this.next.setOnClickListener {
                     findNavController().navigate(
-                        R.id.action_nav_result_to_enter_pin,
+                        R.id.action_nav_result_to_set_pin,
                         bundleOf("accountId" to accountId)
                     )
                 }

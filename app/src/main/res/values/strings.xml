@@ -50,4 +50,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="successful">Successful!</string>
     <string name="set_pin_for_the_account">Set PIN for the account</string>
+    <string name="set_pin_message">Set your PIN</string>
+    <string name="confirm_password">Confirm PIN</string>
+    <string name="set_pin">Set PIN</string>
 </resources>
