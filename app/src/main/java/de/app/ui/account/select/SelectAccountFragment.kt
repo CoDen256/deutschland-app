@@ -34,14 +34,12 @@ class SelectAccountFragment : Fragment() {
 
         binding.select.setOnClickListener {
 
-            navController.navigate(R.id.account_nav_select_to_enter_pin,
-                bundleOf("accountId" to selectedAccount.accountId),
-                navOptions {
-                    anim {
-                        enter = android.R.animator.fade_in
-                        exit = android.R.animator.fade_out
-                    }
-                })
+            navController.navigate(R.id.action_nav_select_to_enter_pin,
+                bundleOf("accountId" to selectedAccount.accountId))
+        }
+
+        binding.addAccount.setOnClickListener {
+            navController.navigate(R.id.action_nav_select_to_register)
         }
 
         return binding.root

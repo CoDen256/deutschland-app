@@ -21,7 +21,41 @@
         android:label="Select Account"
         tools:layout="@layout/fragment_login_select_account" >
         <action
-            android:id="@+id/account_nav_select_to_enter_pin"
+            android:id="@+id/action_nav_select_to_enter_pin"
+            app:destination="@id/nav_enter_pin"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_nav_select_to_register"
+            app:destination="@id/nav_register_account"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_register_account"
+        android:name="de.app.ui.account.register.AccountRegisterFragment"
+        android:label="Register Account"
+        tools:layout="@layout/fragment_login_register_account">
+        <action
+            android:id="@+id/action_nav_register_to_successful"
+            app:destination="@id/nav_register_account_result" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_register_account_result"
+        android:name="de.app.ui.account.register.RegisterResultFragment"
+        android:label="Register Result"
+        tools:layout="@layout/fragment_login_register_result">
+        <argument
+            android:name="accountId"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_nav_result_to_register"
+            app:destination="@id/nav_register_account" />
+        <action
+            android:id="@+id/action_nav_result_to_enter_pin"
             app:destination="@id/nav_enter_pin" />
     </fragment>
+
 </navigation>
