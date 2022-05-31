@@ -1,14 +1,11 @@
 package de.app.ui.account
 
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.NavGraph
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import de.app.R
 import de.app.databinding.ActivityAccountLoginBinding
+import de.app.notifications.Notificator
+import de.app.notifications.util.createNotificationChannel
 
 class AccountLoginActivity : AppCompatActivity() {
 
@@ -19,6 +16,13 @@ class AccountLoginActivity : AppCompatActivity() {
 
         binding = ActivityAccountLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        createNotificationChannel("EMERGENCY", "EMERGENCY", "EMERGENCY CHANNEL")
+
+        val notificator = Notificator(this)
+        val not = notificator.buildNotification("EMERGENCY")
+        notificator.sendNotification(1, not)
+
 
         supportActionBar?.hide()
     }

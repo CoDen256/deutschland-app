@@ -53,4 +53,6 @@
     <string name="set_pin_message">Set your PIN</string>
     <string name="confirm_password">Confirm PIN</string>
     <string name="set_pin">Set PIN</string>
+    <string name="channel_name">EMERGENCY_CHANNEL</string>
+    <string name="channel_description">Channel for sending emergency notifications</string>
 </resources>
