@@ -4,22 +4,33 @@ import android.content.Context
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import de.app.R
+import io.karn.notify.Notify
 
 class Notificator(private val context: Context) {
 
 
-    fun buildNotification(channelId: String): NotificationCompat.Builder{
-        return NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentTitle("Fake Notification")
-            .setContentText("Fake Fake Fake")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+    fun sendEmergencyNotification(text: String){
+        Notify.with(context)
+            .content {
+                title = "Emergency!"
+                this.text = text
+            }.show()
     }
 
-    fun sendNotification(notificationId: Int, builder: NotificationCompat.Builder){
-        with(NotificationManagerCompat.from(context)) {
-            notify(notificationId, builder.build())
-        }
+    fun sendNewMailNotification(text: String){
+        Notify.with(context)
+            .content {
+                title = "You have received a new mail!"
+                this.text = text
+            }.show()
+    }
+
+    fun sendLawChangeNotification(text: String){
+        Notify.with(context)
+            .content {
+                title = "Law Registry"
+                this.text = text
+            }.show()
     }
 
 }

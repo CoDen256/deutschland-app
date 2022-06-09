@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import de.app.databinding.FragmentDashboardBinding
+import de.app.notifications.Notificator
 
 class DashboardFragment : Fragment() {
 
@@ -27,6 +28,12 @@ class DashboardFragment : Fragment() {
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val notificator = Notificator(requireContext())
+        notificator.sendEmergencyNotification("There is an emergency in your area")
+        notificator.sendLawChangeNotification("There are new laws")
+        notificator.sendNewMailNotification("Your document ist abgelaufen")
+
 
         val textView: TextView = binding.textHome
         homeViewModel.text.observe(viewLifecycleOwner) {
