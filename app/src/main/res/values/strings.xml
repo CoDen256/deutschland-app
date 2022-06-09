@@ -55,4 +55,7 @@
     <string name="set_pin">Set PIN</string>
     <string name="channel_name">EMERGENCY_CHANNEL</string>
     <string name="channel_description">Channel for sending emergency notifications</string>
+    <string name="welcome_dashboard">Welcome %s!</string>
+    <string name="address_dashboard">%s, %s</string>
+    <string name="account_id_dashboard">ID: %s</string>
 </resources>
