@@ -1,27 +1,27 @@
 package de.app.ui.geo
 
-import android.R
 import android.content.Context
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.BaseExpandableListAdapter
-import android.widget.TextView
 import de.app.databinding.FragmentGeoCategoryGroupBinding
 import de.app.databinding.FragmentGeoCategoryGroupItemBinding
 
 
-class CategoriesAdapter(private val context: Context,
-                        private val elements: List<Pair<String, List<String>>>
+class CategoriesWrapperAdapter(private val context: Context,
+                               private val title: String,
+                               private val categories: List<Pair<String, List<String>>>
                         ): BaseExpandableListAdapter() {
 
     override fun getGroupCount(): Int {
-        return elements.size
+        return 1
     }
 
     override fun getGroup(groupPosition: Int): Any {
-        return elements[groupPosition].first
+        return title
     }
 
     override fun getGroupId(groupPosition: Int): Long {
@@ -34,13 +34,13 @@ class CategoriesAdapter(private val context: Context,
         convertView: View?,
         parent: ViewGroup?
     ): View {
-        val inflated = inflateGroup(parent)
-        val view: View = inflated.root
-        val listTitle = getGroup(groupPosition) as String
-        val listTitleTextView = inflated.listTitle
-        listTitleTextView.setTypeface(null, Typeface.BOLD)
-        listTitleTextView.text = listTitle
-        return view
+        val wrapper = inflateGroup(parent)
+
+        wrapper.wrapperTitle.apply {
+            setTypeface(null, Typeface.BOLD)
+            text = title
+        }
+        return wrapper.root
     }
 
     private fun inflateGroup(parent: ViewGroup?): FragmentGeoCategoryGroupBinding{
@@ -50,11 +50,11 @@ class CategoriesAdapter(private val context: Context,
     }
 
     override fun getChildrenCount(groupPosition: Int): Int {
-        return elements[groupPosition].second.size
+        return categories.size
     }
 
     override fun getChild(groupPosition: Int, childPosition: Int): Any {
-        return elements[groupPosition].second[childPosition]
+        return categories[groupPosition].first
     }
 
     override fun getChildId(groupPosition: Int, childPosition: Int): Long {
@@ -68,13 +68,16 @@ class CategoriesAdapter(private val context: Context,
         convertView: View?,
         parent: ViewGroup?
     ): View {
-        val expandedListText = getChild(groupPosition, childPosition) as String
-        val child = inflateChild(parent)
-        val view = child.root
+        val category = categories[childPosition]
+        val (title, objects) = category
+        val categoryView = inflateChild(parent)
 
-        val expandedListTextView = child.item
-        expandedListTextView.text = expandedListText
-        return view
+        val objectsSpinner = categoryView.objects
+
+        objectsSpinner.adapter =
+            ArrayAdapter(context, android.R.layout.simple_spinner_item, objects)
+        objectsSpinner.setSelection()
+        return categoryView.root
     }
 
     private fun inflateChild(parent: ViewGroup?): FragmentGeoCategoryGroupItemBinding{

@@ -35,7 +35,7 @@ class GeoDataFragment : Fragment() {
 
         val cats = setupCategories()
 
-        val catAdapter= CategoriesAdapter(requireContext(), cats)
+        val catAdapter= CategoriesWrapperAdapter(requireContext(), "Categories", cats)
 
         binding.expandableListView.apply {
             setAdapter(catAdapter)
