@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.mapbox.mapboxsdk.Mapbox
@@ -34,17 +33,38 @@ class GeoDataFragment : Fragment() {
         binding = FragmentGeoDataBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[GeoDataViewModel::class.java]
 
-        setupCategories()
+        val cats = setupCategories()
+
+        val catAdapter= CategoriesAdapter(requireContext(), cats)
+
+        binding.expandableListView.apply {
+            setAdapter(catAdapter)
+        }
+
         setupMap(savedInstanceState)
 
         return binding.root
     }
 
 
-    private fun setupCategories() {
-        val items = arrayOf("Shutzgebiete", "Umwelt", "Landwirtschaft")
-        val adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_dropdown_item, items)
-        binding.dropdown.adapter = adapter
+    private fun setupCategories(): List<Pair<String, List<String>>> {
+        val listDetail = HashMap<String, List<String>>()
+
+        val category0 = listOf(
+            "One", "Two", "Three", "Four"
+        )
+
+        val category1 = listOf(
+            "One", "Two", "Three", "Four"
+        )
+
+        val category2 = listOf(
+            "One", "Two", "Three", "Four"
+        )
+        listDetail.put("One", category0)
+        listDetail.put("Two", category1)
+        listDetail.put("Three", category2)
+        return listDetail.entries.map { it.toPair() }
     }
 
     private fun setupMap(savedInstanceState: Bundle?) {

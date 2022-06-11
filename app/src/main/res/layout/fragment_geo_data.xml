@@ -6,16 +6,17 @@
     android:orientation="vertical"
     tools:context=".ui.geo.GeoDataFragment">
 
-
-    <EditText
+    <SearchView
         android:layout_width="match_parent"
-        android:layout_height="58dp" />
+        android:layout_height="wrap_content" />
 
-    <Spinner
-        android:id="@+id/dropdown"
+    <ExpandableListView
+        android:id="@+id/expandableListView"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="129dp"
-        android:spinnerMode="dropdown" />
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp" />
 
     <com.mapbox.mapboxsdk.maps.MapView
         android:id="@+id/map_view"
