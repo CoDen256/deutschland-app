@@ -15,7 +15,11 @@
         android:id="@+id/nav_finder"
         android:name="de.app.ui.finder.AdministrativeServiceFinder"
         android:label="@string/menu_finder"
-        tools:layout="@layout/fragment_administrative_service_finder" />
+        tools:layout="@layout/fragment_administrative_service_finder" >
+        <action
+            android:id="@+id/action_nav_finder_to_nav_admin_service"
+            app:destination="@id/nav_admin_service" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_mailbox"
@@ -63,6 +67,10 @@
         android:id="@+id/nav_admin_service"
         android:name="de.app.ui.service.AdministrativeServiceFragment"
         android:label="@string/administrative_service"
-        tools:layout="@layout/fragment_administrative_service" />
+        tools:layout="@layout/fragment_administrative_service" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

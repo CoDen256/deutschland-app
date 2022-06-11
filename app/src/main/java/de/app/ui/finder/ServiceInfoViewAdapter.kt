@@ -7,7 +7,8 @@ import de.app.data.model.service.AdministrativeService
 import de.app.databinding.FragmentAdministrativeServiceFinderSearchItemBinding
 
 class ServiceInfoViewAdapter(
-    private val services: MutableList<AdministrativeService>
+    private val services: MutableList<AdministrativeService>,
+    private val onItemClickHandler: (AdministrativeService) -> Unit
 ) : RecyclerView.Adapter<ServiceInfoViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,6 +27,7 @@ class ServiceInfoViewAdapter(
         holder.address.text = "%s, %s".format(service.address.postalCode, service.address.city)
         holder.name.text = service.name
         holder.desc.text = service.description
+        holder.root.setOnClickListener { onItemClickHandler(service) }
     }
 
     override fun getItemCount(): Int = services.size
@@ -35,6 +37,7 @@ class ServiceInfoViewAdapter(
         val address = binding.serviceAddress
         val desc = binding.serviceDescription
         val name = binding.serviceName
+        val root = binding.root
     }
 
 }

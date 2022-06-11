@@ -30,9 +30,11 @@ class AdministrativeServiceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAdministrativeServiceBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this)[AdminServiceViewModel::class.java]
+        viewModel = AdminServiceViewModel(arguments?.getString("id"))
         val root = binding.layout
 
+        binding.serviceName.text = viewModel.service.name
+        binding.serviceDescription.text = viewModel.service.description
 
         // Inflate fields
         val fields = inflateFields(this, inflater, root)

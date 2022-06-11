@@ -18,10 +18,11 @@ import de.app.ui.service.data.value.FormValue
 import de.app.ui.service.validator.FieldValidator
 import de.app.ui.service.validator.ValidatorProvider
 
-class AdminServiceViewModel : ViewModel() {
+class AdminServiceViewModel(private val id: String?) : ViewModel() {
 
     private val registry: AdministrativeServiceRegistry = BaseAdministrativeServiceRegistry()
-    private val service: AdministrativeService = registry.getAllServices()[0]
+    val service: AdministrativeService = registry.getAllServices()
+        .find { it.id.toString() == id }!!
 
     val form: Form = registry.getApplicationForm(service)
 

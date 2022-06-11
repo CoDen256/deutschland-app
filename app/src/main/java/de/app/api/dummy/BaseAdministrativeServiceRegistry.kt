@@ -10,26 +10,35 @@ import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
+
+fun generateServices(): List<AdministrativeService> {
+    val cities = listOf("06217,Merseburg", "10115,Berlin", "04103,Leipzig")
+    val names = listOf("Sell a dog", "Buy a house", "Aufenthaltstitel beantragen")
+    return ArrayList<AdministrativeService>().apply {
+        for (i in 1..10){
+            val a = cities.random().split(",")
+            add(AdministrativeService(
+                UUID.randomUUID(),
+                names.random(),
+                "This administrative service allows you to send an application to sell a dog",
+                "https://sell-dog.de/api/",
+                Address(a[1], "Germany", a[0])
+            ))
+        }
+    }
+}
+
+val services = generateServices()
+
 class BaseAdministrativeServiceRegistry : AdministrativeServiceRegistry {
+
+
     override fun getAllProviders(): List<AdministrativeServiceProvider> {
         TODO("Not yet implemented")
     }
 
     override fun getAllServices(): List<AdministrativeService> {
-        val cities = listOf("06217,Merseburg", "10115,Berlin", "04103,Leipzig")
-        val names = listOf("Sell a dog", "Buy a house", "Aufenthaltstitel beantragen")
-        return ArrayList<AdministrativeService>().apply {
-            for (i in 1..10){
-                val a = cities.random().split(",")
-                add(AdministrativeService(
-                    UUID.randomUUID(),
-                    names.random(),
-                    "This administrative service allows you to send an application to sell a dog",
-                    "https://sell-dog.de/api/",
-                    Address(a[1], "Germany", a[0])
-                ))
-            }
-        }
+        return services
     }
 
     override fun getApplicationForm(service: AdministrativeService): Form {
