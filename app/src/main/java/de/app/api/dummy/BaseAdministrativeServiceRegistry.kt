@@ -17,12 +17,13 @@ class BaseAdministrativeServiceRegistry : AdministrativeServiceRegistry {
 
     override fun getAllServices(): List<AdministrativeService> {
         val cities = listOf("06217,Merseburg", "10115,Berlin", "04103,Leipzig")
+        val names = listOf("Sell a dog", "Buy a house", "Aufenthaltstitel beantragen")
         return ArrayList<AdministrativeService>().apply {
             for (i in 1..10){
                 val a = cities.random().split(",")
                 add(AdministrativeService(
                     UUID.randomUUID(),
-                    "Sell a dog",
+                    names.random(),
                     "This administrative service allows you to send an application to sell a dog",
                     "https://sell-dog.de/api/",
                     Address(a[1], "Germany", a[0])
