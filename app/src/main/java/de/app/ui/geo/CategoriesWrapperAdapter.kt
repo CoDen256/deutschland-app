@@ -76,7 +76,7 @@ class CategoriesWrapperAdapter(private val context: Context,
 
         objectsSpinner.adapter =
             ArrayAdapter(context, android.R.layout.simple_spinner_item, objects)
-        objectsSpinner.setSelection()
+//        objectsSpinner.setSelection()
         return categoryView.root
     }
 

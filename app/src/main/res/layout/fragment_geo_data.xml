@@ -6,22 +6,15 @@
     android:orientation="vertical"
     tools:context=".ui.geo.GeoDataFragment">
 
-    <SearchView
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <ExpandableListView
-        android:id="@+id/expandableListView"
-        android:layout_height="wrap_content"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/geo_data_pager"
         android:layout_width="match_parent"
-        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="0.5dp" />
-
-    <com.mapbox.mapboxsdk.maps.MapView
-        android:id="@+id/map_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
 </LinearLayout>
