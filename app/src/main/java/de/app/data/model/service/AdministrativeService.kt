@@ -7,4 +7,5 @@ data class AdministrativeService(
     val name: String,
     val description: String,
     val apiEndpoint: String,
+    val address: Address
 )
