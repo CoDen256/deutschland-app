@@ -2,13 +2,14 @@ package de.app.ui.mailbox
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import de.app.data.model.mail.MailMessageHeader
 import de.app.databinding.FragmentMailBoxItemBinding
 
 class MailMessageViewAdapter(
-    private val mailMessages: List<MailMessageHeader>
+    private val mailMessages: MutableList<MailMessageHeader>
 ) : RecyclerView.Adapter<MailMessageViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,6 +27,12 @@ class MailMessageViewAdapter(
         val message: MailMessageHeader = mailMessages[position]
         val subjectView = holder.subjectView
         subjectView.text = message.subject
+        holder.preview.text = message.preview
+        holder.deleteButton.setOnClickListener {
+            mailMessages.remove(message)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, itemCount)
+        }
     }
 
     override fun getItemCount(): Int = mailMessages.size
@@ -33,7 +40,8 @@ class MailMessageViewAdapter(
     inner class ViewHolder(binding: FragmentMailBoxItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val subjectView: TextView = binding.mailSubject
-        val deleteButton: TextView = binding.mailDeleteButton
+        val deleteButton = binding.mailDeleteButton
+        val preview = binding.mailTextPreview
     }
 
 }

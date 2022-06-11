@@ -63,7 +63,7 @@
         <entry key="app/src/main/res/layout/fragment_login_select_account.xml" value="0.1956521739130435" />
         <entry key="app/src/main/res/layout/fragment_login_set_pin.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_mail_box.xml" value="0.11351079859367152" />
-        <entry key="app/src/main/res/layout/fragment_mail_box_item.xml" value="0.14414866901054746" />
+        <entry key="app/src/main/res/layout/fragment_mail_box_item.xml" value="0.4466666666666667" />
         <entry key="app/src/main/res/layout/fragment_mail_box_list.xml" value="0.19746376811594202" />
         <entry key="app/src/main/res/layout/fragment_signature.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_signature_file_item.xml" value="0.17300724637681159" />
