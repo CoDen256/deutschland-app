@@ -58,4 +58,7 @@
     <string name="welcome_dashboard">Welcome %s!</string>
     <string name="address_dashboard">%s, %s</string>
     <string name="account_id_dashboard">ID: %s</string>
+    <string name="dashboard_appointments_title">Appointments</string>
+    <string name="dashboard_applications_title">Applications</string>
+    <string name="dashboard_emergencies_title">Emergencies</string>
 </resources>

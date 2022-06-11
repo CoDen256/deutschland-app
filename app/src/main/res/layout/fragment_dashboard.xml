@@ -60,9 +60,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header">
 
-
         <TableLayout
-            android:id="@+id/view"
+            android:id="@+id/sections"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
@@ -74,92 +73,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <include
+                android:id="@+id/appointments"
+                layout="@layout/fragment_dashboard_section"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/appointments"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Appointments" />
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:padding="5dp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/appointments">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="5dp"
-                        app:cardElevation="4dp"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/appointments">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="20.05.2022"
-                            android:textAppearance="?attr/textAppearanceCaption"
-                            />
-                    </com.google.android.material.card.MaterialCardView>
-
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_weight="1" />
 
             <com.google.android.material.divider.MaterialDivider app:dividerColor="@color/purple_500" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <include
+                android:id="@+id/applications"
+                layout="@layout/fragment_dashboard_section"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/applications"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Applications" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_weight="1" />
 
             <com.google.android.material.divider.MaterialDivider app:dividerColor="@color/purple_500" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <include
+                android:id="@+id/emergencies"
+                layout="@layout/fragment_dashboard_section"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_weight="1" />
 
-                <TextView
-                    android:id="@+id/emergencies"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Emergencies" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </TableLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
