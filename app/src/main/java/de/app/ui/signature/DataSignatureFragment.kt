@@ -20,7 +20,7 @@ class DataSignatureFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_data_safe, container, false)
+        return inflater.inflate(R.layout.fragment_signature, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

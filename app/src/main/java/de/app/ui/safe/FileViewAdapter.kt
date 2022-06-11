@@ -31,8 +31,7 @@ class FileViewAdapter(
         holder.fileView.setOnClickListener {
             context.openFile(Uri.parse(fileHeader.fileUri), fileHeader.mimeType)
         }
-//        val subjectView = holder.subjectView
-//        subjectView.text = message.subject
+        holder.fileName.text = fileHeader.name
     }
 
     override fun getItemCount(): Int = fileHeaders.size
@@ -40,6 +39,7 @@ class FileViewAdapter(
     inner class ViewHolder(binding: FragmentDataSafeFileItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val fileView: ImageView = binding.file
+        val fileName = binding.fileName
     }
 
 }
