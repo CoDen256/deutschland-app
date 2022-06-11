@@ -2,6 +2,7 @@ package de.app.ui.util
 
 import android.app.Activity
 import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -91,7 +92,7 @@ fun Uri.getFile(contentResolver: ContentResolver): ByteArray? {
     return null
 }
 
-fun Activity.openFile(uri: Uri, type: String){
+fun Context.openFile(uri: Uri, type: String){
     val intent = Intent(Intent.ACTION_VIEW)
     intent.setDataAndType(uri, type)
     intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY

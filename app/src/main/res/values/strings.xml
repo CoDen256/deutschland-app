@@ -63,4 +63,5 @@
     <string name="dashboard_emergencies_title">Emergencies</string>
     <string name="add_file">New File</string>
     <string name="add_folder">Folder</string>
+    <string name="data_safe">Data Safe</string>
 </resources>

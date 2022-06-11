@@ -6,27 +6,73 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import de.app.R
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import de.app.data.model.FileHeader
+import de.app.databinding.FragmentDataSafeBinding
+import java.util.*
+import kotlin.random.Random
 
 class DataSafeFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = DataSafeFragment()
-    }
 
     private lateinit var viewModel: DataSafeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_signature, container, false)
+    ): View {
+
+        val binding = FragmentDataSafeBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this).get(DataSafeViewModel::class.java)
+
+        val files = getFiles()
+        binding.rvDocuments.apply {
+            layoutManager = GridLayoutManager(context, 4)
+            adapter = FileViewAdapter(context, files)
+        }
+
+        runUpdatesWithIntervals(binding.rvDocuments, files)
+
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DataSafeViewModel::class.java)
-        // TODO: Use the ViewModel
+    private fun runUpdatesWithIntervals(view: RecyclerView, mailMessages: MutableList<FileHeader>) {
+        Timer().scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                updateFiles(view, mailMessages)
+            }
+        }, 0, 10000)
     }
+
+
+    private fun updateFiles(rv: RecyclerView, origin: MutableList<FileHeader>) {
+        val newMails = getFiles()
+        activity?.runOnUiThread {
+            rv.adapter?.apply {
+                val curSize = itemCount
+                origin.addAll(newMails)
+                notifyItemRangeChanged(curSize, newMails.size)
+            }
+        }
+    }
+
+    private fun getFiles(): MutableList<FileHeader> = ArrayList<FileHeader>().apply {
+        for (i in 0..Random.nextInt(1, 10)) {
+            addAll(listOf(
+                FileHeader(
+                    "AlphaDoc$i",
+                    "http://www.africau.edu/images/default/sample.pdf",
+                    "application/pdf"
+                ),
+                FileHeader(
+                    "BetaDoc$i",
+                    "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                    "application/pdf"
+                ),
+            ))
+        }
+    }
+
 
 }
