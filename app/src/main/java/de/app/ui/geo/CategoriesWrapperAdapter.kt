@@ -5,7 +5,6 @@ import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.BaseExpandableListAdapter
 import de.app.databinding.FragmentGeoCategoryGroupBinding
 import de.app.databinding.FragmentGeoCategoryGroupItemBinding
@@ -33,7 +32,6 @@ class CategoriesWrapperAdapter(private val context: Context,
         convertView: View?,
         parent: ViewGroup?
     ): View {
-        if (convertView != null) return convertView
         val wrapper = inflateGroup(parent)
         wrapper.wrapperTitle.apply {
             setTypeface(null, Typeface.BOLD)
@@ -67,7 +65,6 @@ class CategoriesWrapperAdapter(private val context: Context,
         convertView: View?,
         parent: ViewGroup?
     ): View {
-        if (convertView != null) return convertView
         val mapObject = getChild(groupPosition, childPosition)
         val categoryView = inflateChild(parent)
         categoryView.`object`.text = mapObject as String

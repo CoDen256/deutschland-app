@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import de.app.databinding.FragmentGeoDataTabSearchBinding
 
 class GeoDataSearchFragment(
@@ -21,10 +22,17 @@ class GeoDataSearchFragment(
 
         val catAdapter= CategoriesWrapperAdapter(requireContext(), categories)
 
+        fragmentCollection.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageScrollStateChanged(state: Int) {
+                catAdapter.notifyDataSetInvalidated()
+            }
+        })
+
         categoriesView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
             fragmentCollection.moveToMap(MapObjectInfo(categories[groupPosition].second[childPosition]))
             true
         }
+
 
         categoriesView.setAdapter(catAdapter)
     }.root
@@ -33,19 +41,19 @@ class GeoDataSearchFragment(
         val listDetail = HashMap<String, List<String>>()
 
         val category0 = listOf(
-            "One", "Two", "Three", "Four"
+            "Energie", "Schutzgebiete", "Wasser", "Boden"
         )
 
         val category1 = listOf(
-            "One", "Two", "Three", "Four"
+            "Acker und Wald-Boden", "Landwirtschaft", "Forstwirtschaft"
         )
 
         val category2 = listOf(
-            "One", "Two", "Three", "Four"
+            "Strasse", "Schiene", "Flug", "Schiff"
         )
-        listDetail.put("One", category0)
-        listDetail.put("Two", category1)
-        listDetail.put("Three", category2)
+        listDetail.put("Umwelt und Energie", category0)
+        listDetail.put("Land und Forstwirtschaft", category1)
+        listDetail.put("Verkehr und Technologie", category2)
         return listDetail.entries.map { it.toPair() }
     }
 }

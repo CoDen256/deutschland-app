@@ -27,4 +27,8 @@ class GeoDataFragmentCollection(val fragment: Fragment, val geoDataPager: ViewPa
         geoDataPager.setCurrentItem(1, true)
         this.data.value = data
     }
+
+    fun registerOnPageChangeCallback(onPageChangeCallback: ViewPager2.OnPageChangeCallback) {
+        geoDataPager.registerOnPageChangeCallback(onPageChangeCallback)
+    }
 }
