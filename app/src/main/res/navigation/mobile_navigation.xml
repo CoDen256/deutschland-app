@@ -39,13 +39,13 @@
         android:id="@+id/nav_data_safe"
         android:name="de.app.ui.safe.DataSafeFragment"
         android:label="@string/menu_data_safe"
-        tools:layout="@layout/fragment_data_safe" />
+        tools:layout="@layout/fragment_signature" />
 
     <fragment
         android:id="@+id/nav_signature"
         android:name="de.app.ui.signature.DataSignatureFragment"
         android:label="@string/menu_signature"
-        tools:layout="@layout/fragment_signature" />
+        tools:layout="@layout/fragment_data_safe" />
 
     <fragment
         android:id="@+id/nav_geodata"

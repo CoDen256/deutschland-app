@@ -61,6 +61,6 @@
     <string name="dashboard_appointments_title">Appointments</string>
     <string name="dashboard_applications_title">Applications</string>
     <string name="dashboard_emergencies_title">Emergencies</string>
-    <string name="add_file">File</string>
+    <string name="add_file">New File</string>
     <string name="add_folder">Folder</string>
 </resources>
