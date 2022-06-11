@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mapbox.mapboxsdk.Mapbox
 import de.app.databinding.FragmentGeoDataBinding
@@ -21,11 +20,12 @@ class GeoDataFragment : Fragment() {
 
         val geoDataPager = binding.geoDataPager
 
+
         geoDataPager.isUserInputEnabled = false
-        geoDataPager.adapter = FragmentAdapter(this)
+        geoDataPager.adapter = GeoDataFragmentCollection(this, geoDataPager)
         TabLayoutMediator(binding.tabLayout, geoDataPager) {
             tab, pos -> tab.text = when (pos) {
-                1 -> "Search"
+                0 -> "Search"
                 else -> "Map"
             }
         }.attach()

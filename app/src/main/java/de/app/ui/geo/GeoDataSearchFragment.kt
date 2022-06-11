@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import de.app.databinding.FragmentGeoDataTabSearchBinding
 
-class GeoDataSearchFragment:Fragment() {
+class GeoDataSearchFragment(
+    private val fragmentCollection: GeoDataFragmentCollection,
+) :Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -17,13 +19,14 @@ class GeoDataSearchFragment:Fragment() {
 
         val categories = setupCategories()
 
-        val catAdapter= CategoriesWrapperAdapter(requireContext(),
-            "Categories",
-            categories)
+        val catAdapter= CategoriesWrapperAdapter(requireContext(), categories)
+
+        categoriesView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
+            fragmentCollection.moveToMap(MapObjectInfo(categories[groupPosition].second[childPosition]))
+            true
+        }
 
         categoriesView.setAdapter(catAdapter)
-
-
     }.root
 
     private fun setupCategories(): List<Pair<String, List<String>>> {

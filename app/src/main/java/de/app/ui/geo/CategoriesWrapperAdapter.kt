@@ -12,16 +12,15 @@ import de.app.databinding.FragmentGeoCategoryGroupItemBinding
 
 
 class CategoriesWrapperAdapter(private val context: Context,
-                               private val title: String,
                                private val categories: List<Pair<String, List<String>>>
                         ): BaseExpandableListAdapter() {
 
     override fun getGroupCount(): Int {
-        return 1
+        return categories.size
     }
 
     override fun getGroup(groupPosition: Int): Any {
-        return title
+        return categories[groupPosition].first
     }
 
     override fun getGroupId(groupPosition: Int): Long {
@@ -34,11 +33,11 @@ class CategoriesWrapperAdapter(private val context: Context,
         convertView: View?,
         parent: ViewGroup?
     ): View {
+        if (convertView != null) return convertView
         val wrapper = inflateGroup(parent)
-
         wrapper.wrapperTitle.apply {
             setTypeface(null, Typeface.BOLD)
-            text = title
+            text = getGroup(groupPosition) as String
         }
         return wrapper.root
     }
@@ -50,11 +49,11 @@ class CategoriesWrapperAdapter(private val context: Context,
     }
 
     override fun getChildrenCount(groupPosition: Int): Int {
-        return categories.size
+        return categories[groupPosition].second.size
     }
 
     override fun getChild(groupPosition: Int, childPosition: Int): Any {
-        return categories[groupPosition].first
+        return categories[groupPosition].second[childPosition]
     }
 
     override fun getChildId(groupPosition: Int, childPosition: Int): Long {
@@ -68,15 +67,10 @@ class CategoriesWrapperAdapter(private val context: Context,
         convertView: View?,
         parent: ViewGroup?
     ): View {
-        val category = categories[childPosition]
-        val (title, objects) = category
+        if (convertView != null) return convertView
+        val mapObject = getChild(groupPosition, childPosition)
         val categoryView = inflateChild(parent)
-
-        val objectsSpinner = categoryView.objects
-
-        objectsSpinner.adapter =
-            ArrayAdapter(context, android.R.layout.simple_spinner_item, objects)
-//        objectsSpinner.setSelection()
+        categoryView.`object`.text = mapObject as String
         return categoryView.root
     }
 

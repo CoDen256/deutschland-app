@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapView
 import de.app.databinding.FragmentGeoDataTabMapBinding
 
-class GeoDataMapFragment : Fragment() {
+class GeoDataMapFragment(private val data: LiveData<MapObjectInfo>) : Fragment() {
 
     private var style = "basic"
     private val apiKey: String
@@ -27,6 +28,10 @@ class GeoDataMapFragment : Fragment() {
     ): View = FragmentGeoDataTabMapBinding.inflate(inflater, container, false).apply {
 
         setupMap(mapView, savedInstanceState)
+
+        data.observe(viewLifecycleOwner) {
+            this.currentObject.text = it.name
+        }
 
     }.root
 
