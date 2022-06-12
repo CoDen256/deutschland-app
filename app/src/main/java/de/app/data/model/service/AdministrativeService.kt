@@ -1,5 +1,6 @@
 package de.app.data.model.service
 
+import de.app.data.model.Address
 import java.util.*
 
 data class AdministrativeService(

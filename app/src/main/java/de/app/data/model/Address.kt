@@ -1,4 +1,4 @@
-package de.app.data.model.service
+package de.app.data.model
 
 data class Address(
     val city: String,

@@ -15,14 +15,17 @@ import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.MaterialDatePicker
 import de.app.data.Result
+import de.app.data.model.mail.MailMessageHeader
 import java.io.FileDescriptor
 import java.net.HttpURLConnection
 import java.net.URL
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 fun String.editable(): Editable{
@@ -97,4 +100,12 @@ fun Context.openFile(uri: Uri, type: String){
     intent.setDataAndType(uri, type)
     intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
     startActivity(intent)
+}
+
+fun runWithInterval(runnable: () -> Unit, period: Long = 10000) {
+    Timer().scheduleAtFixedRate(object : TimerTask() {
+        override fun run() {
+            runnable()
+        }
+    }, 0, period)
 }

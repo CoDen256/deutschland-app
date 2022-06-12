@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.app.data.model.FileHeader
 import de.app.databinding.FragmentDataSafeBinding
+import de.app.ui.util.runWithInterval
 import java.util.*
 import kotlin.random.Random
 
@@ -32,19 +33,10 @@ class DataSafeFragment : Fragment() {
             adapter = FileViewAdapter(context, files)
         }
 
-        runUpdatesWithIntervals(binding.rvDocuments, files)
+        runWithInterval({updateFiles(binding.rvDocuments, files)})
 
         return binding.root
     }
-
-    private fun runUpdatesWithIntervals(view: RecyclerView, mailMessages: MutableList<FileHeader>) {
-        Timer().scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                updateFiles(view, mailMessages)
-            }
-        }, 0, 10000)
-    }
-
 
     private fun updateFiles(rv: RecyclerView, origin: MutableList<FileHeader>) {
         val newMails = getFiles()

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import de.app.R
 import de.app.data.model.mail.MailMessageHeader
+import de.app.ui.util.runWithInterval
 import java.time.Instant
 import java.util.*
 import kotlin.random.Random
@@ -31,19 +32,10 @@ class MailBoxFragment : Fragment() {
             adapter = MailMessageViewAdapter(mailMessages)
         }
 
-        runUpdatesWithIntervals(view, mailMessages)
+        runWithInterval({updateMails(view, mailMessages)})
 
         return view
     }
-
-    private fun runUpdatesWithIntervals(view: RecyclerView, mailMessages: MutableList<MailMessageHeader>) {
-        Timer().scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                updateMails(view, mailMessages)
-            }
-        }, 0, 10000)
-    }
-
 
     private fun updateMails(rv: RecyclerView, origin: MutableList<MailMessageHeader>) {
         val newMails = getMails()
