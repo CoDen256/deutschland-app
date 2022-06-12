@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import de.app.data.model.law.LawChangeHeader
-import de.app.data.model.mail.MailMessageHeader
 import de.app.databinding.FragmentLawRegistryBinding
 import de.app.ui.util.runWithInterval
 import java.time.LocalDate
@@ -18,7 +16,7 @@ import kotlin.random.Random
 
 class LawRegistryFragment : Fragment() {
 
-    private lateinit var adapter: LawChangeInfoViewAdapter
+    private lateinit var listManager: LinearLayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +27,9 @@ class LawRegistryFragment : Fragment() {
 
         val changes = getLawChanges()
         binding.lawChangeList.adapter = LawChangeInfoViewAdapter(changes);
-        binding.lawChangeList.layoutManager = LinearLayoutManager(context)
+         listManager = LinearLayoutManager(context)
+        binding.lawChangeList.layoutManager = listManager
+
 
         runWithInterval({updateLaws(binding.lawChangeList, changes)})
 
@@ -43,6 +43,10 @@ class LawRegistryFragment : Fragment() {
                 origin.addAll(0, newChanges)
                 notifyItemRangeInserted(0, newChanges.size)
             }
+            if (listManager.findFirstVisibleItemPosition() <= 2){
+                rv.post { rv.smoothScrollToPosition(0) }
+            }
+
         }
     }
 
