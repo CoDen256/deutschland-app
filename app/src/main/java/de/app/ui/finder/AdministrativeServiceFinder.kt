@@ -1,8 +1,6 @@
 package de.app.ui.finder
 
-import android.app.SearchManager
 import android.app.SearchManager.SUGGEST_COLUMN_TEXT_1
-import android.content.Intent
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.os.Bundle
@@ -36,57 +34,53 @@ class AdministrativeServiceFinder : Fragment(), SearchView.OnQueryTextListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = FragmentAdministrativeServiceFinderBinding.inflate(
-        inflater, container, false
-    ).apply {
+    ): View {
+        val binding = FragmentAdministrativeServiceFinderBinding.inflate(inflater, container, false)
 
+        searchCityView = binding.searchCity
+        searchServiceView = binding.searchService
 
-        serviceList.adapter = adapter
-        serviceList.layoutManager = LinearLayoutManager(context)
+        binding.serviceList.adapter = adapter
+        binding.serviceList.layoutManager = LinearLayoutManager(context)
 
-        searchService.setOnQueryTextListener(this@AdministrativeServiceFinder)
+        searchServiceView.setOnQueryTextListener(this@AdministrativeServiceFinder)
 
-        viewModel.readData.observe(viewLifecycleOwner) {
-            services.clear()
-            services.addAll(it)
-            adapter.notifyDataSetChanged()
-        }
+        searchCityView.setQuery(viewModel.address, true)
+        searchDatabase("", viewModel.address)
 
-        searchCity.suggestionsAdapter = SimpleCursorAdapter(
+        searchCityView.suggestionsAdapter = SimpleCursorAdapter(
             context, android.R.layout.simple_list_item_1, null,
             arrayOf(SUGGEST_COLUMN_TEXT_1), intArrayOf(android.R.id.text1),
             FLAG_AUTO_REQUERY
         )
-        searchCityView = searchCity
-        searchServiceView = searchService
 
-        searchCity.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        searchCityView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                searchDatabase(searchServiceView.query.toString(), query.orEmpty())
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null){
-                    if (newText.length >= 0) {
+                if (newText != null) {
+                    if (newText.length >= 2) {
                         Executors.newSingleThreadExecutor().execute { searchCity(newText) }
                     } else {
-                        searchCity.suggestionsAdapter.changeCursor(null)
+                        searchCityView.suggestionsAdapter.changeCursor(null)
                     }
                 }
+                searchDatabase(searchServiceView.query.toString(), newText.orEmpty())
                 return true
             }
         })
 
-        searchCity.setOnSuggestionListener(object: SearchView.OnSuggestionListener{
+        searchCityView.setOnSuggestionListener(object : SearchView.OnSuggestionListener {
             override fun onSuggestionSelect(position: Int): Boolean {
-                val cursor: Cursor = searchCity.suggestionsAdapter.getItem(position) as Cursor
+                val cursor: Cursor = searchCityView.suggestionsAdapter.getItem(position) as Cursor
                 val columnIndex = cursor.getColumnIndex(SUGGEST_COLUMN_TEXT_1)
-                if (columnIndex >= 0){
+                if (columnIndex >= 0) {
                     val term: String = cursor.getString(columnIndex)
                     cursor.close()
 
-                    searchCity.setQuery(term, true)
+                    searchCityView.setQuery(term, true)
                 }
                 return true
             }
@@ -97,10 +91,10 @@ class AdministrativeServiceFinder : Fragment(), SearchView.OnQueryTextListener {
 
         })
 
+        return binding.root
+    }
 
-    }.root
-
-    private fun FragmentAdministrativeServiceFinderBinding.searchCity(text: String) {
+    private fun searchCity(text: String) {
         val cursor = MatrixCursor(
             arrayOf(
                 BaseColumns._ID,
@@ -109,8 +103,9 @@ class AdministrativeServiceFinder : Fragment(), SearchView.OnQueryTextListener {
         )
 
         // get your search terms from the server here, ex:
+        val map = mapOf("Merseburg" to 0, "Leipzig" to 1, "Berlin" to 2, "Halle" to 3)
         val terms: JSONArray = JSONArray()
-        for (i in arrayListOf("Merseburg", "Leipzig", "Berlin", "Halle")) {
+        for (i in ArrayList(map.keys)) {
             if (i.lowercase().contains(text.lowercase())) {
                 terms.put(i)
             }
@@ -118,15 +113,15 @@ class AdministrativeServiceFinder : Fragment(), SearchView.OnQueryTextListener {
 
         // parse your search terms into the MatrixCursor
         for (index in 0 until terms.length()) {
-                val term = terms.getString(index)
-                val row = arrayOf<Any>(index, term)
+            val term = terms.getString(index)
+            val row = arrayOf<Any>(map[term]!!, term)
 
-                cursor.addRow(row)
+            cursor.addRow(row)
 
         }
 
         requireActivity().runOnUiThread {
-            searchCity.suggestionsAdapter.changeCursor(cursor)
+            searchCityView.suggestionsAdapter.changeCursor(cursor)
         }
     }
 
@@ -141,7 +136,7 @@ class AdministrativeServiceFinder : Fragment(), SearchView.OnQueryTextListener {
     }
 
     private fun searchDatabase(query: String, address: String) {
-        viewModel.search(query, address).observe(this) { list ->
+        viewModel.search(query, address).observe(viewLifecycleOwner) { list ->
             list.let {
                 services.clear()
                 services.addAll(it)

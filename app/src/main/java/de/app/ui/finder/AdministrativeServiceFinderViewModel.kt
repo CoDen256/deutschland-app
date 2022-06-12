@@ -7,6 +7,7 @@ import de.app.api.dummy.BaseAdministrativeServiceRegistry
 import de.app.data.model.service.AdministrativeService
 
 class AdministrativeServiceFinderViewModel :ViewModel(){
+    val address: String = "Merseburg" // from service account
     private val registry = BaseAdministrativeServiceRegistry()
 
     val readData: LiveData<List<AdministrativeService>> =
@@ -14,10 +15,10 @@ class AdministrativeServiceFinderViewModel :ViewModel(){
 
     fun search(searchQuery: String, address: String): LiveData<List<AdministrativeService>> {
         return MutableLiveData(registry.getAllServices().filter {
-            it.name.contains(searchQuery) || it.description.contains(searchQuery)
+            it.name.lowercase().contains(searchQuery.lowercase()) ||
+                    it.description.lowercase().contains(searchQuery.lowercase())
         }.filter {
-            address.isEmpty() ||
-                    (address.contains(it.address.city) || address.contains(it.address.postalCode))
+                    (it.address.city.lowercase().contains(address.lowercase()))
         })
     }
 
