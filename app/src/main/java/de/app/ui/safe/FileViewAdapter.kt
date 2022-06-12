@@ -29,7 +29,7 @@ class FileViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val fileHeader: FileHeader = fileHeaders[position]
         holder.fileView.setOnClickListener {
-            context.openFile(Uri.parse(fileHeader.fileUri), fileHeader.mimeType)
+            context.openFile(fileHeader.fileUri, fileHeader.mimeType)
         }
         holder.fileName.text = fileHeader.name
     }

@@ -31,7 +31,7 @@ class DocumentInfoFieldView (private val binding: ApplicationFormDocumentInfoBin
                 val documentBinding = documentBinding()
                 documentBinding.label.text = file.name
                 documentBinding.document.setOnClickListener {
-                    val uri: Uri = Uri.parse(file.fileUri)
+                    val uri: Uri = file.fileUri
                     fragment.requireActivity().openFile(uri, file.mimeType)
                 }
             }

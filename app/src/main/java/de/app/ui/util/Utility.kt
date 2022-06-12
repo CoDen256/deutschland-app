@@ -1,25 +1,21 @@
 package de.app.ui.util
 
-import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.ParcelFileDescriptor
+import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.MaterialDatePicker
 import de.app.data.Result
-import de.app.data.model.mail.MailMessageHeader
-import java.io.FileDescriptor
 import java.net.HttpURLConnection
 import java.net.URL
 import java.time.Instant
@@ -122,5 +118,6 @@ fun createFilePickerIntent(input: String?): Intent {
     val chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT)
     chooseFile.addCategory(Intent.CATEGORY_OPENABLE)
     chooseFile.type = input!!
+    chooseFile.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
     return Intent.createChooser(chooseFile, "Choose a file")
 }

@@ -68,4 +68,6 @@
     <string name="law_registry">Law Registry</string>
     <string name="sign_uploaded_locally">Sign and save locally</string>
     <string name="sign_uploaded_data_safe">Sign and save in the Data Safe</string>
+    <string name="upload_from_data_safe">Upload from Data Safe</string>
+    <string name="upload_from_storage">Upload from local storage</string>
 </resources>

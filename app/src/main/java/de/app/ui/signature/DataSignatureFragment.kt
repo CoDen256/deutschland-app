@@ -14,9 +14,7 @@ import de.app.data.model.FileHeader
 import de.app.databinding.FragmentSignatureBinding
 import de.app.ui.safe.FileViewAdapter
 import de.app.ui.service.IntentLauncher
-import de.app.ui.util.createFilePickerIntent
-import de.app.ui.util.getFileName
-import de.app.ui.util.parseFilePickerResult
+import de.app.ui.util.*
 import java.util.ArrayList
 import kotlin.random.Random
 
@@ -36,7 +34,9 @@ class DataSignatureFragment : Fragment() {
             parseResult = { _, intent -> parseFilePickerResult(intent) },
             handleResult = {
                 if (it is Result.Success) {
-                    val file = FileHeader(it.data.getFileName(requireActivity().contentResolver)!!, it.data.toString(),
+                    val contentResolver = requireActivity().contentResolver
+//                    val realPathFromURI = FileUtils.getPath(requireContext(), it.data)
+                    val file = FileHeader(it.data.getFileName(contentResolver)!!, it.data,
                     "application/pdf")
                     binding.files.adapter?.apply {
                         val curSize = itemCount
@@ -48,7 +48,7 @@ class DataSignatureFragment : Fragment() {
         )
 
         lifecycle.addObserver(launcher.getObserver())
-        binding.uploadFile.setOnClickListener {
+        binding.uploadFileLocal.setOnClickListener {
             launcher.launch("application/pdf")
         }
 
