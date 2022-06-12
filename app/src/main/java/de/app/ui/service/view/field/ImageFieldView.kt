@@ -25,7 +25,7 @@ class ImageFieldView (  private val binding: ApplicationFormImageBinding
 
             Executors.newSingleThreadExecutor().execute {
                 val result = loadImageFromUrl(field.imageUri)
-                fragment.requireActivity().runOnUiThread {
+                fragment.activity?.runOnUiThread {
                     when(result){
                         is Result.Success ->
                             binding.image.setImageBitmap(result.data)

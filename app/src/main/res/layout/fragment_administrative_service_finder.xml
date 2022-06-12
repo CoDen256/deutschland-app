@@ -8,11 +8,18 @@
 
     <SearchView
         android:queryHint="Administrative Service"
+        android:autofillHints="postalAddress"
         android:id="@+id/search_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false" />
 
+    <SearchView
+        android:queryHint="Postal Code, City"
+        android:id="@+id/search_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/service_list"
@@ -23,11 +30,6 @@
 
 
     </androidx.recyclerview.widget.RecyclerView>
-<!--    <SearchView-->
-<!--        android:id="@+id/search_city"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:iconifiedByDefault="false" />-->
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -46,7 +46,7 @@
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_admin_service.xml" value="0.17889492753623187" />
         <entry key="app/src/main/res/layout/fragment_administrative_service.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_administrative_service_finder.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_administrative_service_finder.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_administrative_service_finder_search_item.xml" value="0.1924198250728863" />
         <entry key="app/src/main/res/layout/fragment_application.xml" value="0.18568840579710144" />
         <entry key="app/src/main/res/layout/fragment_appointment.xml" value="0.11594202898550725" />

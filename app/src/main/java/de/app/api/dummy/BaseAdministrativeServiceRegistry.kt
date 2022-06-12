@@ -47,7 +47,7 @@ class BaseAdministrativeServiceRegistry : AdministrativeServiceRegistry {
             "This administrative service allows you to send an application to sell a dog",
             service,
             ArrayList<Field>().apply {
-                for (i in 0..10) {
+                for (i in 0..1) {
                     addAll(
                         listOf(
 

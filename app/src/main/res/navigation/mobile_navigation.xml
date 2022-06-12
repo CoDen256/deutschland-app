@@ -17,6 +17,8 @@
         android:label="@string/menu_finder"
         tools:layout="@layout/fragment_administrative_service_finder" >
         <action
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
             android:id="@+id/action_nav_finder_to_nav_admin_service"
             app:destination="@id/nav_admin_service" />
     </fragment>

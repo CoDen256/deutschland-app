@@ -12,9 +12,12 @@ class AdministrativeServiceFinderViewModel :ViewModel(){
     val readData: LiveData<List<AdministrativeService>> =
         MutableLiveData(registry.getAllServices())
 
-    fun search(searchQuery: String): LiveData<List<AdministrativeService>> {
+    fun search(searchQuery: String, address: String): LiveData<List<AdministrativeService>> {
         return MutableLiveData(registry.getAllServices().filter {
             it.name.contains(searchQuery) || it.description.contains(searchQuery)
+        }.filter {
+            address.isEmpty() ||
+                    (address.contains(it.address.city) || address.contains(it.address.postalCode))
         })
     }
 
