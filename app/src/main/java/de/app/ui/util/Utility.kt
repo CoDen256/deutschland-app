@@ -109,3 +109,18 @@ fun runWithInterval(runnable: () -> Unit, period: Long = 10000) {
         }
     }, 0, period)
 }
+
+fun parseFilePickerResult(result: Intent?): Result<Uri> {
+    val intent = result
+        ?: return Result.Error(IllegalStateException("File picker did not return any data"))
+    val data = intent.data
+        ?: return Result.Error(IllegalStateException("File picker returned empty data"))
+    return Result.Success(data)
+}
+
+fun createFilePickerIntent(input: String?): Intent {
+    val chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT)
+    chooseFile.addCategory(Intent.CATEGORY_OPENABLE)
+    chooseFile.type = input!!
+    return Intent.createChooser(chooseFile, "Choose a file")
+}

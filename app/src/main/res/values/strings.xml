@@ -66,4 +66,6 @@
     <string name="data_safe">Data Safe</string>
     <string name="please_select_an_object">Please select an object</string>
     <string name="law_registry">Law Registry</string>
+    <string name="sign_uploaded_locally">Sign and save locally</string>
+    <string name="sign_uploaded_data_safe">Sign and save in the Data Safe</string>
 </resources>

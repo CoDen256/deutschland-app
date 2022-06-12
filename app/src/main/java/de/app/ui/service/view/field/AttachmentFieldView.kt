@@ -1,6 +1,5 @@
 package de.app.ui.service.view.field
 
-import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,7 +12,9 @@ import de.app.ui.service.IntentLauncher
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue
 import de.app.ui.util.afterTextChanged
+import de.app.ui.util.createFilePickerIntent
 import de.app.ui.util.getFileName
+import de.app.ui.util.parseFilePickerResult
 
 
 class AttachmentFieldView(
@@ -55,8 +56,8 @@ class AttachmentFieldView(
             val launcher = IntentLauncher<String, Result<Uri>>(
                 fragment.requireActivity().activityResultRegistry,
                 key = field.id,
-                createIntent = { _, input -> createIntent(input) },
-                parseResult = { _, intent -> parseResult(intent) },
+                createIntent = { _, input -> createFilePickerIntent(input) },
+                parseResult = { _, intent -> parseFilePickerResult(intent) },
                 handleResult = {
                     if (it is Result.Success) {
                         binding.filePath.text = it.data.getFileName(fragment.requireActivity().contentResolver)
@@ -75,20 +76,7 @@ class AttachmentFieldView(
             id = field.id
         }
 
-        private fun parseResult(result: Intent?): Result<Uri> {
-            val intent = result
-                ?: return Result.Error(IllegalStateException("File picker did not return any data"))
-            val data = intent.data
-                ?: return Result.Error(IllegalStateException("File picker returned empty data"))
-            return Result.Success(data)
-        }
 
-        private fun createIntent(input: String?): Intent {
-            val chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            chooseFile.addCategory(Intent.CATEGORY_OPENABLE)
-            chooseFile.type = input!!
-            return Intent.createChooser(chooseFile, "Choose a file")
-        }
 
         fun build() = AttachmentFieldView(binding, id, uriHolder)
     }
