@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.core.AccountDataSource
 import de.app.core.SessionManager
@@ -14,9 +15,11 @@ import de.app.databinding.FragmentDashboardAppointmentItemBinding
 import de.app.databinding.FragmentDashboardBinding
 import de.app.databinding.FragmentDashboardSectionBinding
 import de.app.notifications.Notificator
-
+import javax.inject.Inject
+@AndroidEntryPoint
 class DashboardFragment : Fragment() {
-
+    @Inject
+    lateinit var dataSource: AccountDataSource
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -28,7 +31,7 @@ class DashboardFragment : Fragment() {
         val binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val account = AccountDataSource().getAccounts()[0]
+        val account = dataSource.getAccounts()[0]
 
         genFakeNotifications()
 

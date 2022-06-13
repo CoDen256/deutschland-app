@@ -3,6 +3,7 @@ package de.app.core
 import de.app.data.Result
 import de.app.data.model.account.Account
 import de.app.data.model.account.AccountHeader
+import de.app.data.storage.AccountDao
 import java.io.IOException
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
@@ -13,7 +14,7 @@ import kotlin.collections.HashMap
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
 @Singleton
-class AccountDataSource @Inject constructor() {
+class AccountDataSource @Inject constructor () {
 
     companion object {
         private val accounts: Map<Account, String> = mapOf(

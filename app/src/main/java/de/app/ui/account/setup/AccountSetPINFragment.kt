@@ -10,17 +10,21 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.core.AccountDataSource
 import de.app.core.SessionManager
 import de.app.databinding.FragmentLoginSetPinBinding
 import de.app.ui.account.login.data.LoggedInUserView
 import de.app.ui.util.afterTextChanged
-
+import javax.inject.Inject
+@AndroidEntryPoint
 class AccountSetPINFragment : Fragment() {
 
     private lateinit var viewModel: AccountSetPINViewModel
     private lateinit var binding: FragmentLoginSetPinBinding
+    @Inject
+    lateinit var dataSource: AccountDataSource
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +37,6 @@ class AccountSetPINFragment : Fragment() {
         val loading = binding.loading
         val loginAsUsername = binding.setPinMessage
 
-        val dataSource = AccountDataSource()
         val accountId = arguments?.getString("accountId")!!
         val selectedAccount = dataSource.getAccounts().find { it.accountId == accountId}!!
         viewModel = AccountSetPINViewModel(SessionManager(dataSource))

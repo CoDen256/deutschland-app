@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.core.AccountDataSource
 import de.app.core.SessionManager
@@ -17,12 +18,13 @@ import de.app.databinding.FragmentLoginEnterPinBinding
 import de.app.ui.MainActivity
 import de.app.ui.account.login.data.LoggedInUserView
 import de.app.ui.util.afterTextChanged
-
+import javax.inject.Inject
+@AndroidEntryPoint
 class AccountEnterPINFragment : Fragment() {
 
     private lateinit var viewModel: AccountEnterPINViewModel
     private lateinit var binding: FragmentLoginEnterPinBinding
-
+    @Inject lateinit var dataSource: AccountDataSource
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,7 +36,7 @@ class AccountEnterPINFragment : Fragment() {
         val loading = binding.loading
         val loginAsUsername = binding.loginUsername
 
-        val dataSource = AccountDataSource()
+
         val accountId = arguments?.getString("accountId")!!
         val selectedAccount = dataSource.getAccounts().find { it.accountId == accountId}!!
         viewModel = AccountEnterPINViewModel(SessionManager(dataSource))
