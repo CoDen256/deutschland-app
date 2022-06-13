@@ -4,8 +4,11 @@ import de.app.api.CitizenServiceAccountRepository
 import de.app.api.CompanyServiceAccountRepository
 import de.app.data.Result
 import de.app.data.model.account.Account
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class BaseServiceAccountRepository: CitizenServiceAccountRepository, CompanyServiceAccountRepository {
+@Singleton
+class BaseServiceAccountRepository @Inject constructor(): CitizenServiceAccountRepository, CompanyServiceAccountRepository {
     override fun getCitizenAccount(accountId: String): Result<Account> {
         return Result.Success(
             Account(

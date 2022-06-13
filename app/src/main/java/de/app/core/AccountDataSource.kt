@@ -5,12 +5,15 @@ import de.app.data.model.account.Account
 import de.app.data.model.account.AccountHeader
 import java.io.IOException
 import java.lang.IllegalArgumentException
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.collections.HashMap
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
-class AccountDataSource {
+@Singleton
+class AccountDataSource @Inject constructor() {
 
     companion object {
         private val accounts: Map<Account, String> = mapOf(

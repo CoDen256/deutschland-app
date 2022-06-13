@@ -10,8 +10,9 @@ import de.app.data.Result
 import de.app.ui.account.login.data.LoggedInUserView
 import de.app.ui.account.login.data.LoginResult
 import de.app.ui.account.register.data.RegisterFormState
+import javax.inject.Inject
 
-class AccountRegisterViewModel(
+class AccountRegisterViewModel @Inject constructor(
     private val sessionManager: SessionManager,
     private val citizenRepo: CitizenServiceAccountRepository,
     private val companyRepo: CompanyServiceAccountRepository,

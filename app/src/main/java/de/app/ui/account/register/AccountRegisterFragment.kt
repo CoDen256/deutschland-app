@@ -1,36 +1,31 @@
 package de.app.ui.account.register
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
-import de.app.api.dummy.BaseServiceAccountRepository
-import de.app.core.AccountDataSource
-import de.app.core.SessionManager
 import de.app.databinding.FragmentLoginRegisterAccountBinding
 import de.app.ui.account.login.data.LoggedInUserView
 import de.app.ui.util.afterTextChanged
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AccountRegisterFragment : Fragment() {
-
-
-    private lateinit var viewModel: AccountRegisterViewModel
+    @Inject lateinit var viewModel: AccountRegisterViewModel
     private lateinit var binding: FragmentLoginRegisterAccountBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val repo = BaseServiceAccountRepository()
-        viewModel = AccountRegisterViewModel(SessionManager(AccountDataSource()),repo,repo)
-
         binding = FragmentLoginRegisterAccountBinding.inflate(inflater, container, false)
 
         viewModel.formState.observe(viewLifecycleOwner, Observer {
