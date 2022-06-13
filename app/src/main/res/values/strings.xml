@@ -15,7 +15,6 @@
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">PIN must be 4 characters long</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_geo_data">GeoDataActivity</string>
@@ -40,7 +39,6 @@
     <string name="administrative_service">Administrative Service</string>
     <string name="label_placeholder">Label</string>
     <string name="submit">Submit</string>
-    <string name="prompt_citizen_id">Citizen ID</string>
     <string name="register">Next</string>
     <string name="add_account">Add Account</string>
     <string name="successful">Successful!</string>
@@ -68,4 +66,7 @@
     <string name="deutschland_app">Deutschland-App</string>
     <string name="citizen_type_register">Citizen</string>
     <string name="company_type_register">Company</string>
+    <string name="invalid_account_id">Account ID must contain at least 5 characters</string>
+    <string name="enter_citizen_type">Citizen ID</string>
+    <string name="enter_company_type">Company ID</string>
 </resources>

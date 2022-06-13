@@ -6,7 +6,12 @@ package de.app.data
  */
 sealed class Result<out T : Any> {
 
-    data class Success<out T : Any>(val data: T) : Result<T>()
+    data class Success<out T : Any>(val data: T) : Result<T>() {
+        fun <R : Any> map(mapper: (T) -> R): Result<R> {
+            return Success(mapper(data))
+        }
+    }
+
     data class Error(val exception: Exception) : Result<Nothing>()
 
     override fun toString(): String {
@@ -15,4 +20,5 @@ sealed class Result<out T : Any> {
             is Error -> "Error[exception=$exception]"
         }
     }
+
 }

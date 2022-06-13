@@ -9,7 +9,6 @@ data class Account(
     val accountId: String,
     val name: String,
     val surname: String,
-    val formOfAddress: String,
     val type: Type,
     // address?
 ): Serializable {

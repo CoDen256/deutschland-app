@@ -5,7 +5,6 @@ import de.app.data.model.account.Account
 import de.app.data.model.account.AccountHeader
 import java.io.IOException
 import java.lang.IllegalArgumentException
-import java.util.*
 import kotlin.collections.HashMap
 
 /**
@@ -16,13 +15,13 @@ class AccountDataSource {
     companion object {
         private val accounts: Map<Account, String> = mapOf(
             Account("janeDoe","Jane", "Doe",
-                "Herr", Account.Type.CITIZEN) to "0000",
+                 Account.Type.CITIZEN) to "0000",
             Account("James","Bond James", "James",
-                "Herr", Account.Type.CITIZEN) to "0000",
+                 Account.Type.CITIZEN) to "0000",
             Account("AAA","BBBB", "NoDoe",
-                "Herr", Account.Type.CITIZEN) to "0000",
+                 Account.Type.CITIZEN) to "0000",
             Account("CCCC","DDD", "EEE",
-                "Herr", Account.Type.CITIZEN) to "0000",
+                 Account.Type.CITIZEN) to "0000",
         )
         private val infoToAccount: Map<String, Pair<Account, String>> = run {
             val map = HashMap<String, Pair<Account, String>>()
@@ -32,7 +31,7 @@ class AccountDataSource {
             map
         }
 
-        private val ACCOUNT_INFO: List<AccountHeader> = accounts.keys.map { AccountHeader(it.name, it.surname, it.accountId) }
+        private val accountInfo: List<AccountHeader> = accounts.keys.map { AccountHeader(it.name, it.surname, it.accountId) }
 
     }
 
@@ -53,7 +52,7 @@ class AccountDataSource {
     }
 
     fun getAccounts(): List<AccountHeader> {
-        return ACCOUNT_INFO
+        return accountInfo
     }
 
     fun remove(account: Account){

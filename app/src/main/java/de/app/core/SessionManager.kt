@@ -2,6 +2,7 @@ package de.app.core
 
 import de.app.data.Result
 import de.app.data.model.account.Account
+import de.app.data.model.account.AccountHeader
 
 class SessionManager(val dataSource: AccountDataSource) {
     // in-memory cache of the loggedInUser object
