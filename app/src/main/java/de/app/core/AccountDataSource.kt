@@ -17,8 +17,12 @@ class AccountDataSource {
         private val accounts: Map<Account, String> = mapOf(
             Account("janeDoe","Jane", "Doe",
                 "Herr", Account.Type.CITIZEN) to "0000",
-            Account("noJaneDoe","NoJane", "NoDoe",
-                "Herr", Account.Type.CITIZEN) to "0000"
+            Account("James","Bond James", "James",
+                "Herr", Account.Type.CITIZEN) to "0000",
+            Account("AAA","BBBB", "NoDoe",
+                "Herr", Account.Type.CITIZEN) to "0000",
+            Account("CCCC","DDD", "EEE",
+                "Herr", Account.Type.CITIZEN) to "0000",
         )
         private val infoToAccount: Map<String, Pair<Account, String>> = run {
             val map = HashMap<String, Pair<Account, String>>()
