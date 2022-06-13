@@ -15,8 +15,8 @@ import de.app.api.CompanyServiceAccountRepository
 import de.app.api.dummy.BaseServiceAccountRepository
 import de.app.core.AccountDataSource
 import de.app.core.SessionManager
+import de.app.data.storage.AccountDao
 import de.app.data.storage.AppDatabase
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @HiltAndroidApp
@@ -45,17 +45,21 @@ object SingletonAppModule {
         ).build()
     }
 
-//    @Singleton
-//    @Provides
-//    @Inject
-//    fun accountDataSource(db: AppDatabase): AccountDataSource {
-//        return AccountDataSource(db.accountDato())
-//    }
-//
-//    @Singleton
-//    @Provides
-//    @Inject
-//    fun sessionManager(dataSource: AccountDataSource): SessionManager{
-//        return SessionManager(dataSource)
-//    }
+    @Singleton
+    @Provides
+    fun dao(db: AppDatabase): AccountDao{
+        return db.accountDao()
+    }
+
+    @Singleton
+    @Provides
+    fun accountDataSource(db: AppDatabase): AccountDataSource {
+        return AccountDataSource(db.accountDao())
+    }
+
+    @Singleton
+    @Provides
+    fun sessionManager(dataSource: AccountDataSource): SessionManager{
+        return SessionManager(dataSource)
+    }
 }

@@ -6,8 +6,7 @@ import de.app.data.model.account.AccountHeader
 import java.time.Instant
 import javax.inject.Inject
 import javax.inject.Singleton
-@Singleton
-class SessionManager @Inject constructor(val dataSource: AccountDataSource) {
+class SessionManager (val dataSource: AccountDataSource) {
     // in-memory cache of the loggedInUser object
     var currentAccount: Account? = null
         private set
