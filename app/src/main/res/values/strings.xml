@@ -66,4 +66,6 @@
     <string name="upload_from_data_safe">Upload from Data Safe</string>
     <string name="upload_from_storage">Upload from local storage</string>
     <string name="deutschland_app">Deutschland-App</string>
+    <string name="citizen_type_register">Citizen</string>
+    <string name="company_type_register">Company</string>
 </resources>
