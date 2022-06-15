@@ -7,7 +7,7 @@ class SessionManager (private val dataSource: AccountDataSource) {
     var currentAccount: Account? = null
         private set
 
-    init { updateCurrentAccount(); }
+    fun init() { updateCurrentAccount(); }
     fun updateCurrentAccount() {
         currentAccount = dataSource.getCurrent().getOrNull()
     }

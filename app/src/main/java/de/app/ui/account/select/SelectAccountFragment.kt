@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.core.AccountDataSource
+import de.app.data.model.AccountHeader
 import de.app.databinding.FragmentLoginSelectAccountBinding
 import javax.inject.Inject
 
@@ -30,8 +31,12 @@ class SelectAccountFragment : Fragment() {
         binding = FragmentLoginSelectAccountBinding.inflate(inflater, container, false)
         val navController = findNavController()
 
-        val accounts = ArrayList(viewModel.getAccounts())
-        binding.accounts.adapter = AccountViewAdapter(accounts) { h ->
+
+        val headers = ArrayList<AccountHeader>()
+        viewModel.getAccounts().observe(viewLifecycleOwner) {
+            headers.addAll(it)
+        }
+        binding.accounts.adapter = AccountViewAdapter(headers) { h ->
             navController.navigate(
                 R.id.action_nav_select_to_enter_pin,
                 bundleOf("accountId" to h.id)
