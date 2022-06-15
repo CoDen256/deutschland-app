@@ -3,7 +3,7 @@ package de.app.ui.service.view.field
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import de.app.data.model.service.form.DateField
+import de.app.api.service.form.DateField
 import de.app.databinding.ApplicationFormDateBinding
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue

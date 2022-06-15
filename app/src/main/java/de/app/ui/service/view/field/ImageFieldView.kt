@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import de.app.data.Result
-import de.app.data.model.service.form.ImageField
+import de.app.api.service.form.ImageField
 import de.app.databinding.ApplicationFormImageBinding
 import de.app.ui.util.loadImageFromUrl
 import java.util.concurrent.Executors

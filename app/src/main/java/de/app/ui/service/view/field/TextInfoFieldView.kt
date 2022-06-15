@@ -2,7 +2,7 @@ package de.app.ui.service.view.field
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import de.app.data.model.service.form.TextInfoField
+import de.app.api.service.form.TextInfoField
 import de.app.databinding.ApplicationFormInfoBinding
 
 class TextInfoFieldView(

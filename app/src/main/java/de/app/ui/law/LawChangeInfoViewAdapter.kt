@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import de.app.data.model.law.LawChangeHeader
+import de.app.api.law.LawChangeHeader
 import de.app.databinding.FragmentLawRegistryItemBinding
 import java.time.format.DateTimeFormatter
 

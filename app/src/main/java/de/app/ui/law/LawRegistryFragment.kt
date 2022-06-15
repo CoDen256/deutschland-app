@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import de.app.data.model.law.LawChangeHeader
+import de.app.api.law.LawChangeHeader
 import de.app.databinding.FragmentLawRegistryBinding
 import de.app.ui.util.runWithInterval
 import java.time.LocalDate

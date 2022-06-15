@@ -2,7 +2,6 @@ package de.app.ui.account.select
 
 import androidx.lifecycle.ViewModel
 import de.app.core.SessionManager
-import de.app.data.model.account.AccountHeader
 import javax.inject.Inject
 
 class SelectAccountViewModel @Inject constructor(

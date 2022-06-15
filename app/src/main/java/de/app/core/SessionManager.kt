@@ -1,11 +1,9 @@
 package de.app.core
 
 import de.app.data.Result
-import de.app.data.model.account.Account
-import de.app.data.model.account.AccountHeader
-import java.time.Instant
-import javax.inject.Inject
-import javax.inject.Singleton
+import de.app.data.model.Account
+import de.app.data.model.AccountHeader
+
 class SessionManager (val dataSource: AccountDataSource) {
     // in-memory cache of the loggedInUser object
     var currentAccount: Account? = null
@@ -31,7 +29,7 @@ class SessionManager (val dataSource: AccountDataSource) {
     }
 
     fun getAccounts(): List<AccountHeader> {
-        return dataSource.getAccounts();
+        return dataSource.getAccounts()
     }
 
 }

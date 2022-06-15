@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import de.app.data.Result
-import de.app.data.model.service.form.AttachmentField
+import de.app.api.service.form.AttachmentField
 import de.app.databinding.ApplicationFormAttachmentBinding
 import de.app.ui.service.IntentLauncher
 import de.app.ui.service.data.state.FormState

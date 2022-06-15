@@ -1,6 +1,6 @@
 package de.app.ui.account.register.data
 
-import de.app.data.model.account.Account
+import de.app.data.model.Account
 
 /**
  * User details post authentication that is exposed to the UI

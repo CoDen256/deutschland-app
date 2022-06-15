@@ -3,7 +3,7 @@ package de.app.ui.finder
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import de.app.data.model.service.AdministrativeService
+import de.app.api.service.AdministrativeService
 import de.app.databinding.FragmentAdministrativeServiceFinderSearchItemBinding
 
 class ServiceInfoViewAdapter(

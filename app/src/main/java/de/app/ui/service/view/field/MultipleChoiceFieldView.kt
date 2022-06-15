@@ -2,8 +2,7 @@ package de.app.ui.service.view.field
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.RadioButton
-import de.app.data.model.service.form.MultipleChoiceField
+import de.app.api.service.form.MultipleChoiceField
 import de.app.databinding.ApplicationFormMultipleChoiceBinding
 import de.app.databinding.ApplicationFormMultipleChoiceItemBinding
 import de.app.ui.service.data.state.FormState

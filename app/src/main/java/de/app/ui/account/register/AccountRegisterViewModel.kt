@@ -3,8 +3,8 @@ package de.app.ui.account.register
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.app.R
-import de.app.api.CitizenServiceAccountRepository
-import de.app.api.CompanyServiceAccountRepository
+import de.app.api.account.CitizenServiceAccountRepository
+import de.app.api.account.CompanyServiceAccountRepository
 import de.app.core.SessionManager
 import de.app.data.Result
 import de.app.ui.account.login.data.LoggedInUserView

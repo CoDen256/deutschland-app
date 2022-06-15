@@ -2,10 +2,9 @@ package de.app.ui.mailbox
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import de.app.data.model.mail.MailMessageHeader
+import de.app.api.mail.MailMessageHeader
 import de.app.databinding.FragmentMailBoxItemBinding
 
 class MailMessageViewAdapter(

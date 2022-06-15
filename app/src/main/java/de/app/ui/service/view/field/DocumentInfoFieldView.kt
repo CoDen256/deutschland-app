@@ -4,7 +4,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import de.app.data.model.service.form.DocumentInfoField
+import de.app.api.service.form.DocumentInfoField
 import de.app.databinding.ApplicationFormDocumentInfoBinding
 import de.app.databinding.ApplicationFormDocumentInfoItemBinding
 import de.app.ui.util.openFile

@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.app.R
-import de.app.data.model.service.AdministrativeService
+import de.app.api.service.AdministrativeService
 import de.app.databinding.FragmentAdministrativeServiceFinderBinding
 import org.json.JSONArray
 import java.util.concurrent.Executors

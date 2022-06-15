@@ -2,7 +2,7 @@ package de.app.ui.service.view.field
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import de.app.data.model.service.form.TextField
+import de.app.api.service.form.TextField
 import de.app.databinding.ApplicationFormTextBinding
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue

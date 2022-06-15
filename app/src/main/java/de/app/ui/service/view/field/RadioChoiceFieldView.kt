@@ -3,7 +3,7 @@ package de.app.ui.service.view.field
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.RadioButton
-import de.app.data.model.service.form.RadioChoiceField
+import de.app.api.service.form.RadioChoiceField
 import de.app.databinding.ApplicationFormRadioChoiceBinding
 import de.app.databinding.ApplicationFormRadioChoiceItemBinding
 import de.app.ui.service.data.state.FormState

@@ -3,7 +3,7 @@ package de.app.ui.service.view.field
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import de.app.data.model.service.form.*
+import de.app.api.service.form.*
 
 
 class FieldViewFactory(

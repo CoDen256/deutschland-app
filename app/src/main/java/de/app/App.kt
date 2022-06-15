@@ -10,13 +10,12 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import de.app.api.CitizenServiceAccountRepository
-import de.app.api.CompanyServiceAccountRepository
-import de.app.api.dummy.BaseServiceAccountRepository
+import de.app.api.account.CitizenServiceAccountRepository
+import de.app.api.account.CompanyServiceAccountRepository
+import de.app.core.config.BaseServiceAccountRepository
 import de.app.core.AccountDataSource
 import de.app.core.SessionManager
-import de.app.data.storage.AccountDao
-import de.app.data.storage.AppDatabase
+import de.app.core.db.AppDatabase
 import javax.inject.Singleton
 
 @HiltAndroidApp
@@ -38,7 +37,7 @@ object SingletonAppModule {
 
     @Singleton
     @Provides
-    fun appDatabase(@ApplicationContext context: Context): AppDatabase{
+    fun appDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(
             context,
             AppDatabase::class.java, "de-app-database"
@@ -47,14 +46,8 @@ object SingletonAppModule {
 
     @Singleton
     @Provides
-    fun dao(db: AppDatabase): AccountDao{
-        return db.accountDao()
-    }
-
-    @Singleton
-    @Provides
     fun accountDataSource(db: AppDatabase): AccountDataSource {
-        return AccountDataSource(db.accountDao())
+        return AccountDataSource(db.accountDao(), db.credentialsDao())
     }
 
     @Singleton

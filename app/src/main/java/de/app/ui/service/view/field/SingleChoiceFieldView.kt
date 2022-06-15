@@ -7,7 +7,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import de.app.R
-import de.app.data.model.service.form.SingleChoiceField
+import de.app.api.service.form.SingleChoiceField
 import de.app.databinding.ApplicationFormSingleChoiceBinding
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue

@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import de.app.R
-import de.app.data.model.mail.MailMessageHeader
+import de.app.api.mail.MailMessageHeader
 import de.app.ui.util.runWithInterval
 import java.time.Instant
 import java.util.*

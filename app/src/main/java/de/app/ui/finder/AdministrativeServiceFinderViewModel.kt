@@ -3,8 +3,8 @@ package de.app.ui.finder
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import de.app.api.dummy.BaseAdministrativeServiceRegistry
-import de.app.data.model.service.AdministrativeService
+import de.app.core.config.BaseAdministrativeServiceRegistry
+import de.app.api.service.AdministrativeService
 
 class AdministrativeServiceFinderViewModel :ViewModel(){
     val address: String = "Merseburg" // from service account

@@ -1,5 +1,7 @@
 package de.app.data
 
+import java.lang.IllegalArgumentException
+
 /**
  * A generic class that holds a value with its loading status.
  * @param <T>
@@ -13,6 +15,19 @@ sealed class Result<out T : Any> {
     }
 
     data class Error(val exception: Exception) : Result<Nothing>()
+
+    companion object{
+        fun <T: Any> T.asResult(): Success<T> = Success(this)
+        fun <T: Any> T?.asResultOr(default: T): Result<T> {
+            return this?.asResult() ?: default.asResult()
+        }
+        fun <T: Any> T?.asResultOrThrow(exception: Exception): Result<T> {
+            return this?.asResult() ?: Error(exception)
+        }
+        inline fun <reified T: Any> T?.asResultOrThrow(): Result<T> {
+            return this?.asResult() ?: Error(IllegalArgumentException("Element was not found ${T::class.simpleName}"))
+        }
+    }
 
     override fun toString(): String {
         return when (this) {

@@ -2,7 +2,7 @@ package de.app.ui.service.view.field
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import de.app.data.model.service.form.NumberField
+import de.app.api.service.form.NumberField
 import de.app.databinding.ApplicationFormNumberBinding
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue

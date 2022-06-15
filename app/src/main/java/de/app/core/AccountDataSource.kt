@@ -1,65 +1,82 @@
 package de.app.core
 
 import de.app.data.Result
-import de.app.data.model.account.Account
-import de.app.data.model.account.AccountHeader
-import de.app.data.storage.AccountDao
-import de.app.data.storage.AppDatabase
-import java.io.IOException
+import de.app.data.model.Account
+import de.app.core.db.AccountDao
+import de.app.data.Result.Companion.asResult
+import de.app.data.model.AccountHeader
+import de.app.data.model.Address
+import de.app.data.model.entities.AccountEntity
+import de.app.data.model.entities.CredentialsEntity
 import java.lang.IllegalArgumentException
-import javax.inject.Inject
-import javax.inject.Singleton
-import kotlin.collections.HashMap
+import java.lang.IllegalStateException
 
-/**
- * Class that handles authentication w/ login credentials and retrieves user information.
- */
-class AccountDataSource (private val dao: AccountDao) {
+class AccountDataSource(
+    private val accountDao: AccountDao,
+) {
 
-    companion object {
-        private val accounts: Map<Account, String> = mapOf(
-            Account("janeDoe","Jane", "Doe",
-                 Account.Type.CITIZEN) to "0000",
-            Account("James","Bond James", "James",
-                 Account.Type.CITIZEN) to "0000",
-            Account("AAA","BBBB", "NoDoe",
-                 Account.Type.CITIZEN) to "0000",
-            Account("CCCC","DDD", "EEE",
-                 Account.Type.CITIZEN) to "0000",
+    fun add(account: Account, pin: String) {
+        accountDao.insert(
+            serializeAccount(account),
+            CredentialsEntity(account.accountId, pin)
         )
-        private val infoToAccount: Map<String, Pair<Account, String>> = run {
-            val map = HashMap<String, Pair<Account, String>>()
-            for ((account, pin) in accounts) {
-                    map[account.accountId] = account to pin
-                }
-            map
-        }
-
-        private val accountInfo: List<AccountHeader> = accounts.keys.map { AccountHeader(it.name, it.surname, it.accountId) }
-
-    }
-
-    fun add(account: Account, pin: String){
-
     }
 
     fun login(accountId: String, pin: String): Result<Account> {
-        try {
-            val pair = infoToAccount[accountId]
-                ?: return Result.Error(IllegalArgumentException("No account with $accountId exists"))
-            val (account, expectedPin) = pair
-            if (expectedPin != pin) return Result.Error(IllegalArgumentException("Wrong PIN"))
-            return Result.Success(account)
-        } catch (e: Throwable) {
-            return Result.Error(IOException("Error logging in", e))
+        val credentials =
+            accountDao.getCredentialsById(accountId) ?: return accountNotFoundError(accountId)
+
+        if (credentials.pin == pin){
+            val acc = accountDao.getAccountById(accountId) ?: return accountNotFoundError(accountId)
+            return deserializeAccount(acc).asResult()
         }
+        return Result.Error(IllegalStateException("Invalid pin"))
     }
+
+    fun remove(accountId: String): Result<Nothing> {
+        val acc = accountDao.getAccountById(accountId) ?: return accountNotFoundError(accountId)
+        val credentials = accountDao.getCredentialsById(accountId) !!
+        accountDao.delete(acc, credentials)
+        return Result.Success(null);
+    }
+
+    private fun accountNotFoundError(accountId: String) =
+        Result.Error(IllegalArgumentException("Account with id $accountId not found"))
 
     fun getAccounts(): List<AccountHeader> {
-        return accountInfo
+        return accountDao.getAll().map {deserializeAccount(it)}
     }
 
-    fun remove(account: Account){
-
+    private fun serializeCredentials(info: Credentials): CredentialsEntity {
+        return CredentialsEntity(info.account.accountId, info.pin)
     }
+
+    private fun serializeAccount(account: Account): AccountEntity {
+        return AccountEntity(
+            account.accountId,
+            account.displayName,
+            account.address.city,
+            account.address.country,
+            account.address.postalCode,
+            account.type.name
+        )
+    }
+
+    private fun deserializeCredentials(info: CredentialsEntity, account: Account): Credentials {
+        return Credentials(account, info.pin)
+    }
+
+    private fun deserializeAccount(account: AccountEntity): Account {
+        return Account(
+            account.id,
+            account.displayName,
+            Address(account.city, account.country, account.postalCode),
+            Account.Type.valueOf(account.type)
+        )
+    }
+
+    private inner class Credentials(
+        val account: Account,
+        val pin: String,
+    )
 }

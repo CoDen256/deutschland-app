@@ -3,7 +3,6 @@ package de.app.ui.account.select
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import de.app.data.model.account.AccountHeader
 import de.app.databinding.FragmentLoginSelectAccountItemBinding
 
 class AccountViewAdapter(

@@ -2,14 +2,14 @@ package de.app.ui.service
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import de.app.api.AdministrativeServiceRegistry
-import de.app.api.dummy.BaseAdministrativeServiceRegistry
+import de.app.api.service.AdministrativeServiceRegistry
+import de.app.core.config.BaseAdministrativeServiceRegistry
 import de.app.data.Result
-import de.app.data.model.service.AdministrativeService
-import de.app.data.model.service.form.Form
-import de.app.data.model.service.form.InputField
-import de.app.data.model.service.submit.SubmittedField
-import de.app.data.model.service.submit.SubmittedForm
+import de.app.api.service.AdministrativeService
+import de.app.api.service.form.Form
+import de.app.api.service.form.InputField
+import de.app.api.service.submit.SubmittedField
+import de.app.api.service.submit.SubmittedForm
 import de.app.ui.service.data.result.FormResult
 import de.app.ui.service.data.result.FormView
 import de.app.ui.service.data.state.FieldState

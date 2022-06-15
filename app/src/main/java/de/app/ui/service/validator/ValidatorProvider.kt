@@ -1,9 +1,6 @@
 package de.app.ui.service.validator
 
-import de.app.data.model.service.form.*
-import de.app.ui.service.validator.DateFieldValidator
-import de.app.ui.service.validator.FieldValidator
-import de.app.ui.service.validator.TextFieldValidator
+import de.app.api.service.form.*
 
 class ValidatorProvider {
     fun getValidator(field: InputField): FieldValidator = when(field){
