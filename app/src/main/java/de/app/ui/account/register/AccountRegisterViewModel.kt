@@ -6,19 +6,17 @@ import de.app.R
 import de.app.api.account.CitizenServiceAccountRepository
 import de.app.api.account.CompanyServiceAccountRepository
 import de.app.core.SessionManager
-import de.app.data.Result
-import de.app.ui.account.login.data.LoggedInUserView
-import de.app.ui.account.login.data.LoginResult
 import de.app.ui.account.register.data.RegisterFormState
+import de.app.ui.account.register.data.RegisterResult
+import de.app.ui.account.register.data.RegisteredUserView
 import javax.inject.Inject
 
 class AccountRegisterViewModel @Inject constructor(
-    private val sessionManager: SessionManager,
     private val citizenRepo: CitizenServiceAccountRepository,
     private val companyRepo: CompanyServiceAccountRepository,
-    ) : ViewModel() {
+) : ViewModel() {
     val formState = MutableLiveData<RegisterFormState>()
-    val formResult = MutableLiveData<LoginResult>()
+    val formResult = MutableLiveData<RegisterResult>()
 
     enum class Type {
         CITIZEN, COMPANY
@@ -30,12 +28,12 @@ class AccountRegisterViewModel @Inject constructor(
             Type.COMPANY -> companyRepo.getCompanyAccount(accountId)
         }
 
-        if (result is Result.Success) {
-            formResult.value =
-                LoginResult(success = LoggedInUserView(account = result.data))
-        } else if (result is Result.Error) {
-            formResult.value = LoginResult(error = result.exception.message)
-        }
+        result
+            .onSuccess {
+                formResult.value = RegisterResult(success = RegisteredUserView(account = it))
+            }.onFailure {
+                formResult.value = RegisterResult(error = it.message)
+            }
     }
 
     fun accountIdChanged(accountId: String) {
@@ -46,12 +44,16 @@ class AccountRegisterViewModel @Inject constructor(
         }
     }
 
-    fun accountTypeChanged(type: Type){
-        val text = when(type){
+    fun accountTypeChanged(type: Type) {
+        val text = when (type) {
             Type.CITIZEN -> R.string.enter_citizen_type
             Type.COMPANY -> R.string.enter_company_type
         }
-        formState.value = RegisterFormState(formState.value?.accountIdError, text, formState.value?.isDataValid ?: false)
+        formState.value = RegisterFormState(
+            formState.value?.accountIdError,
+            text,
+            formState.value?.isDataValid ?: false
+        )
     }
 
     private fun isAccountIdValid(accountId: String): Boolean {

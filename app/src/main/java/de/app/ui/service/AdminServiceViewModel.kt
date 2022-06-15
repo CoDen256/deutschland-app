@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.app.api.service.AdministrativeServiceRegistry
 import de.app.core.config.BaseAdministrativeServiceRegistry
-import de.app.data.Result
 import de.app.api.service.AdministrativeService
 import de.app.api.service.form.Form
 import de.app.api.service.form.InputField
@@ -32,27 +31,28 @@ class AdminServiceViewModel(private val id: String?) : ViewModel() {
     private val validators = HashMap<String, FieldValidator>().apply {
         val provider = ValidatorProvider()
         form.fields.forEach {
-            if (it is InputField){
+            if (it is InputField) {
                 put(it.id, provider.getValidator(it))
             }
         }
     }
 
 
-    fun submit(data: FormValue){
+    fun submit(data: FormValue) {
         val submittedForm = SubmittedForm(ArrayList<SubmittedField>().apply {
-            data.values.forEach{
+            data.values.forEach {
                 add(SubmittedField(it.id, it.value))
             }
         })
         val rs = registry.sendApplicationForm(service, submittedForm)
-        result.value = when(rs){
-            is Result.Success -> FormResult(success = FormView())
-            is Result.Error -> FormResult(error = rs.exception.message)
+
+        result.value = rs.fold({ FormResult(success = FormView()) }) {
+            FormResult(error = it.message)
         }
     }
 
-    fun formDataChanged(data: FormValue){
+
+    fun formDataChanged(data: FormValue) {
         val states = HashSet<FieldState>()
         for (value in data.values) {
             states.add(validators[value.id]!!.validate(value))

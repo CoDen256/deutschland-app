@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import de.app.core.runWithInterval
 import de.app.data.model.FileHeader
 import de.app.databinding.FragmentDataSafeBinding
-import de.app.ui.util.runWithInterval
 import java.util.*
 import kotlin.random.Random
 

@@ -37,9 +37,9 @@ class DashboardFragment : Fragment() {
 
 
         binding.welcome.text = getString(R.string.welcome_dashboard,
-            "${account.name} ${account.surname}")
+            "${account.displayName}")
 
-        binding.burgerId.text = getString(R.string.account_id_dashboard, account.accountId)
+        binding.burgerId.text = getString(R.string.account_id_dashboard, account.id)
         val plz = "06217"
         val address = "Merseburg"
         binding.address.text = getString(R.string.address_dashboard, plz, address)

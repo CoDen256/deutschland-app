@@ -47,7 +47,7 @@ object SingletonAppModule {
     @Singleton
     @Provides
     fun accountDataSource(db: AppDatabase): AccountDataSource {
-        return AccountDataSource(db.accountDao(), db.credentialsDao())
+        return AccountDataSource(db.accountDao())
     }
 
     @Singleton

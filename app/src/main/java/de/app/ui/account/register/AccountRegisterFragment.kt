@@ -14,6 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.databinding.FragmentLoginRegisterAccountBinding
 import de.app.ui.account.login.data.LoggedInUserView
+import de.app.ui.account.register.data.RegisterResult
+import de.app.ui.account.register.data.RegisteredUserView
 import de.app.ui.util.afterTextChanged
 import javax.inject.Inject
 
@@ -100,7 +102,7 @@ class AccountRegisterFragment : Fragment() {
         else -> throw AssertionError()
     }
 
-    private fun onSuccessfulLogin(model: LoggedInUserView) {
+    private fun onSuccessfulLogin(model: RegisteredUserView) {
         findNavController().navigate(
             R.id.action_nav_register_to_successful,
             bundleOf("accountId" to model.account.accountId)

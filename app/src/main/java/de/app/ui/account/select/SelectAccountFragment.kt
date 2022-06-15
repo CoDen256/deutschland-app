@@ -34,7 +34,7 @@ class SelectAccountFragment : Fragment() {
         binding.accounts.adapter = AccountViewAdapter(accounts) { h ->
             navController.navigate(
                 R.id.action_nav_select_to_enter_pin,
-                bundleOf("accountId" to h.accountId)
+                bundleOf("accountId" to h.id)
             )
         }
         binding.accounts.layoutManager = LinearLayoutManager(context)

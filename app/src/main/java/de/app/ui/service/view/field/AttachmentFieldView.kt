@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import de.app.data.Result
 import de.app.api.service.form.AttachmentField
 import de.app.databinding.ApplicationFormAttachmentBinding
 import de.app.ui.service.IntentLauncher
@@ -58,10 +57,10 @@ class AttachmentFieldView(
                 key = field.id,
                 createIntent = { _, input -> createFilePickerIntent(input) },
                 parseResult = { _, intent -> parseFilePickerResult(intent) },
-                handleResult = {
-                    if (it is Result.Success) {
-                        binding.filePath.text = it.data.getFileName(fragment.requireActivity().contentResolver)
-                        uriHolder.value = it.data
+                handleResult = { result ->
+                    result.onSuccess{
+                        binding.filePath.text = it.getFileName(fragment.requireActivity().contentResolver)
+                        uriHolder.value = it
                     }
                 }
             )

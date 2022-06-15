@@ -1,31 +1,45 @@
 package de.app.core
 
-import de.app.data.Result
 import de.app.data.model.Account
 import de.app.data.model.AccountHeader
 
-class SessionManager (val dataSource: AccountDataSource) {
-    // in-memory cache of the loggedInUser object
+class SessionManager (private val dataSource: AccountDataSource) {
     var currentAccount: Account? = null
         private set
+
+    init { updateCurrentAccount(); }
+    fun updateCurrentAccount() {
+        currentAccount = dataSource.getCurrent().getOrNull()
+    }
 
     val isLoggedIn: Boolean
         get() = currentAccount != null
 
-
     fun logout() {
         currentAccount = null
+        dataSource.removeCurrent()
+    }
+
+    private fun login(it: Account) {
+        currentAccount = it
+        dataSource.setCurrent(it.accountId)
+    }
+
+    fun addAccount(account: Account, pin: String){
+        dataSource.add(account, pin)
+    }
+
+    fun removeAccount(accountId: String): Result<Unit> {
+        return dataSource.remove(accountId)
     }
 
     fun login(accountId: String, pin: String): Result<Account> {
-        // handle login
-        val result = dataSource.login(accountId, pin)
+        return dataSource.login(accountId, pin).onSuccess { login(it) }
+    }
 
-        if (result is Result.Success) {
-            currentAccount = result.data
-        }
 
-        return result
+    fun getAccountById(accountId: String): Result<AccountHeader>{
+        return dataSource.getAccountById(accountId);
     }
 
     fun getAccounts(): List<AccountHeader> {

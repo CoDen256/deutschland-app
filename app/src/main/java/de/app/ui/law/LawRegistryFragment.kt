@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.app.api.law.LawChangeHeader
+import de.app.core.runWithInterval
 import de.app.databinding.FragmentLawRegistryBinding
-import de.app.ui.util.runWithInterval
 import java.time.LocalDate
 import java.util.*
 import kotlin.random.Random

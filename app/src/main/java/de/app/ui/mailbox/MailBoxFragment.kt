@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import de.app.R
 import de.app.api.mail.MailMessageHeader
-import de.app.ui.util.runWithInterval
+import de.app.core.runWithInterval
 import java.time.Instant
 import java.util.*
 import kotlin.random.Random

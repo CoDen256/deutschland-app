@@ -3,6 +3,7 @@ package de.app.core.db
 import androidx.room.*
 import de.app.data.model.entities.AccountEntity
 import de.app.data.model.entities.CredentialsEntity
+import de.app.data.model.entities.CurrentLogin
 
 @Dao
 interface AccountDao {
@@ -37,5 +38,27 @@ interface AccountDao {
     fun delete(account: AccountEntity, info: CredentialsEntity){
         delete(info)
         delete(account)
+    }
+
+    @Transaction
+    fun delete(account: AccountEntity, info: CredentialsEntity, currentLogin: CurrentLogin){
+        delete(info)
+        delete(account)
+        delete(currentLogin)
+    }
+
+    @Query("SELECT * FROM login LIMIT 1")
+    fun getCurrentLogin(): List<CurrentLogin>
+
+    @Insert
+    fun insert(login: CurrentLogin)
+
+    @Delete
+    fun delete(login: CurrentLogin)
+
+    @Transaction
+    fun setCurrentLogin(oldLogin: CurrentLogin, newLogin: CurrentLogin){
+        delete(oldLogin)
+        insert(newLogin)
     }
 }

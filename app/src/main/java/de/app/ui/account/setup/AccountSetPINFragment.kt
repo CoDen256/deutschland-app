@@ -14,17 +14,18 @@ import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.core.AccountDataSource
 import de.app.core.SessionManager
+import de.app.core.successOrThrow
+import de.app.data.model.AccountHeader
 import de.app.databinding.FragmentLoginSetPinBinding
 import de.app.ui.account.login.data.LoggedInUserView
+import de.app.ui.account.setup.data.SetupUserView
 import de.app.ui.util.afterTextChanged
 import javax.inject.Inject
 @AndroidEntryPoint
 class AccountSetPINFragment : Fragment() {
 
-    private lateinit var viewModel: AccountSetPINViewModel
+    @Inject lateinit var viewModel: AccountSetPINViewModel
     private lateinit var binding: FragmentLoginSetPinBinding
-    @Inject
-    lateinit var dataSource: AccountDataSource
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,11 +38,12 @@ class AccountSetPINFragment : Fragment() {
         val loading = binding.loading
         val loginAsUsername = binding.setPinMessage
 
-        val accountId = arguments?.getString("accountId")!!
-        val selectedAccount = dataSource.getAccounts().find { it.accountId == accountId}!!
-        viewModel = AccountSetPINViewModel(SessionManager(dataSource))
+        val selectedAccount: AccountHeader = arguments?.getString("accountId")
+            .successOrThrow()
+            .map { viewModel.getAccountHeader(it).getOrThrow() }.getOrThrow()
 
-        loginAsUsername.text = getString(R.string.welcome_username, selectedAccount.name, selectedAccount.surname)
+
+        loginAsUsername.text = getString(R.string.welcome_username, selectedAccount.displayName)
 
         viewModel.loginFormState.observe(viewLifecycleOwner, Observer {
             val loginState = it ?: return@Observer
@@ -70,7 +72,7 @@ class AccountSetPINFragment : Fragment() {
         pin.apply {
             afterTextChanged {
                 viewModel.loginDataChanged(
-                    selectedAccount.accountId,
+                    selectedAccount.id,
                     pin.text.toString()
                 )
             }
@@ -79,7 +81,7 @@ class AccountSetPINFragment : Fragment() {
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
                         viewModel.login(
-                            selectedAccount.accountId,
+                            selectedAccount.id,
                             pin.text.toString()
                         )
                 }
@@ -88,14 +90,14 @@ class AccountSetPINFragment : Fragment() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                viewModel.login(selectedAccount.accountId, pin.text.toString())
+                viewModel.login(selectedAccount.id, pin.text.toString())
             }
         }
 
         return binding.root
     }
 
-    private fun onSuccessfulLogin(model: LoggedInUserView) {
+    private fun onSuccessfulLogin(model: SetupUserView) {
         findNavController().navigate(
             R.id.action_set_pin_to_enter_pin,
             bundleOf("accountId" to model.account.accountId)

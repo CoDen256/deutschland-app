@@ -3,6 +3,7 @@ package de.app.ui.account.select
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import de.app.data.model.AccountHeader
 import de.app.databinding.FragmentLoginSelectAccountItemBinding
 
 class AccountViewAdapter(
@@ -23,7 +24,7 @@ class AccountViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val account: AccountHeader = accounts[position]
-        holder.name.text = "%s %s".format(account.name, account.surname)
+        holder.name.text = account.displayName
         holder.root.setOnClickListener {
             onClickListener(account)
         }

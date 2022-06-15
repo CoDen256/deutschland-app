@@ -4,8 +4,7 @@ import de.app.api.account.CitizenAccountInfo
 import de.app.api.account.CitizenServiceAccountRepository
 import de.app.api.account.CompanyAccountInfo
 import de.app.api.account.CompanyServiceAccountRepository
-import de.app.data.Result
-import de.app.data.Result.Companion.asResultOrThrow
+import de.app.core.successOrThrow
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -46,13 +45,13 @@ class BaseServiceAccountRepository @Inject constructor():
     CitizenServiceAccountRepository,
     CompanyServiceAccountRepository {
     override fun getCitizenAccount(accountId: String): Result<CitizenAccountInfo> {
-        return citizens.find { it.accountId == accountId }.asResultOrThrow(createNotFoundException(accountId))
+        return citizens.find { it.accountId == accountId }.successOrThrow(createNotFoundException(accountId))
     }
 
     private fun createNotFoundException(accountId: String) =
         IllegalArgumentException("Account with id: $accountId was not found on the repository")
 
     override fun getCompanyAccount(accountId: String): Result<CompanyAccountInfo> {
-        return companies.find { it.accountId == accountId }.asResultOrThrow(createNotFoundException(accountId))
+        return companies.find { it.accountId == accountId }.successOrThrow(createNotFoundException(accountId))
     }
 }

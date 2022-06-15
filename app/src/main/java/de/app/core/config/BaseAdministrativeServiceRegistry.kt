@@ -1,7 +1,6 @@
 package de.app.core.config
 
 import de.app.api.service.AdministrativeServiceRegistry
-import de.app.data.Result
 import de.app.data.model.Address
 import de.app.data.model.FileHeader
 import de.app.api.service.*
@@ -144,7 +143,7 @@ class BaseAdministrativeServiceRegistry : AdministrativeServiceRegistry {
     override fun sendApplicationForm(
         service: AdministrativeService,
         submittedForm: SubmittedForm
-    ): Result<Any> {
-        return Result.Success("")
+    ): Result<Unit> {
+        return Result.success(Unit)
     }
 }

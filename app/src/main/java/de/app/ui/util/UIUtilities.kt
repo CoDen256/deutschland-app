@@ -3,11 +3,9 @@ package de.app.ui.util
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.text.Editable
 import android.text.SpannableStringBuilder
@@ -15,7 +13,6 @@ import android.text.TextWatcher
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.datepicker.MaterialDatePicker
-import de.app.data.Result
 import java.net.HttpURLConnection
 import java.net.URL
 import java.time.Instant
@@ -57,9 +54,9 @@ fun TextView.showPicker(fragmentManager: FragmentManager) {
 fun loadImageFromUrl(url: String): Result<Bitmap> {
     val imageUrl = URL(url)
     (imageUrl.openConnection() as? HttpURLConnection)?.run {
-        return Result.Success(BitmapFactory.decodeStream(inputStream))
+        return Result.success(BitmapFactory.decodeStream(inputStream))
     }
-    return Result.Error(Exception("Cannot open HttpURLConnection"))
+    return Result.failure(Exception("Cannot open HttpURLConnection"))
 }
 
 fun Uri.getFileName(contentResolver: ContentResolver): String?{
@@ -101,10 +98,10 @@ fun Context.openFile(uri: Uri, type: String){
 
 fun parseFilePickerResult(result: Intent?): Result<Uri> {
     val intent = result
-        ?: return Result.Error(IllegalStateException("File picker did not return any data"))
+        ?: return Result.failure(IllegalStateException("File picker did not return any data"))
     val data = intent.data
-        ?: return Result.Error(IllegalStateException("File picker returned empty data"))
-    return Result.Success(data)
+        ?: return Result.failure(IllegalStateException("File picker returned empty data"))
+    return Result.success(data)
 }
 
 fun createFilePickerIntent(input: String?): Intent {

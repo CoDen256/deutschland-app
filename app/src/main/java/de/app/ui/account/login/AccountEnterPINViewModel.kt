@@ -5,24 +5,29 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.app.R
 import de.app.core.SessionManager
-import de.app.data.Result
+import de.app.data.model.AccountHeader
 import de.app.ui.account.login.data.LoggedInUserView
 import de.app.ui.account.login.data.LoginFormState
 import de.app.ui.account.login.data.LoginResult
+import javax.inject.Inject
 
-class AccountEnterPINViewModel(private val sessionManager: SessionManager) : ViewModel() {
+class AccountEnterPINViewModel @Inject constructor(private val sessionManager: SessionManager) : ViewModel() {
 
     val loginFormState = MutableLiveData<LoginFormState>()
     val loginResult = MutableLiveData<LoginResult>()
 
+    fun getAccountHeader(accountId: String): Result<AccountHeader> {
+        return sessionManager.getAccountById(accountId)
+    }
+
     fun login(accountId: String, pin: String) {
         val result = sessionManager.login(accountId, pin)
 
-        if (result is Result.Success) {
+        result.onSuccess {
             loginResult.value =
-                LoginResult(success = LoggedInUserView(account = result.data))
-        } else if (result is Result.Error) {
-            loginResult.value = LoginResult(error = result.exception.message)
+                LoginResult(success = LoggedInUserView(account = it))
+        }.onFailure {
+            loginResult.value = LoginResult(error = it.message)
         }
     }
 
