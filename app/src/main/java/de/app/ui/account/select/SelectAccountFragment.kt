@@ -14,9 +14,9 @@ import de.app.R
 import de.app.data.model.AccountHeader
 import de.app.databinding.FragmentLoginSelectAccountBinding
 import de.app.databinding.FragmentLoginSelectAccountItemBinding
-import kotlinx.coroutines.async
+import de.app.ui.util.ListViewAdapter
+import de.app.ui.util.onClickNavigate
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,30 +35,24 @@ class SelectAccountFragment : Fragment() {
             FragmentLoginSelectAccountItemBinding.inflate(i, v, false)}
 
         val navController = findNavController()
-
         val headers = ArrayList<AccountHeader>()
 
-        val adapter = ListViewAdapter(elementBinding, headers) { e, b ->
-            b.accountName.text = e.displayName
-            b.root.setOnClickListener {
-                navController.navigate(
-                    R.id.action_nav_select_to_enter_pin,
-                    bundleOf("accountId" to e.id)
+        val adapter = ListViewAdapter(elementBinding, headers) { element, b ->
+            b.accountName.text = element.displayName
+            b.root.onClickNavigate(navController, R.id.action_nav_select_to_enter_pin,
+                    "accountId" to element.id
                 )
-            }
         }
 
         binding.accounts.adapter = adapter
         binding.accounts.layoutManager = LinearLayoutManager(context)
 
-        binding.addAccount.setOnClickListener {
-            navController.navigate(R.id.action_nav_select_to_register)
-        }
+        binding.addAccount.onClickNavigate(navController, R.id.action_nav_select_to_register)
 
         viewLifecycleOwner.lifecycleScope.launch {
             val accounts = viewModel.getAccounts()
             headers.addAll(accounts)
-            adapter.notifyItemRangeInserted(0, accounts.size);
+            adapter.notifyItemRangeInserted(0, accounts.size)
         }
 
         return binding.root

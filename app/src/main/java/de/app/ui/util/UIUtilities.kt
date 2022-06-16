@@ -10,16 +10,28 @@ import android.provider.OpenableColumns
 import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
+import android.view.View
 import android.widget.TextView
+import androidx.annotation.IdRes
+import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.net.HttpURLConnection
 import java.net.URL
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.util.*
 
+fun View.onClickNavigate(controller: NavController,
+                         @IdRes resId: Int,
+                         vararg args: Pair<String, Any?>,
+                         navOptions: NavOptions? = null){
+    setOnClickListener {
+        controller.navigate(resId, bundleOf(*args),  navOptions)
+    }
+}
 
 fun String.editable(): Editable{
     return SpannableStringBuilder(this)
