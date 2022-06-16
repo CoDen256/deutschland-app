@@ -2,6 +2,7 @@ package de.app.core.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import de.app.data.model.entities.AccountDao
 import de.app.data.model.entities.AccountEntity
 import de.app.data.model.entities.CredentialsEntity
 import de.app.data.model.entities.CurrentLogin

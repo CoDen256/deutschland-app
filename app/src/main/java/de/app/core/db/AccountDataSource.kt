@@ -1,6 +1,7 @@
-package de.app.core
+package de.app.core.db
 
-import de.app.core.db.AccountDao
+import de.app.core.success
+import de.app.data.model.entities.AccountDao
 import de.app.data.model.Account
 import de.app.data.model.AccountHeader
 import de.app.data.model.Address
@@ -16,7 +17,7 @@ class AccountDataSource(
         return accountDao.getAll().map {deserializeAccount(it)}
     }
 
-    fun getCurrent(): Result<Account>{
+    suspend fun getCurrent(): Result<Account>{
         val currentLogin = accountDao.getCurrentLogin()
         if (currentLogin.isEmpty()) return Result.failure(IllegalStateException("No logged in account"))
         val accountId = currentLogin.first().accountId
@@ -24,7 +25,7 @@ class AccountDataSource(
         return getAccountById(accountId)
     }
 
-    fun setCurrent(accountId: String) {
+    suspend fun setCurrent(accountId: String) {
         val currentLogin = accountDao.getCurrentLogin()
         val newLogin = CurrentLogin(accountId)
         if (currentLogin.isNotEmpty()){
@@ -34,14 +35,14 @@ class AccountDataSource(
         }
     }
 
-    fun removeCurrent(){
+    suspend fun removeCurrent(){
         val currentLogin = accountDao.getCurrentLogin()
         if (currentLogin.isNotEmpty()){
             accountDao.delete(currentLogin.first())
         }
     }
 
-    fun remove(accountId: String): Result<Unit> {
+    suspend fun remove(accountId: String): Result<Unit> {
         return getAccountEntityById(accountId).map {
             val credentials = accountDao.getCredentialsById(accountId) !!
             val currentLogin = accountDao.getCurrentLogin()
@@ -53,7 +54,7 @@ class AccountDataSource(
         }
     }
 
-    fun login(accountId: String, pin: String): Result<Account> {
+    suspend fun login(accountId: String, pin: String): Result<Account> {
         val credentials =
             accountDao.getCredentialsById(accountId) ?: return accountNotFoundError(accountId)
 
@@ -63,18 +64,18 @@ class AccountDataSource(
         return Result.failure(IllegalStateException("Invalid pin"))
     }
 
-    fun add(account: Account, pin: String) {
+    suspend fun add(account: Account, pin: String) {
         accountDao.insert(
             serializeAccount(account),
             CredentialsEntity(account.accountId, pin)
         )
     }
 
-    private fun getAccountEntityById(accountId: String): Result<AccountEntity> {
+    private suspend fun getAccountEntityById(accountId: String): Result<AccountEntity> {
         return accountDao.getAccountById(accountId)?.success() ?: accountNotFoundError(accountId)
     }
 
-    fun getAccountById(accountId: String): Result<Account> {
+    suspend fun getAccountById(accountId: String): Result<Account> {
         return getAccountEntityById(accountId).map { deserializeAccount(it) }
     }
 

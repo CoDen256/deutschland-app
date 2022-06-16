@@ -31,9 +31,9 @@ class AccountSetPINViewModel @Inject constructor(
                 Account.Type.CITIZEN
             )
         }.getOrThrow()
-        val result = sessionManager.addAccount(account, pin)
-        loginResult.value =
-            SetupResult(success = SetupUserView(account = account))
+//        val result = sessionManager.addAccount(account, pin)
+//        loginResult.value =
+//            SetupResult(success = SetupUserView(account = account))
     }
 
     fun loginDataChanged(accountId: String, password: String) {
@@ -49,6 +49,6 @@ class AccountSetPINViewModel @Inject constructor(
     }
 
     fun getAccountHeader(accountId: String): Result<AccountHeader> {
-        return sessionManager.getAccountById(accountId)
+        return null!!//sessionManager.getAccountById(accountId)
     }
 }

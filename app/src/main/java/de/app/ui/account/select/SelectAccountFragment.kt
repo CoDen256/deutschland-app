@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.data.model.AccountHeader
 import de.app.databinding.FragmentLoginSelectAccountBinding
+import de.app.databinding.FragmentLoginSelectAccountItemBinding
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -30,17 +31,23 @@ class SelectAccountFragment : Fragment() {
     ): View {
 
         binding = FragmentLoginSelectAccountBinding.inflate(inflater, container, false)
+        val elementBinding = { i: LayoutInflater, v: ViewGroup ->
+            FragmentLoginSelectAccountItemBinding.inflate(i, v, false)}
+
         val navController = findNavController()
 
         val headers = ArrayList<AccountHeader>()
 
-
-        val adapter = AccountViewAdapter(headers) { h ->
-            navController.navigate(
-                R.id.action_nav_select_to_enter_pin,
-                bundleOf("accountId" to h.id)
-            )
+        val adapter = ListViewAdapter(elementBinding, headers) { e, b ->
+            b.accountName.text = e.displayName
+            b.root.setOnClickListener {
+                navController.navigate(
+                    R.id.action_nav_select_to_enter_pin,
+                    bundleOf("accountId" to e.id)
+                )
+            }
         }
+
         binding.accounts.adapter = adapter
         binding.accounts.layoutManager = LinearLayoutManager(context)
 

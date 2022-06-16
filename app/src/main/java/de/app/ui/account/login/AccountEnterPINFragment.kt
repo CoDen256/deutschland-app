@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
-import de.app.core.successOrThrow
+import de.app.core.successOrElse
 import de.app.data.model.AccountHeader
 import de.app.databinding.FragmentLoginEnterPinBinding
 import de.app.ui.MainActivity
@@ -36,9 +36,10 @@ class AccountEnterPINFragment : Fragment() {
         val loginAsUsername = binding.loginUsername
 
 
-        val selectedAccount: AccountHeader = arguments?.getString("accountId")
-            .successOrThrow()
-            .map { viewModel.getAccountHeader(it).getOrThrow() }.getOrThrow()
+        val selectedAccount: AccountHeader = null!!
+//            arguments?.getString("accountId")
+//            .successOrElse()
+//            .map { viewModel.getAccountHeader(it).getOrThrow() }.getOrThrow()
 
 
         loginAsUsername.text = getString(
@@ -80,18 +81,18 @@ class AccountEnterPINFragment : Fragment() {
 
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
-                    EditorInfo.IME_ACTION_DONE ->
-                        viewModel.login(
-                            selectedAccount.id,
-                            pin.text.toString()
-                        )
+                    EditorInfo.IME_ACTION_DONE -> {}
+//                        viewModel.login(
+//                            selectedAccount.id,
+//                            pin.text.toString()
+//                        )
                 }
                 false
             }
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                viewModel.login(selectedAccount.id, pin.text.toString())
+//                viewModel.login(selectedAccount.id, pin.text.toString())
             }
         }
 

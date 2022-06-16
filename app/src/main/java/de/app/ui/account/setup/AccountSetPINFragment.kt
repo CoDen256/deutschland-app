@@ -12,12 +12,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
-import de.app.core.AccountDataSource
-import de.app.core.SessionManager
-import de.app.core.successOrThrow
+import de.app.core.successOrElse
 import de.app.data.model.AccountHeader
 import de.app.databinding.FragmentLoginSetPinBinding
-import de.app.ui.account.login.data.LoggedInUserView
 import de.app.ui.account.setup.data.SetupUserView
 import de.app.ui.util.afterTextChanged
 import javax.inject.Inject
@@ -39,7 +36,7 @@ class AccountSetPINFragment : Fragment() {
         val loginAsUsername = binding.setPinMessage
 
         val selectedAccount: AccountHeader = arguments?.getString("accountId")
-            .successOrThrow()
+            .successOrElse()
             .map { viewModel.getAccountHeader(it).getOrThrow() }.getOrThrow()
 
 

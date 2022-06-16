@@ -13,7 +13,7 @@ import dagger.hilt.components.SingletonComponent
 import de.app.api.account.CitizenServiceAccountRepository
 import de.app.api.account.CompanyServiceAccountRepository
 import de.app.core.config.BaseServiceAccountRepository
-import de.app.core.AccountDataSource
+import de.app.core.db.AccountDataSource
 import de.app.core.SessionManager
 import de.app.core.db.AppDatabase
 import javax.inject.Singleton

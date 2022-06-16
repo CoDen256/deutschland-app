@@ -16,11 +16,11 @@ class AccountEnterPINViewModel @Inject constructor(private val sessionManager: S
     val loginFormState = MutableLiveData<LoginFormState>()
     val loginResult = MutableLiveData<LoginResult>()
 
-    fun getAccountHeader(accountId: String): Result<AccountHeader> {
+    suspend fun getAccountHeader(accountId: String): Result<AccountHeader> {
         return sessionManager.getAccountById(accountId)
     }
 
-    fun login(accountId: String, pin: String) {
+    suspend fun login(accountId: String, pin: String) {
         val result = sessionManager.login(accountId, pin)
 
         result.onSuccess {
