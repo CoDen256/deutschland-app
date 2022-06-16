@@ -12,7 +12,7 @@ class AccountDataSource(
     private val accountDao: AccountDao,
 ) {
 
-    fun getAccounts(): List<AccountHeader> {
+    suspend fun getAccounts(): List<AccountHeader> {
         return accountDao.getAll().map {deserializeAccount(it)}
     }
 

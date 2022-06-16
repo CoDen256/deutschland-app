@@ -42,7 +42,7 @@ class SessionManager (private val dataSource: AccountDataSource) {
         return dataSource.getAccountById(accountId);
     }
 
-    fun getAccounts(): List<AccountHeader> {
+    suspend fun getAccounts(): List<AccountHeader> {
         return dataSource.getAccounts()
     }
 

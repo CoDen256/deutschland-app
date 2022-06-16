@@ -11,6 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.core.AccountDataSource
 import de.app.core.SessionManager
+import de.app.data.model.AccountHeader
 import de.app.databinding.FragmentDashboardAppointmentItemBinding
 import de.app.databinding.FragmentDashboardBinding
 import de.app.databinding.FragmentDashboardSectionBinding
@@ -31,7 +32,7 @@ class DashboardFragment : Fragment() {
         val binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val account = dataSource.getAccounts()[0]
+        val account: AccountHeader = null!!//dataSource.getAccounts()[0]
 
         genFakeNotifications()
 

@@ -8,7 +8,7 @@ import de.app.data.model.entities.CurrentLogin
 @Dao
 interface AccountDao {
     @Query("SELECT * FROM account")
-    fun getAll(): List<AccountEntity>
+    suspend fun getAll(): List<AccountEntity>
 
     @Query("SELECT * FROM account WHERE id = :id")
     fun getAccountById(id: String): AccountEntity?
