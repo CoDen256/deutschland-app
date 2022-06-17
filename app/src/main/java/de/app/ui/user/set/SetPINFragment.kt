@@ -6,14 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
-import de.app.R
-import de.app.core.successOrElse
-import de.app.data.model.UserHeader
+import de.app.data.model.UserType
 import de.app.databinding.FragmentUserSetPinBinding
 import de.app.ui.util.afterTextChanged
 import de.app.ui.util.observe
@@ -25,9 +22,10 @@ class SetPINFragment : Fragment() {
     @Inject lateinit var viewModel: SetPINViewModel
     private lateinit var binding: FragmentUserSetPinBinding
     private lateinit var secretToken: String
+    private lateinit var userType: UserType
     private lateinit var navController: NavController
 
-    val args: SetPINFragmentArgs by navArgs()
+    private val args: SetPINFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +36,7 @@ class SetPINFragment : Fragment() {
         navController = findNavController()
 
         secretToken = args.accountSecretToken
+        userType = UserType.valueOf(args.type)
 
         observe(viewModel.setPINFormState) {
             binding.submitPin.isEnabled = isDataValid
@@ -73,7 +72,7 @@ class SetPINFragment : Fragment() {
 
     private fun submit() {
         viewModel.setPIN(
-            secretToken, binding.pin.text.toString()
+            secretToken, userType, binding.pin.text.toString()
         )
     }
 

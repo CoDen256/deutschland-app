@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.tabs.TabLayout
@@ -50,7 +51,13 @@ fun View.onClickNavigate(controller: NavController,
         controller.navigate(resId, bundleOf(*args),  navOptions)
     }
 }
-
+fun View.onClickNavigate(controller: NavController,
+                         dirs: NavDirections,
+                         navOptions: NavOptions? = null){
+    setOnClickListener {
+        controller.navigate(dirs,  navOptions)
+    }
+}
 fun String.editable(): Editable{
     return SpannableStringBuilder(this)
 }

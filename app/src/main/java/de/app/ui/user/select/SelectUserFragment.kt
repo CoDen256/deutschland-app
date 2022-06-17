@@ -40,11 +40,10 @@ class SelectUserFragment : Fragment() {
         val adapter = ListViewAdapter(elementBinding, headers) { element, b ->
             b.accountName.text = element.displayName
             b.root.onClickNavigate(navController,
-                R.id.action_nav_select_to_enter_pin,
-                    "accountId" to element.userId
-                )
+                SelectUserFragmentDirections.actionNavSelectToEnterPin(element.userId)
+            )
         }
-        binding.addAccount.onClickNavigate(navController, R.id.action_nav_select_to_register)
+        binding.addAccount.onClickNavigate(navController, SelectUserFragmentDirections.actionNavSelectToRegister())
 
         binding.accounts.adapter = adapter
         binding.accounts.layoutManager = LinearLayoutManager(context)

@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
+import de.app.data.model.UserType
 import de.app.databinding.FragmentUserRegisterAccountBinding
 import de.app.ui.util.afterTextChanged
 import de.app.ui.util.observe
@@ -22,11 +23,11 @@ class AccountRegisterFragment : Fragment() {
     @Inject
     lateinit var viewModel: AccountRegisterViewModel
     private lateinit var binding: FragmentUserRegisterAccountBinding
-    private lateinit var navController: NavController
+    private lateinit var navController: NavController;
 
     private val tabToType = listOf(
-        AccountRegisterViewModel.Type.CITIZEN,
-        AccountRegisterViewModel.Type.COMPANY
+        UserType.CITIZEN,
+        UserType.COMPANY
     )
 
     override fun onCreateView(
@@ -36,7 +37,6 @@ class AccountRegisterFragment : Fragment() {
         binding = FragmentUserRegisterAccountBinding.inflate(inflater, container, false)
 
         navController = findNavController()
-
         observe(viewModel.formState) {
             binding.register.isEnabled = isDataValid
 
@@ -49,8 +49,8 @@ class AccountRegisterFragment : Fragment() {
         }
         observe(
             viewModel.formResult,
-            {onSuccessfulRegister(it)},
-            {onLoginFailed(it)}
+            { onSuccessfulRegister(it) },
+            { onLoginFailed(it) }
         )
         binding.accountId.apply {
             afterTextChanged { viewModel.accountIdChanged(it) }
@@ -71,18 +71,16 @@ class AccountRegisterFragment : Fragment() {
 
     private fun onSuccessfulRegister(model: RegisterUserView) {
         navController.navigate(
-            R.id.action_nav_register_to_result,
-            bundleOf("accountSecretToken" to model.accountSecretToken.token)
+            AccountRegisterFragmentDirections.actionNavRegisterToResult(
+                model.accountSecretToken.token,
+                model.type.name, null
+            )
         )
     }
 
     private fun onLoginFailed(error: Throwable) {
         navController.navigate(
-            R.id.action_nav_register_to_result,
-            bundleOf(
-                "accountSecretToken" to null,
-                "error" to error.message
-            )
+            AccountRegisterFragmentDirections.actionNavRegisterToResult(null, null, error.message)
         )
     }
 }

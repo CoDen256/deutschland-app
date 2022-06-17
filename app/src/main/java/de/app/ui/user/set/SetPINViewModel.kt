@@ -3,37 +3,55 @@ package de.app.ui.user.set
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import de.app.R
+import de.app.api.account.AccountInfo
 import de.app.api.account.CitizenServiceAccountRepository
+import de.app.api.account.CompanyServiceAccountRepository
 import de.app.api.account.SecretToken
 import de.app.core.SessionManager
 import de.app.data.model.Address
 import de.app.data.model.User
 import de.app.data.model.UserHeader
+import de.app.data.model.UserType
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
 class SetPINViewModel @Inject constructor(
     private val sessionManager: SessionManager,
     private val citizenRepo: CitizenServiceAccountRepository,
-    ) : ViewModel() {
+    private val companyRepo: CompanyServiceAccountRepository,
+) : ViewModel() {
 
     val setPINFormState = MutableLiveData<SetPINFormState>()
     val setPINResult = MutableLiveData<Result<SetPINUserView>>()
 
-    fun setPIN(token: String, pin: String) {
-        val account = citizenRepo.getCitizenAccount(SecretToken(token)).map {
+
+    fun setPIN(token: String, type: UserType, pin: String) {
+        viewModelScope.launch {
+            val secretToken = SecretToken(token)
+            val user: Result<User> = when (type) {
+                UserType.CITIZEN -> getUser(citizenRepo.getCitizenAccount(secretToken), token, type)
+                UserType.COMPANY -> getUser(companyRepo.getCompanyAccount(secretToken), token, type)
+            }
+            setPINResult.value = user.map {
+                sessionManager.addAccount(it, pin)
+                SetPINUserView(it)
+            }
+        }
+    }
+
+    private fun getUser(account: Result<AccountInfo>, token: String, type: UserType): Result<User> {
+        return account.map {
             User(
                 UUID.randomUUID().toString(),
                 it.displayName,
-                it.accountId,
+                token,
                 Address(it.city, it.country, it.postalCode),
-                User.Type.CITIZEN
-            )
-        }.getOrThrow()
-//        val result = sessionManager.addAccount(account, pin)
-//        loginResult.value =
-//            SetupResult(success = SetupUserView(account = account))
+                type)
+        }
+
     }
 
     fun pinChanged(password: String) {
@@ -46,9 +64,5 @@ class SetPINViewModel @Inject constructor(
 
     private fun isPasswordValid(pin: String): Boolean {
         return pin.length == 4 && pin.isDigitsOnly()
-    }
-
-    fun getAccountHeader(accountId: String): Result<UserHeader> {
-        return null!!//sessionManager.getAccountById(accountId)
     }
 }

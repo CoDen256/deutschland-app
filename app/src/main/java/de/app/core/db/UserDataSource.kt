@@ -5,6 +5,7 @@ import de.app.data.model.entities.UserDao
 import de.app.data.model.User
 import de.app.data.model.UserHeader
 import de.app.data.model.Address
+import de.app.data.model.UserType
 import de.app.data.model.entities.UserEntity
 import de.app.data.model.entities.UserCredentials
 import de.app.data.model.entities.CurrentUser
@@ -100,7 +101,7 @@ class UserDataSource(
             user.displayName,
             user.accountSecretToken,
             Address(user.city, user.country, user.postalCode),
-            User.Type.valueOf(user.type)
+            UserType.valueOf(user.type)
         )
     }
 }

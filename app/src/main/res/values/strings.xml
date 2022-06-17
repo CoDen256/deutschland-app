@@ -71,4 +71,8 @@
     <string name="enter_company_type">Company ID</string>
     <string name="empty_accounts">¯\\_(ツ)_/¯</string>
     <string name="prompt_pin">4-digit PIN</string>
+    <string name="register_failed_message">Failed: %s</string>
+    <string name="try_again_register_failed_button">Try again</string>
+    <string name="set_pin_for_account_register_successful">Set PIN for the account</string>
+    <string name="register_successful_message">Successful</string>
 </resources>

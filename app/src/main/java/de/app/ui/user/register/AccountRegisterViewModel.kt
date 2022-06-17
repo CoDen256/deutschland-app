@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import de.app.R
 import de.app.api.account.CitizenServiceAccountRepository
 import de.app.api.account.CompanyServiceAccountRepository
+import de.app.data.model.UserType
 import javax.inject.Inject
 
 class AccountRegisterViewModel @Inject constructor(
@@ -14,15 +15,14 @@ class AccountRegisterViewModel @Inject constructor(
     val formState = MutableLiveData<RegisterFormState>()
     val formResult = MutableLiveData<Result<RegisterUserView>>()
 
-    enum class Type { CITIZEN, COMPANY }
 
-    fun register(accountId: String, type: Type) {
+    fun register(accountId: String, type: UserType) {
         val secretToken = when (type) {
-            Type.CITIZEN -> citizenRepo.getCitizenAccountSecretToken(accountId)
-            Type.COMPANY -> companyRepo.getCompanyAccountSecretToken(accountId)
+            UserType.CITIZEN -> citizenRepo.getCitizenAccountSecretToken(accountId)
+            UserType.COMPANY -> companyRepo.getCompanyAccountSecretToken(accountId)
         }
 
-        formResult.value = secretToken.map { RegisterUserView(it) }
+        formResult.value = secretToken.map { RegisterUserView(it, type) }
     }
 
     fun accountIdChanged(accountId: String) {
@@ -33,10 +33,10 @@ class AccountRegisterViewModel @Inject constructor(
         }
     }
 
-    fun accountTypeChanged(type: Type) {
+    fun accountTypeChanged(type: UserType) {
         val text = when (type) {
-            Type.CITIZEN -> R.string.enter_citizen_type
-            Type.COMPANY -> R.string.enter_company_type
+            UserType.CITIZEN -> R.string.enter_citizen_type
+            UserType.COMPANY -> R.string.enter_company_type
         }
         formState.value = RegisterFormState(
             formState.value?.accountIdError,

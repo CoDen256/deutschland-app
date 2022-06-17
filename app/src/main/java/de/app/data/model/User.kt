@@ -10,8 +10,8 @@ class User(
     _displayName: String,
     val accountSecretToken: String,
     val address: Address,
-    val type: Type,
-): UserHeader(_userId, _displayName) {
-    enum class Type { CITIZEN, COMPANY }
-}
+    val type: UserType,
+): UserHeader(_userId, _displayName)
+
+enum class UserType { CITIZEN, COMPANY }
 

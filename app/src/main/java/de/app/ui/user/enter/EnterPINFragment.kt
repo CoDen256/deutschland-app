@@ -15,7 +15,6 @@ import de.app.R
 import de.app.data.model.UserHeader
 import de.app.databinding.FragmentUserEnterPinBinding
 import de.app.ui.MainActivity
-import de.app.ui.user.enter.data.LoggedInUserView
 import de.app.ui.util.afterTextChanged
 import javax.inject.Inject
 
@@ -99,7 +98,7 @@ class EnterPINFragment : Fragment() {
         return binding.root
     }
 
-    private fun onSuccessfulLogin(model: LoggedInUserView) {
+    private fun onSuccessfulLogin(model: EnterPINView) {
         val intent = Intent(requireActivity(), MainActivity::class.java)
         startActivity(intent)
 

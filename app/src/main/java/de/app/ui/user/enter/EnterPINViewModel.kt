@@ -6,14 +6,12 @@ import androidx.lifecycle.ViewModel
 import de.app.R
 import de.app.core.SessionManager
 import de.app.data.model.UserHeader
-import de.app.ui.user.enter.data.LoggedInUserView
-import de.app.ui.user.enter.data.LoginFormState
 import de.app.ui.user.enter.data.LoginResult
 import javax.inject.Inject
 
 class EnterPINViewModel @Inject constructor(private val sessionManager: SessionManager) : ViewModel() {
 
-    val loginFormState = MutableLiveData<LoginFormState>()
+    val loginFormState = MutableLiveData<EnterPINFormState>()
     val loginResult = MutableLiveData<LoginResult>()
 
     suspend fun getAccountHeader(accountId: String): Result<UserHeader> {
@@ -25,7 +23,7 @@ class EnterPINViewModel @Inject constructor(private val sessionManager: SessionM
 
         result.onSuccess {
             loginResult.value =
-                LoginResult(success = LoggedInUserView(account = it))
+                LoginResult(success = EnterPINView(account = it))
         }.onFailure {
             loginResult.value = LoginResult(error = it.message)
         }
@@ -33,9 +31,9 @@ class EnterPINViewModel @Inject constructor(private val sessionManager: SessionM
 
     fun loginDataChanged(accountId: String, password: String) {
         if (!isPasswordValid(password)) {
-            loginFormState.value = LoginFormState(passwordError = R.string.invalid_password)
+            loginFormState.value = EnterPINFormState(passwordError = R.string.invalid_password)
         } else {
-            loginFormState.value = LoginFormState(isDataValid = true)
+            loginFormState.value = EnterPINFormState(isDataValid = true)
         }
     }
 
