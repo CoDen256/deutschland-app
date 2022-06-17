@@ -9,7 +9,7 @@ class SessionManager (private val dataSource: UserDataSource) {
         private set
 
     suspend fun init() { updateCurrentUser(); }
-    suspend fun updateCurrentUser() {
+    private suspend fun updateCurrentUser() {
         currentUser = dataSource.getCurrentUser().getOrNull()
     }
 
@@ -18,7 +18,7 @@ class SessionManager (private val dataSource: UserDataSource) {
 
     suspend fun logout() {
         currentUser = null
-        dataSource.removeCurrent()
+        dataSource.unsetCurrent()
     }
 
     private suspend fun login(it: User) {
@@ -30,8 +30,10 @@ class SessionManager (private val dataSource: UserDataSource) {
         dataSource.add(user, pin)
     }
 
-    suspend fun removeAccount(userId: String): Result<Unit> {
-        return dataSource.remove(userId)
+    suspend fun logoutAndRemoveCurrent(){
+        currentUser?.let {
+            dataSource.remove(it.userId);
+        }
     }
 
     suspend fun login(userId: String, pin: String): Result<User> {
@@ -39,12 +41,12 @@ class SessionManager (private val dataSource: UserDataSource) {
     }
 
 
-    suspend fun getAccountById(userId: String): Result<UserHeader>{
+    suspend fun getUserById(userId: String): Result<UserHeader>{
         return dataSource.getUserById(userId)
     }
 
-    suspend fun getAccounts(): List<UserHeader> {
-        return dataSource.getAccounts()
+    suspend fun getUsers(): List<UserHeader> {
+        return dataSource.getUsers()
     }
 
 }

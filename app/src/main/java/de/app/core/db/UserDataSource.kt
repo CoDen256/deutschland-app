@@ -14,7 +14,7 @@ class UserDataSource(
     private val userDao: UserDao,
 ) {
 
-    suspend fun getAccounts(): List<UserHeader> {
+    suspend fun getUsers(): List<UserHeader> {
         return userDao.getAllUsers().map {deserializeUser(it)}
     }
 
@@ -36,7 +36,7 @@ class UserDataSource(
         }
     }
 
-    suspend fun removeCurrent(){
+    suspend fun unsetCurrent(){
         val currentUser = userDao.getCurrentUser()
         if (currentUser.isNotEmpty()){
             userDao.deleteCurrentUser(currentUser.first())

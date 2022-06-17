@@ -15,8 +15,8 @@ class EnterPINViewModel @Inject constructor(private val sessionManager: SessionM
     val loginFormState = MutableLiveData<EnterPINFormState>()
     val loginResult = MutableLiveData<Result<EnterPINView>>()
 
-    suspend fun getAccountHeader(accountId: String): Result<UserHeader> {
-        return sessionManager.getAccountById(accountId)
+    suspend fun getUserHeader(userId: String): Result<UserHeader> {
+        return sessionManager.getUserById(userId)
     }
 
     fun login(userId: String, pin: String) {

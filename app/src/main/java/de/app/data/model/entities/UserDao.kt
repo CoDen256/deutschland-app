@@ -40,8 +40,8 @@ interface UserDao {
     @Transaction
     suspend fun deleteAllInfo(user: UserEntity, info: UserCredentials, currentUser: CurrentUser){
         deleteCredentials(info)
-        deleteUser(user)
         deleteCurrentUser(currentUser)
+        deleteUser(user)
     }
 
     @Query("SELECT * FROM current_user LIMIT 1")
@@ -63,8 +63,8 @@ interface UserDao {
 @Entity(tableName = "user")
 data class UserEntity(
     @PrimaryKey val userId: String,
-    val accountSecretToken: String,
     val displayName: String,
+    val accountSecretToken: String,
     val city: String,
     val country: String,
     val postalCode: String,

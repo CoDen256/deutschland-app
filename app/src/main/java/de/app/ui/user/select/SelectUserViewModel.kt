@@ -8,6 +8,6 @@ import javax.inject.Inject
 class SelectUserViewModel @Inject constructor(private val manager: SessionManager) : ViewModel() {
 
     suspend fun getAccounts(): List<UserHeader> {
-        return manager.getAccounts()
+        return manager.getUsers()
     }
 }

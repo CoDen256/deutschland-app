@@ -1,9 +1,12 @@
 package de.app.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,11 +16,19 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
+import de.app.core.SessionManager
 import de.app.databinding.ActivityMainBinding
+import de.app.ui.user.LoginActivity
+import de.app.ui.user.enter.EnterPINView
+import de.app.ui.util.runActivity
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var sessionManager: SessionManager
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
@@ -38,13 +49,25 @@ class MainActivity : AppCompatActivity() {
             .findNavController()
 
 
+        lifecycleScope.launchWhenCreated {
+            sessionManager.init()
+            if (!sessionManager.isLoggedIn) {
+                jumpBackToLogin()
+            }
+        }
 
         binding.switchAccount.setOnClickListener {
-
+            lifecycleScope.launch {
+                sessionManager.logout()
+                jumpBackToLogin()
+            }
         }
 
         binding.logout.setOnClickListener {
-
+            lifecycleScope.launch {
+                sessionManager.logoutAndRemoveCurrent()
+                jumpBackToLogin()
+            }
         }
 
         binding.switchLanguage.setOnClickListener {
@@ -75,5 +98,9 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun jumpBackToLogin() {
+        runActivity(LoginActivity::class.java)
     }
 }

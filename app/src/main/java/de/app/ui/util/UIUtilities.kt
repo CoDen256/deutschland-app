@@ -1,5 +1,6 @@
 package de.app.ui.util
 
+import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
@@ -23,6 +24,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.tabs.TabLayout
+import de.app.ui.user.LoginActivity
 import org.w3c.dom.Text
 import java.lang.IllegalArgumentException
 import java.net.HttpURLConnection
@@ -176,4 +178,12 @@ fun createFilePickerIntent(input: String?): Intent {
     chooseFile.type = input!!
     chooseFile.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
     return Intent.createChooser(chooseFile, "Choose a file")
+}
+
+fun Activity.runActivity(cls: Class<*>){
+    val intent = Intent(this, cls)
+    startActivity(intent)
+
+    this.setResult(Activity.RESULT_OK)
+    this.finish()
 }

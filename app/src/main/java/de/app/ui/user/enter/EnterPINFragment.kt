@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
-import de.app.data.model.UserHeader
 import de.app.databinding.FragmentUserEnterPinBinding
 import de.app.ui.MainActivity
 import de.app.ui.util.afterTextChanged
@@ -36,7 +35,7 @@ class EnterPINFragment : Fragment() {
         binding = FragmentUserEnterPinBinding.inflate(inflater, container, false)
 
         lifecycleScope.launch {
-            viewModel.getAccountHeader(args.userId).onSuccess {
+            viewModel.getUserHeader(args.userId).onSuccess {
                 binding.welcomeUsername.text = getString(
                     R.string.welcome_username,
                     it.displayName
