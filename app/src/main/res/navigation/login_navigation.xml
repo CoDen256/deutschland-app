@@ -28,8 +28,8 @@
         <action
             android:id="@+id/action_nav_select_to_register"
             app:destination="@id/nav_register_account"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right" />
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"  />
     </fragment>
 
     <fragment
@@ -39,7 +39,10 @@
         tools:layout="@layout/fragment_user_register_account">
         <action
             android:id="@+id/action_nav_register_to_result"
-            app:destination="@id/nav_register_account_result" />
+            app:destination="@id/nav_register_account_result"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            />
     </fragment>
     <fragment
         android:id="@+id/nav_register_account_result"
@@ -60,10 +63,16 @@
             app:nullable="true" />
         <action
             android:id="@+id/action_nav_result_to_register"
-            app:destination="@id/nav_register_account" />
+            app:destination="@id/nav_register_account"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            />
         <action
             android:id="@+id/action_nav_result_to_set_pin"
-            app:destination="@id/nav_set_pin" />
+            app:destination="@id/nav_set_pin"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            />
     </fragment>
 
     <fragment
@@ -79,7 +88,10 @@
             app:argType="string" />
         <action
             android:id="@+id/action_nav_set_pin_to_enter_pin"
-            app:destination="@id/nav_enter_pin" />
+            app:destination="@id/nav_enter_pin"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            />
     </fragment>
 
 </navigation>

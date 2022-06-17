@@ -48,9 +48,5 @@
             android:id="@+id/nav_law_registry"
             android:icon="?android:attr/actionModeFindDrawable"
             android:title="@string/menu_law_registry" />
-        <item
-            android:id="@+id/nav_admin_service"
-            android:icon="@drawable/mapbox_compass_icon"
-            android:title="Admin Service" />
     </group>
 </menu>

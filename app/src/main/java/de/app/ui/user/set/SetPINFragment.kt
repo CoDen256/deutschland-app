@@ -49,7 +49,6 @@ class SetPINFragment : Fragment() {
         observe(viewModel.setPINResult,
             { onSuccessfulLogin(it) },
             {
-                binding.loading.visibility = View.GONE
                 onLoginFailed(it)
             }
         )
@@ -62,10 +61,7 @@ class SetPINFragment : Fragment() {
             onActionDone { submit() }
         }
 
-        binding.submitPin.setOnClickListener {
-            binding.loading.visibility = View.VISIBLE
-            submit()
-        }
+        binding.submitPin.setOnClickListener { submit() }
 
         return binding.root
     }

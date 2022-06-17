@@ -54,10 +54,8 @@ class EnterPINFragment : Fragment() {
         }
 
         observe(viewModel.loginResult, {
-            binding.loading.visibility = View.GONE
             onSuccessfulLogin(it)
         }, {
-            binding.loading.visibility = View.GONE
             onLoginFailed(it)
         })
 
@@ -71,7 +69,6 @@ class EnterPINFragment : Fragment() {
     }
 
     private fun submitLogin() {
-        binding.loading.visibility = View.VISIBLE
         viewModel.login(args.userId, binding.pin.text.toString())
     }
 
