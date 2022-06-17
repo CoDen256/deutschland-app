@@ -8,17 +8,19 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
+import de.app.core.SessionManager
 import de.app.core.db.UserDataSource
 import de.app.data.model.UserHeader
 import de.app.databinding.FragmentDashboardAppointmentItemBinding
 import de.app.databinding.FragmentDashboardBinding
 import de.app.databinding.FragmentDashboardSectionBinding
 import de.app.notifications.Notificator
+import de.app.ui.user.LoginActivity
+import de.app.ui.util.runActivity
 import javax.inject.Inject
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
-    @Inject
-    lateinit var dataSource: UserDataSource
+    @Inject lateinit var sessionManager: SessionManager
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -30,18 +32,23 @@ class DashboardFragment : Fragment() {
         val binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val user: UserHeader = null!!//dataSource.getAccounts()[0]
+        if (!sessionManager.isLoggedIn){
+            requireActivity().runActivity(LoginActivity::class.java)
+            return binding.root
+        }
+        val user = sessionManager.currentUser!!
 
         genFakeNotifications()
 
-
         binding.welcome.text = getString(R.string.welcome_dashboard,
-            "${user.displayName}")
+            user.displayName
+        )
 
         binding.burgerId.text = getString(R.string.account_id_dashboard, user.userId)
-        val plz = "06217"
-        val address = "Merseburg"
-        binding.address.text = getString(R.string.address_dashboard, plz, address)
+        val address = user.address
+        binding.address.text = getString(R.string.address_dashboard,
+            address.postalCode,
+            address.city)
 
         inflateSection(binding.appointments, "Applications", listOf(
             "19.10.2000" to "You have an appointment at doctor",
