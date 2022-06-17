@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import de.app.R
 import de.app.data.model.UserType
 import de.app.databinding.FragmentUserRegisterAccountBinding
 import de.app.ui.util.afterTextChanged
@@ -69,7 +67,7 @@ class AccountRegisterFragment : Fragment() {
         )
     }
 
-    private fun onSuccessfulRegister(model: RegisterUserView) {
+    private fun onSuccessfulRegister(model: RegisterView) {
         navController.navigate(
             AccountRegisterFragmentDirections.actionNavRegisterToResult(
                 model.accountSecretToken.token,

@@ -7,6 +7,6 @@ data class SetPINFormState(
     val isDataValid: Boolean = false
 )
 
-data class SetPINUserView(
+data class SetPINView(
     val user: User
 )

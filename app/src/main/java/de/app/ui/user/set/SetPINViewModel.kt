@@ -12,7 +12,6 @@ import de.app.api.account.SecretToken
 import de.app.core.SessionManager
 import de.app.data.model.Address
 import de.app.data.model.User
-import de.app.data.model.UserHeader
 import de.app.data.model.UserType
 import kotlinx.coroutines.launch
 import java.util.*
@@ -25,7 +24,7 @@ class SetPINViewModel @Inject constructor(
 ) : ViewModel() {
 
     val setPINFormState = MutableLiveData<SetPINFormState>()
-    val setPINResult = MutableLiveData<Result<SetPINUserView>>()
+    val setPINResult = MutableLiveData<Result<SetPINView>>()
 
 
     fun setPIN(token: String, type: UserType, pin: String) {
@@ -37,7 +36,7 @@ class SetPINViewModel @Inject constructor(
             }
             setPINResult.value = user.map {
                 sessionManager.addAccount(it, pin)
-                SetPINUserView(it)
+                SetPINView(it)
             }
         }
     }

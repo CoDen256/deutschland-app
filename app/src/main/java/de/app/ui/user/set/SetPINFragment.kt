@@ -77,7 +77,7 @@ class SetPINFragment : Fragment() {
     }
 
 
-    private fun onSuccessfulLogin(model: SetPINUserView) {
+    private fun onSuccessfulLogin(model: SetPINView) {
         navController.navigate(
             SetPINFragmentDirections.actionNavSetPinToEnterPin(model.user.userId)
         )

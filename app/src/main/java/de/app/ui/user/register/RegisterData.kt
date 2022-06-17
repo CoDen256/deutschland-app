@@ -9,7 +9,7 @@ data class RegisterFormState(
     val isDataValid: Boolean = false
 )
 
-data class RegisterUserView(
+data class RegisterView(
     val accountSecretToken: SecretToken,
     val type: UserType
 )

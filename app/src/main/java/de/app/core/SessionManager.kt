@@ -23,24 +23,24 @@ class SessionManager (private val dataSource: UserDataSource) {
 
     private suspend fun login(it: User) {
         currentUser = it
-        dataSource.setCurrentUser(it.accountSecretToken)
+        dataSource.setCurrentUser(it.userId)
     }
 
-    suspend fun addAccount(account: User, pin: String){
-        dataSource.add(account, pin)
+    suspend fun addAccount(user: User, pin: String){
+        dataSource.add(user, pin)
     }
 
-    suspend fun removeAccount(accountId: String): Result<Unit> {
-        return dataSource.remove(accountId)
+    suspend fun removeAccount(userId: String): Result<Unit> {
+        return dataSource.remove(userId)
     }
 
-    suspend fun login(accountId: String, pin: String): Result<User> {
-        return dataSource.login(accountId, pin).onSuccess { login(it) }
+    suspend fun login(userId: String, pin: String): Result<User> {
+        return dataSource.login(userId, pin).onSuccess { login(it) }
     }
 
 
-    suspend fun getAccountById(accountId: String): Result<UserHeader>{
-        return dataSource.getUserById(accountId)
+    suspend fun getAccountById(userId: String): Result<UserHeader>{
+        return dataSource.getUserById(userId)
     }
 
     suspend fun getAccounts(): List<UserHeader> {

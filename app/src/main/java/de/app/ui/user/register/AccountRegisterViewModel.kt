@@ -13,7 +13,7 @@ class AccountRegisterViewModel @Inject constructor(
     private val companyRepo: CompanyServiceAccountRepository,
 ) : ViewModel() {
     val formState = MutableLiveData<RegisterFormState>()
-    val formResult = MutableLiveData<Result<RegisterUserView>>()
+    val formResult = MutableLiveData<Result<RegisterView>>()
 
 
     fun register(accountId: String, type: UserType) {
@@ -22,7 +22,7 @@ class AccountRegisterViewModel @Inject constructor(
             UserType.COMPANY -> companyRepo.getCompanyAccountSecretToken(accountId)
         }
 
-        formResult.value = secretToken.map { RegisterUserView(it, type) }
+        formResult.value = secretToken.map { RegisterView(it, type) }
     }
 
     fun accountIdChanged(accountId: String) {

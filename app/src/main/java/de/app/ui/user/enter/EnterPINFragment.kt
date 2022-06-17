@@ -6,96 +6,74 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.data.model.UserHeader
 import de.app.databinding.FragmentUserEnterPinBinding
 import de.app.ui.MainActivity
 import de.app.ui.util.afterTextChanged
+import de.app.ui.util.observe
+import de.app.ui.util.onActionDone
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class EnterPINFragment : Fragment() {
 
-    @Inject lateinit var viewModel: EnterPINViewModel
+    @Inject
+    lateinit var viewModel: EnterPINViewModel
     private lateinit var binding: FragmentUserEnterPinBinding
+    private val args: EnterPINFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentUserEnterPinBinding.inflate(inflater, container, false)
 
-        val pin = binding.pin
-        val login = binding.login
-        val loading = binding.loading
-        val loginAsUsername = binding.loginUsername
-
-
-        val selectedUser: UserHeader = null!!
-//            arguments?.getString("accountId")
-//            .successOrElse()
-//            .map { viewModel.getAccountHeader(it).getOrThrow() }.getOrThrow()
-
-
-        loginAsUsername.text = getString(
-            R.string.welcome_username,
-            selectedUser.displayName
-        )
-
-        viewModel.loginFormState.observe(viewLifecycleOwner, Observer {
-            val loginState = it ?: return@Observer
-
-            // disable login button unless both username / password is valid
-            login.isEnabled = loginState.isDataValid
-
-            if (loginState.passwordError != null) {
-                pin.error = getString(loginState.passwordError)
-            }
-        })
-
-        viewModel.loginResult.observe(viewLifecycleOwner, Observer {
-            val loginResult = it ?: return@Observer
-
-            loading.visibility = View.GONE
-            if (loginResult.error != null) {
-                onLoginFailed(loginResult.error)
-            }
-            if (loginResult.success != null) {
-                onSuccessfulLogin(loginResult.success)
-            }
-        })
-
-
-        pin.apply {
-            afterTextChanged {
-                viewModel.loginDataChanged(
-                    selectedUser.userId,
-                    pin.text.toString()
+        lifecycleScope.launch {
+            viewModel.getAccountHeader(args.userId).onSuccess {
+                binding.welcomeUsername.text = getString(
+                    R.string.welcome_username,
+                    it.displayName
                 )
-            }
-
-            setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE -> {}
-//                        viewModel.login(
-//                            selectedAccount.id,
-//                            pin.text.toString()
-//                        )
-                }
-                false
-            }
-
-            login.setOnClickListener {
-                loading.visibility = View.VISIBLE
-//                viewModel.login(selectedAccount.id, pin.text.toString())
+            }.onFailure {
+                Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
             }
         }
 
+        observe(viewModel.loginFormState) {
+            binding.login.isEnabled = isDataValid
+
+            if (passwordError != null) {
+                binding.pin.error = getString(passwordError)
+            }
+        }
+
+        observe(viewModel.loginResult, {
+            binding.loading.visibility = View.GONE
+            onSuccessfulLogin(it)
+        }, {
+            binding.loading.visibility = View.GONE
+            onLoginFailed(it)
+        })
+
+        binding.pin.apply {
+            afterTextChanged { viewModel.loginDataChanged(it) }
+            onActionDone { submitLogin() }
+        }
+        binding.login.setOnClickListener { submitLogin() }
+
         return binding.root
+    }
+
+    private fun submitLogin() {
+        binding.loading.visibility = View.VISIBLE
+        viewModel.login(args.userId, binding.pin.text.toString())
     }
 
     private fun onSuccessfulLogin(model: EnterPINView) {
@@ -103,11 +81,10 @@ class EnterPINFragment : Fragment() {
         startActivity(intent)
 
         requireActivity().setResult(Activity.RESULT_OK)
-        //Complete and destroy login activity once successful
         requireActivity().finish()
     }
 
-    private fun onLoginFailed(errorString: String) {
-        Toast.makeText(requireContext(), errorString, Toast.LENGTH_SHORT).show()
+    private fun onLoginFailed(throwable: Throwable) {
+        Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT).show()
     }
 }
