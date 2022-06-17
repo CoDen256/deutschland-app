@@ -5,12 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.app.R
 import de.app.api.account.CitizenServiceAccountRepository
+import de.app.api.account.SecretToken
 import de.app.core.SessionManager
+import de.app.data.model.Address
 import de.app.data.model.User
 import de.app.data.model.UserHeader
-import de.app.data.model.Address
-import de.app.ui.user.set.data.SetupFormState
-import de.app.ui.user.set.data.SetupResult
 import java.util.*
 import javax.inject.Inject
 
@@ -19,11 +18,11 @@ class SetPINViewModel @Inject constructor(
     private val citizenRepo: CitizenServiceAccountRepository,
     ) : ViewModel() {
 
-    val loginFormState = MutableLiveData<SetupFormState>()
-    val loginResult = MutableLiveData<SetupResult>()
+    val setPINFormState = MutableLiveData<SetPINFormState>()
+    val setPINResult = MutableLiveData<Result<SetPINUserView>>()
 
-    fun login(accountId: String, pin: String) {
-        val account = citizenRepo.getCitizenAccount(accountId).map {
+    fun setPIN(token: String, pin: String) {
+        val account = citizenRepo.getCitizenAccount(SecretToken(token)).map {
             User(
                 UUID.randomUUID().toString(),
                 it.displayName,
@@ -37,11 +36,11 @@ class SetPINViewModel @Inject constructor(
 //            SetupResult(success = SetupUserView(account = account))
     }
 
-    fun loginDataChanged(accountId: String, password: String) {
+    fun pinChanged(password: String) {
         if (!isPasswordValid(password)) {
-            loginFormState.value = SetupFormState(passwordError = R.string.invalid_password)
+            setPINFormState.value = SetPINFormState(passwordError = R.string.invalid_password)
         } else {
-            loginFormState.value = SetupFormState(isDataValid = true)
+            setPINFormState.value = SetPINFormState(isDataValid = true)
         }
     }
 

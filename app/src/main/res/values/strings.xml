@@ -70,4 +70,5 @@
     <string name="enter_citizen_type">Citizen ID</string>
     <string name="enter_company_type">Company ID</string>
     <string name="empty_accounts">¯\\_(ツ)_/¯</string>
+    <string name="prompt_pin">4-digit PIN</string>
 </resources>

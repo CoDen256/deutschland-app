@@ -11,6 +11,7 @@ import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.core.os.bundleOf
@@ -21,6 +22,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.tabs.TabLayout
+import org.w3c.dom.Text
 import java.lang.IllegalArgumentException
 import java.net.HttpURLConnection
 import java.net.URL
@@ -73,10 +75,19 @@ fun <R> TabLayout.onTabSelected(mapping: Map<Int, R>, handler: (R) -> Unit){
     })
 }
 
+fun TextView.onActionDone(handler: () -> Unit){
+    setOnEditorActionListener { _, actionId, _ ->
+        when (actionId) {
+            EditorInfo.IME_ACTION_DONE -> handler()
+        }
+        false
+    }
+}
+
 fun TextView.afterTextChanged(afterTextChanged: (String) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
+            afterTextChanged(editable.toString())
         }
 
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}

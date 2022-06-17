@@ -68,7 +68,7 @@
         tools:layout="@layout/fragment_user_set_pin"
         android:label="Enter PIN">
         <argument
-            android:name="userId"
+            android:name="accountSecretToken"
             app:argType="string" />
         <action
             android:id="@+id/action_nav_set_pin_to_enter_pin"
