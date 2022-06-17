@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
-import de.app.core.db.AccountDataSource
-import de.app.data.model.AccountHeader
+import de.app.core.db.UserDataSource
+import de.app.data.model.UserHeader
 import de.app.databinding.FragmentDashboardAppointmentItemBinding
 import de.app.databinding.FragmentDashboardBinding
 import de.app.databinding.FragmentDashboardSectionBinding
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
     @Inject
-    lateinit var dataSource: AccountDataSource
+    lateinit var dataSource: UserDataSource
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -30,15 +30,15 @@ class DashboardFragment : Fragment() {
         val binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val account: AccountHeader = null!!//dataSource.getAccounts()[0]
+        val user: UserHeader = null!!//dataSource.getAccounts()[0]
 
         genFakeNotifications()
 
 
         binding.welcome.text = getString(R.string.welcome_dashboard,
-            "${account.displayName}")
+            "${user.displayName}")
 
-        binding.burgerId.text = getString(R.string.account_id_dashboard, account.id)
+        binding.burgerId.text = getString(R.string.account_id_dashboard, user.userId)
         val plz = "06217"
         val address = "Merseburg"
         binding.address.text = getString(R.string.address_dashboard, plz, address)

@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_select_account">
+    app:startDestination="@+id/nav_select_user">
 
     <fragment
         android:id="@+id/nav_enter_pin"
-        android:name="de.app.ui.account.login.AccountEnterPINFragment"
+        android:name="de.app.ui.user.enter.EnterPINFragment"
         android:label="Enter PIN"
-        tools:layout="@layout/fragment_login_enter_pin" >
+        tools:layout="@layout/fragment_user_enter_pin" >
         <argument
-            android:name="accountId"
+            android:name="userId"
             app:argType="string" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_select_account"
-        android:name="de.app.ui.account.select.SelectAccountFragment"
-        android:label="Select Account"
-        tools:layout="@layout/fragment_login_select_account" >
+        android:id="@+id/nav_select_user"
+        android:name="de.app.ui.user.select.SelectUserFragment"
+        android:label="Select User"
+        tools:layout="@layout/fragment_user_select" >
         <action
             android:id="@+id/action_nav_select_to_enter_pin"
             app:destination="@id/nav_enter_pin"
@@ -34,18 +34,18 @@
 
     <fragment
         android:id="@+id/nav_register_account"
-        android:name="de.app.ui.account.register.AccountRegisterFragment"
+        android:name="de.app.ui.user.register.AccountRegisterFragment"
         android:label="Register Account"
-        tools:layout="@layout/fragment_login_register_account">
+        tools:layout="@layout/fragment_user_register_account">
         <action
-            android:id="@+id/action_nav_register_to_successful"
+            android:id="@+id/action_nav_register_to_result"
             app:destination="@id/nav_register_account_result" />
     </fragment>
     <fragment
         android:id="@+id/nav_register_account_result"
-        android:name="de.app.ui.account.register.RegisterResultFragment"
+        android:name="de.app.ui.user.register.RegisterResultFragment"
         android:label="Register Result"
-        tools:layout="@layout/fragment_login_register_result">
+        tools:layout="@layout/fragment_user_register_result">
         <argument
             android:name="accountId"
             app:argType="string"
@@ -60,14 +60,14 @@
 
     <fragment
         android:id="@+id/nav_set_pin"
-        android:name="de.app.ui.account.setup.AccountSetPINFragment"
-        tools:layout="@layout/fragment_login_set_pin"
+        android:name="de.app.ui.user.set.SetPINFragment"
+        tools:layout="@layout/fragment_user_set_pin"
         android:label="Enter PIN">
         <argument
-            android:name="accountId"
+            android:name="userId"
             app:argType="string" />
         <action
-            android:id="@+id/action_set_pin_to_enter_pin"
+            android:id="@+id/action_nav_set_pin_to_enter_pin"
             app:destination="@id/nav_enter_pin" />
     </fragment>
 

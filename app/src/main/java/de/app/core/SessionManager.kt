@@ -1,32 +1,32 @@
 package de.app.core
 
-import de.app.core.db.AccountDataSource
-import de.app.data.model.Account
-import de.app.data.model.AccountHeader
+import de.app.core.db.UserDataSource
+import de.app.data.model.User
+import de.app.data.model.UserHeader
 
-class SessionManager (private val dataSource: AccountDataSource) {
-    var currentAccount: Account? = null
+class SessionManager (private val dataSource: UserDataSource) {
+    var currentUser: User? = null
         private set
 
-    suspend fun init() { updateCurrentAccount(); }
-    suspend fun updateCurrentAccount() {
-        currentAccount = dataSource.getCurrent().getOrNull()
+    suspend fun init() { updateCurrentUser(); }
+    suspend fun updateCurrentUser() {
+        currentUser = dataSource.getCurrentUser().getOrNull()
     }
 
     val isLoggedIn: Boolean
-        get() = currentAccount != null
+        get() = currentUser != null
 
     suspend fun logout() {
-        currentAccount = null
+        currentUser = null
         dataSource.removeCurrent()
     }
 
-    private suspend fun login(it: Account) {
-        currentAccount = it
-        dataSource.setCurrent(it.accountId)
+    private suspend fun login(it: User) {
+        currentUser = it
+        dataSource.setCurrentUser(it.accountId)
     }
 
-    suspend fun addAccount(account: Account, pin: String){
+    suspend fun addAccount(account: User, pin: String){
         dataSource.add(account, pin)
     }
 
@@ -34,16 +34,16 @@ class SessionManager (private val dataSource: AccountDataSource) {
         return dataSource.remove(accountId)
     }
 
-    suspend fun login(accountId: String, pin: String): Result<Account> {
+    suspend fun login(accountId: String, pin: String): Result<User> {
         return dataSource.login(accountId, pin).onSuccess { login(it) }
     }
 
 
-    suspend fun getAccountById(accountId: String): Result<AccountHeader>{
-        return dataSource.getAccountById(accountId);
+    suspend fun getAccountById(accountId: String): Result<UserHeader>{
+        return dataSource.getUserById(accountId)
     }
 
-    suspend fun getAccounts(): List<AccountHeader> {
+    suspend fun getAccounts(): List<UserHeader> {
         return dataSource.getAccounts()
     }
 

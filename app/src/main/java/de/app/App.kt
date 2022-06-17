@@ -13,7 +13,7 @@ import dagger.hilt.components.SingletonComponent
 import de.app.api.account.CitizenServiceAccountRepository
 import de.app.api.account.CompanyServiceAccountRepository
 import de.app.core.config.BaseServiceAccountRepository
-import de.app.core.db.AccountDataSource
+import de.app.core.db.UserDataSource
 import de.app.core.SessionManager
 import de.app.core.db.AppDatabase
 import javax.inject.Singleton
@@ -46,13 +46,13 @@ object SingletonAppModule {
 
     @Singleton
     @Provides
-    fun accountDataSource(db: AppDatabase): AccountDataSource {
-        return AccountDataSource(db.accountDao())
+    fun accountDataSource(db: AppDatabase): UserDataSource {
+        return UserDataSource(db.accountDao())
     }
 
     @Singleton
     @Provides
-    fun sessionManager(dataSource: AccountDataSource): SessionManager{
+    fun sessionManager(dataSource: UserDataSource): SessionManager{
         return SessionManager(dataSource)
     }
 }
