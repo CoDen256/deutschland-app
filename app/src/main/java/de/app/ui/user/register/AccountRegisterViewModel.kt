@@ -5,9 +5,6 @@ import androidx.lifecycle.ViewModel
 import de.app.R
 import de.app.api.account.CitizenServiceAccountRepository
 import de.app.api.account.CompanyServiceAccountRepository
-import de.app.ui.user.register.data.RegisterFormState
-import de.app.ui.user.register.data.RegisterResult
-import de.app.ui.user.register.data.RegisteredUserView
 import javax.inject.Inject
 
 class AccountRegisterViewModel @Inject constructor(
@@ -15,24 +12,17 @@ class AccountRegisterViewModel @Inject constructor(
     private val companyRepo: CompanyServiceAccountRepository,
 ) : ViewModel() {
     val formState = MutableLiveData<RegisterFormState>()
-    val formResult = MutableLiveData<RegisterResult>()
+    val formResult = MutableLiveData<Result<RegisterUserView>>()
 
-    enum class Type {
-        CITIZEN, COMPANY
-    }
+    enum class Type { CITIZEN, COMPANY }
 
     fun register(accountId: String, type: Type) {
-        val result = when (type) {
-            Type.CITIZEN -> citizenRepo.getCitizenAccount(accountId)
-            Type.COMPANY -> companyRepo.getCompanyAccount(accountId)
+        val secretToken = when (type) {
+            Type.CITIZEN -> citizenRepo.getCitizenAccountSecretToken(accountId)
+            Type.COMPANY -> companyRepo.getCompanyAccountSecretToken(accountId)
         }
 
-        result
-            .onSuccess {
-                formResult.value = RegisterResult(success = RegisteredUserView(account = it))
-            }.onFailure {
-                formResult.value = RegisterResult(error = it.message)
-            }
+        formResult.value = secretToken.map { RegisterUserView(it) }
     }
 
     fun accountIdChanged(accountId: String) {
@@ -56,6 +46,6 @@ class AccountRegisterViewModel @Inject constructor(
     }
 
     private fun isAccountIdValid(accountId: String): Boolean {
-        return accountId.length > 4
+        return accountId.length >= 5
     }
 }

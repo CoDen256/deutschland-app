@@ -1,5 +1,10 @@
 package de.app.api.account
 
+
+data class SecretToken(
+    val token: String
+)
+
 sealed interface AccountInfo{
     val accountId: String
     val displayName: String

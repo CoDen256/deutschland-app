@@ -63,7 +63,7 @@ interface UserDao {
 @Entity(tableName = "user")
 data class UserEntity(
     @PrimaryKey val userId: String,
-    val accountId: String,
+    val accountSecretToken: String,
     val displayName: String,
     val city: String,
     val country: String,

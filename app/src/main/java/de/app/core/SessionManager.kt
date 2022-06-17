@@ -23,7 +23,7 @@ class SessionManager (private val dataSource: UserDataSource) {
 
     private suspend fun login(it: User) {
         currentUser = it
-        dataSource.setCurrentUser(it.accountId)
+        dataSource.setCurrentUser(it.accountSecretToken)
     }
 
     suspend fun addAccount(account: User, pin: String){

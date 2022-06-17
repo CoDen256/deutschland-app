@@ -15,14 +15,30 @@ import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.tabs.TabLayout
+import java.lang.IllegalArgumentException
 import java.net.HttpURLConnection
 import java.net.URL
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+
+
+fun <T> LifecycleOwner.observe(data: MutableLiveData<T>, observer: T.() -> Unit){
+    data.observe(this) { observer(it) }
+}
+
+fun <T> LifecycleOwner.observe(data: MutableLiveData<Result<T>>,
+                                     onSuccess: (T) -> Unit,
+                                     onFail: (Throwable) -> Unit){
+    observe(data){ fold(onSuccess, onFail) }
+}
+
 
 fun View.onClickNavigate(controller: NavController,
                          @IdRes resId: Int,
@@ -35,6 +51,26 @@ fun View.onClickNavigate(controller: NavController,
 
 fun String.editable(): Editable{
     return SpannableStringBuilder(this)
+}
+
+fun <R> mapFromArray(vararg elements: R): Map<Int, R>{
+    return mapOf(*elements.asList().mapIndexed { i, e -> i to e }.toTypedArray())
+}
+
+fun <R> TabLayout.onTabSelected(mapping: List<R>, handler: (R) -> Unit){
+    onTabSelected(mapOf(*mapping.mapIndexed { i, e -> i to e }.toTypedArray()), handler=handler)
+}
+
+fun <R> TabLayout.onTabSelected(mapping: Map<Int, R>, handler: (R) -> Unit){
+    if (tabCount != mapping.size){
+        throw IllegalArgumentException("Mapping of the tabs has to contain mapping for all tabs: $tabCount, but was ${mapping.size}")
+    }
+    val ref = this
+    addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        override fun onTabSelected(tab: TabLayout.Tab?) { handler(mapping[ref.selectedTabPosition]!!) }
+        override fun onTabUnselected(tab: TabLayout.Tab?) {}
+        override fun onTabReselected(tab: TabLayout.Tab?) {}
+    })
 }
 
 fun TextView.afterTextChanged(afterTextChanged: (String) -> Unit) {

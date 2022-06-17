@@ -8,7 +8,7 @@ open class UserHeader(
 class User(
     _userId: String,
     _displayName: String,
-    val accountId: String,
+    val accountSecretToken: String,
     val address: Address,
     val type: Type,
 ): UserHeader(_userId, _displayName) {

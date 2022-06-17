@@ -81,6 +81,7 @@
         <entry key="app/src/main/res/layout/fragment_mail_box_list.xml" value="0.19746376811594202" />
         <entry key="app/src/main/res/layout/fragment_signature.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_signature_file_item.xml" value="0.17300724637681159" />
+        <entry key="app/src/main/res/layout/fragment_user_register_account.xml" value="0.25" />
         <entry key="app/src/main/res/layout/geo_data_fragment.xml" value="0.1539855072463768" />
         <entry key="app/src/main/res/layout/item_mailmessage.xml" value="0.265625" />
         <entry key="app/src/main/res/layout/layout.xml" value="0.21829710144927536" />

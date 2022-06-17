@@ -97,7 +97,7 @@ class SetPINFragment : Fragment() {
     private fun onSuccessfulLogin(model: SetupUserView) {
         findNavController().navigate(
             R.id.action_nav_set_pin_to_enter_pin,
-            bundleOf("accountId" to model.account.accountId)
+            bundleOf("accountId" to model.account.accountSecretToken)
         )
     }
 

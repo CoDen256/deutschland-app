@@ -86,7 +86,7 @@ class UserDataSource(
         return UserEntity(
             user.userId,
             user.displayName,
-            user.accountId,
+            user.accountSecretToken,
             user.address.city,
             user.address.country,
             user.address.postalCode,
@@ -98,7 +98,7 @@ class UserDataSource(
         return User(
             user.userId,
             user.displayName,
-            user.accountId,
+            user.accountSecretToken,
             Address(user.city, user.country, user.postalCode),
             User.Type.valueOf(user.type)
         )

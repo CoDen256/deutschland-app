@@ -8,57 +8,50 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
+import de.app.core.success
 import de.app.databinding.FragmentUserRegisterAccountBinding
-import de.app.ui.user.register.data.RegisteredUserView
 import de.app.ui.util.afterTextChanged
+import de.app.ui.util.mapFromArray
+import de.app.ui.util.observe
+import de.app.ui.util.onTabSelected
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class AccountRegisterFragment : Fragment() {
     @Inject lateinit var viewModel: AccountRegisterViewModel
     private lateinit var binding: FragmentUserRegisterAccountBinding
+    private lateinit var navController: NavController
 
+    private val tabToType = listOf(
+        AccountRegisterViewModel.Type.CITIZEN,
+        AccountRegisterViewModel.Type.COMPANY
+    )
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentUserRegisterAccountBinding.inflate(inflater, container, false)
 
-        viewModel.formState.observe(viewLifecycleOwner, Observer {
-            val state = it ?: return@Observer
+        navController = findNavController()
 
-            // disable login button unless both username / password is valid
-            binding.register.isEnabled = state.isDataValid
+        observeFormState()
+        observeFormResult()
+        observeAccountIdView()
+        observeTabs()
+        observeRegisterButton()
 
-            if (state.accountIdError != null) {
-                binding.accountId.error = getString(state.accountIdError)
-            }
-            if (state.enterIdText != null){
-                binding.accountId.hint = getString(state.enterIdText)
-            }
-        })
+        return binding.root
+    }
 
-        viewModel.formResult.observe(viewLifecycleOwner, Observer {
-            val loginResult = it ?: return@Observer
-
-            if (loginResult.error != null) {
-                onLoginFailed(loginResult.error)
-            }
-            if (loginResult.success != null) {
-                onSuccessfulLogin(loginResult.success)
-            }
-        })
-
-
+    private fun observeAccountIdView() {
         binding.accountId.apply {
             afterTextChanged {
-                viewModel.accountIdChanged(
-                    binding.accountId.text.toString(),
-                )
+                viewModel.accountIdChanged(binding.accountId.text.toString(),)
             }
 
             setOnEditorActionListener { _, actionId, _ ->
@@ -66,52 +59,59 @@ class AccountRegisterFragment : Fragment() {
                     EditorInfo.IME_ACTION_DONE ->
                         viewModel.register(
                             binding.accountId.text.toString(),
-                            tabToType(binding.tabs.selectedTabPosition)
+                            tabToType[binding.tabs.selectedTabPosition]
                         )
                 }
                 false
             }
-
-
-            binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    viewModel.accountTypeChanged(
-                        tabToType(binding.tabs.selectedTabPosition)
-                    )
-                }
-                override fun onTabUnselected(tab: TabLayout.Tab?) {}
-                override fun onTabReselected(tab: TabLayout.Tab?) {}
-
-            })
-            binding.register.setOnClickListener {
-                viewModel.register(
-                    binding.accountId.text.toString(),
-                    tabToType(binding.tabs.selectedTabPosition)
-                )
-            }
         }
-
-        return binding.root
     }
 
-    private fun tabToType(num: Int): AccountRegisterViewModel.Type = when (num) {
-        0 -> AccountRegisterViewModel.Type.CITIZEN
-        1 -> AccountRegisterViewModel.Type.COMPANY
-        else -> throw AssertionError()
+    private fun observeRegisterButton() {
+        binding.register.setOnClickListener {
+            viewModel.register(
+                binding.accountId.text.toString(),
+                tabToType[binding.tabs.selectedTabPosition]
+            )
+        }
     }
 
-    private fun onSuccessfulLogin(model: RegisteredUserView) {
-        findNavController().navigate(
-            R.id.action_nav_register_to_result,
-            bundleOf("accountId" to model.account.accountId)
+    private fun observeTabs() {
+        binding.tabs.onTabSelected(tabToType){ viewModel.accountTypeChanged(it) }
+    }
+
+    private fun observeFormResult() {
+        observe(viewModel.formResult,
+            { onSuccessfulRegister(it) },
+            { onLoginFailed(it.message) }
         )
     }
 
-    private fun onLoginFailed(errorString: String) {
-        findNavController().navigate(
+    private fun observeFormState() {
+        observe(viewModel.formState){
+            binding.register.isEnabled = isDataValid
+
+            if (accountIdError != null) {
+                binding.accountId.error = getString(accountIdError)
+            }
+            if (enterIdHintText != null) {
+                binding.accountId.hint = getString(enterIdHintText)
+            }
+        }
+    }
+
+    private fun onSuccessfulRegister(model: RegisterUserView) {
+        navController.navigate(
+            R.id.action_nav_register_to_result,
+            bundleOf("accountSecretToken" to model.accountSecretToken.token)
+        )
+    }
+
+    private fun onLoginFailed(errorString: String?) {
+        navController.navigate(
             R.id.action_nav_register_to_result,
             bundleOf(
-                "accountId" to null,
+                "accountSecretToken" to null,
                 "error" to errorString
             )
         )

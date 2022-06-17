@@ -47,7 +47,11 @@
         android:label="Register Result"
         tools:layout="@layout/fragment_user_register_result">
         <argument
-            android:name="accountId"
+            android:name="accountSecretToken"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="error"
             app:argType="string"
             app:nullable="true" />
         <action
