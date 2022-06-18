@@ -5,6 +5,7 @@ import de.app.api.service.AdministrativeServiceProvider
 import de.app.api.service.AdministrativeServiceRegistry
 import de.app.api.service.form.Form
 import de.app.api.service.submit.SubmittedForm
+import de.app.core.config.DataGenerator.Companion.generateFields
 import de.app.core.successOrElse
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,6 +15,10 @@ import kotlin.random.Random.Default.nextInt
 
 @Singleton
 class BaseAdministrativeServiceRegistry @Inject constructor(): AdministrativeServiceRegistry {
+
+    companion object {
+        val services = DataGenerator.generateServices(30)
+    }
 
     private val forms = services.map{it.id}.associateWith {
         Form(generateFields(nextInt(30)), nextBoolean())

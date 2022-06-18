@@ -3,6 +3,7 @@ package de.app.core.config
 import de.app.api.law.LawChangeHeader
 import de.app.api.law.LawChangeInfo
 import de.app.api.law.LawRegistryService
+import de.app.core.config.DataGenerator.Companion.generateLawChanges
 import de.app.core.range
 import de.app.core.successOrElse
 import java.time.LocalDate
