@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
+import de.app.api.account.*
 import de.app.core.SessionManager
 import de.app.core.db.UserDataSource
 import de.app.data.model.UserHeader
+import de.app.data.model.UserType
 import de.app.databinding.FragmentDashboardAppointmentItemBinding
 import de.app.databinding.FragmentDashboardBinding
 import de.app.databinding.FragmentDashboardSectionBinding
@@ -21,55 +23,79 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
-    @Inject lateinit var sessionManager: SessionManager
+    @Inject
+    lateinit var sessionManager: SessionManager
+    @Inject
+    lateinit var citizenRepo: CitizenServiceAccountRepository
+    @Inject
+    lateinit var companyRepo: CompanyServiceAccountRepository
     private lateinit var binding: FragmentDashboardBinding
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val user = sessionManager.currentUser!!
+        val user = sessionManager.currentUser ?: return binding.root
+
+        val accountInfo = when (user.type) {
+            UserType.COMPANY -> companyRepo.getCompanyAccount(SecretToken(user.accountSecretToken))
+            UserType.CITIZEN -> citizenRepo.getCitizenAccount(SecretToken(user.accountSecretToken))
+        }
+
+        accountInfo.onSuccess {
+            binding.accountId.text = getString(R.string.account_id_dashboard, it.accountId)
+            binding.address.text = getString(
+                R.string.address_dashboard,
+                it.address.postalCode,
+                it.address.city
+            )
+            binding.welcome.text = getString(R.string.welcome_dashboard, when (it) {
+                    is CitizenAccountInfo ->
+                        "${it.formOfAddress} ${it.firstName} ${it.surname}"
+                    is CompanyAccountInfo -> it.fullName
+                }
+            )
+        }
+
 
         genFakeNotifications()
 
-        binding.welcome.text = getString(R.string.welcome_dashboard,
-            user.displayName
+
+        inflateSection(
+            binding.appointments, "Applications", listOf(
+                "19.10.2000" to "You have an appointment at doctor",
+                "20.09.2010" to "Appointment to pick up the document",
+                "19.05.2022" to "Appointment to visit residence",
+                "19.05.2022" to "Appointment to visit residence"
+            )
         )
-
-        binding.burgerId.text = getString(R.string.account_id_dashboard, user.userId)
-        val address = user.address
-        binding.address.text = getString(R.string.address_dashboard,
-            address.postalCode,
-            address.city)
-
-        inflateSection(binding.appointments, "Applications", listOf(
-            "19.10.2000" to "You have an appointment at doctor",
-            "20.09.2010" to "Appointment to pick up the document",
-            "19.05.2022" to "Appointment to visit residence",
-            "19.05.2022" to "Appointment to visit residence"
-        ))
-        inflateSection(binding.applications, "Applications", listOf(
-            "Application #1" to "Done",
-            "Application #2" to "Pending",
-            "Application #3" to "Sent",
-            "Application #4" to "Pending"
-        ))
-        inflateSection(binding.emergencies, "Emergencies", listOf(
-            "Emergency #1" to "There is an emergency in your are",
-            "Emergency #2" to "Flooding and strong winds in Merseburg",
-            "Emergency #3" to "Hot weather in Merseburg",
-            "Emergency #4" to "Too much snow"
-        ))
+        inflateSection(
+            binding.applications, "Applications", listOf(
+                "Application #1" to "Done",
+                "Application #2" to "Pending",
+                "Application #3" to "Sent",
+                "Application #4" to "Pending"
+            )
+        )
+        inflateSection(
+            binding.emergencies, "Emergencies", listOf(
+                "Emergency #1" to "There is an emergency in your are",
+                "Emergency #2" to "Flooding and strong winds in Merseburg",
+                "Emergency #3" to "Hot weather in Merseburg",
+                "Emergency #4" to "Too much snow"
+            )
+        )
         return root
     }
 
-    private fun inflateSection(binding: FragmentDashboardSectionBinding,
-                              sectionTitle: String,
-                              cards: List<Pair<String, String>>
-                              ){
+    private fun inflateSection(
+        binding: FragmentDashboardSectionBinding,
+        sectionTitle: String,
+        cards: List<Pair<String, String>>
+    ) {
 
         binding.sectionTitle.text = sectionTitle
         inflateCard(binding.first, cards[0])
@@ -78,7 +104,10 @@ class DashboardFragment : Fragment() {
         inflateCard(binding.fourth, cards[3])
     }
 
-    private fun inflateCard(item: FragmentDashboardAppointmentItemBinding, itemData: Pair<String, String>){
+    private fun inflateCard(
+        item: FragmentDashboardAppointmentItemBinding,
+        itemData: Pair<String, String>
+    ) {
         val (caption, body) = itemData
         item.body.text = body
         item.caption.text = caption

@@ -20,16 +20,16 @@
             android:id="@+id/welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="25dp"
             android:textColor="@color/white"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Welcome Burger!" />
+            tools:text="Burger Burgermann" />
 
         <TextView
-            android:id="@+id/burger_id"
+            android:id="@+id/account_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="40dp"
@@ -48,7 +48,7 @@
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/burger_id"
+            app:layout_constraintTop_toBottomOf="@+id/account_id"
             tools:text="06217, Merseburg" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
