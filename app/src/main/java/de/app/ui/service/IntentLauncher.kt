@@ -35,11 +35,13 @@ class ResultContract<I, O>(
     private val createIntentHandler: (Context, I?) -> Intent,
     private val parseResultHandler: (Int, Intent?) -> O,
 ): ActivityResultContract<I, O>() {
-    override fun createIntent(context: Context, input: I?) =
-        createIntentHandler(context, input)
 
     override fun parseResult(resultCode: Int, intent: Intent?): O =
         parseResultHandler(resultCode, intent)
+
+    override fun createIntent(context: Context, input: I): Intent {
+        return createIntentHandler(context, input)
+    }
 }
 
 class LifecycleObserver(

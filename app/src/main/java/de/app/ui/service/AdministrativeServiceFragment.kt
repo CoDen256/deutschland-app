@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import de.app.databinding.FragmentAdministrativeServiceBinding
 import de.app.ui.service.data.result.FormResult
@@ -34,6 +35,8 @@ class AdministrativeServiceFragment : Fragment() {
         binding = FragmentAdministrativeServiceBinding.inflate(inflater, container, false)
         viewModel = AdminServiceViewModel(args.id)
         val root = binding.layout
+
+
 
         binding.serviceName.text = viewModel.service.name
         binding.serviceDescription.text = viewModel.service.description
