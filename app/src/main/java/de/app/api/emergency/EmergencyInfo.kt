@@ -1,13 +1,15 @@
 package de.app.api.emergency
 
-import de.app.data.model.Address
+import java.time.LocalDateTime
 
 data class Emergency(
+    val id: String,
     val name: String,
     val description: String,
     val city: String,
     val postalCode: String,
-    val country: String
+    val country: String,
+    val date: LocalDateTime
 )
 
 enum class EmergecySeverity {

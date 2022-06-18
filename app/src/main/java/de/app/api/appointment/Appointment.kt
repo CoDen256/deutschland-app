@@ -1,6 +1,6 @@
 package de.app.api.appointment
 
-import android.location.Address
+import de.app.data.model.Address
 import java.time.LocalDateTime
 
 data class Appointment(
@@ -9,5 +9,6 @@ data class Appointment(
     val serviceId: String,
     val accountId: String,
     val appointment: LocalDateTime,
+    val additionalInfo: String,
     val address: Address
 )

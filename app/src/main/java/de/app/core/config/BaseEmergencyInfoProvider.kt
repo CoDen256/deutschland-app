@@ -1,0 +1,30 @@
+package de.app.core.config
+
+import de.app.api.emergency.Emergency
+import de.app.api.emergency.EmergencyInfoProvider
+import de.app.core.range
+import java.time.LocalDateTime
+
+class BaseEmergencyInfoProvider: EmergencyInfoProvider {
+    private val emergencies: List<Emergency> = generateEmergencies(20)
+
+    override fun getAllEmergenciesForCity(
+        city: String,
+        from: LocalDateTime?,
+        to: LocalDateTime?
+    ): List<Emergency> {
+        return emergencies
+            .filter {it.date in range(from, to)}
+            .filter { city == it.city }
+    }
+
+    override fun getAllEmergenciesForCountry(
+        country: String,
+        from: LocalDateTime?,
+        to: LocalDateTime?
+    ): List<Emergency> {
+        return emergencies
+            .filter{ it.date in range(from, to)}
+            .filter { country == it.city }
+    }
+}

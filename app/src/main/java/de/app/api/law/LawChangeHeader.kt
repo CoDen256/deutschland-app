@@ -5,16 +5,17 @@ import java.time.LocalDate
 import java.util.*
 
 data class LawChangeHeader(
-    val id: UUID,
+    val id: String,
     val name: String,
     val shortDescription: String,
     val date: LocalDate
 )
 
 data class LawChangeInfo(
-    val id: UUID,
+    val id: String,
     val name: String,
-    val description: String,
+    val shortDescription: String,
+    val content: String,
     val attachments: List<FileHeader>,
     val date: LocalDate
 )

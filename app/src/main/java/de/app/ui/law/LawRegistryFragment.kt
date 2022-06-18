@@ -7,16 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import de.app.api.law.LawChangeHeader
+import de.app.api.law.LawRegistryService
 import de.app.core.runWithInterval
 import de.app.databinding.FragmentLawRegistryBinding
 import java.time.LocalDate
 import java.util.*
+import javax.inject.Inject
 import kotlin.random.Random
 
+@AndroidEntryPoint
 class LawRegistryFragment : Fragment() {
 
     private lateinit var listManager: LinearLayoutManager
+    @Inject lateinit var lawRegistry: LawRegistryService ;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,16 +56,7 @@ class LawRegistryFragment : Fragment() {
     }
 
     private fun getLawChanges(): MutableList<LawChangeHeader> = ArrayList<LawChangeHeader>().apply {
-        for (i in 1..Random.nextInt(1, 12)) {
-            add(
-                LawChangeHeader(
-                    UUID.randomUUID(),
-                    "Änderung des $i. Gesetzes",
-                    shortDescription = "Das $i. Gesetz vom 3. Mai 2013 (BGBl. I S. 1084), das zuletzt durch Artikel 7 des Gesetzes vom 15. Januar 2021 (BGBl. I S. 530) geändert worden ist",
-                    date= LocalDate.of(2022, i, Random.nextInt(1, 28))
-                )
-            )
-        }
+        addAll(lawRegistry.getLawChanges())
         sortByDescending { it.date }
     }
 
