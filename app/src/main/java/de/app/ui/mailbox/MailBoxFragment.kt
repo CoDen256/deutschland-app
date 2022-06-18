@@ -56,7 +56,7 @@ class MailBoxFragment : Fragment() {
                     Instant.now(),
                     removed = false,
                     important = false,
-                    UUID.randomUUID(),
+                    UUID.randomUUID().toString(),
                     preview="This is a really long text, actually a preview of the mail message $i",
                     )
             )

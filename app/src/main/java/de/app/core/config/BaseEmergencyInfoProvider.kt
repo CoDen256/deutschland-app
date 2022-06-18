@@ -4,8 +4,11 @@ import de.app.api.emergency.Emergency
 import de.app.api.emergency.EmergencyInfoProvider
 import de.app.core.range
 import java.time.LocalDateTime
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class BaseEmergencyInfoProvider: EmergencyInfoProvider {
+@Singleton
+class BaseEmergencyInfoProvider @Inject constructor(): EmergencyInfoProvider {
     private val emergencies: List<Emergency> = generateEmergencies(20)
 
     override fun getAllEmergenciesForCity(

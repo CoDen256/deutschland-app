@@ -6,8 +6,11 @@ import de.app.api.law.LawRegistryService
 import de.app.core.range
 import de.app.core.successOrElse
 import java.time.LocalDate
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class BaseLawRegistryService: LawRegistryService {
+@Singleton
+class BaseLawRegistryService @Inject constructor(): LawRegistryService {
     private val lawChanges: List<LawChangeInfo> = generateLawChanges(40)
     private val lawChangeHeaders = lawChanges.map {
         LawChangeHeader(it.id, it.name, it.shortDescription, it.date)

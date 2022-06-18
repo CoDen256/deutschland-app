@@ -12,9 +12,17 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import de.app.api.account.CitizenServiceAccountRepository
 import de.app.api.account.CompanyServiceAccountRepository
-import de.app.core.config.BaseServiceAccountRepository
+import de.app.api.applications.ApplicationService
+import de.app.api.appointment.AppointmentService
+import de.app.api.emergency.EmergencyInfoProvider
+import de.app.api.geo.GeodataService
+import de.app.api.law.LawRegistryService
+import de.app.api.safe.DataSafeService
+import de.app.api.service.AdministrativeServiceRegistry
+import de.app.api.signature.SignatureService
 import de.app.core.db.UserDataSource
 import de.app.core.SessionManager
+import de.app.core.config.*
 import de.app.core.db.AppDatabase
 import javax.inject.Singleton
 
@@ -29,6 +37,30 @@ abstract class AppModule {
 
     @Binds
     abstract fun companyAccountRepo(repo: BaseServiceAccountRepository) : CompanyServiceAccountRepository
+
+    @Binds
+    abstract fun appointmentService(service: BaseAppointmentService) : AppointmentService
+
+    @Binds
+    abstract fun applicationService(service: BaseApplicationService) : ApplicationService
+
+    @Binds
+    abstract fun emergencyInfoProvider(service: BaseEmergencyInfoProvider) : EmergencyInfoProvider
+
+    @Binds
+    abstract fun geodataService(service: BaseGeodataService): GeodataService
+
+    @Binds
+    abstract fun lawRegistryService(service: BaseLawRegistryService): LawRegistryService
+
+    @Binds
+    abstract fun dataSafeService(service: BaseDataSafeService): DataSafeService
+
+    @Binds
+    abstract fun administrativeServiceRegistry(service: BaseAdministrativeServiceRegistry) : AdministrativeServiceRegistry
+
+    @Binds
+    abstract fun signatureService(service: BaseSignatureService) : SignatureService
 }
 
 @Module

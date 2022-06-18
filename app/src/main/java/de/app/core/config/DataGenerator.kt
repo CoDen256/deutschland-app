@@ -23,11 +23,10 @@ import kotlin.random.Random.Default.nextInt
 
 val df = DataFactory()
 private fun rnd() = df.randomWord
-val services = generateServices(25)
 
 val citizens = mapOf(
     SecretToken("ua01") to CitizenAccountInfo(
-        "user-alpha", df.name,
+        "user-alpha", "Alpha Beta",
         Address("Merseburg","Germany","06217",
             "Eberhard-Leibnitz-Strasse", "1"),
         "Alpha", "Beta", "Frau"
@@ -256,3 +255,5 @@ val fieldGenerator = listOf<(Int) -> Field>(
     { DocumentInfoField(label="Document of ${rnd()}", documents = generateDocuments(nextInt(4)) ) },
     { ImageField(label= "Image of ${rnd()}", imageUri = images.random() ) },
 )
+
+val services = generateServices(25)

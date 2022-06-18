@@ -11,6 +11,6 @@ data class MailMessage(
     val removed: Boolean,
     val important: Boolean,
     val attachments: List<FileHeader>,
-    val id: UUID
+    val id: String
     ) {
 }

@@ -18,24 +18,19 @@ import de.app.notifications.Notificator
 import de.app.ui.user.LoginActivity
 import de.app.ui.util.runActivity
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
     @Inject lateinit var sessionManager: SessionManager
+    private lateinit var binding: FragmentDashboardBinding
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this)[DashboardViewModel::class.java]
-
-        val binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        if (!sessionManager.isLoggedIn){
-            requireActivity().runActivity(LoginActivity::class.java)
-            return binding.root
-        }
         val user = sessionManager.currentUser!!
 
         genFakeNotifications()

@@ -8,7 +8,7 @@ data class MailMessageHeader(
     val received: Instant,
     val removed: Boolean,
     val important: Boolean,
-    val id: UUID,
+    val id: String,
     val preview: String = ""
 ) {
 }
