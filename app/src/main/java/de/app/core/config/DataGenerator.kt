@@ -21,8 +21,9 @@ import java.util.*
 import kotlin.random.Random.Default.nextBoolean
 import kotlin.random.Random.Default.nextInt
 
-val df = DataFactory()
-private fun rnd() = df.randomWord
+val df = DataFactory().apply {
+    randomize(nextInt())
+}
 
 val citizens = mapOf(
     SecretToken("ua01") to CitizenAccountInfo(
@@ -68,9 +69,6 @@ val endpoints = listOf(
     "https://baum-faellen.de/api/",
     "https://ehe.de/api/",
     "https://ehe.de/api/",
-    generateEndpoint(),
-    generateEndpoint(),
-    generateEndpoint(),
 )
 
 val names = listOf(
@@ -79,9 +77,6 @@ val names = listOf(
     "Genehmigung zum Baumfällen",
     "Eheschließung anmelden",
     "Eheurkunde beantragen",
-    df.getRandomText(5, 50),
-    df.getRandomText(5, 50),
-    df.getRandomText(5, 50),
 )
 
 val descriptions = listOf(
@@ -90,9 +85,6 @@ val descriptions = listOf(
     "Für das Fällen von Bäumen kann aus unterschiedlichen Gründen eine Genehmigung erforderlich sein.",
     "Eine beabsichtigte Eheschließung muss beim Standesamt angemeldet werden",
     "Sie benötigen eine Eheurkunde? Ihre Eheurkunde erhalten Sie beim Standesamt, in dessen Bereich die Ehe geschlossen wurde. Das Standesamt stellt sie aus dem Eheregister aus.",
-    df.getRandomText(15, 250),
-    df.getRandomText(15, 250),
-    df.getRandomText(15, 250),
 )
 
 val documents = listOf(
@@ -103,17 +95,24 @@ val documents = listOf(
     "https://www.clickdimensions.com/links/TestPDFfile.pdf"
 )
 
-val images = listOf(
-    "https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d",
-    "https://picsum.photos/536/354",
-    "https://source.unsplash.com/random/200x200?sig=1"
-)
-
 val mimeTypes = listOf(
     "application/pdf",
     "text/plain",
     "text/html"
 )
+
+fun generateImageUri(): String {
+    return "https://source.unsplash.com/random/1024x1024?sig=${nextInt()}"
+}
+
+fun generateText(from: Int, until: Int): String{
+    return generateSequence { df.getRandomWord(5, 10) }
+        .take(nextInt(from, until))
+        .joinToString(separator = " ") { it }
+        .replaceFirstChar { it.uppercase() }
+}
+
+private fun rnd() = generateText(1, 2)
 
 fun generateEndpoint(): String {
     return "https://${rnd()}.${rnd()}.de/api"
@@ -138,12 +137,16 @@ private fun generateStreetNumber(num: Int) = "${nextInt(num)}${(('a'..'Z') + 0.t
 
 fun generateServices(num: Int): List<AdministrativeService> {
     return (0..num).map {
-        val rndInt = nextInt(names.size)
+        val rndInt = nextInt(names.size+4)
+        val extra = rndInt >= names.size
+        val name = if (extra) generateText(5, 10) else names[rndInt]
+        val desc = if (extra) generateText(10, 50) else descriptions[rndInt]
+        val endpoint = if (extra) generateEndpoint() else endpoints[rndInt]
         AdministrativeService(
             UUID.randomUUID().toString(),
-            names[rndInt],
-            descriptions[rndInt],
-            endpoints[rndInt],
+            name,
+            desc,
+            endpoint,
             generateAddress()
         )
     }
@@ -157,7 +160,7 @@ fun generateDocuments(num: Int): List<FileHeader>{
 
 fun generateOptions(num: Int): List<String>{
     return  (0..num).map{
-         if (nextBoolean()) df.randomWord else df.randomChar + df.number.toString()
+         if (nextInt(10) <= 8) rnd() else df.getNumberText(4)
     }
 }
 
@@ -184,11 +187,11 @@ fun generateAppointments(num: Int): List<Appointment>{
     return (0..num).map{
         val service = services.random()
         Appointment(
-            df.getRandomText(5, 15),
-            df.getRandomText(10, 50),
+            generateText(5, 15),
+            generateText(10, 50),
             serviceId = service.id,
             accountId = (citizens+ companies).values.random().accountId,
-            additionalInfo = df.getRandomText(10, 25),
+            additionalInfo = generateText(10, 25),
             address = generateAddress(),
             appointment = generateLocalDateTime()
         )
@@ -200,7 +203,7 @@ fun generateEmergencies(num: Int): List<Emergency> {
         val address = generateAddress()
         Emergency(UUID.randomUUID().toString(),
             "Emergency: ${rnd()}",
-            df.getRandomText(10, 50),
+            generateText(10, 50),
             address.city,
             address.postalCode,
             address.country,
@@ -230,9 +233,9 @@ fun generateLawChanges(num: Int): List<LawChangeInfo>{
         val date2 = generateLocalDateTime().format(DateTimeFormatter.RFC_1123_DATE_TIME)
         LawChangeInfo(
             UUID.randomUUID().toString(),
-            "Änderung des $it. Gesetzes über '${df.getRandomText(5, 30)}'",
+            "Änderung des $it. Gesetzes über '${generateText(5, 30)}'",
             shortDescription = "Das $it. Gesetz vom $date (BGBl. I S. 1084), das zuletzt durch Artikel ${df.number} des Gesetzes vom $date2 (BGBl. I S. 530) geändert worden ist",
-            content = df.getRandomText(500, 2000),
+            content = generateText(500, 2000),
             attachments = generateDocuments(5),
             date = generateLocalDate()
         )
@@ -240,9 +243,9 @@ fun generateLawChanges(num: Int): List<LawChangeInfo>{
 }
 
 val fieldGenerator = listOf<(Int) -> Field>(
-    { MultipleChoiceField(id="multiple-$it", required= nextBoolean(), label=rnd(), options = generateOptions(nextInt(5))) },
-    { SingleChoiceField(id="single-$it", required= nextBoolean(), label=rnd(), options = generateOptions(nextInt(5)) ) },
-    { RadioChoiceField(id="radio-$it", required= nextBoolean(), label=rnd(), options = generateOptions(nextInt(5)) ) },
+    { MultipleChoiceField(id="multiple-$it", required= nextBoolean(), label=rnd(), options = generateOptions(nextInt(2,5))) },
+    { SingleChoiceField(id="single-$it", required= nextBoolean(), label=rnd(), options = generateOptions(nextInt(2,5)) ) },
+    { RadioChoiceField(id="radio-$it", required= nextBoolean(), label=rnd(), options = generateOptions(nextInt(2,5)) ) },
     { AttachmentField(id="attachment-$it", required= nextBoolean(), label=rnd(), mimeType =  mimeTypes.random()) },
 
     { BigTextField(id="big-$it", required= nextBoolean(), label= rnd(), hint= rnd()) },
@@ -251,9 +254,9 @@ val fieldGenerator = listOf<(Int) -> Field>(
     { NumberField(id="number-$it", required= nextBoolean(), label= "Number of ${rnd()}", hint= "Number of ${rnd()}") },
     { DateField(id="date-$it", required= nextBoolean(), label= "Date of ${rnd()}", hint= "Date of ${rnd()}") },
 
-    { TextInfoField(text=df.getRandomText(10, 200)) },
+    { TextInfoField(text= generateText(10, 100)) },
     { DocumentInfoField(label="Document of ${rnd()}", documents = generateDocuments(nextInt(4)) ) },
-    { ImageField(label= "Image of ${rnd()}", imageUri = images.random() ) },
+    { ImageField(label= "Image of ${rnd()}", imageUri = generateImageUri() ) },
 )
 
 val services = generateServices(25)
