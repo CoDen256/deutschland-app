@@ -4,7 +4,7 @@ import de.app.data.model.Address
 import java.util.*
 
 data class AdministrativeService(
-    val id: UUID,
+    val id: String,
     val name: String,
     val description: String,
     val apiEndpoint: String,

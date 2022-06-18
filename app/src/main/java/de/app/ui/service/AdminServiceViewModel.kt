@@ -23,7 +23,7 @@ class AdminServiceViewModel(private val id: String?) : ViewModel() {
     val service: AdministrativeService = registry.getAllServices()
         .find { it.id.toString() == id }!!
 
-    val form: Form = registry.getApplicationForm(service)
+    val form: Form = registry.getApplicationForm(service).getOrThrow()
 
     val formState = MutableLiveData<FormState>()
     val result = MutableLiveData<FormResult>()

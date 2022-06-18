@@ -14,7 +14,6 @@ import kotlin.random.Random.Default.nextInt
 
 val df = DataFactory()
 private fun rnd() = df.randomWord
-//val accounts = listOf("user-alpha", "user-bob", "user-delta", "")
 
 val citizens = mapOf(
     SecretToken("ua01") to CitizenAccountInfo(
@@ -110,17 +109,19 @@ fun generateAddresses(num: Int): List<Address> {
         Address(
             city = cities[city], postalCode = postalCodes[city],
             street = df.streetName, country = "Germany",
-            streetNumber = "${nextInt(30)}${(('a'..'Z') + 0.toString()).random()}"
+            streetNumber = generateStreetNumber(30)
         )
     }
 }
+
+private fun generateStreetNumber(num: Int) = "${nextInt(num)}${(('a'..'Z') + 0.toString()).random()}"
 
 fun generateServices(num: Int): List<AdministrativeService> {
     val addresses = generateAddresses(num)
     return (0..num).map {
         val rndInt = nextInt(names.size)
         AdministrativeService(
-            UUID.randomUUID(),
+            UUID.randomUUID().toString(),
             names[rndInt],
             descriptions[rndInt],
             endpoints[rndInt],

@@ -1,5 +1,6 @@
 package de.app.api.mail
 
+import de.app.data.model.FileHeader
 import java.time.Instant
 import java.util.UUID
 
@@ -9,7 +10,7 @@ data class MailMessage(
     val received: Instant,
     val removed: Boolean,
     val important: Boolean,
-    val attachments: List<AttachmentHeader>,
+    val attachments: List<FileHeader>,
     val id: UUID
     ) {
 }
