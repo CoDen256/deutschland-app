@@ -8,5 +8,5 @@
     android:layout_height="match_parent"
     android:layout_marginHorizontal="5dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.mailbox.MailBoxFragment"
+    tools:context="de.app.ui.appointment.AppointmentFragment"
     tools:listitem="@layout/fragment_appointment_item" />

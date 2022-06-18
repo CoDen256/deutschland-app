@@ -192,7 +192,8 @@ class DataGenerator {
                     (citizens + companies).values.random().accountId,
                     service.name,
                     service.description,
-                    ApplicationStatus.values().random()
+                    ApplicationStatus.values().random(),
+                    generateLocalDateTime()
                 )
             }
         }
@@ -201,11 +202,11 @@ class DataGenerator {
             return (0..num).map {
                 val service = services.random()
                 Appointment(
-                    generateText(5, 15),
-                    generateText(10, 50),
+                    generateText(5, 8),
+                    generateText(10, 25),
                     serviceId = service.id,
                     accountId = (citizens + companies).values.random().accountId,
-                    additionalInfo = generateText(10, 25),
+                    additionalInfo = generateText(5, 15),
                     address = generateAddress(),
                     appointment = generateLocalDateTime()
                 )
