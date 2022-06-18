@@ -67,6 +67,8 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:2.38.1"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2'
 
+    implementation "org.fluttercode.datafactory:datafactory:0.8"
+
 }
 
 kapt {

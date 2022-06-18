@@ -85,13 +85,15 @@ class UserDataSource(
 
     private fun serializeUser(user: User): UserEntity {
         return UserEntity(
-            user.userId,
-            user.displayName,
-            user.accountSecretToken,
-            user.address.city,
-            user.address.country,
-            user.address.postalCode,
-            user.type.name
+            userId = user.userId,
+            displayName = user.displayName,
+            accountSecretToken = user.accountSecretToken,
+            city = user.address.city,
+            country = user.address.country,
+            postalCode = user.address.postalCode,
+            street = user.address.street,
+            streetNumber = user.address.streetNumber,
+            type=user.type.name
         )
     }
 
@@ -100,7 +102,7 @@ class UserDataSource(
             user.userId,
             user.displayName,
             user.accountSecretToken,
-            Address(user.city, user.country, user.postalCode),
+            Address(user.city, user.country, user.postalCode, user.street, user.streetNumber),
             UserType.valueOf(user.type)
         )
     }

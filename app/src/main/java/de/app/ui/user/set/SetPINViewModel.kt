@@ -47,7 +47,7 @@ class SetPINViewModel @Inject constructor(
                 UUID.randomUUID().toString(),
                 it.displayName,
                 token,
-                Address(it.city, it.country, it.postalCode),
+                Address(it.city, it.country, it.postalCode, it.street, it.streetNumber),
                 type)
         }
 

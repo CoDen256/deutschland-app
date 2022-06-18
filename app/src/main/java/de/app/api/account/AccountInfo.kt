@@ -1,5 +1,7 @@
 package de.app.api.account
 
+import de.app.data.model.Address
+
 
 data class SecretToken(
     val token: String
@@ -8,17 +10,13 @@ data class SecretToken(
 sealed interface AccountInfo{
     val accountId: String
     val displayName: String
-    val city: String
-    val postalCode: String
-    val country: String
+    val address: Address
 }
 
 data class CitizenAccountInfo(
     override val accountId: String,
     override val displayName: String,
-    override val city: String,
-    override val postalCode: String,
-    override val country: String,
+    override val address: Address,
     val firstName: String,
     val surname: String,
     val formOfAddress: String
@@ -27,8 +25,6 @@ data class CitizenAccountInfo(
 data class CompanyAccountInfo(
     override val accountId: String,
     override val displayName: String,
-    override val city: String,
-    override val postalCode: String,
-    override val country: String,
+    override val address: Address,
     val fullName: String,
 ): AccountInfo
