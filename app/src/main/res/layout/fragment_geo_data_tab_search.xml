@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <SearchView
-        android:queryHint="Search for geodata objects..."
+        android:queryHint="@string/search_for_geo_prompt"
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

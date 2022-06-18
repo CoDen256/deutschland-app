@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
-        android:text="@string/law_registry">
+        android:text="@string/menu_law_registry">
     </TextView>
 
     <androidx.recyclerview.widget.RecyclerView
