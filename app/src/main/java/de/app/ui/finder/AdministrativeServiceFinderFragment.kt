@@ -13,18 +13,23 @@ import android.widget.SearchView
 import android.widget.SimpleCursorAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.api.service.AdministrativeService
 import de.app.databinding.FragmentAdministrativeServiceFinderBinding
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import java.util.concurrent.Executors
+import javax.inject.Inject
 
 
-class AdministrativeServiceFinder : Fragment(), SearchView.OnQueryTextListener {
+@AndroidEntryPoint
+class AdministrativeServiceFinderFragment : Fragment(), SearchView.OnQueryTextListener {
 
-    private val viewModel = AdministrativeServiceFinderViewModel()
+    @Inject lateinit var viewModel: AdministrativeServiceFinderViewModel
     private val services = ArrayList<AdministrativeService>()
     private val adapter = ServiceInfoViewAdapter(services) { onServiceClicked(it) }
     private lateinit var searchCityView: SearchView;
@@ -43,10 +48,14 @@ class AdministrativeServiceFinder : Fragment(), SearchView.OnQueryTextListener {
         binding.serviceList.adapter = adapter
         binding.serviceList.layoutManager = LinearLayoutManager(context)
 
-        searchServiceView.setOnQueryTextListener(this@AdministrativeServiceFinder)
+        searchServiceView.setOnQueryTextListener(this@AdministrativeServiceFinderFragment)
 
-        searchCityView.setQuery(viewModel.address, true)
-        searchDatabase("", viewModel.address)
+        lifecycleScope.launch {
+            viewModel.getAddress().onSuccess {
+                searchCityView.setQuery(it.city, true)
+                searchDatabase("", it.city)
+            }
+        }
 
         searchCityView.suggestionsAdapter = SimpleCursorAdapter(
             context, android.R.layout.simple_list_item_1, null,

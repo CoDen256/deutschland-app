@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_finder"
-        android:name="de.app.ui.finder.AdministrativeServiceFinder"
+        android:name="de.app.ui.finder.AdministrativeServiceFinderFragment"
         android:label="@string/menu_finder"
         tools:layout="@layout/fragment_administrative_service_finder" >
         <action

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import de.app.databinding.FragmentAdministrativeServiceBinding
 import de.app.ui.service.data.result.FormResult
 import de.app.ui.service.data.value.FormValue
@@ -24,13 +25,14 @@ class AdministrativeServiceFragment : Fragment() {
 
     private lateinit var inputFields: List<InputFieldView>
     private lateinit var submitButtonView: ButtonView
+    private val args: AdministrativeServiceFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAdministrativeServiceBinding.inflate(inflater, container, false)
-        viewModel = AdminServiceViewModel(arguments?.getString("id"))
+        viewModel = AdminServiceViewModel(args.id)
         val root = binding.layout
 
         binding.serviceName.text = viewModel.service.name
