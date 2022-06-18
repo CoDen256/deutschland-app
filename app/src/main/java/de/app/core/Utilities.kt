@@ -34,3 +34,4 @@ fun range(from: LocalDateTime?, to:LocalDateTime?) =
 
 fun range(from: LocalDate?, to:LocalDate?) =
     (from?: LocalDate.MIN)..(to?: LocalDate.MAX)
+

@@ -15,6 +15,8 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.annotation.IdRes
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
@@ -186,4 +188,9 @@ fun Activity.runActivity(cls: Class<*>){
 
     this.setResult(Activity.RESULT_OK)
     this.finish()
+}
+
+fun setLanguage(list: String){
+    val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(list)
+    AppCompatDelegate.setApplicationLocales(appLocale)
 }

@@ -21,6 +21,7 @@ import de.app.databinding.ActivityMainBinding
 import de.app.ui.user.LoginActivity
 import de.app.ui.user.enter.EnterPINView
 import de.app.ui.util.runActivity
+import de.app.ui.util.setLanguage
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -71,7 +72,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.switchLanguage.setOnClickListener {
-
+            val languageEn = "en-EN"
+            val languageDe = "de-DE"
+            val current = resources.configuration.locales[0]
+            if (current.toString().startsWith("de")){
+                setLanguage(languageEn)
+            }else {
+                setLanguage(languageDe)
+            }
         }
 
         // TODO: why is this needed?
