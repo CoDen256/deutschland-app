@@ -59,6 +59,9 @@ val endpoints = listOf(
     "https://baum-faellen.de/api/",
     "https://ehe.de/api/",
     "https://ehe.de/api/",
+    generateEndpoint(),
+    generateEndpoint(),
+    generateEndpoint(),
 )
 
 val names = listOf(
@@ -102,6 +105,10 @@ val mimeTypes = listOf(
     "text/plain",
     "text/html"
 )
+
+fun generateEndpoint(): String {
+    return "https://${rnd()}.${rnd()}.de/api"
+}
 
 fun generateAddresses(num: Int): List<Address> {
     return (0..num).map {
