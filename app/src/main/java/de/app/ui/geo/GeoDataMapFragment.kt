@@ -10,8 +10,14 @@ import androidx.lifecycle.LiveData
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapView
+import dagger.hilt.android.AndroidEntryPoint
+import de.app.R
+import de.app.core.onSuccess
 import de.app.databinding.FragmentGeoDataTabMapBinding
+import de.app.geo.LocationRepository
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class GeoDataMapFragment(private val data: LiveData<MapObjectInfo>) : Fragment() {
 
     private var style = "basic"
@@ -21,19 +27,29 @@ class GeoDataMapFragment(private val data: LiveData<MapObjectInfo>) : Fragment()
         get() = "https://api.maptiler.com/maps/$style/style.json?key=$apiKey"
 
 
+    @Inject
+    lateinit var repo: LocationRepository
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = FragmentGeoDataTabMapBinding.inflate(inflater, container, false).apply {
+    ): View {
+        val binding = FragmentGeoDataTabMapBinding.inflate(inflater, container, false)
 
-        setupMap(mapView, savedInstanceState)
+        setupMap(binding.mapView, savedInstanceState)
 
         data.observe(viewLifecycleOwner) {
-            this.currentObject.text = it.name
+            binding.currentObject.text = getString(R.string.selected_object, it.name)
         }
 
-    }.root
+        repo.requestAddress(requireContext()).onSuccess {  result ->
+            result.onSuccess {
+                binding.currentPosition.text = getString(R.string.your_position_is, it.getAddressLine(0))
+            }
+        }
+        return binding.root
+    }
 
     private fun setupMap(mapView: MapView, savedInstanceState: Bundle?) {
         mapView.onCreate(savedInstanceState)

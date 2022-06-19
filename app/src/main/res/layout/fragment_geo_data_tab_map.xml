@@ -6,21 +6,33 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="@string/please_select_an_object"
-        android:id="@+id/current_object"
+        android:text="@string/your_position_is"
+        android:id="@+id/current_position"
         android:layout_width="match_parent"
+        android:textStyle="bold"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+        android:layout_marginStart="10dp"
         android:layout_weight="0.5">
 
     </TextView>
+
+    <TextView
+        android:text="@string/please_select_an_object"
+        android:id="@+id/current_object"
+        android:layout_marginStart="10dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5">
+    </TextView>
+
+
 
     <com.mapbox.mapboxsdk.maps.MapView
         android:id="@+id/map_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="19.5"
+        android:layout_weight="19"
         />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

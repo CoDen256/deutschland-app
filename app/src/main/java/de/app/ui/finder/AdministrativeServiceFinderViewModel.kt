@@ -12,12 +12,11 @@ import de.app.data.model.Address
 import de.app.geo.LocationRepository
 import de.app.ui.util.geoDecode
 import de.app.ui.util.simplify
-import java.util.*
 import javax.inject.Inject
 
 class AdministrativeServiceFinderViewModel @Inject constructor(
     private val registry: AdministrativeServiceRegistry,
-    val locationRepository: LocationRepository
+    private val locationRepository: LocationRepository
 ) : ViewModel() {
 
     fun search(searchQuery: String, address: String): LiveData<List<AdministrativeService>> {
@@ -29,12 +28,8 @@ class AdministrativeServiceFinderViewModel @Inject constructor(
         })
     }
 
-    fun requestAddress(context: Context): Task<Address?> {
-        return locationRepository
-            .requestLocation()
-            .onSuccess {
-                context.geoDecode(it)?.first()?.simplify()
-            }
+    fun requestAddress(context: Context): Task<Result<Address>> {
+        return locationRepository.requestSimplifiedAddress(context)
     }
 
 }

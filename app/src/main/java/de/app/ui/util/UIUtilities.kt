@@ -29,6 +29,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.tabs.TabLayout
+import de.app.core.successOrElse
 import de.app.ui.user.LoginActivity
 import org.w3c.dom.Text
 import java.lang.IllegalArgumentException
@@ -200,9 +201,10 @@ fun setLanguage(list: String){
 }
 
 
-fun Context.geoDecode(location: Location): List<Address>? {
+fun Context.geoDecode(location: Location): Result<List<Address>> {
     return Geocoder(this, Locale.GERMANY)
         .getFromLocation(location.latitude, location.longitude, 1)
+        .successOrElse()
 }
 
 fun Address.simplify(): de.app.data.model.Address{

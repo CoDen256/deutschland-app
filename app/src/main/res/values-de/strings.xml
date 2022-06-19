@@ -36,7 +36,7 @@
     <string name="dashboard_applications_title">Anträge</string>
     <string name="dashboard_emergencies_title">Notfälle</string>
     <string name="add_file">Neue Datei</string>
-    <string name="please_select_an_object">Wähle ein Objekt</string>
+    <string name="please_select_an_object">Kein ausgewähltes Objekt</string>
     <string name="sign_uploaded_locally">Signieren und lokal speichern</string>
     <string name="sign_uploaded_data_safe">Signieren und im Datensafe speichern</string>
     <string name="upload_from_data_safe">Aus Datensafe hochladen</string>
@@ -57,5 +57,7 @@
     <string name="postal_code_city_prompt">Stadt</string>
     <string name="admin_service_prompt">Verwaltungsleistung</string>
     <string name="search_for_geo_prompt">Nach Geoobjekten suchen…</string>
+    <string name="your_position_is">Aktuelle Position: %s</string>
+    <string name="selected_object">Angezeigtes Object: %s</string>
 
 </resources>

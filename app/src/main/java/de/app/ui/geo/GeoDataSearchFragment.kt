@@ -6,8 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import dagger.hilt.android.AndroidEntryPoint
 import de.app.databinding.FragmentGeoDataTabSearchBinding
+import de.app.geo.LocationRepository
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class GeoDataSearchFragment(
     private val fragmentCollection: GeoDataFragmentCollection,
 ) :Fragment() {
@@ -32,6 +36,7 @@ class GeoDataSearchFragment(
             fragmentCollection.moveToMap(MapObjectInfo(categories[groupPosition].second[childPosition]))
             true
         }
+
 
 
         categoriesView.setAdapter(catAdapter)
