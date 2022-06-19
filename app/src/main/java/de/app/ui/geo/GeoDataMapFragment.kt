@@ -2,6 +2,7 @@ package de.app.ui.geo
 
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,18 +11,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.maps.MapView
+import com.mapbox.mapboxsdk.maps.MapboxMap
+import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.CircleManager
 import com.mapbox.mapboxsdk.plugins.annotation.CircleOptions
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
-import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions
 import com.mapbox.mapboxsdk.utils.ColorUtils
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.core.onSuccess
 import de.app.databinding.FragmentGeoDataTabMapBinding
 import de.app.geo.LocationRepository
+import de.app.ui.util.geoDecode
 import javax.inject.Inject
 
 
@@ -45,36 +45,63 @@ class GeoDataMapFragment(private val data: LiveData<MapObjectInfo>) : Fragment()
     ): View {
         val binding = FragmentGeoDataTabMapBinding.inflate(inflater, container, false)
 
-        setupMap(binding.mapView, savedInstanceState)
+        setupMap(binding, savedInstanceState)
 
         data.observe(viewLifecycleOwner) {
             binding.currentObject.text = getString(R.string.selected_object, it.name)
         }
 
+
+        repo.requestLocation().onSuccess { location ->
+            requireContext().geoDecode(location).map { it.first() }.onSuccess {
+                binding.currentPosition.text =
+                    getString(R.string.your_position_is, it.getAddressLine(0))
+            }
+
+            binding.mapView.getMapAsync { map ->
+                map.setStyle(styleUrl) { style ->
+                    map.uiSettings.isAttributionEnabled = false
+                    displayLocation(binding, map, style, location, Color.RED)
+                    setCamera(map, location, 14.0)
+                }
+            }
+        }
+
         return binding.root
+    }
+
+    private fun setCamera(
+        map: MapboxMap,
+        location: Location,
+        zoom: Double
+    ) {
+        map.cameraPosition = CameraPosition.Builder()
+            .target(LatLng(location.latitude, location.longitude))
+            .zoom(zoom)
+            .build()
+    }
+
+    private fun displayLocation(
+        binding: FragmentGeoDataTabMapBinding,
+        map: MapboxMap,
+        style: Style,
+        location: Location,
+        color: Int
+    ) {
+        val circleManager = CircleManager(binding.mapView, map, style)
+        val circleOptions = CircleOptions()
+            .withLatLng(LatLng(location.latitude, location.longitude))
+            .withCircleColor(ColorUtils.colorToRgbaString(color))
+            .withCircleRadius(5f)
+        circleManager.create(circleOptions)
     }
 
     private fun setupMap(binding: FragmentGeoDataTabMapBinding, savedInstanceState: Bundle?) {
         binding.mapView.onCreate(savedInstanceState)
-
-        repo.requestAddress(requireContext()).onSuccess { result ->
-            result.onSuccess {
-                binding.currentPosition.text =
-                    getString(R.string.your_position_is, it.getAddressLine(0))
-
-            }
-        }
-
-        mapView.getMapAsync { map ->
+        binding.mapView.getMapAsync { map ->
             // Set the style after mapView was loaded
-            map.setStyle(styleUrl) {
+            map.setStyle(styleUrl) { style->
                 map.uiSettings.isAttributionEnabled = false
-                val circleManager = CircleManager(mapView, map, it)
-                val circleOptions = CircleOptions()
-                    .withLatLng(LatLng(51.3563, 11.9917))
-                    .withCircleColor(ColorUtils.colorToRgbaString(Color.RED))
-                    .withCircleRadius(5f)
-                circleManager.create(circleOptions)
 
                 // Set the map view center
                 map.cameraPosition = CameraPosition.Builder()
@@ -83,6 +110,7 @@ class GeoDataMapFragment(private val data: LiveData<MapObjectInfo>) : Fragment()
                     .build()
             }
         }
+
     }
 
     private fun getMapTilerKey(): String = requireActivity().let {
