@@ -6,6 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.text.Editable
@@ -34,6 +37,7 @@ import java.net.URL
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 fun <T> LifecycleOwner.observe(data: MutableLiveData<T>, observer: T.() -> Unit){
@@ -193,4 +197,19 @@ fun Activity.runActivity(cls: Class<*>){
 fun setLanguage(list: String){
     val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(list)
     AppCompatDelegate.setApplicationLocales(appLocale)
+}
+
+
+fun Context.geoDecode(location: Location): List<Address>? {
+    return Geocoder(this, Locale.GERMANY)
+        .getFromLocation(location.latitude, location.longitude, 1)
+}
+
+fun Address.simplify(): de.app.data.model.Address{
+    return de.app.data.model.Address(
+        country = countryName,
+        postalCode = postalCode,
+        city = locality,
+        address = "$thoroughfare $featureName"
+    )
 }

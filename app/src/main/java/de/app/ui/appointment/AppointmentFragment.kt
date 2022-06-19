@@ -44,7 +44,7 @@ class AppointmentFragment : Fragment() {
         val elements = ArrayList<Appointment>()
         binding.list.adapter = ListViewAdapter(elementBinding, elements){e, b ->
             b.additionalInfo.text = getString(R.string.note_additional_info, e.additionalInfo)
-            b.address.text = "${e.address.city}, ${e.address.postalCode}, ${e.address.street} Str. ${e.address.streetNumber}"
+            b.address.text = "${e.address.city}, ${e.address.postalCode}, ${e.address}"
             b.date.text = e.appointment.format(DateTimeFormatter.ofPattern("EEEE, dd. MMMM"))
             b.time.text = e.appointment.format(DateTimeFormatter.ofPattern("HH:mm"))
             b.description.text = e.description

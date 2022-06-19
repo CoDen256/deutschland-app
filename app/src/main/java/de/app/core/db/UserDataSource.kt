@@ -91,8 +91,7 @@ class UserDataSource(
             city = user.address.city,
             country = user.address.country,
             postalCode = user.address.postalCode,
-            street = user.address.street,
-            streetNumber = user.address.streetNumber,
+            address = user.address.address,
             type=user.type.name
         )
     }
@@ -102,7 +101,7 @@ class UserDataSource(
             user.userId,
             user.displayName,
             user.accountSecretToken,
-            Address(user.city, user.country, user.postalCode, user.street, user.streetNumber),
+            Address(user.city, user.country, user.postalCode, user.address),
             UserType.valueOf(user.type)
         )
     }

@@ -31,7 +31,7 @@ class DataGenerator {
                 "user-alpha", "Alpha Beta",
                 Address(
                     "Merseburg", "Germany", "06217",
-                    "Eberhard-Leibnitz-Strasse", "1"
+                    "Eberhard-Leibnitz-Strasse 1"
                 ),
                 "Alpha", "Beta", "Frau"
             ),
@@ -39,7 +39,7 @@ class DataGenerator {
                 "user-bob", "Uncle Bob",
                 Address(
                     "Halle", "Germany", "06108",
-                    "Gottschedstraße", "10a"
+                    "Gottschedstraße 10a"
                 ),
                 "Uncle", "Bob", "Herr"
             ),
@@ -47,7 +47,7 @@ class DataGenerator {
                 "user-delta", "Delta Zeta",
                 Address(
                     "Leipzig", "Germany", "04103",
-                    "Eberhard-Leibnitz-Strasse", "4"
+                    "Eberhard-Leibnitz-Strasse"
                 ),
                 "Delta", "Zeta", ""
             )
@@ -58,7 +58,7 @@ class DataGenerator {
                 "comp-yota", "Yota Gmbh",
                 Address(
                     "Leipzig", "Germany", "04103",
-                    "Käthe-Kollwitz-Straße", "1"
+                    "Käthe-Kollwitz-Straße 1"
                 ),
                 "Yota Gmbh Inc."
             ),
@@ -66,7 +66,7 @@ class DataGenerator {
                 "comp-kappa", "Kappa Gmbh",
                 Address(
                     "Bakhmut", "Ukraine", "84500",
-                    "Ul. Gagarina", "1"
+                    "Ul. Gagarina 1"
                 ),
                 "Kappa Gmbh Inc."
             )
@@ -157,8 +157,7 @@ class DataGenerator {
             val city = nextInt(cities.size)
             return Address(
                 city = cities[city], postalCode = postalCodes[city],
-                street = df.streetName, country = "Germany",
-                streetNumber = generateStreetNumber(30)
+                address = df.streetName+" Str. "+generateStreetNumber(30), country = "Germany",
             )
         }
 

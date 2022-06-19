@@ -1,8 +1,6 @@
 package de.app.ui.finder
 
 import android.app.SearchManager.SUGGEST_COLUMN_TEXT_1
-import android.content.Context.BIND_AUTO_CREATE
-import android.content.Intent
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.os.Bundle
@@ -16,7 +14,6 @@ import android.widget.SimpleCursorAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -25,7 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.api.service.AdministrativeService
 import de.app.databinding.FragmentAdministrativeServiceFinderBinding
-import de.app.geo.ForegroundLocationService
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import java.util.concurrent.Executors
@@ -57,25 +53,12 @@ class AdministrativeServiceFinderFragment : Fragment(), SearchView.OnQueryTextLi
 
         searchServiceView.setOnQueryTextListener(this@AdministrativeServiceFinderFragment)
 
-        viewModel.locationRepository.startLocationUpdates()
-
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            // repeatOnLifecycle launches the block in a new coroutine every time the
-            // lifecycle is in the STARTED state (or above) and cancels it when it's STOPPED.
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                 Trigger the flow and start listening for values.
-//                 Note that this happens when lifecycle is STARTED and stops
-//                 collecting when the lifecycle is STOPPED
-                viewModel.lastLocation.collect {
-                    it?.let {
-                        searchCityView.setQuery("${it.longitude}", true)
-//                searchDatabase("", it.city)
-                    }
-                }
+        viewModel.requestAddress(requireContext()).addOnSuccessListener{
+            it?.let {
+                searchCityView.setQuery(it.city, true)
+                searchDatabase("", it.city)
             }
         }
-
 
         searchCityView.suggestionsAdapter = SimpleCursorAdapter(
             context, android.R.layout.simple_list_item_1, null,

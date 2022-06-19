@@ -10,7 +10,6 @@ import de.app.api.account.CitizenServiceAccountRepository
 import de.app.api.account.CompanyServiceAccountRepository
 import de.app.api.account.SecretToken
 import de.app.core.SessionManager
-import de.app.data.model.Address
 import de.app.data.model.User
 import de.app.data.model.UserType
 import kotlinx.coroutines.launch
