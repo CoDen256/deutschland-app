@@ -3,6 +3,7 @@ package de.app
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
+import com.google.android.gms.location.LocationServices
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -66,6 +67,11 @@ abstract class AppModule {
 @Module
 @InstallIn(SingletonComponent::class)
 object SingletonAppModule {
+
+    @Provides
+    @Singleton
+    fun provideFusedLocationProviderClient(application: Application)
+    = LocationServices.getFusedLocationProviderClient(application)
 
     @Singleton
     @Provides

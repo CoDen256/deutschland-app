@@ -45,7 +45,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     implementation "androidx.room:room-ktx:$room_version"
-
+    implementation 'androidx.lifecycle:lifecycle-service:2.4.1'
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.0-alpha05'
     implementation 'com.google.android.material:material:1.6.1'
@@ -66,6 +66,8 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.38.1"
     kapt "com.google.dagger:hilt-android-compiler:2.38.1"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2'
+    implementation 'com.google.android.gms:play-services-base:18.0.1'
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
 
     implementation "org.fluttercode.datafactory:datafactory:0.8"
 

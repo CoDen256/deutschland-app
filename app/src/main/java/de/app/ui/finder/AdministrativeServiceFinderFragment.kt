@@ -1,6 +1,8 @@
 package de.app.ui.finder
 
 import android.app.SearchManager.SUGGEST_COLUMN_TEXT_1
+import android.content.Context.BIND_AUTO_CREATE
+import android.content.Intent
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.os.Bundle
@@ -13,13 +15,17 @@ import android.widget.SearchView
 import android.widget.SimpleCursorAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.api.service.AdministrativeService
 import de.app.databinding.FragmentAdministrativeServiceFinderBinding
+import de.app.geo.ForegroundLocationService
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import java.util.concurrent.Executors
@@ -29,7 +35,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AdministrativeServiceFinderFragment : Fragment(), SearchView.OnQueryTextListener {
 
-    @Inject lateinit var viewModel: AdministrativeServiceFinderViewModel
+    @Inject
+    lateinit var viewModel: AdministrativeServiceFinderViewModel
     private val services = ArrayList<AdministrativeService>()
     private val adapter = ServiceInfoViewAdapter(services) { onServiceClicked(it) }
     private lateinit var searchCityView: SearchView;
@@ -42,6 +49,10 @@ class AdministrativeServiceFinderFragment : Fragment(), SearchView.OnQueryTextLi
     ): View {
         val binding = FragmentAdministrativeServiceFinderBinding.inflate(inflater, container, false)
 
+        val serviceIntent = Intent(requireContext(), ForegroundLocationService::class.java)
+        requireContext().bindService(serviceIntent, viewModel, BIND_AUTO_CREATE)
+
+
         searchCityView = binding.searchCity
         searchServiceView = binding.searchService
 
@@ -50,12 +61,23 @@ class AdministrativeServiceFinderFragment : Fragment(), SearchView.OnQueryTextLi
 
         searchServiceView.setOnQueryTextListener(this@AdministrativeServiceFinderFragment)
 
-        lifecycleScope.launch {
-            viewModel.getAddress().onSuccess {
-                searchCityView.setQuery(it.city, true)
-                searchDatabase("", it.city)
+        viewLifecycleOwner.lifecycleScope.launch {
+            // repeatOnLifecycle launches the block in a new coroutine every time the
+            // lifecycle is in the STARTED state (or above) and cancels it when it's STOPPED.
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.startLocationUpdates()
+//                 Trigger the flow and start listening for values.
+//                 Note that this happens when lifecycle is STARTED and stops
+//                 collecting when the lifecycle is STOPPED
+                viewModel.lastLocation.collect {
+                    it?.let {
+                        searchCityView.setQuery("${it.longitude}", true)
+//                searchDatabase("", it.city)
+                    }
+                }
             }
         }
+
 
         searchCityView.suggestionsAdapter = SimpleCursorAdapter(
             context, android.R.layout.simple_list_item_1, null,
@@ -159,5 +181,10 @@ class AdministrativeServiceFinderFragment : Fragment(), SearchView.OnQueryTextLi
             R.id.action_nav_finder_to_nav_admin_service,
             bundleOf("id" to it.id.toString())
         )
+    }
+
+    override fun onStop() {
+        super.onStop()
+        requireContext().unbindService(viewModel)
     }
 }
