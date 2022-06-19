@@ -1,9 +1,12 @@
 package de.app.ui
 
-import android.app.Activity
-import android.content.Intent
+import android.Manifest
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Toast
+import android.widget.Toast.LENGTH_LONG
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
@@ -19,7 +22,6 @@ import de.app.R
 import de.app.core.SessionManager
 import de.app.databinding.ActivityMainBinding
 import de.app.ui.user.LoginActivity
-import de.app.ui.user.enter.EnterPINView
 import de.app.ui.util.runActivity
 import de.app.ui.util.setLanguage
 import kotlinx.coroutines.launch
@@ -32,6 +34,13 @@ class MainActivity : AppCompatActivity() {
     lateinit var sessionManager: SessionManager
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
+    private val permissionLauncher: ActivityResultLauncher<Array<String>> =
+        this.registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) {
+//            Toast.makeText(this, "YEAH:$it", LENGTH_LONG).show()
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +80,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        requestPermissions()
+
         binding.switchLanguage.setOnClickListener {
             val languageEn = "en-EN"
             val languageDe = "de-DE"
@@ -95,6 +106,15 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    private fun requestPermissions() {
+        permissionLauncher.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

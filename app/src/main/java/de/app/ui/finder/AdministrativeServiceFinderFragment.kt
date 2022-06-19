@@ -57,7 +57,7 @@ class AdministrativeServiceFinderFragment : Fragment(), SearchView.OnQueryTextLi
 
         searchServiceView.setOnQueryTextListener(this@AdministrativeServiceFinderFragment)
 
--        viewModel.locationRepository.startLocationUpdates()
+        viewModel.locationRepository.startLocationUpdates()
 
 
         viewLifecycleOwner.lifecycleScope.launch {
