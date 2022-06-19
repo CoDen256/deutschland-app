@@ -49,10 +49,6 @@ class AdministrativeServiceFinderFragment : Fragment(), SearchView.OnQueryTextLi
     ): View {
         val binding = FragmentAdministrativeServiceFinderBinding.inflate(inflater, container, false)
 
-        val serviceIntent = Intent(requireContext(), ForegroundLocationService::class.java)
-        requireContext().bindService(serviceIntent, viewModel, BIND_AUTO_CREATE)
-
-
         searchCityView = binding.searchCity
         searchServiceView = binding.searchService
 
@@ -61,11 +57,13 @@ class AdministrativeServiceFinderFragment : Fragment(), SearchView.OnQueryTextLi
 
         searchServiceView.setOnQueryTextListener(this@AdministrativeServiceFinderFragment)
 
+-        viewModel.locationRepository.startLocationUpdates()
+
+
         viewLifecycleOwner.lifecycleScope.launch {
             // repeatOnLifecycle launches the block in a new coroutine every time the
             // lifecycle is in the STARTED state (or above) and cancels it when it's STOPPED.
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.startLocationUpdates()
 //                 Trigger the flow and start listening for values.
 //                 Note that this happens when lifecycle is STARTED and stops
 //                 collecting when the lifecycle is STOPPED
@@ -181,10 +179,5 @@ class AdministrativeServiceFinderFragment : Fragment(), SearchView.OnQueryTextLi
             R.id.action_nav_finder_to_nav_admin_service,
             bundleOf("id" to it.id.toString())
         )
-    }
-
-    override fun onStop() {
-        super.onStop()
-        requireContext().unbindService(viewModel)
     }
 }

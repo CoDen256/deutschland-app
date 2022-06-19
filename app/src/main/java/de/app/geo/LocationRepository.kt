@@ -3,10 +3,7 @@ package de.app.geo
 import android.annotation.SuppressLint
 import android.location.Location
 import android.os.Looper
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
@@ -26,20 +23,14 @@ class LocationRepository @Inject constructor(
 
     @SuppressLint("MissingPermission") // Only called when holding location permission.
     fun startLocationUpdates() {
-        val request = LocationRequest.create().apply {
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            interval = 10_000 // 10 seconds
-        }
-        // Note: For this sample it's fine to use the main looper, so our callback will run on the
-        // main thread. If your callback will perform any intensive operations (writing to disk,
-        // making a network request, etc.), either change to a background thread from the callback,
-        // or create a HandlerThread and pass its Looper here instead.
-        // See https://developer.android.com/reference/android/os/HandlerThread.
+        val request = LocationRequest.create()
+
         fusedLocationProviderClient.requestLocationUpdates(
             request,
             callback,
             Looper.getMainLooper()
         )
+
         _isReceivingUpdates.value = true
     }
 

@@ -20,12 +20,13 @@ import javax.inject.Inject
 
 class AdministrativeServiceFinderViewModel @Inject constructor(
     private val registry: AdministrativeServiceRegistry,
-    private val serviceConnection: ForegroundLocationServiceConnection,
-    private val locationRepository: LocationRepository
-):ViewModel(), ServiceConnection by serviceConnection{
+    val locationRepository: LocationRepository
+):ViewModel(){
 
     val isReceivingLocationUpdates = locationRepository.isReceivingLocationUpdates
     val lastLocation: StateFlow<Location?> = locationRepository.lastLocation
+
+
 
     val readData: LiveData<List<AdministrativeService>> =
         MutableLiveData(registry.getAllServices())
@@ -37,18 +38,6 @@ class AdministrativeServiceFinderViewModel @Inject constructor(
         }.filter {
                     (it.address.city.lowercase().contains(address.lowercase()))
         })
-    }
-
-    fun toggleLocationUpdates() {
-        startLocationUpdates()
-    }
-
-    fun startLocationUpdates() {
-        serviceConnection.service?.startLocationUpdates()
-    }
-
-    fun stopLocationUpdates() {
-        serviceConnection.service?.stopLocationUpdates()
     }
 
 }
