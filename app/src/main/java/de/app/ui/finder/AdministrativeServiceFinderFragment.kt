@@ -53,10 +53,12 @@ class AdministrativeServiceFinderFragment : Fragment(), SearchView.OnQueryTextLi
 
         searchServiceView.setOnQueryTextListener(this@AdministrativeServiceFinderFragment)
 
-        viewModel.requestAddress(requireContext()).addOnSuccessListener{ result ->
-            result.onSuccess {
-                searchCityView.setQuery(it.city, true)
-                searchDatabase("", it.city)
+        lifecycleScope.launch {
+            viewModel.requestAddress(requireContext()).addOnSuccessListener{ result ->
+                result.onSuccess {
+                    searchCityView.setQuery(it.city, true)
+                    searchDatabase("", it.city)
+                }
             }
         }
 
