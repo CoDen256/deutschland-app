@@ -55,9 +55,6 @@ class DataSignatureFragment : Fragment() {
         }
 
         binding.files.adapter = FileViewAdapter(requireContext(), files)
-        binding.files.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
         return binding.root
     }
 

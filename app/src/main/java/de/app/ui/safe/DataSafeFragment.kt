@@ -26,7 +26,6 @@ class DataSafeFragment : Fragment() {
 
         val files = getFiles()
         binding.rvDocuments.apply {
-            layoutManager = GridLayoutManager(context, 4)
             adapter = FileViewAdapter(context, files)
         }
 

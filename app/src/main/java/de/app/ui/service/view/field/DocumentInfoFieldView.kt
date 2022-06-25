@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import de.app.api.service.form.DocumentInfoField
 import de.app.databinding.ApplicationFormDocumentInfoBinding
 import de.app.databinding.ApplicationFormDocumentInfoItemBinding
+import de.app.ui.util.FileViewAdapter
 import de.app.ui.util.openFile
 
 
@@ -15,27 +16,18 @@ class DocumentInfoFieldView (private val binding: ApplicationFormDocumentInfoBin
 
     class Inflater {
         private lateinit var binding: ApplicationFormDocumentInfoBinding
-        private lateinit var documentBinding : () -> ApplicationFormDocumentInfoItemBinding
 
         fun inflate(inflater: LayoutInflater, parent: ViewGroup): Inflater = apply {
             binding = ApplicationFormDocumentInfoBinding.inflate(inflater, parent, true)
-            documentBinding = {
-                ApplicationFormDocumentInfoItemBinding.inflate(inflater, binding.documents, true)
-            }
         }
 
         fun populate(field: DocumentInfoField, fragment: Fragment): Inflater = apply {
             binding.label.text = field.label
 
-            field.documents.forEach { file ->
-                val documentBinding = documentBinding()
-                documentBinding.label.text = file.name
-                documentBinding.document.setOnClickListener {
-                    val uri: Uri = file.fileUri
-                    fragment.requireActivity().openFile(uri, file.mimeType)
-                }
-            }
-
+            binding.files.adapter = FileViewAdapter(
+                fragment.requireContext(),
+                field.documents
+            )
         }
 
         fun build() = DocumentInfoFieldView(binding)

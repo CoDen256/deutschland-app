@@ -14,11 +14,12 @@
         android:layout_height="wrap_content"
         android:ems="10"/>
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/files"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/documents"
-        android:orientation="horizontal">
-    </LinearLayout>
-
+        android:layout_height="150dp"
+        tools:listitem="@layout/common_file_item"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
 </LinearLayout>

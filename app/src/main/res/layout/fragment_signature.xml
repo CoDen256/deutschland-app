@@ -80,9 +80,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/files"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="150dp"
+        tools:listitem="@layout/common_file_item"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
