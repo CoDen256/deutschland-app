@@ -16,7 +16,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DataSignatureFragment : Fragment() {
 
-    @Inject lateinit var service: BaseSignatureService
+    @Inject
+    lateinit var service: BaseSignatureService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,16 +28,14 @@ class DataSignatureFragment : Fragment() {
         val files = ArrayList(generateDocuments(5))
         binding.files.adapter = FileViewAdapter(requireContext(), files)
 
-        val launcher = FilePickerIntentLauncher(
-            requireActivity(),
-            handleResult = {
-                binding.files.adapter?.apply {
-                    files.add(0, it)
-                    notifyItemInserted(0)
-                }
-                binding.files.post { binding.files.smoothScrollToPosition(0) }
+        val launcher = FilePickerIntentLauncher(requireActivity()) {
+            binding.files.adapter?.apply {
+                files.add(0, it)
+                notifyItemInserted(0)
             }
-        )
+            binding.files.post { binding.files.smoothScrollToPosition(0) }
+        }
+
 
         lifecycle.addObserver(launcher.getObserver())
         binding.uploadFileLocal.setOnClickListener {

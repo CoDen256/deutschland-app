@@ -15,8 +15,8 @@ import java.util.*
 class FilePickerIntentLauncher(
     activity: ComponentActivity,
     key: String = UUID.randomUUID().toString(),
-    handleResult: (FileHeader) -> Unit,
-    handleFailure: (Throwable) -> Unit = { activity.toast("Failed to open file") }
+    handleFailure: (Throwable) -> Unit = { activity.toast("Failed to open file") },
+    handleResult: (FileHeader) -> Unit
 ) : IntentLauncher<String, Result<Uri>>(
     registry = activity.activityResultRegistry,
     key = key,
