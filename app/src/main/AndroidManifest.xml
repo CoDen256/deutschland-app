@@ -38,9 +38,14 @@
             android:exported="true"
             android:theme="@style/Theme.DeutschlandApp.NoActionBar">
 
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="app" android:host="www.de-app.de" />
+            </intent-filter>
         </activity>
 
-        <service android:name=".geo.ForegroundLocationService" android:exported="false" />
     </application>
 
 </manifest>

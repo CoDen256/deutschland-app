@@ -1,5 +1,6 @@
 package de.app.ui.signature
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,8 @@ import de.app.ui.components.FileViewAdapter
 import de.app.ui.components.OpenableFileViewAdapter
 import de.app.ui.safe.DataSafePickerFactory
 import de.app.ui.util.FilePickerIntentLauncher
+import de.app.ui.util.openFile
+import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import de.app.databinding.FragmentAdministrativeServiceBinding
 import de.app.ui.service.data.result.FormResult
@@ -56,7 +57,11 @@ class AdministrativeServiceFragment : Fragment() {
         return binding.root
     }
 
-    private fun inflateFields(fragment: Fragment, inflater: LayoutInflater, parent: ViewGroup): List<FieldView> {
+    private fun inflateFields(
+        fragment: Fragment,
+        inflater: LayoutInflater,
+        parent: ViewGroup
+    ): List<FieldView> {
         val factory = FieldViewFactory(fragment, inflater, parent)
         return viewModel.form.fields.map { factory.createFieldView(it) }
     }
@@ -108,6 +113,9 @@ class AdministrativeServiceFragment : Fragment() {
 
     private fun onSuccess() {
         Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(
+            AdministrativeServiceFragmentDirections.actionNavServiceToPayment()
+        )
     }
 
     private fun onError(result: FormResult) {
