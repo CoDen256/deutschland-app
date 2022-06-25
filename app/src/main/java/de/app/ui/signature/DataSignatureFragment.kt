@@ -7,9 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import de.app.core.config.DataGenerator.Companion.generateDocuments
 import de.app.data.model.FileHeader
 import de.app.databinding.FragmentSignatureBinding
-import de.app.ui.safe.FileViewAdapter
+import de.app.ui.util.FileViewAdapter
 import de.app.ui.service.IntentLauncher
 import de.app.ui.util.*
 import java.util.ArrayList
@@ -60,24 +61,6 @@ class DataSignatureFragment : Fragment() {
         return binding.root
     }
 
-    private fun getFiles(): MutableList<FileHeader> = ArrayList<FileHeader>().apply {
-        for (i in 0..Random.nextInt(2)) {
-            addAll(
-                listOf(
-                    FileHeader(
-                        "AlphaDoc$i",
-                        "http://www.africau.edu/images/default/sample.pdf",
-                        "application/pdf"
-                    ),
-                    FileHeader(
-                        "BetaDoc$i",
-                        "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                        "application/pdf"
-                    ),
-                )
-            )
-        }
-    }
-
+    private fun getFiles(): MutableList<FileHeader> = ArrayList(generateDocuments(5))
 
 }

@@ -5,10 +5,14 @@ import androidx.lifecycle.ViewModel
 import de.app.api.service.AdministrativeServiceRegistry
 import de.app.core.config.BaseAdministrativeServiceRegistry
 import de.app.api.service.AdministrativeService
+import de.app.api.service.form.AttachmentField
+import de.app.api.service.form.DocumentInfoField
 import de.app.api.service.form.Form
 import de.app.api.service.form.InputField
 import de.app.api.service.submit.SubmittedField
 import de.app.api.service.submit.SubmittedForm
+import de.app.core.config.DataGenerator.Companion.generateDocuments
+import de.app.data.model.FileHeader
 import de.app.ui.service.data.result.FormResult
 import de.app.ui.service.data.result.FormView
 import de.app.ui.service.data.state.FieldState
@@ -23,7 +27,13 @@ class AdminServiceViewModel(id: String) : ViewModel() {
     val service: AdministrativeService = registry.getServiceById(id)
         .getOrThrow()
 
-    val form: Form = registry.getApplicationForm(service).getOrThrow()
+    val form: Form = Form(
+        listOf(
+            DocumentInfoField(label="Documnet", generateDocuments(5)),
+            AttachmentField(id="at", required = true, "Attachment", "application/pdf")
+        ),
+        paymentRequired = true
+    ) ?:registry.getApplicationForm(service).getOrThrow()
 
     val formState = MutableLiveData<FormState>()
     val result = MutableLiveData<FormResult>()

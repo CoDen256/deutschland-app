@@ -37,7 +37,6 @@ class AdministrativeServiceFragment : Fragment() {
         val root = binding.layout
 
 
-
         binding.serviceName.text = viewModel.service.name
         binding.serviceDescription.text = viewModel.service.description
 

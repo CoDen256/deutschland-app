@@ -167,7 +167,7 @@ class DataGenerator {
 
         fun generateDocuments(num: Int): List<FileHeader> {
             return (0..num).map {
-                FileHeader(rnd(), documents.random(), rnd())
+                FileHeader(rnd(), documents.random(), "application/pdf")
             }
         }
 

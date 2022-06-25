@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
-class ListViewAdapter<T, B: ViewBinding>(
+open class ListViewAdapter<T, B: ViewBinding>(
     private val inflate: (LayoutInflater, ViewGroup) -> B,
     private val elements: List<T>,
     private val bindElement: (T, B) -> Unit
