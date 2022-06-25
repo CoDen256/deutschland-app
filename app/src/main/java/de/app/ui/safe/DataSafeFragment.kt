@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import de.app.core.config.DataGenerator.Companion.generateDocuments
 import de.app.core.runWithInterval
 import de.app.data.model.FileHeader
 import de.app.databinding.FragmentDataSafeBinding
 import de.app.ui.components.FileViewAdapter
+import de.app.ui.signature.DataSignatureFragmentDirections
+import de.app.ui.util.bundleFromFileHeader
 
 class DataSafeFragment : Fragment() {
 
@@ -22,9 +26,12 @@ class DataSafeFragment : Fragment() {
         val binding = FragmentDataSafeBinding.inflate(inflater, container, false)
 
         val files = getFiles()
-        binding.rvDocuments.apply {
-            adapter = FileViewAdapter(context, files)
+        binding.rvDocuments.adapter = FileViewAdapter(requireContext(), files) {
+            parentFragmentManager.setFragmentResult("data-safe-file-request", bundleFromFileHeader(it))
+            findNavController().navigate(DataSafeFragmentDirections.actionNavDataSafeToNavSignature())
+
         }
+
 
         runWithInterval({updateFiles(binding.rvDocuments, files)})
 

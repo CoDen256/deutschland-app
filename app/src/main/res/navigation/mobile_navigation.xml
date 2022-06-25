@@ -45,13 +45,21 @@
         android:id="@+id/nav_data_safe"
         android:name="de.app.ui.safe.DataSafeFragment"
         android:label="@string/menu_data_safe"
-        tools:layout="@layout/fragment_signature" />
+        tools:layout="@layout/fragment_data_safe" >
+        <action
+            android:id="@+id/action_nav_data_safe_to_nav_signature"
+            app:destination="@id/nav_signature" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_signature"
         android:name="de.app.ui.signature.DataSignatureFragment"
         android:label="@string/menu_signature"
-        tools:layout="@layout/fragment_data_safe" />
+        tools:layout="@layout/fragment_signature" >
+        <action
+            android:id="@+id/action_nav_signature_to_nav_data_safe"
+            app:destination="@id/nav_data_safe" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_geodata"
