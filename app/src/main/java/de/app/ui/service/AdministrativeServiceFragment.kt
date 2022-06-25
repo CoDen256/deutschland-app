@@ -1,5 +1,7 @@
 package de.app.ui.service
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +21,7 @@ import de.app.ui.service.view.button.ButtonViewFactory
 import de.app.ui.service.view.field.FieldView
 import de.app.ui.service.view.field.FieldViewFactory
 import de.app.ui.service.view.field.InputFieldView
+import de.app.ui.util.openUrl
 
 class AdministrativeServiceFragment : Fragment() {
 
@@ -112,10 +115,11 @@ class AdministrativeServiceFragment : Fragment() {
     }
 
     private fun onSuccess() {
-        Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
-        findNavController().navigate(
-            AdministrativeServiceFragmentDirections.actionNavServiceToPayment()
-        )
+        if (viewModel.form.paymentRequired){
+            requireContext().openUrl("https://coden256.github.io/deutschland-app/")
+        }else{
+            AdministrativeServiceFragmentDirections.actionServiceToSubmittedResult()
+        }
     }
 
     private fun onError(result: FormResult) {

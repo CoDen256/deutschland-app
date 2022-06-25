@@ -3,24 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_signature">
+    app:startDestination="@+id/nav_dashboard">
 
     <fragment
         android:id="@+id/nav_dashboard"
         android:name="de.app.ui.dashboard.DashboardFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_nav_to_submitted_result"
+            app:destination="@id/nav_admin_service_submitted_result"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_finder"
         android:name="de.app.ui.finder.AdministrativeServiceFinderFragment"
         android:label="@string/menu_finder"
-        tools:layout="@layout/fragment_administrative_service_finder" >
+        tools:layout="@layout/fragment_administrative_service_finder">
         <action
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
             android:id="@+id/action_nav_finder_to_nav_admin_service"
-            app:destination="@id/nav_admin_service" />
+            app:destination="@id/nav_admin_service"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -45,15 +51,13 @@
         android:id="@+id/nav_data_safe"
         android:name="de.app.ui.safe.DataSafeFragment"
         android:label="@string/menu_data_safe"
-        tools:layout="@layout/fragment_data_safe" >
-    </fragment>
+        tools:layout="@layout/fragment_data_safe" />
 
     <fragment
         android:id="@+id/nav_signature"
         android:name="de.app.ui.signature.DataSignatureFragment"
         android:label="@string/menu_signature"
-        tools:layout="@layout/fragment_signature" >
-    </fragment>
+        tools:layout="@layout/fragment_signature" />
 
     <fragment
         android:id="@+id/nav_geodata"
@@ -71,21 +75,30 @@
         android:id="@+id/nav_admin_service"
         android:name="de.app.ui.service.AdministrativeServiceFragment"
         android:label="@string/administrative_service"
-        tools:layout="@layout/fragment_administrative_service" >
+        tools:layout="@layout/fragment_administrative_service">
         <argument
             android:name="id"
             app:argType="string" />
         <action
-            android:id="@+id/action_nav_service_to_payment"
-            app:destination="@id/nav_admin_service_submitted_result" />
+            android:id="@+id/action_service_to_submitted_result"
+            app:destination="@id/nav_admin_service_submitted_result"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            />
     </fragment>
 
     <fragment
         android:id="@+id/nav_admin_service_submitted_result"
         android:name="de.app.ui.service.SubmittedResultFragment"
-        android:label="Payment"
+        android:label="Payment successful"
         tools:layout="@layout/fragment_administrative_service_result">
 
+        <action
+            android:id="@+id/action_result_to_dashboard"
+            app:destination="@id/nav_dashboard"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            />
     </fragment>
 
 </navigation>

@@ -3,14 +3,12 @@ package de.app.ui
 import android.Manifest
 import android.os.Bundle
 import android.view.Menu
-import android.widget.Toast
-import android.widget.Toast.LENGTH_LONG
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -34,6 +32,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var sessionManager: SessionManager
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
+
 
     private val permissionLauncher: ActivityResultLauncher<Array<String>> =
         this.registerForActivityResult(
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
-        val navController = supportFragmentManager
+        navController = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment_content_main)!!
             .findNavController()
 
@@ -101,11 +101,13 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_applications, R.id.nav_appointments,
             R.id.nav_data_safe, R.id.nav_finder,
             R.id.nav_signature, R.id.nav_law_registry,
-            R.id.nav_admin_service
         ), drawerLayout)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        handleIntent(intent, R.id.nav_host_fragment_content_main)
+
     }
 
     private fun requestPermissions() {
@@ -123,12 +125,15 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     private fun jumpBackToLogin() {
         runActivity(LoginActivity::class.java)
     }
+
+
+
 }

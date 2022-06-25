@@ -1,22 +1,12 @@
 package de.app.ui.util
 
-import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Bundle
 import android.provider.OpenableColumns
-import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.LifecycleOwner
-import de.app.core.success
-import de.app.data.model.FileHeader
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -62,6 +52,12 @@ fun Context.openFile(uri: Uri, type: String) {
     val intent = Intent(Intent.ACTION_VIEW)
     intent.setDataAndType(uri, type)
     intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
+    startActivity(intent)
+}
+
+fun Context.openUrl(url: String){
+    val intent = Intent(Intent.ACTION_VIEW)
+    intent.data = Uri.parse(url)
     startActivity(intent)
 }
 
