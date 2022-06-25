@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import de.app.databinding.FragmentAdministrativeServiceBinding
+import de.app.ui.SubmittedResultActivity
 import de.app.ui.service.data.result.FormResult
 import de.app.ui.service.data.value.FormValue
 import de.app.ui.service.view.button.ButtonView
@@ -22,6 +23,7 @@ import de.app.ui.service.view.field.FieldView
 import de.app.ui.service.view.field.FieldViewFactory
 import de.app.ui.service.view.field.InputFieldView
 import de.app.ui.util.openUrl
+import de.app.ui.util.runActivity
 
 class AdministrativeServiceFragment : Fragment() {
 
@@ -118,7 +120,7 @@ class AdministrativeServiceFragment : Fragment() {
         if (viewModel.form.paymentRequired){
             requireContext().openUrl("https://coden256.github.io/deutschland-app/")
         }else{
-            AdministrativeServiceFragmentDirections.actionServiceToSubmittedResult()
+            requireActivity().runActivity(SubmittedResultActivity::class.java)
         }
     }
 

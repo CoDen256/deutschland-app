@@ -59,4 +59,7 @@
     <string name="admin_service_prompt">Administrative Service</string>
     <string name="search_for_geo_prompt">Search for geodata objects…</string>
     <string name="your_position_is">Your Position: %s</string>
+    <string name="form_submitted_successfully">Form submitted successfully</string>
+    <string name="form_submitted_details">Application ID: %s \nSent: %s \nName: %s \nAccount ID: %s</string>
+    <string name="form_finish_submitted">Finish submission</string>
 </resources>

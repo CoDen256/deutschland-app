@@ -105,9 +105,6 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-        handleIntent(intent, R.id.nav_host_fragment_content_main)
-
     }
 
     private fun requestPermissions() {
