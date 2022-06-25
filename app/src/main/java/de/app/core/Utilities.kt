@@ -1,10 +1,13 @@
 package de.app.core
 
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 fun runWithInterval(runnable: () -> Unit, period: Long = 10000) {
     Timer().scheduleAtFixedRate(object : TimerTask() {
@@ -42,4 +45,11 @@ fun <T, R> Task<T>.onSuccess(onSuccess: (T) -> R):Task<R>{
 
 fun <R> mapFromArray(vararg elements: R): Map<Int, R>{
     return mapOf(*elements.asList().mapIndexed { i, e -> i to e }.toTypedArray())
+}
+
+inline fun <T, reified C:T> T?.applyIf(block: C.() -> Unit): T? {
+    if (this is C){
+        block(this)
+    }
+    return this
 }

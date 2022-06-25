@@ -34,8 +34,8 @@ class DataSignatureFragment : Fragment() {
                     files.add(0, it)
                     notifyItemInserted(0)
                 }
+                binding.files.post { binding.files.smoothScrollToPosition(0) }
             }
-
         )
 
         lifecycle.addObserver(launcher.getObserver())
