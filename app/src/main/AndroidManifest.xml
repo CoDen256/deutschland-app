@@ -42,7 +42,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="app" android:host="www.de-app.de" />
+                <data android:scheme="de.app" android:host="payment" />
             </intent-filter>
         </activity>
 

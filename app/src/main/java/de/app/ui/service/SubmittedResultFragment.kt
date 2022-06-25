@@ -15,8 +15,6 @@ class SubmittedResultFragment:Fragment() {
     ): View? {
         val binding = FragmentAdministrativeServiceResultBinding.inflate(inflater, container, false)
 
-        binding.web.loadUrl("file:///android_asset/payment.html")
-
         return binding.root
     }
 }
