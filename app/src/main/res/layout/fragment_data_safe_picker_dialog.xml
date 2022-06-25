@@ -21,20 +21,8 @@
             android:layout_height="match_parent"
             tools:listitem="@layout/common_file_item"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="4"
+            app:spanCount="3"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/add_file"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:clickable="true"
-        android:text="@string/add_file"
-        android:textSize="12sp"
-        app:icon="@android:drawable/ic_menu_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

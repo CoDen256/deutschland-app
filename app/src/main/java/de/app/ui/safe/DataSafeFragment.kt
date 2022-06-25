@@ -5,18 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
+import de.app.api.safe.DataSafeService
 import de.app.core.config.DataGenerator.Companion.generateDocuments
 import de.app.core.runWithInterval
 import de.app.data.model.FileHeader
 import de.app.databinding.FragmentDataSafeBinding
-import de.app.ui.components.FileViewAdapter
-import de.app.ui.signature.DataSignatureFragmentDirections
-import de.app.ui.util.bundleFromFileHeader
+import de.app.ui.components.OpenableFileViewAdapter
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DataSafeFragment : Fragment() {
+
+    @Inject
+    lateinit var service: DataSafeService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,14 +29,9 @@ class DataSafeFragment : Fragment() {
         val binding = FragmentDataSafeBinding.inflate(inflater, container, false)
 
         val files = getFiles()
-        binding.rvDocuments.adapter = FileViewAdapter(requireContext(), files) {
-            parentFragmentManager.setFragmentResult("data-safe-file-request", bundleFromFileHeader(it))
-            findNavController().navigate(DataSafeFragmentDirections.actionNavDataSafeToNavSignature())
+        binding.files.adapter = OpenableFileViewAdapter(requireContext(), files)
 
-        }
-
-
-        runWithInterval({updateFiles(binding.rvDocuments, files)})
+        runWithInterval({updateFiles(binding.files, files)})
 
         return binding.root
     }
@@ -49,5 +47,6 @@ class DataSafeFragment : Fragment() {
         }
     }
 
-    private fun getFiles(): MutableList<FileHeader> = ArrayList(generateDocuments(30))
+    private fun getFiles(): MutableList<FileHeader> =
+        ArrayList(service.getAllDocumentsForAccountId("user-alpha"))
 }

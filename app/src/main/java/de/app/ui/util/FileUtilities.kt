@@ -81,36 +81,3 @@ fun createFilePickerIntent(input: String?): Intent {
     chooseFile.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
     return Intent.createChooser(chooseFile, "Choose a file")
 }
-
-fun extractFileHeader(bundle: Bundle): Result<FileHeader> {
-    val filename = bundle.getString("filename")
-        ?: return Result.failure(IllegalArgumentException("No filename provided"))
-    val uri = bundle.getParcelable<Uri>("fileUri")
-        ?: return Result.failure(IllegalArgumentException("No fileUri provided"))
-    val mimeType = bundle.getString("mimeType")
-        ?: return Result.failure(IllegalArgumentException("No mimeType provided"))
-    return FileHeader(filename, uri, mimeType).success()
-}
-
-fun bundleFromFileHeader(fileHeader: FileHeader): Bundle {
-    return bundleOf(
-        "filename" to fileHeader.name,
-        "fileUri" to fileHeader.fileUri,
-        "mimeType" to fileHeader.mimeType
-    )
-}
-
-fun FragmentActivity.setFileResultListener(
-    key: String,
-    lifecycleOwner: LifecycleOwner,
-    onFailureListener: (Throwable) -> Unit = { this.toast("Failed to get result for $key: ${it.message}") },
-    onSuccessListener: (FileHeader) -> Unit
-) {
-    this.supportFragmentManager.setFragmentResultListener(key,lifecycleOwner) { k, bundle ->
-        extractFileHeader(bundle).onSuccess {
-            onSuccessListener(it)
-        }.onFailure {
-            onFailureListener(it)
-        }
-    }
-}
