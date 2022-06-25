@@ -1,27 +1,24 @@
 package de.app.ui.service
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import de.app.databinding.FragmentAdministrativeServiceBinding
 import de.app.ui.SubmittedResultActivity
-import de.app.ui.service.data.result.FormResult
+import de.app.ui.service.data.result.FormView
 import de.app.ui.service.data.value.FormValue
 import de.app.ui.service.view.button.ButtonView
 import de.app.ui.service.view.button.ButtonViewFactory
 import de.app.ui.service.view.field.FieldView
 import de.app.ui.service.view.field.FieldViewFactory
 import de.app.ui.service.view.field.InputFieldView
+import de.app.ui.util.observe
 import de.app.ui.util.openUrl
 import de.app.ui.util.runActivity
 
@@ -94,37 +91,35 @@ class AdministrativeServiceFragment : Fragment() {
     }
 
     private fun observeFormState() {
-        viewModel.formState.observe(viewLifecycleOwner, Observer { newState ->
-            val formState = newState ?: return@Observer
-
-            submitButtonView.applyState(formState)
-            inputFields.forEach { it.applyState(formState) }
-        })
+        observe(viewModel.formState) {
+            submitButtonView.applyState(this)
+            inputFields.forEach { it.applyState(this) }
+        }
     }
 
     private fun observeResult() {
-        viewModel.result.observe(viewLifecycleOwner, Observer {
-            val result = it ?: return@Observer
-
-            if (result.success != null) {
-                onSuccess()
-            }
-            if (result.error != null) {
-                onError(result)
-            }
-            viewModel.result.value = null
-        })
+        observe(viewModel.result, {onSuccess(it)}, {onError(it)})
     }
 
-    private fun onSuccess() {
+    private fun onSuccess(formView: FormView) {
         if (viewModel.form.paymentRequired){
-            requireContext().openUrl("https://coden256.github.io/deutschland-app/")
+            val uri = Uri.Builder()
+                .scheme("https")
+                .authority("coden256.github.io")
+                .path("/deutschland-app/")
+                .appendQueryParameter("applicationId",formView.applicationId)
+                .appendQueryParameter("accountDisplayName", formView.accountDisplayName)
+                .appendQueryParameter("accountId", formView.accountId)
+                .appendQueryParameter("serviceName", formView.serviceName)
+                .appendQueryParameter("sentDate", formView.sentDate)
+                .build()
+            requireContext().openUrl(uri)
         }else{
             requireActivity().runActivity(SubmittedResultActivity::class.java)
         }
     }
 
-    private fun onError(result: FormResult) {
-        Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+    private fun onError(throwable: Throwable) {
+        Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT).show()
     }
 }

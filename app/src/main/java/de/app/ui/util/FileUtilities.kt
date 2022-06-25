@@ -55,9 +55,9 @@ fun Context.openFile(uri: Uri, type: String) {
     startActivity(intent)
 }
 
-fun Context.openUrl(url: String){
+fun Context.openUrl(uri: Uri){
     val intent = Intent(Intent.ACTION_VIEW)
-    intent.data = Uri.parse(url)
+    intent.data = uri
     startActivity(intent)
 }
 

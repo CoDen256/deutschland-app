@@ -12,14 +12,18 @@ import de.app.api.service.form.InputField
 import de.app.api.service.submit.SubmittedField
 import de.app.api.service.submit.SubmittedForm
 import de.app.core.config.DataGenerator.Companion.generateDocuments
-import de.app.data.model.FileHeader
-import de.app.ui.service.data.result.FormResult
 import de.app.ui.service.data.result.FormView
 import de.app.ui.service.data.state.FieldState
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FormValue
 import de.app.ui.service.validator.FieldValidator
 import de.app.ui.service.validator.ValidatorProvider
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
+import kotlin.collections.HashSet
 
 class AdminServiceViewModel(id: String) : ViewModel() {
 
@@ -36,7 +40,7 @@ class AdminServiceViewModel(id: String) : ViewModel() {
     ) ?:registry.getApplicationForm(service).getOrThrow()
 
     val formState = MutableLiveData<FormState>()
-    val result = MutableLiveData<FormResult>()
+    val result = MutableLiveData<Result<FormView>>()
 
     private val validators = HashMap<String, FieldValidator>().apply {
         val provider = ValidatorProvider()
@@ -56,9 +60,13 @@ class AdminServiceViewModel(id: String) : ViewModel() {
         })
         val rs = registry.sendApplicationForm(service, submittedForm)
 
-        result.value = rs.fold({ FormResult(success = FormView()) }) {
-            FormResult(error = it.message)
-        }
+        result.value = rs.map { FormView(
+            serviceName = service.name,
+            accountId = "custom-id",
+            sentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")),
+            accountDisplayName = "Alphabetovna",
+            applicationId = UUID.randomUUID().toString()
+        ) }
     }
 
 
