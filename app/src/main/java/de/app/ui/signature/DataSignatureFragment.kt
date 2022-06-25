@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
+import de.app.api.account.CitizenServiceAccountRepository
+import de.app.api.account.SecretToken
 import de.app.api.signature.SignatureService
-import de.app.core.config.BaseSignatureService
+import de.app.core.SessionManager
+import de.app.core.config.BaseDataSafeService
 import de.app.core.config.DataGenerator.Companion.generateDocuments
 import de.app.data.model.FileHeader
 import de.app.databinding.FragmentSignatureBinding
-import de.app.ui.components.FileViewAdapter
 import de.app.ui.components.OpenableFileViewAdapter
 import de.app.ui.safe.DataSafePickerDialogFragment
 import de.app.ui.util.FilePickerIntentLauncher
@@ -22,6 +24,10 @@ class DataSignatureFragment : Fragment(){
 
     @Inject
     lateinit var service: SignatureService
+    @Inject
+    lateinit var sessionManager: SessionManager
+    @Inject
+    lateinit var repo: CitizenServiceAccountRepository
     lateinit var binding: FragmentSignatureBinding
 
     private val files: MutableList<FileHeader> = ArrayList(generateDocuments(5))
@@ -42,8 +48,14 @@ class DataSignatureFragment : Fragment(){
         }
 
         binding.uploadFileDataSafe.setOnClickListener {
-            DataSafePickerDialogFragment { addFile(it) }
-                .show(childFragmentManager, "data-safe-picker")
+            sessionManager.currentUser?.let { user ->
+                repo.getCitizenAccount(SecretToken( user.accountSecretToken)).onSuccess { accountInfo ->
+                    DataSafePickerDialogFragment(BaseDataSafeService(), accountInfo)
+                    { addFile(it) }
+                        .show(childFragmentManager, "data-safe-picker")
+                }
+            }
+
         }
 
         return binding.root
