@@ -5,15 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import de.app.core.config.DataGenerator
 import de.app.core.config.DataGenerator.Companion.generateDocuments
 import de.app.core.runWithInterval
 import de.app.data.model.FileHeader
 import de.app.databinding.FragmentDataSafeBinding
-import de.app.ui.util.FileViewAdapter
-import kotlin.random.Random
+import de.app.ui.components.FileViewAdapter
 
 class DataSafeFragment : Fragment() {
 

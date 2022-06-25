@@ -21,7 +21,7 @@ import kotlin.random.Random
 class LawRegistryFragment : Fragment() {
 
     private lateinit var listManager: LinearLayoutManager
-    @Inject lateinit var lawRegistry: LawRegistryService ;
+    @Inject lateinit var lawRegistry: LawRegistryService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

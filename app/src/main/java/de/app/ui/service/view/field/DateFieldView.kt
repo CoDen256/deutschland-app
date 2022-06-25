@@ -8,7 +8,7 @@ import de.app.databinding.ApplicationFormDateBinding
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue
 import de.app.ui.util.afterTextChanged
-import de.app.ui.util.showPicker
+import de.app.ui.util.showDatePicker
 
 class DateFieldView(
     private val binding: ApplicationFormDateBinding,
@@ -48,9 +48,9 @@ class DateFieldView(
             binding.field.apply {
                 hint = field.hint
                 setOnFocusChangeListener { _, isFocused ->
-                    if (isFocused) showPicker(fragment.parentFragmentManager)
+                    if (isFocused) showDatePicker(fragment.parentFragmentManager)
                 }
-                setOnClickListener { showPicker(fragment.parentFragmentManager) }
+                setOnClickListener { showDatePicker(fragment.parentFragmentManager) }
             }
             id = field.id
         }

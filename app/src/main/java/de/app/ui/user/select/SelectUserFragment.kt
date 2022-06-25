@@ -10,11 +10,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import de.app.R
 import de.app.data.model.UserHeader
 import de.app.databinding.FragmentUserSelectBinding
 import de.app.databinding.FragmentUserSelectItemBinding
-import de.app.ui.util.ListViewAdapter
+import de.app.ui.components.ListViewAdapter
 import de.app.ui.util.onClickNavigate
 import kotlinx.coroutines.launch
 import javax.inject.Inject

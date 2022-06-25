@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
@@ -16,9 +15,7 @@ import de.app.api.appointment.AppointmentService
 import de.app.core.SessionManager
 import de.app.databinding.FragmentAppointmentBinding
 import de.app.databinding.FragmentAppointmentItemBinding
-import de.app.databinding.FragmentUserSelectItemBinding
-import de.app.ui.util.ListViewAdapter
-import kotlinx.coroutines.launch
+import de.app.ui.components.ListViewAdapter
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 

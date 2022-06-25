@@ -1,4 +1,4 @@
-package de.app.ui.util
+package de.app.ui.components
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

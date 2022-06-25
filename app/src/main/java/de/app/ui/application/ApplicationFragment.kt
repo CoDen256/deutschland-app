@@ -17,7 +17,7 @@ import de.app.api.applications.ApplicationStatus
 import de.app.core.SessionManager
 import de.app.databinding.FragmentApplicationBinding
 import de.app.databinding.FragmentApplicationItemBinding
-import de.app.ui.util.ListViewAdapter
+import de.app.ui.components.ListViewAdapter
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 

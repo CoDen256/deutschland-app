@@ -8,8 +8,8 @@ import com.google.android.gms.location.LastLocationRequest
 import com.google.android.gms.tasks.Task
 import de.app.core.onSuccess
 import de.app.data.model.Address
+import de.app.data.model.simplify
 import de.app.ui.util.geoDecode
-import de.app.ui.util.simplify
 import javax.inject.Inject
 import javax.inject.Singleton
 

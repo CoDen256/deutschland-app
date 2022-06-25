@@ -1,14 +1,11 @@
 package de.app.ui.service.view.field
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import de.app.api.service.form.DocumentInfoField
 import de.app.databinding.ApplicationFormDocumentInfoBinding
-import de.app.databinding.ApplicationFormDocumentInfoItemBinding
-import de.app.ui.util.FileViewAdapter
-import de.app.ui.util.openFile
+import de.app.ui.components.FileViewAdapter
 
 
 class DocumentInfoFieldView (private val binding: ApplicationFormDocumentInfoBinding

@@ -2,7 +2,6 @@ package de.app.core
 
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
-import java.lang.IllegalArgumentException
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
@@ -39,4 +38,8 @@ fun range(from: LocalDate?, to:LocalDate?) =
 
 fun <T, R> Task<T>.onSuccess(onSuccess: (T) -> R):Task<R>{
     return this.onSuccessTask { Tasks.forResult(onSuccess(it)) }
+}
+
+fun <R> mapFromArray(vararg elements: R): Map<Int, R>{
+    return mapOf(*elements.asList().mapIndexed { i, e -> i to e }.toTypedArray())
 }

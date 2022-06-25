@@ -7,11 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.google.android.gms.tasks.Task
 import de.app.api.service.AdministrativeService
 import de.app.api.service.AdministrativeServiceRegistry
-import de.app.core.onSuccess
 import de.app.data.model.Address
 import de.app.geo.LocationRepository
-import de.app.ui.util.geoDecode
-import de.app.ui.util.simplify
 import javax.inject.Inject
 
 class AdministrativeServiceFinderViewModel @Inject constructor(

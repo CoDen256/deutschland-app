@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import de.app.api.service.form.AttachmentField
 import de.app.databinding.ApplicationFormAttachmentBinding
-import de.app.ui.service.IntentLauncher
+import de.app.ui.util.IntentLauncher
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue
 import de.app.ui.util.afterTextChanged
