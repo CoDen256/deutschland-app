@@ -7,9 +7,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import de.app.data.model.FileHeader
+import java.lang.IllegalStateException
 import java.util.*
 
 class FilePickerIntentLauncher(
@@ -23,18 +25,12 @@ class FilePickerIntentLauncher(
     createIntent = { _, input -> createFilePickerIntent(input) },
     parseResult = { _, intent -> parseFilePickerResult(intent) },
     handleResult = { rs ->
-        rs.onSuccess { uri ->
-            val contentResolver = activity.contentResolver
-            contentResolver.takePersistableUriPermission(
-                uri,
-                Intent.FLAG_GRANT_READ_URI_PERMISSION
-            )
-            val file = FileHeader(
-                uri.getFileName(contentResolver)!!,
-                uri,
-                "application/pdf"
-            )
-            handleResult(file)
+        rs.mapCatching { uri ->
+            return@mapCatching uri to DocumentFile.fromSingleUri(activity, uri)!!
+        }.mapCatching {
+            val name = it.second.name ?: throw IllegalStateException("Document does not have a name ${it.first}")
+            val type = it.second.type ?: throw IllegalStateException("Document does not have a time ${it.first}")
+            handleResult(FileHeader(name, it.first, type))
         }.onFailure { handleFailure(it) }
     }
 )

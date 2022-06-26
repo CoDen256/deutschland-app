@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import de.app.api.service.form.ImageField
 import de.app.databinding.ApplicationFormImageBinding
-import de.app.ui.util.loadImageFromUrl
-import java.util.concurrent.Executors
 
 
 class ImageFieldView (  private val binding: ApplicationFormImageBinding

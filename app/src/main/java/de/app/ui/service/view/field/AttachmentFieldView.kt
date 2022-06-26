@@ -7,13 +7,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import de.app.api.service.form.AttachmentField
 import de.app.databinding.ApplicationFormAttachmentBinding
-import de.app.ui.util.IntentLauncher
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue
-import de.app.ui.util.afterTextChanged
-import de.app.ui.util.createFilePickerIntent
-import de.app.ui.util.getFileName
-import de.app.ui.util.parseFilePickerResult
+import de.app.ui.util.*
 
 
 class AttachmentFieldView(
@@ -52,18 +48,10 @@ class AttachmentFieldView(
         }
 
         fun populate(field: AttachmentField, fragment: Fragment): Inflater = apply {
-            val launcher = IntentLauncher<String, Result<Uri>>(
-                fragment.requireActivity().activityResultRegistry,
-                key = field.id,
-                createIntent = { _, input -> createFilePickerIntent(input) },
-                parseResult = { _, intent -> parseFilePickerResult(intent) },
-                handleResult = { result ->
-                    result.onSuccess{
-                        binding.filePath.text = it.getFileName(fragment.requireActivity().contentResolver)
-                        uriHolder.value = it
-                    }
-                }
-            )
+            val launcher =  FilePickerIntentLauncher(fragment.requireActivity(), field.id){
+                binding.filePath.text = it.name
+                uriHolder.value = it.fileUri
+            }
 
             fragment.lifecycle.addObserver(launcher.getObserver())
 
@@ -74,8 +62,6 @@ class AttachmentFieldView(
 
             id = field.id
         }
-
-
 
         fun build() = AttachmentFieldView(binding, id, uriHolder)
     }
