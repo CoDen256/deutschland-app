@@ -12,11 +12,15 @@ import java.util.concurrent.Executors
 class OpenableFileViewAdapter(
     activity: Activity,
     fileHeaders: List<FileHeader>,
-) : FileViewAdapter(fileHeaders, activity, onClickListener = { activity.openFile(it.uri, it.mimeType) })
+    onLongClickListener: (FileHeader) -> Unit = {},
+) : FileViewAdapter(fileHeaders, activity, onClickListener = { activity.openFile(it.uri, it.mimeType) },
+    onLongClickListener = onLongClickListener
+    )
 
 open class FileViewAdapter(
     fileHeaders: List<FileHeader>,
     activity: Activity,
+    onLongClickListener: (FileHeader) -> Unit = {},
     onClickListener: (FileHeader) -> Unit,
 ) : ListViewAdapter<FileHeader, CommonFileItemBinding>(
     { inflater, parent -> CommonFileItemBinding.inflate(inflater, parent, false) },
@@ -30,6 +34,10 @@ open class FileViewAdapter(
             }
         }
         binding.file.setOnClickListener { onClickListener(file) }
+        binding.file.setOnLongClickListener {
+            onLongClickListener(file)
+            true
+        }
         binding.fileName.text = file.name
     }
 ) {

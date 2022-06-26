@@ -13,6 +13,7 @@ import de.app.data.model.FileHeader
 import de.app.databinding.FragmentDataSafeBinding
 import de.app.ui.components.OpenableFileViewAdapter
 import de.app.ui.util.FilePickerIntent
+import de.app.ui.util.FileSaverIntent
 import de.app.ui.util.launcher
 import javax.inject.Inject
 
@@ -29,10 +30,16 @@ class DataSafeFragment : Fragment() {
 
         val binding = FragmentDataSafeBinding.inflate(inflater, container, false)
 
+        val saveFileLauncher = lifecycle.launcher(FileSaverIntent(requireActivity()))
+
+
         val files = getFiles()
-        binding.files.adapter = OpenableFileViewAdapter(requireActivity(), files)
+        binding.files.adapter = OpenableFileViewAdapter(requireActivity(), files){
+            saveFileLauncher.launch(it)
+        }
 
         runWithInterval({updateFiles(binding.files, files)})
+
 
         val pickFileLauncher = lifecycle.launcher(FilePickerIntent(requireActivity()) {
             addFiles(binding.files, files, listOf(it))
@@ -41,6 +48,7 @@ class DataSafeFragment : Fragment() {
         binding.addFile.setOnClickListener {
             pickFileLauncher.launch("application/pdf")
         }
+
 
         return binding.root
     }
