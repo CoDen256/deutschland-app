@@ -25,7 +25,10 @@ class FilePickerIntentLauncher(
     handleResult = { rs ->
         rs.onSuccess { uri ->
             val contentResolver = activity.contentResolver
-            // val realPathFromURI = FileUtils.getPath(requireContext(), uri.data)
+            contentResolver.takePersistableUriPermission(
+                uri,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION
+            )
             val file = FileHeader(
                 uri.getFileName(contentResolver)!!,
                 uri,

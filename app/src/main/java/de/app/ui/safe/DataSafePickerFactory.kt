@@ -31,7 +31,7 @@ class DataSafePickerFactory @Inject constructor(private val service: DataSafeSer
         onSuccess: (FileHeader) -> Unit
     ) {
         val fileHeaders = service.getAllDocumentsForAccountId(info.accountId)
-        binding.files.adapter = FileViewAdapter(fileHeaders) {
+        binding.files.adapter = FileViewAdapter(fileHeaders, context) {
             onSuccess(it)
             dismiss()
         }

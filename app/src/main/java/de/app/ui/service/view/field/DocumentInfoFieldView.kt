@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import de.app.api.service.form.DocumentInfoField
 import de.app.databinding.ApplicationFormDocumentInfoBinding
-import de.app.ui.components.FileViewAdapter
 import de.app.ui.components.OpenableFileViewAdapter
 
 

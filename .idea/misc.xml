@@ -53,6 +53,7 @@
         <entry key="app/src/main/res/layout/application_form_singlechoice.xml" value="0.18659420289855072" />
         <entry key="app/src/main/res/layout/application_form_submit.xml" value="0.11594202898550725" />
         <entry key="app/src/main/res/layout/application_form_text.xml" value="0.4466666666666667" />
+        <entry key="app/src/main/res/layout/common_file_item.xml" value="0.4466666666666667" />
         <entry key="app/src/main/res/layout/content_login.xml" value="0.18568840579710144" />
         <entry key="app/src/main/res/layout/content_mail_box.xml" value="0.265625" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
