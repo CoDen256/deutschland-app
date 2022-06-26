@@ -1,5 +1,6 @@
 package de.app.ui.components
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
@@ -8,24 +9,28 @@ import de.app.data.model.FileHeader
 import de.app.databinding.CommonFileItemBinding
 import de.app.ui.util.openFile
 import java.io.FileNotFoundException
-import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
+import java.util.concurrent.Executors
 
 class OpenableFileViewAdapter(
-    context: Context,
+    activity: Activity,
     fileHeaders: List<FileHeader>,
-) : FileViewAdapter(fileHeaders, context, onClickListener = { context.openFile(it.fileUri, it.mimeType) })
+) : FileViewAdapter(fileHeaders, activity, onClickListener = { activity.openFile(it.fileUri, it.mimeType) })
 
 open class FileViewAdapter(
     fileHeaders: List<FileHeader>,
-    context: Context,
+    activity: Activity,
     onClickListener: (FileHeader) -> Unit,
 ) : ListViewAdapter<FileHeader, CommonFileItemBinding>(
     { inflater, parent -> CommonFileItemBinding.inflate(inflater, parent, false) },
     fileHeaders,
     { file, binding ->
-        firstPageBitmap(context, file).onSuccess {
-            binding.file.setImageBitmap(it)
+        Executors.newSingleThreadExecutor().execute {
+            firstPageBitmap(activity, file).onSuccess {
+                activity.runOnUiThread {
+                    binding.file.setImageBitmap(it)
+                }
+            }
         }
         binding.file.setOnClickListener { onClickListener(file) }
         binding.fileName.text = file.name
@@ -34,6 +39,7 @@ open class FileViewAdapter(
 
 private fun firstPageBitmap(context: Context, file: FileHeader): Result<Bitmap> {
     return try {
+
         context.contentResolver.openFileDescriptor(file.fileUri, "r")?.let {
             val pdfRenderer = PdfRenderer(it)
             val currentPage = pdfRenderer.openPage(0)

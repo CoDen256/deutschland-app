@@ -3,6 +3,7 @@ package de.app.ui.service.view.field
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.squareup.picasso.Picasso
 import de.app.api.service.form.ImageField
 import de.app.databinding.ApplicationFormImageBinding
 import de.app.ui.util.loadImageFromUrl
@@ -22,16 +23,9 @@ class ImageFieldView (  private val binding: ApplicationFormImageBinding
         fun populate(field: ImageField, fragment: Fragment): Inflater = apply {
             binding.label.text = field.label
 
-            Executors.newSingleThreadExecutor().execute {
-                val result = loadImageFromUrl(field.imageUri)
-                fragment.activity?.runOnUiThread {
-                    result.onSuccess {
-                        binding.image.setImageBitmap(it)
-                    }.onFailure {
-                        binding.label.error = "Failed to download image: ${it.message}"
-                    }
-                }
-            }
+            Picasso.get()
+                .load(field.imageUri)
+                .into(binding.image)
         }
 
         fun build() = ImageFieldView(binding)

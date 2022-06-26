@@ -1,13 +1,10 @@
 package de.app.core
 
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
 
 fun runWithInterval(runnable: () -> Unit, period: Long = 10000) {
     Timer().scheduleAtFixedRate(object : TimerTask() {

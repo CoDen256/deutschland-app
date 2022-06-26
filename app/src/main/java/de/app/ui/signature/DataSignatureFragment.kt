@@ -40,7 +40,7 @@ class DataSignatureFragment : Fragment(){
 
         binding = FragmentSignatureBinding.inflate(inflater, container, false)
 
-        binding.files.adapter = OpenableFileViewAdapter(requireContext(), files)
+        binding.files.adapter = OpenableFileViewAdapter(requireActivity(), files)
 
         val launcher = FilePickerIntentLauncher(requireActivity()) { addFile(it) }
         lifecycle.addObserver(launcher.getObserver())

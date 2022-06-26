@@ -28,7 +28,7 @@ class DataSafeFragment : Fragment() {
         val binding = FragmentDataSafeBinding.inflate(inflater, container, false)
 
         val files = getFiles()
-        binding.files.adapter = OpenableFileViewAdapter(requireContext(), files)
+        binding.files.adapter = OpenableFileViewAdapter(requireActivity(), files)
 
         runWithInterval({updateFiles(binding.files, files)})
 

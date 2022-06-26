@@ -21,17 +21,18 @@ class DataSafePickerFactory @Inject constructor(private val service: DataSafeSer
             .setTitle("Pick a file from Data Safe")
             .setNegativeButton("Cancel", null)
             .create()
-            .apply { inflate(binding, info, onSuccess) }
+            .apply { inflate(binding, info, onSuccess, activity) }
             .show()
     }
 
     private fun AlertDialog.inflate(
         binding: FragmentDataSafePickerDialogBinding,
         info: AccountInfo,
-        onSuccess: (FileHeader) -> Unit
+        onSuccess: (FileHeader) -> Unit,
+        activity: Activity
     ) {
         val fileHeaders = service.getAllDocumentsForAccountId(info.accountId)
-        binding.files.adapter = FileViewAdapter(fileHeaders, context) {
+        binding.files.adapter = FileViewAdapter(fileHeaders, activity) {
             onSuccess(it)
             dismiss()
         }
