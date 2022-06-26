@@ -26,10 +26,10 @@ class FilePickerIntentLauncher(
     parseResult = { _, intent -> parseFilePickerResult(intent) },
     handleResult = { rs ->
         rs.mapCatching { uri ->
-            return@mapCatching uri to DocumentFile.fromSingleUri(activity, uri)!!
+            uri to DocumentFile.fromSingleUri(activity, uri)!!
         }.mapCatching {
             val name = it.second.name ?: throw IllegalStateException("Document does not have a name ${it.first}")
-            val type = it.second.type ?: throw IllegalStateException("Document does not have a time ${it.first}")
+            val type = it.second.type ?: throw IllegalStateException("Document does not have a type ${it.first}")
             handleResult(FileHeader(name, it.first, type))
         }.onFailure { handleFailure(it) }
     }

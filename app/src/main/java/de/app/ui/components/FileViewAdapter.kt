@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
 import androidx.core.graphics.createBitmap
+import de.app.core.inSeparateThread
 import de.app.data.model.FileHeader
 import de.app.databinding.CommonFileItemBinding
 import de.app.ui.util.openFile
@@ -25,7 +26,7 @@ open class FileViewAdapter(
     { inflater, parent -> CommonFileItemBinding.inflate(inflater, parent, false) },
     fileHeaders,
     { file, binding ->
-        Executors.newSingleThreadExecutor().execute {
+        inSeparateThread {
             firstPageBitmap(activity, file).onSuccess {
                 activity.runOnUiThread {
                     binding.file.setImageBitmap(it)
@@ -39,7 +40,6 @@ open class FileViewAdapter(
 
 private fun firstPageBitmap(context: Context, file: FileHeader): Result<Bitmap> {
     return try {
-
         context.contentResolver.openFileDescriptor(file.fileUri, "r")?.let {
             val pdfRenderer = PdfRenderer(it)
             val currentPage = pdfRenderer.openPage(0)

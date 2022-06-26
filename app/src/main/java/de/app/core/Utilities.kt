@@ -5,6 +5,7 @@ import com.google.android.gms.tasks.Tasks
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
+import java.util.concurrent.Executors
 
 fun runWithInterval(runnable: () -> Unit, period: Long = 10000) {
     Timer().scheduleAtFixedRate(object : TimerTask() {
@@ -12,6 +13,12 @@ fun runWithInterval(runnable: () -> Unit, period: Long = 10000) {
             runnable()
         }
     }, 0, period)
+}
+
+fun inSeparateThread(runnable: () -> Unit){
+    Executors.newSingleThreadExecutor().execute {
+        runnable()
+    }
 }
 
 fun <T : Any> T.success(): Result<T> = Result.success(this)
@@ -50,3 +57,4 @@ inline fun <T, reified C:T> T?.applyIf(block: C.() -> Unit): T? {
     }
     return this
 }
+
