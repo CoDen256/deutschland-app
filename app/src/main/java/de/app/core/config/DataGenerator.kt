@@ -9,11 +9,13 @@ import de.app.api.applications.ApplicationStatus
 import de.app.api.appointment.Appointment
 import de.app.api.emergency.Emergency
 import de.app.api.law.LawChangeInfo
+import de.app.api.mail.MailMessageHeader
 import de.app.api.service.AdministrativeService
 import de.app.api.service.form.*
 import de.app.data.model.Address
 import de.app.data.model.FileHeader
 import org.fluttercode.datafactory.impl.DataFactory
+import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -155,7 +157,7 @@ class DataGenerator {
             val city = nextInt(cities.size)
             return Address(
                 city = cities[city], postalCode = postalCodes[city],
-                address = df.streetName+" Str. "+generateStreetNumber(30), country = "Germany",
+                address = df.streetName + " Str. " + generateStreetNumber(30), country = "Germany",
             )
         }
 
@@ -165,7 +167,7 @@ class DataGenerator {
 
         fun generateDocuments(num: Int): List<FileHeader> {
             return (0..num).map {
-                FileHeader(rnd()+".pdf", documents.random(), "application/pdf")
+                FileHeader(rnd() + ".pdf", documents.random(), "application/pdf")
             }
         }
 
@@ -183,7 +185,10 @@ class DataGenerator {
 
         val accounts: Map<SecretToken, AccountInfo> = citizens + companies
 
-        fun generateApplications(num: Int, services: List<AdministrativeService>): List<Application> {
+        fun generateApplications(
+            num: Int,
+            services: List<AdministrativeService>
+        ): List<Application> {
             return (0..num).map {
                 val service = services.random()
                 Application(
@@ -197,7 +202,10 @@ class DataGenerator {
             }
         }
 
-        fun generateAppointments(num: Int, services: List<AdministrativeService>): List<Appointment> {
+        fun generateAppointments(
+            num: Int,
+            services: List<AdministrativeService>
+        ): List<Appointment> {
             return (0..num).map {
                 val service = services.random()
                 Appointment(
@@ -249,13 +257,32 @@ class DataGenerator {
                 LawChangeInfo(
                     UUID.randomUUID().toString(),
                     "Änderung des $it. Gesetzes über '${generateText(5, 10)}'",
-                    shortDescription = "Das $it. Gesetz vom $date (BGBl. I S. 1084), das zuletzt durch Artikel ${nextInt(1, 50)} des Gesetzes vom $date2 (BGBl. I S. 530) geändert worden ist",
+                    shortDescription = "Das $it. Gesetz vom $date (BGBl. I S. 1084), das zuletzt durch Artikel ${
+                        nextInt(
+                            1,
+                            50
+                        )
+                    } des Gesetzes vom $date2 (BGBl. I S. 530) geändert worden ist",
                     content = generateText(500, 2000),
                     attachments = generateDocuments(5),
                     date = generateLocalDate()
                 )
             }
         }
+
+        fun generateMails(num: Int): List<MailMessageHeader> {
+            return (0..num).map {
+                MailMessageHeader(
+                    generateText(5, 9),
+                    Instant.now(),
+                    removed = nextBoolean(),
+                    important = nextBoolean(),
+                    UUID.randomUUID().toString(),
+                    preview = generateText(9, 25),
+                )
+            }
+        }
+
 
         val fieldGenerator = listOf<(Int) -> Field>(
             {

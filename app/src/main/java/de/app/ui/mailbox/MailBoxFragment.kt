@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import de.app.R
 import de.app.api.mail.MailMessageHeader
+import de.app.core.config.DataGenerator.Companion.generateMails
 import de.app.core.runWithInterval
 import java.time.Instant
 import java.util.*
@@ -48,18 +49,7 @@ class MailBoxFragment : Fragment() {
         }
     }
 
-    private fun getMails(): MutableList<MailMessageHeader> = ArrayList<MailMessageHeader>().apply {
-        for (i in 0..Random.nextInt(1, 10)) {
-            add(
-                MailMessageHeader(
-                    "Hello $i",
-                    Instant.now(),
-                    removed = false,
-                    important = false,
-                    UUID.randomUUID().toString(),
-                    preview="This is a really long text, actually a preview of the mail message $i",
-                    )
-            )
-        }
-    }
+    private fun getMails(): MutableList<MailMessageHeader> = ArrayList<MailMessageHeader>(
+        generateMails(30)
+    )
 }

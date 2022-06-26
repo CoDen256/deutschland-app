@@ -25,15 +25,16 @@ import de.app.core.db.UserDataSource
 import de.app.core.SessionManager
 import de.app.core.config.*
 import de.app.core.db.AppDatabase
-import de.app.notifications.NotificationPublisher
-import de.app.notifications.scheduleNextAlarm
+import de.app.notifications.*
+import de.app.notifications.notificator.AggregatedNotificator
+import de.app.notifications.notificator.Notificator
 import javax.inject.Singleton
 
 @HiltAndroidApp
 class App: Application() {
     override fun onCreate() {
         super.onCreate()
-        this.scheduleNextAlarm(NotificationPublisher.INTERVAL)
+        this.scheduleNextAlarm(RepeatedNotificatorTrigger.INTERVAL)
     }
 }
 
@@ -69,6 +70,9 @@ abstract class AppModule {
 
     @Binds
     abstract fun signatureService(service: BaseSignatureService) : SignatureService
+
+    @Binds
+    abstract fun aggregatedNotificator(notificator: AggregatedNotificator): Notificator
 }
 
 @Module
