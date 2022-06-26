@@ -1,11 +1,10 @@
 package de.app.ui.util
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
+import android.content.Intent.createChooser
 import android.net.Uri
-import androidx.core.app.ActivityCompat.startActivityForResult
 import de.app.data.model.FileHeader
 
 
@@ -24,27 +23,28 @@ fun Context.openUrl(uri: Uri){
 }
 
 
-fun parseFilePickerResult(result: Intent?): Result<Uri> {
+fun parseUriResult(result: Intent?): Result<Uri> {
     val intent = result
-        ?: return Result.failure(IllegalStateException("File picker did not return any data"))
+        ?: return Result.failure(IllegalStateException("No result"))
     val data = intent.data
-        ?: return Result.failure(IllegalStateException("File picker returned empty data"))
+        ?: return Result.failure(IllegalStateException("No file URI"))
     return Result.success(data)
 }
 
-fun createFilePickerIntent(input: String?): Intent {
-    val chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT)
-    chooseFile.addCategory(Intent.CATEGORY_OPENABLE)
-    chooseFile.type = input!!
-    chooseFile.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-    return Intent.createChooser(chooseFile, "Choose a file")
+fun createFilePickerIntent(mimeType: String): Intent {
+    val chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+        addCategory(Intent.CATEGORY_OPENABLE)
+        type = mimeType
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
+    return createChooser(chooseFile, "Choose a file")
 }
 
-fun Activity.createFileSaverIntent(header: FileHeader) {
+fun createFileSaverIntent(header: FileHeader):Intent {
     val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
         addCategory(Intent.CATEGORY_OPENABLE)
         type = header.mimeType
         putExtra(Intent.EXTRA_TITLE, header.name)
     }
-    startActivityForResult(intent, 1)
+    return createChooser(intent, "Save locally")
 }

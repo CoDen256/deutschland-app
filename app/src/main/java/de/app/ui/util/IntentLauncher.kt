@@ -8,8 +8,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.documentfile.provider.DocumentFile
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.LifecycleOwner
 import de.app.data.model.FileHeader
 import java.lang.IllegalStateException
 import java.util.*
@@ -23,7 +21,7 @@ class FilePickerIntentLauncher(
     registry = activity.activityResultRegistry,
     key = key,
     createIntent = { _, input -> createFilePickerIntent(input) },
-    parseResult = { _, intent -> parseFilePickerResult(intent) },
+    parseResult = { _, intent -> parseUriResult(intent) },
     handleResult = { rs ->
         rs.mapCatching { uri ->
             uri to DocumentFile.fromSingleUri(activity, uri)!!
@@ -35,9 +33,31 @@ class FilePickerIntentLauncher(
     }
 )
 
+class FileSaverIntentLauncher(
+    activity: ComponentActivity,
+    key: String = UUID.randomUUID().toString(),
+    handleFailure: (Throwable) -> Unit = { activity.toast("Failed to save a file: ${it.message}") },
+    handleResult: (FileHeader) -> Unit
+) : IntentLauncher<FileHeader, Result<Uri>>(
+    registry = activity.activityResultRegistry,
+    key = key,
+    createIntent = { _, input -> createFileSaverIntent(input) },
+    parseResult = { _, intent -> parseUriResult(intent) },
+    handleResult = { rs ->
+        rs.mapCatching { uri ->
+            uri to DocumentFile.fromSingleUri(activity, uri)!!
+        }.mapCatching {
+            val name = it.second.name ?: throw IllegalStateException("Document does not have a name ${it.first}")
+            val type = it.second.type ?: throw IllegalStateException("Document does not have a type ${it.first}")
+            handleResult(FileHeader(name, it.first, type))
+        }.onFailure { handleFailure(it) }
+    }
+)
+
+
 open class IntentLauncher<I, O>(
     private val registry: ActivityResultRegistry,
-    createIntent: (Context, I?) -> Intent,
+    createIntent: (Context, I) -> Intent,
     parseResult: (Int, Intent?) -> O,
     private val key: String,
     private val handleResult: (O) -> Unit
