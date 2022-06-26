@@ -6,6 +6,7 @@ import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
+import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
@@ -18,8 +19,11 @@ fun Context.toast(text: String, duration: Int = Toast.LENGTH_LONG) {
 }
 
 
-fun Activity.runActivity(cls: Class<*>){
+fun Activity.runActivity(cls: Class<*>, bundle: Bundle? = null){
     val intent = Intent(this, cls)
+    bundle?.let {
+     intent.putExtras(bundle)
+    }
     startActivity(intent)
 
     this.setResult(Activity.RESULT_OK)

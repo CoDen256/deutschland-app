@@ -1,13 +1,10 @@
 package de.app.ui.service
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import de.app.databinding.FragmentAdministrativeServiceBinding
 import de.app.ui.SubmittedResultActivity
@@ -21,15 +18,16 @@ import de.app.ui.service.view.field.InputFieldView
 import de.app.ui.util.observe
 import de.app.ui.util.openUrl
 import de.app.ui.util.runActivity
+import de.app.ui.util.toast
 
 class AdministrativeServiceFragment : Fragment() {
+    private val args: AdministrativeServiceFragmentArgs by navArgs()
 
     private lateinit var viewModel: AdminServiceViewModel
-    private lateinit var binding: FragmentAdministrativeServiceBinding
 
+    private lateinit var binding: FragmentAdministrativeServiceBinding
     private lateinit var inputFields: List<InputFieldView>
     private lateinit var submitButtonView: ButtonView
-    private val args: AdministrativeServiceFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +36,6 @@ class AdministrativeServiceFragment : Fragment() {
         binding = FragmentAdministrativeServiceBinding.inflate(inflater, container, false)
         viewModel = AdminServiceViewModel(args.id)
         val root = binding.layout
-
 
         binding.serviceName.text = viewModel.service.name
         binding.serviceDescription.text = viewModel.service.description
@@ -75,20 +72,18 @@ class AdministrativeServiceFragment : Fragment() {
     private fun observeInputFields() {
         inputFields.forEach { field ->
             field.setOnValueChangedListener {
-                viewModel.formDataChanged(
-                    FormValue(HashSet(inputFields.map { it.getValue() }))
-                )
+                viewModel.formDataChanged(FormValue(collectValues()))
             }
         }
     }
 
     private fun observeSubmitButton() {
         submitButtonView.setOnClickListener {
-            viewModel.submit(
-                FormValue(HashSet(inputFields.map { it.getValue() }))
-            )
+            viewModel.submit(FormValue(collectValues()))
         }
     }
+
+    private fun collectValues() = HashSet(inputFields.map { it.getValue() })
 
     private fun observeFormState() {
         observe(viewModel.formState) {
@@ -102,24 +97,15 @@ class AdministrativeServiceFragment : Fragment() {
     }
 
     private fun onSuccess(formView: FormView) {
-        if (viewModel.form.paymentRequired){
-            val uri = Uri.Builder()
-                .scheme("https")
-                .authority("coden256.github.io")
-                .path("/deutschland-app/")
-                .appendQueryParameter("applicationId",formView.applicationId)
-                .appendQueryParameter("accountDisplayName", formView.accountDisplayName)
-                .appendQueryParameter("accountId", formView.accountId)
-                .appendQueryParameter("serviceName", formView.serviceName)
-                .appendQueryParameter("sentDate", formView.sentDate)
-                .build()
-            requireContext().openUrl(uri)
-        }else{
-            requireActivity().runActivity(SubmittedResultActivity::class.java)
+        formView.uri.onSuccess {
+            requireContext().openUrl(it)
+        }
+        formView.bundle.onSuccess {
+            requireActivity().runActivity(SubmittedResultActivity::class.java, it)
         }
     }
 
     private fun onError(throwable: Throwable) {
-        Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_SHORT).show()
+        requireActivity().toast("Error: "+throwable.message)
     }
 }

@@ -1,6 +1,5 @@
 package de.app.ui
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -22,38 +21,33 @@ class SubmittedResultActivity : AppCompatActivity() {
         binding.submit.setOnClickListener {
             runActivity(MainActivity::class.java)
         }
-        handleIntent(intent)
-    }
-
-
-    private fun handleIntent(intent: Intent) {
-        val appLinkAction = intent.action
-        val appLinkData: Uri? = intent.data
-        if (Intent.ACTION_VIEW == appLinkAction) {
-            appLinkData?.let {
-                setInfo(
-                    serviceName = it.getQueryParameter("serviceName"),
-                    accountDisplayName = it.getQueryParameter("accountId"),
-                    applicationId = it.getQueryParameter("applicationId"),
-                    accountId = it.getQueryParameter("accountDisplayName"),
-                    sentDate = it.getQueryParameter("sentDate")
-                )
-            }
+        intent.extras?.let {
+            handleBundle(it)
+        }
+        intent.data?.let {
+            handleUriDeepLinkRedirect(intent.action, it)
         }
     }
 
-    private fun setInfo(
-        serviceName: String?, applicationId: String?,
-        accountDisplayName: String?, accountId: String?,
-        sentDate: String?
-    ) {
+    private fun handleBundle(data: Bundle) {
+        setInfoByValueResolver { data.getString(it) }
+    }
+
+
+    private fun handleUriDeepLinkRedirect(intentAction: String?, uri: Uri) {
+        if (Intent.ACTION_VIEW == intentAction) {
+            setInfoByValueResolver { uri.getQueryParameter(it) }
+        }
+    }
+
+    private fun setInfoByValueResolver(resolver: (String) -> String?) {
         binding.details.text = getString(
             R.string.form_submitted_details,
-            serviceName ?: "<empty>",
-            applicationId ?: "<empty>",
-            sentDate ?: "<empty>",
-            accountDisplayName ?: "<empty>",
-            accountId ?: "<empty>"
+            resolver("serviceName") ?: "<empty>",
+            resolver("applicationId") ?: "<empty>",
+            resolver("sentDate") ?: "<empty>",
+            resolver("accountId") ?: "<empty>",
+            resolver("accountDisplayName") ?: "<empty>"
         )
     }
 }

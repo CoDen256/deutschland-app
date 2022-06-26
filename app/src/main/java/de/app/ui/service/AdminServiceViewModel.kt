@@ -1,5 +1,8 @@
 package de.app.ui.service
 
+import android.net.Uri
+import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.app.api.service.AdministrativeServiceRegistry
@@ -11,13 +14,16 @@ import de.app.api.service.form.Form
 import de.app.api.service.form.InputField
 import de.app.api.service.submit.SubmittedField
 import de.app.api.service.submit.SubmittedForm
+import de.app.core.config.DataGenerator.Companion.citizens
 import de.app.core.config.DataGenerator.Companion.generateDocuments
+import de.app.core.success
 import de.app.ui.service.data.result.FormView
 import de.app.ui.service.data.state.FieldState
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FormValue
 import de.app.ui.service.validator.FieldValidator
 import de.app.ui.service.validator.ValidatorProvider
+import java.lang.AssertionError
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -26,18 +32,15 @@ import kotlin.collections.HashMap
 import kotlin.collections.HashSet
 
 class AdminServiceViewModel(id: String) : ViewModel() {
-
     private val registry: AdministrativeServiceRegistry = BaseAdministrativeServiceRegistry()
+    private val accountInfo = citizens.entries.first().value
+
+    private val dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss dd MMMM yy")
+
     val service: AdministrativeService = registry.getServiceById(id)
         .getOrThrow()
 
-    val form: Form = Form(
-        listOf(
-            DocumentInfoField(label="Documnet", generateDocuments(5)),
-            AttachmentField(id="at", required = true, "Attachment", "application/pdf")
-        ),
-        paymentRequired = true
-    ) ?:registry.getApplicationForm(service).getOrThrow()
+    val form: Form = registry.getApplicationForm(service).getOrThrow()
 
     val formState = MutableLiveData<FormState>()
     val result = MutableLiveData<Result<FormView>>()
@@ -51,7 +54,6 @@ class AdminServiceViewModel(id: String) : ViewModel() {
         }
     }
 
-
     fun submit(data: FormValue) {
         val submittedForm = SubmittedForm(ArrayList<SubmittedField>().apply {
             data.values.forEach {
@@ -60,15 +62,49 @@ class AdminServiceViewModel(id: String) : ViewModel() {
         })
         val rs = registry.sendApplicationForm(service, submittedForm)
 
-        result.value = rs.map { FormView(
-            serviceName = service.name,
-            accountId = "custom-id",
-            sentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")),
-            accountDisplayName = "Alphabetovna",
-            applicationId = UUID.randomUUID().toString()
-        ) }
+        result.value = rs.map {
+            val params = buildFormViewMap()
+            if (form.paymentRequired){
+                return@map FormView(
+                    buildPaymentRequiredUriFromParams(params).success(),
+                    Result.failure(AssertionError("You should've unpacked Uri"))
+                )
+            }
+            return@map FormView(
+                Result.failure(AssertionError("You should've unpacked Bundle")),
+                buildBundleFromParams(params).success()
+            )
+        }
+
+
     }
 
+    private fun buildBundleFromParams(params: Map<String, String>): Bundle {
+        return bundleOf(
+            *params.map { it.key to it.value }.toTypedArray()
+        )
+    }
+
+    private fun buildPaymentRequiredUriFromParams(params: Map<String, String>): Uri{
+        return Uri.Builder()
+            .scheme("https")
+            .authority("coden256.github.io")
+            .path("/deutschland-app/")
+            .apply {
+                for ((name, value) in params)
+                    appendQueryParameter(name, value)
+            }. build()
+    }
+
+    private fun buildFormViewMap(): Map<String, String> {
+        return mapOf(
+            "applicationId" to UUID.randomUUID().toString(),
+            "accountDisplayName" to accountInfo.displayName,
+            "accountId" to accountInfo.accountId,
+            "serviceName" to service.name,
+            "sentDate" to LocalDateTime.now().format(dateTimeFormatter)
+        )
+    }
 
     fun formDataChanged(data: FormValue) {
         val states = HashSet<FieldState>()
