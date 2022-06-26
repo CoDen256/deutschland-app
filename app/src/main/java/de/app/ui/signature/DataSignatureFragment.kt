@@ -44,7 +44,16 @@ class DataSignatureFragment : Fragment(){
 
         binding = FragmentSignatureBinding.inflate(inflater, container, false)
 
-        binding.files.adapter = OpenableFileViewAdapter(requireActivity(), files)
+        binding.files.adapter = OpenableFileViewAdapter(requireActivity(), files) {
+            binding.files.adapter?.apply {
+                val index = files.indexOf(it)
+                if(index != -1){
+                    files.removeAt(index)
+                    notifyItemRemoved(index)
+                }
+            }
+        }
+
 
         val pickFileLauncher = lifecycle.launcher(FilePickerIntent(requireActivity()) {
             addFile(it)
