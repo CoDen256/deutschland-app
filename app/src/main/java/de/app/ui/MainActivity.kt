@@ -1,11 +1,17 @@
 package de.app.ui
 
 import android.Manifest
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.Menu
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -19,6 +25,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.core.SessionManager
 import de.app.databinding.ActivityMainBinding
+import de.app.notifications.NotificationPublisher
+import de.app.notifications.scheduleNextAlarm
 import de.app.ui.user.LoginActivity
 import de.app.ui.util.runActivity
 import de.app.ui.util.setLanguage

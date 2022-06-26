@@ -1,5 +1,6 @@
 package de.app.ui.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import de.app.data.model.UserType
 import de.app.databinding.FragmentDashboardAppointmentItemBinding
 import de.app.databinding.FragmentDashboardBinding
 import de.app.databinding.FragmentDashboardSectionBinding
+import de.app.notifications.NotificationPublisher
 import de.app.notifications.Notificator
 import de.app.ui.user.LoginActivity
 import de.app.ui.util.runActivity
@@ -59,9 +61,6 @@ class DashboardFragment : Fragment() {
                 }
             )
         }
-
-
-        genFakeNotifications()
 
 
         inflateSection(
@@ -111,12 +110,5 @@ class DashboardFragment : Fragment() {
         val (caption, body) = itemData
         item.body.text = body
         item.caption.text = caption
-    }
-
-    private fun genFakeNotifications() {
-        val notificator = Notificator(requireContext())
-        notificator.sendEmergencyNotification("There is an emergency in your area")
-        notificator.sendLawChangeNotification("There are new laws")
-        notificator.sendNewMailNotification("Your document ist abgelaufen")
     }
 }

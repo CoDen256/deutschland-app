@@ -25,10 +25,17 @@ import de.app.core.db.UserDataSource
 import de.app.core.SessionManager
 import de.app.core.config.*
 import de.app.core.db.AppDatabase
+import de.app.notifications.NotificationPublisher
+import de.app.notifications.scheduleNextAlarm
 import javax.inject.Singleton
 
 @HiltAndroidApp
-class App: Application()
+class App: Application() {
+    override fun onCreate() {
+        super.onCreate()
+        this.scheduleNextAlarm(NotificationPublisher.INTERVAL)
+    }
+}
 
 @Module
 @InstallIn(SingletonComponent::class)
