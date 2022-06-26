@@ -27,6 +27,7 @@ class LawChangeNotificator @Inject constructor(): BaseNotificator<LawChangeHeade
                 title = "A new law has been registered"
                 expandedText = data.first().shortDescription
                 text = data.first().name
+                bigText = data.first().name
             }.show()
     }
 
