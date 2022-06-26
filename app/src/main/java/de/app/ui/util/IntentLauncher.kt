@@ -5,30 +5,30 @@ import android.content.Intent
 import android.net.Uri
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.Lifecycle
+import de.app.core.inSeparateThread
 import de.app.data.model.FileHeader
 import java.lang.IllegalStateException
 import java.util.*
 
 
-class FilePickerIntent (
+class FilePickerIntent(
     override val activity: ComponentActivity,
     override val key: String = UUID.randomUUID().toString(),
     private val resultHandler: (FileHeader) -> Unit
-): ResultContract<String, Uri>(){
+) : ResultContract<String, Uri>() {
 
-    override fun createIntent(context: Context, input: String): Intent {
+    override fun createIntentFromInput(context: Context, input: String): Intent {
         return createFilePickerIntent(input)
     }
 
-    override fun parseResult(resultCode: Int, intent: Intent?): Result<Uri> {
+    override fun parseResult(intent: Intent?): Result<Uri> {
         return parseUriResult(intent)
     }
 
-    override fun handleResultOnSuccess(result: Uri) {
+    override fun handleResultOnSuccess(input: String, result: Uri) {
         val doc = DocumentFile.fromSingleUri(activity, result)!!
         val name = doc.name ?: throw IllegalStateException("Document does not have a name $result")
         val type = doc.type ?: throw IllegalStateException("Document does not have a type $result")
@@ -43,18 +43,23 @@ class FilePickerIntent (
 class FileSaverIntent(
     override val activity: ComponentActivity,
     override val key: String = UUID.randomUUID().toString(),
-    private val resultHandler: (Uri) -> Unit
-): ResultContract<FileHeader, Uri>(){
-    override fun createIntent(context: Context, input: FileHeader): Intent {
+) : ResultContract<FileHeader, Uri>() {
+
+    override fun createIntentFromInput(context: Context, input: FileHeader): Intent {
         return createFileSaverIntent(input)
     }
 
-    override fun parseResult(resultCode: Int, intent: Intent?): Result<Uri> {
-        return  parseUriResult(intent)
+    override fun parseResult(intent: Intent?): Result<Uri> {
+        return parseUriResult(intent)
     }
 
-    override fun handleResultOnSuccess(result: Uri) {
-        resultHandler(result)
+    override fun handleResultOnSuccess(input: FileHeader, result: Uri) {
+        inSeparateThread{
+            activity.writeTo(input, result)
+            activity.runOnUiThread {
+                activity.toast("Successfully written ${result.lastPathSegment}")
+            }
+        }
     }
 
     override fun handleResultOnFailure(throwable: Throwable) {
@@ -76,17 +81,30 @@ open class IntentLauncher<I, O>(contract: ResultContract<I, O>, lifecycle: Lifec
     }
 }
 
-abstract class ResultContract<I, O>: ActivityResultContract<I, Result<O>>() {
+abstract class ResultContract<I, O> : ActivityResultContract<I, Result<O>>() {
     abstract val key: String
     abstract val activity: ComponentActivity
 
-    abstract fun handleResultOnSuccess(result: O)
+    private var lastInput: I? = null
+
+    override fun createIntent(context: Context, input: I): Intent {
+        lastInput = input // god forgive me
+        return createIntentFromInput(context, input)
+    }
+
+    override fun parseResult(resultCode: Int, intent: Intent?): Result<O> {
+        return parseResult(intent)
+    }
+
+    abstract fun createIntentFromInput(context: Context, input: I): Intent
+    abstract fun parseResult(intent: Intent?): Result<O>
+    abstract fun handleResultOnSuccess(input: I, result: O)
     abstract fun handleResultOnFailure(throwable: Throwable)
 
-    fun register(): ActivityResultLauncher<I>{
+    fun register(): ActivityResultLauncher<I> {
         return activity.activityResultRegistry.register(key, this) { result ->
             result.mapCatching {
-                handleResultOnSuccess(it)
+                handleResultOnSuccess(lastInput!!, it)
             }.onFailure {
                 handleResultOnFailure(it)
             }
@@ -95,6 +113,6 @@ abstract class ResultContract<I, O>: ActivityResultContract<I, Result<O>>() {
 
 }
 
-fun <I, O> Lifecycle.createResultLauncher(resultContract: ResultContract<I, O>): IntentLauncher<I, O> {
+fun <I, O> Lifecycle.launcher(resultContract: ResultContract<I, O>): IntentLauncher<I, O> {
     return IntentLauncher(resultContract, this)
 }

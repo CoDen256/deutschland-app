@@ -50,8 +50,16 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        // TODO: just ask session manager for logged in account
+        setupNavController()
 
+        jumpBackIfNotLoggedIn()
+        observerSwitchAccount()
+        observeLogout()
+        observeLanguageSwitch()
+        requestPermissions()
+    }
+
+    private fun setupNavController() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         navController = supportFragmentManager
@@ -59,59 +67,69 @@ class MainActivity : AppCompatActivity() {
             .findNavController()
 
 
+        // TODO: why is this needed?
+        // (without the id, clicking on appbar will result in going back instead of
+        // viewing the menu, so its kind like not top level and here is only top levels)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.nav_dashboard, R.id.nav_geodata, R.id.nav_mailbox,
+                R.id.nav_applications, R.id.nav_appointments,
+                R.id.nav_data_safe, R.id.nav_finder,
+                R.id.nav_signature, R.id.nav_law_registry,
+            ), drawerLayout
+        )
+
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+    }
+
+    private fun jumpBackIfNotLoggedIn() {
         lifecycleScope.launchWhenCreated {
             sessionManager.init()
             if (!sessionManager.isLoggedIn) {
                 jumpBackToLogin()
             }
         }
+    }
 
+    private fun observerSwitchAccount() {
         binding.switchAccount.setOnClickListener {
             lifecycleScope.launch {
                 sessionManager.logout()
                 jumpBackToLogin()
             }
         }
+    }
 
+    private fun observeLogout() {
         binding.logout.setOnClickListener {
             lifecycleScope.launch {
                 sessionManager.logoutAndRemoveCurrent()
                 jumpBackToLogin()
             }
         }
+    }
 
-        requestPermissions()
-
+    private fun observeLanguageSwitch() {
         binding.switchLanguage.setOnClickListener {
             val languageEn = "en-EN"
             val languageDe = "de-DE"
             val current = resources.configuration.locales[0]
-            if (current.toString().startsWith("de")){
+            if (current.toString().startsWith("de")) {
                 setLanguage(languageEn)
-            }else {
+            } else {
                 setLanguage(languageDe)
             }
         }
-
-        // TODO: why is this needed?
-        // (without the id, clicking on appbar will result in going back instead of
-        // viewing the menu, so its kind like not top level and here is only top levels)
-        appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_dashboard, R.id.nav_geodata, R.id.nav_mailbox,
-            R.id.nav_applications, R.id.nav_appointments,
-            R.id.nav_data_safe, R.id.nav_finder,
-            R.id.nav_signature, R.id.nav_law_registry,
-        ), drawerLayout)
-
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
     }
 
     private fun requestPermissions() {
         permissionLauncher.launch(
             arrayOf(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
             )
         )
     }

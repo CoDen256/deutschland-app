@@ -4,8 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.content.Intent.createChooser
+import android.graphics.Bitmap
+import android.graphics.pdf.PdfRenderer
 import android.net.Uri
+import androidx.core.graphics.createBitmap
+import de.app.core.successOrElse
 import de.app.data.model.FileHeader
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 fun Context.openFile(uri: Uri, type: String) {
@@ -20,6 +27,38 @@ fun Context.openUrl(uri: Uri){
     val intent = Intent(ACTION_VIEW)
     intent.data = uri
     startActivity(intent)
+}
+
+
+fun Context.writeTo(from: FileHeader, to: Uri) {
+    val target = contentResolver.openOutputStream(to) ?: return
+    val source = when {
+        from.uri.scheme?.startsWith("http") == true -> URL(from.uri.toString()).openStream()
+        else -> contentResolver.openInputStream(from.uri)
+    } ?: return
+
+    target.use { source.copyTo(it) }
+}
+
+fun Context.loadFirstPage(file: FileHeader): Result<Bitmap> {
+    return try {
+        getFirstPage(file).successOrElse(
+            IllegalStateException("Unable to open file: ${file.name} ${file.uri}, ${file.mimeType}"))
+    }catch (ex: Exception){
+        Result.failure(ex)
+    }
+}
+
+private fun Context.getFirstPage(file: FileHeader): Bitmap? {
+    return contentResolver.openFileDescriptor(file.uri, "r")?.let {
+        val pdfRenderer = PdfRenderer(it)
+        val currentPage = pdfRenderer.openPage(0)
+
+        val bitmap = createBitmap(100, 100, Bitmap.Config.ARGB_8888)
+
+        currentPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+        bitmap
+    }
 }
 
 

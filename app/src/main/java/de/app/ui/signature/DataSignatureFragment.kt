@@ -42,19 +42,19 @@ class DataSignatureFragment : Fragment(){
 
         binding.files.adapter = OpenableFileViewAdapter(requireActivity(), files)
 
-        val pickFileLauncher = lifecycle.createResultLauncher(FilePickerIntent(requireActivity()) {
+        val pickFileLauncher = lifecycle.launcher(FilePickerIntent(requireActivity()) {
             addFile(it)
         })
-        val saveFileLauncher = lifecycle.createResultLauncher(FileSaverIntent(requireActivity()){
-            requireActivity().toast("Nice $it")
-        })
+        val saveFileLauncher = lifecycle.launcher(FileSaverIntent(requireActivity()))
 
         binding.uploadFileLocal.setOnClickListener {
             pickFileLauncher.launch("application/pdf")
         }
 
         binding.submitLocal.setOnClickListener {
-            saveFileLauncher.launch(files[0])
+            files.forEach {
+                saveFileLauncher.launch(it)
+            }
         }
 
         binding.uploadFileDataSafe.setOnClickListener {

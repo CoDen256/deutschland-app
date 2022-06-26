@@ -24,7 +24,7 @@ import kotlin.random.Random.Default.nextInt
 
 class DataGenerator {
     companion object {
-        val df = DataFactory().apply { randomize(nextInt()) }
+        val df = DataFactory().apply { randomize(System.currentTimeMillis().toInt()) }
 
         val citizens = mapOf(
             SecretToken("ua01") to CitizenAccountInfo(
@@ -101,9 +101,7 @@ class DataGenerator {
 
         val documents = listOf(
             "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-            "http://www.africau.edu/images/default/sample.pdf",
             "https://www.orimi.com/pdf-test.pdf",
-            "http://www.pdf995.com/samples/pdf.pdf",
             "https://www.clickdimensions.com/links/TestPDFfile.pdf"
         )
 
@@ -167,7 +165,7 @@ class DataGenerator {
 
         fun generateDocuments(num: Int): List<FileHeader> {
             return (0..num).map {
-                FileHeader(rnd(), documents.random(), "application/pdf")
+                FileHeader(rnd()+".pdf", documents.random(), "application/pdf")
             }
         }
 
