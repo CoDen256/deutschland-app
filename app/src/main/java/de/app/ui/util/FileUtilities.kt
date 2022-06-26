@@ -8,8 +8,9 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
+import android.os.StrictMode
+import android.os.StrictMode.VmPolicy
 import android.provider.OpenableColumns
-import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import androidx.documentfile.provider.DocumentFile
 import java.io.File
@@ -54,35 +55,31 @@ fun Uri.getFile(contentResolver: ContentResolver): ByteArray? {
     return null
 }
 
-fun Context.openFile(uri: Uri, type: String) {
+fun Context.openFile(uri: Uri, type: String): Result<Unit> {
     val root = Environment.getExternalStorageDirectory().toString()
     val dir = File("$root/de-app")
     if (!dir.exists()){
         dir.mkdirs()
     }
-    dir.setWritable(true)
-    contentResolver.takePersistableUriPermission(uri,
-        Intent.FLAG_GRANT_READ_URI_PERMISSION
-            or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-
-    val doc: DocumentFile = DocumentFile.fromSingleUri(this, uri)!!
+    val builder = VmPolicy.Builder()
+    StrictMode.setVmPolicy(builder.build())
+    val doc: DocumentFile = DocumentFile.fromSingleUri(this, uri) ?: return Result.failure(java.lang.IllegalStateException("Unable to create Documentfiel from given uri"))
 
     val temp = File(dir, "1"+doc.name)
     temp.outputStream().use {
         contentResolver.openInputStream(uri)?.copyTo(it)
     }
 
-    val intent = Intent()
-    intent.action = ACTION_VIEW
+    val intent = Intent(ACTION_VIEW)
     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    intent.setDataAndType(FileProvider.getUriForFile(this, applicationContext.packageName+".provider",temp ), doc.type)
-    intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
-    startActivity(Intent.createChooser(intent, "blabla"))
+    intent.setDataAndType(doc.uri, doc.type)
+    startActivity(intent)
+    return Result.success(Unit)
 }
 
 fun Context.openUrl(uri: Uri){
-    val intent = Intent(Intent.ACTION_VIEW)
+    val intent = Intent(ACTION_VIEW)
     intent.data = uri
     startActivity(intent)
 }
