@@ -6,6 +6,8 @@ import de.app.data.model.FileHeader
 import de.app.databinding.CommonFileItemBinding
 import de.app.ui.util.loadFirstPage
 import de.app.ui.util.openFile
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class OpenableFileViewAdapter(
     activity: Activity,
@@ -20,7 +22,7 @@ open class FileViewAdapter(
     { inflater, parent -> CommonFileItemBinding.inflate(inflater, parent, false) },
     fileHeaders,
     { file, binding ->
-        inSeparateThread {
+        executor.submit {
             activity.loadFirstPage(file).onSuccess {
                 activity.runOnUiThread {
                     binding.file.setImageBitmap(it)
@@ -30,4 +32,8 @@ open class FileViewAdapter(
         binding.file.setOnClickListener { onClickListener(file) }
         binding.fileName.text = file.name
     }
-)
+) {
+    companion object{
+        val executor: ExecutorService = Executors.newFixedThreadPool(4)
+    }
+}

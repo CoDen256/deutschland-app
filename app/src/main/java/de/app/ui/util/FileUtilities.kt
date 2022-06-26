@@ -8,8 +8,10 @@ import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import androidx.core.graphics.createBitmap
+import androidx.core.net.toUri
 import de.app.core.successOrElse
 import de.app.data.model.FileHeader
+import java.io.File
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
@@ -50,14 +52,27 @@ fun Context.loadFirstPage(file: FileHeader): Result<Bitmap> {
 }
 
 private fun Context.getFirstPage(file: FileHeader): Bitmap? {
-    return contentResolver.openFileDescriptor(file.uri, "r")?.let {
-        val pdfRenderer = PdfRenderer(it)
-        val currentPage = pdfRenderer.openPage(0)
+    var toRemove: File? = null
+    try {
+        var uri: Uri = file.uri
+        if (file.uri.scheme?.startsWith("http") == true) {
+            val temp = File.createTempFile(file.name, ".pdf", cacheDir)
+            uri = temp.toUri()
+            toRemove = temp
+            writeTo(file, uri)
+        }
 
-        val bitmap = createBitmap(100, 100, Bitmap.Config.ARGB_8888)
+        return contentResolver.openFileDescriptor(uri, "r")?.let {
+            val pdfRenderer = PdfRenderer(it)
+            val currentPage = pdfRenderer.openPage(0)
 
-        currentPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-        bitmap
+            val bitmap = createBitmap(100, 100, Bitmap.Config.ARGB_8888)
+
+            currentPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+            bitmap
+        }
+    } finally {
+        toRemove?.deleteOnExit()
     }
 }
 
