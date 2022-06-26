@@ -16,6 +16,7 @@ import de.app.databinding.FragmentSignatureBinding
 import de.app.ui.components.OpenableFileViewAdapter
 import de.app.ui.safe.DataSafePickerFactory
 import de.app.ui.util.FilePickerIntentLauncher
+import de.app.ui.util.createFileSaverIntent
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -56,7 +57,10 @@ class DataSignatureFragment : Fragment(){
                     }
                 }
             }
+        }
 
+        binding.submitLocal.setOnClickListener {
+            requireActivity().createFileSaverIntent(files[0])
         }
 
         return binding.root

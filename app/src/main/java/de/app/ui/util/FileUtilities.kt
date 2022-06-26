@@ -1,9 +1,12 @@
 package de.app.ui.util
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
+import androidx.core.app.ActivityCompat.startActivityForResult
+import de.app.data.model.FileHeader
 
 
 fun Context.openFile(uri: Uri, type: String) {
@@ -35,4 +38,13 @@ fun createFilePickerIntent(input: String?): Intent {
     chooseFile.type = input!!
     chooseFile.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
     return Intent.createChooser(chooseFile, "Choose a file")
+}
+
+fun Activity.createFileSaverIntent(header: FileHeader) {
+    val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+        addCategory(Intent.CATEGORY_OPENABLE)
+        type = header.mimeType
+        putExtra(Intent.EXTRA_TITLE, header.name)
+    }
+    startActivityForResult(intent, 1)
 }
