@@ -98,7 +98,7 @@ class AdminServiceViewModel(id: String) : ViewModel() {
 
     private fun buildFormViewMap(): Map<String, String> {
         return mapOf(
-            "applicationId" to UUID.randomUUID().toString(),
+            "applicationId" to UUID.randomUUID().toString().substring(0, 6),
             "accountDisplayName" to accountInfo.displayName,
             "accountId" to accountInfo.accountId,
             "serviceName" to service.name,
