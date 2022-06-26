@@ -1,5 +1,6 @@
 package de.app.core.config
 
+import de.app.api.account.AccountInfo
 import de.app.api.account.CitizenAccountInfo
 import de.app.api.account.CompanyAccountInfo
 import de.app.api.account.SecretToken
@@ -7,7 +8,6 @@ import de.app.api.applications.Application
 import de.app.api.applications.ApplicationStatus
 import de.app.api.appointment.Appointment
 import de.app.api.emergency.Emergency
-import de.app.api.law.LawChangeHeader
 import de.app.api.law.LawChangeInfo
 import de.app.api.service.AdministrativeService
 import de.app.api.service.form.*
@@ -181,12 +181,14 @@ class DataGenerator {
             }
         }
 
+        val accounts: Map<SecretToken, AccountInfo> = citizens + companies
+
         fun generateApplications(num: Int, services: List<AdministrativeService>): List<Application> {
             return (0..num).map {
                 val service = services.random()
                 Application(
                     service.id,
-                    (citizens + companies).values.random().accountId,
+                    accounts.values.random().accountId,
                     service.name,
                     service.description,
                     ApplicationStatus.values().random(),

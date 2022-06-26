@@ -7,5 +7,5 @@ data class FileHeader(
     val uri: Uri,
     val mimeType: String
 ){
-    constructor(name: String, fileUri: String, mimeType: String) : this(name, Uri.parse(fileUri), mimeType)
+    constructor(name: String, uri: String, mimeType: String) : this(name, Uri.parse(uri), mimeType)
 }

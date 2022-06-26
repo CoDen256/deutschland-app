@@ -12,6 +12,8 @@ import de.app.core.runWithInterval
 import de.app.data.model.FileHeader
 import de.app.databinding.FragmentDataSafeBinding
 import de.app.ui.components.OpenableFileViewAdapter
+import de.app.ui.util.FilePickerIntent
+import de.app.ui.util.launcher
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,17 +34,32 @@ class DataSafeFragment : Fragment() {
 
         runWithInterval({updateFiles(binding.files, files)})
 
+        val pickFileLauncher = lifecycle.launcher(FilePickerIntent(requireActivity()) {
+            addFiles(binding.files, files, listOf(it))
+        })
+
+        binding.addFile.setOnClickListener {
+            pickFileLauncher.launch("application/pdf")
+        }
+
         return binding.root
     }
 
     private fun updateFiles(rv: RecyclerView, origin: MutableList<FileHeader>) {
         val newMails = getFiles()
         activity?.runOnUiThread {
-            rv.adapter?.apply {
-                val curSize = itemCount
-                origin.addAll(newMails)
-                notifyItemRangeChanged(curSize, newMails.size)
-            }
+            addFiles(rv, origin, newMails)
+        }
+    }
+
+    private fun addFiles(
+        rv: RecyclerView,
+        origin: MutableList<FileHeader>,
+        newMails: List<FileHeader>
+    ) {
+        rv.adapter?.apply {
+            origin.addAll(0, newMails)
+            notifyItemRangeInserted(0, newMails.size)
         }
     }
 

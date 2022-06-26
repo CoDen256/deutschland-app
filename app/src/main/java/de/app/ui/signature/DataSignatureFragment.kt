@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.api.account.CitizenServiceAccountRepository
 import de.app.api.account.SecretToken
+import de.app.api.safe.DataSafeService
 import de.app.api.signature.SignatureService
 import de.app.core.SessionManager
 import de.app.core.config.DataGenerator.Companion.generateDocuments
@@ -29,6 +30,9 @@ class DataSignatureFragment : Fragment(){
     lateinit var repo: CitizenServiceAccountRepository
     @Inject
     lateinit var dataSafePickerFactory: DataSafePickerFactory
+
+    @Inject
+    lateinit var dataSafeService: DataSafeService
     lateinit var binding: FragmentSignatureBinding
 
     private val files: MutableList<FileHeader> = ArrayList(generateDocuments(5))
@@ -53,7 +57,7 @@ class DataSignatureFragment : Fragment(){
 
         binding.submitLocal.setOnClickListener {
             files.forEach {
-                saveFileLauncher.launch(it)
+                saveFileLauncher.launch(service.signFile(it))
             }
         }
 
@@ -63,6 +67,17 @@ class DataSignatureFragment : Fragment(){
                     dataSafePickerFactory.showPicker(requireActivity(), accountInfo) {
                         addFile(it)
                     }
+                }
+            }
+        }
+
+        binding.submitDataSave.setOnClickListener {
+            sessionManager.currentUser?.let { user ->
+                repo.getCitizenAccount(SecretToken( user.accountSecretToken)).onSuccess { accountInfo ->
+                    files.forEach {
+                        dataSafeService.upload(service.signFile(it), accountInfo.accountId)
+                    }
+                    requireActivity().toast("Successfully uploaded ${files.size} files")
                 }
             }
         }
