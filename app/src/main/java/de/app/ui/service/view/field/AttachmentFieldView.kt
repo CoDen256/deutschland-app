@@ -48,12 +48,11 @@ class AttachmentFieldView(
         }
 
         fun populate(field: AttachmentField, fragment: Fragment): Inflater = apply {
-            val launcher =  FilePickerIntentLauncher(fragment.requireActivity(), field.id){
+
+            val launcher = fragment.lifecycle.createResultLauncher(FilePickerIntent(fragment.requireActivity()){
                 binding.filePath.text = it.name
                 uriHolder.value = it.fileUri
-            }
-
-            fragment.lifecycle.addObserver(launcher.getObserver())
+            })
 
             binding.label.text = field.label
             binding.field.setOnClickListener {

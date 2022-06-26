@@ -51,7 +51,7 @@ private fun firstPageBitmap(context: Context, file: FileHeader): Result<Bitmap> 
             Result.success(bitmap)
 
         } ?: Result.failure(IllegalStateException("Unable to open file: ${file.name} ${file.fileUri}, ${file.mimeType}"))
-    }catch (ex: FileNotFoundException){
+    }catch (ex: Exception){
         Result.failure(ex)
     }
 }

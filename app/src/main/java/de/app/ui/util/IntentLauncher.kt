@@ -8,84 +8,93 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.documentfile.provider.DocumentFile
+import androidx.lifecycle.Lifecycle
 import de.app.data.model.FileHeader
 import java.lang.IllegalStateException
 import java.util.*
 
-class FilePickerIntentLauncher(
-    activity: ComponentActivity,
-    key: String = UUID.randomUUID().toString(),
-    handleFailure: (Throwable) -> Unit = { activity.toast("Failed to open a file: ${it.message}") },
-    handleResult: (FileHeader) -> Unit
-) : IntentLauncher<String, Result<Uri>>(
-    registry = activity.activityResultRegistry,
-    key = key,
-    createIntent = { _, input -> createFilePickerIntent(input) },
-    parseResult = { _, intent -> parseUriResult(intent) },
-    handleResult = { rs ->
-        rs.mapCatching { uri ->
-            uri to DocumentFile.fromSingleUri(activity, uri)!!
-        }.mapCatching {
-            val name = it.second.name ?: throw IllegalStateException("Document does not have a name ${it.first}")
-            val type = it.second.type ?: throw IllegalStateException("Document does not have a type ${it.first}")
-            handleResult(FileHeader(name, it.first, type))
-        }.onFailure { handleFailure(it) }
+
+class FilePickerIntent (
+    override val activity: ComponentActivity,
+    override val key: String = UUID.randomUUID().toString(),
+    private val resultHandler: (FileHeader) -> Unit
+): ResultContract<String, Uri>(){
+
+    override fun createIntent(context: Context, input: String): Intent {
+        return createFilePickerIntent(input)
     }
-)
 
-class FileSaverIntentLauncher(
-    activity: ComponentActivity,
-    key: String = UUID.randomUUID().toString(),
-    handleFailure: (Throwable) -> Unit = { activity.toast("Failed to save a file: ${it.message}") },
-    handleResult: (FileHeader) -> Unit
-) : IntentLauncher<FileHeader, Result<Uri>>(
-    registry = activity.activityResultRegistry,
-    key = key,
-    createIntent = { _, input -> createFileSaverIntent(input) },
-    parseResult = { _, intent -> parseUriResult(intent) },
-    handleResult = { rs ->
-        rs.mapCatching { uri ->
-            uri to DocumentFile.fromSingleUri(activity, uri)!!
-        }.mapCatching {
-            val name = it.second.name ?: throw IllegalStateException("Document does not have a name ${it.first}")
-            val type = it.second.type ?: throw IllegalStateException("Document does not have a type ${it.first}")
-            handleResult(FileHeader(name, it.first, type))
-        }.onFailure { handleFailure(it) }
+    override fun parseResult(resultCode: Int, intent: Intent?): Result<Uri> {
+        return parseUriResult(intent)
     }
-)
 
+    override fun handleResultOnSuccess(result: Uri) {
+        val doc = DocumentFile.fromSingleUri(activity, result)!!
+        val name = doc.name ?: throw IllegalStateException("Document does not have a name $result")
+        val type = doc.type ?: throw IllegalStateException("Document does not have a type $result")
+        resultHandler(FileHeader(name, result, type))
+    }
 
-open class IntentLauncher<I, O>(
-    private val registry: ActivityResultRegistry,
-    createIntent: (Context, I) -> Intent,
-    parseResult: (Int, Intent?) -> O,
-    private val key: String,
-    private val handleResult: (O) -> Unit
-) {
+    override fun handleResultOnFailure(throwable: Throwable) {
+        activity.toast("Failed to open a file: ${throwable.message}")
+    }
+}
+
+class FileSaverIntent(
+    override val activity: ComponentActivity,
+    override val key: String = UUID.randomUUID().toString(),
+    private val resultHandler: (Uri) -> Unit
+): ResultContract<FileHeader, Uri>(){
+    override fun createIntent(context: Context, input: FileHeader): Intent {
+        return createFileSaverIntent(input)
+    }
+
+    override fun parseResult(resultCode: Int, intent: Intent?): Result<Uri> {
+        return  parseUriResult(intent)
+    }
+
+    override fun handleResultOnSuccess(result: Uri) {
+        resultHandler(result)
+    }
+
+    override fun handleResultOnFailure(throwable: Throwable) {
+        activity.toast("Failed to save a file: ${throwable.message}")
+    }
+}
+
+open class IntentLauncher<I, O>(contract: ResultContract<I, O>, lifecycle: Lifecycle) {
     private lateinit var launcher: ActivityResultLauncher<I>
 
-    private val contract: ResultContract<I, O> = ResultContract(createIntent, parseResult)
-    private val observer = LifecycleObserver {
-        this.launcher = registry.register(key, contract, handleResult)
+    init {
+        lifecycle.addObserver(LifecycleObserver {
+            launcher = contract.register()
+        })
     }
-
-    fun getObserver() = observer
-
 
     fun launch(arg: I) {
         launcher.launch(arg)
     }
 }
 
-class ResultContract<I, O>(
-    private val createIntentHandler: (Context, I) -> Intent,
-    private val parseResultHandler: (Int, Intent?) -> O,
-) : ActivityResultContract<I, O>() {
+abstract class ResultContract<I, O>: ActivityResultContract<I, Result<O>>() {
+    abstract val key: String
+    abstract val activity: ComponentActivity
 
-    override fun createIntent(context: Context, input: I): Intent {
-        return createIntentHandler(context, input)
+    abstract fun handleResultOnSuccess(result: O)
+    abstract fun handleResultOnFailure(throwable: Throwable)
+
+    fun register(): ActivityResultLauncher<I>{
+        return activity.activityResultRegistry.register(key, this) { result ->
+            result.mapCatching {
+                handleResultOnSuccess(it)
+            }.onFailure {
+                handleResultOnFailure(it)
+            }
+        }
     }
 
-    override fun parseResult(resultCode: Int, intent: Intent?): O =
-        parseResultHandler(resultCode, intent)
+}
+
+fun <I, O> Lifecycle.createResultLauncher(resultContract: ResultContract<I, O>): IntentLauncher<I, O> {
+    return IntentLauncher(resultContract, this)
 }

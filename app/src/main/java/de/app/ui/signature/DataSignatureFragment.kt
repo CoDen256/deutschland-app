@@ -15,8 +15,7 @@ import de.app.data.model.FileHeader
 import de.app.databinding.FragmentSignatureBinding
 import de.app.ui.components.OpenableFileViewAdapter
 import de.app.ui.safe.DataSafePickerFactory
-import de.app.ui.util.FilePickerIntentLauncher
-import de.app.ui.util.FileSaverIntentLauncher
+import de.app.ui.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -43,13 +42,15 @@ class DataSignatureFragment : Fragment(){
 
         binding.files.adapter = OpenableFileViewAdapter(requireActivity(), files)
 
-        val pickFileLauncher = FilePickerIntentLauncher(requireActivity()) { addFile(it) }
-        val saveFileLauncher = FileSaverIntentLauncher(requireActivity()) { addFile(it) }
-        lifecycle.addObserver(pickFileLauncher.getObserver())
-        lifecycle.addObserver(saveFileLauncher.getObserver())
+        val pickFileLauncher = lifecycle.createResultLauncher(FilePickerIntent(requireActivity()) {
+            addFile(it)
+        })
+        val saveFileLauncher = lifecycle.createResultLauncher(FileSaverIntent(requireActivity()){
+            requireActivity().toast("Nice $it")
+        })
 
         binding.uploadFileLocal.setOnClickListener {
-            pickFileLauncher.launch("*/*")
+            pickFileLauncher.launch("application/pdf")
         }
 
         binding.submitLocal.setOnClickListener {
