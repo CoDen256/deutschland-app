@@ -3,10 +3,16 @@ package de.app.ui.util
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.ACTION_VIEW
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.StrictMode
+import android.os.StrictMode.VmPolicy
 import android.provider.OpenableColumns
+import android.webkit.MimeTypeMap
+import androidx.documentfile.provider.DocumentFile
+import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -49,10 +55,29 @@ fun Uri.getFile(contentResolver: ContentResolver): ByteArray? {
 }
 
 fun Context.openFile(uri: Uri, type: String) {
-    val intent = Intent(Intent.ACTION_VIEW)
-    intent.setDataAndType(uri, type)
+    val builder = VmPolicy.Builder()
+    StrictMode.setVmPolicy(builder.build())
+    contentResolver.takePersistableUriPermission(uri,
+        Intent.FLAG_GRANT_READ_URI_PERMISSION
+            or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+
+    val doc: DocumentFile = DocumentFile.fromSingleUri(this, uri)!!
+    val temp = File.createTempFile(
+        "cw_",
+        "."+MimeTypeMap.getSingleton().getExtensionFromMimeType(doc.type),
+        filesDir
+    )
+    temp.outputStream().use {
+        contentResolver.openInputStream(uri)?.copyTo(it)
+    }
+
+    val intent = Intent()
+    intent.action = ACTION_VIEW
+    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    intent.setDataAndType(doc.uri, doc.type)
     intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
-    startActivity(intent)
+    startActivity(Intent.createChooser(intent, "blabla"))
 }
 
 fun Context.openUrl(uri: Uri){
