@@ -19,6 +19,7 @@ class BaseLawRegistryService @Inject constructor(): LawRegistryService {
 
 
     override fun getLawChanges(from: LocalDate?, to: LocalDate?): List<LawChangeHeader> {
+        // TODO: run in separate thread the update of laws?
         return lawChangeHeaders.filter { it.date in range(from, to) }
     }
 

@@ -1,64 +1,44 @@
 package de.app.ui.law
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.api.law.LawChangeHeader
 import de.app.api.law.LawRegistryService
-import de.app.core.applyIf
-import de.app.core.runWithInterval
 import de.app.databinding.FragmentLawRegistryBinding
 import de.app.databinding.FragmentLawRegistryItemBinding
-import de.app.ui.components.ListViewAdapter
+import de.app.ui.components.ListFragment
 import java.time.format.DateTimeFormatter
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LawRegistryFragment : Fragment() {
+class LawRegistryFragment : ListFragment<FragmentLawRegistryBinding, FragmentLawRegistryItemBinding, LawChangeHeader>() {
 
-    private lateinit var binding: FragmentLawRegistryBinding
     @Inject
     lateinit var lawRegistry: LawRegistryService
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentLawRegistryBinding.inflate(inflater, container, false)
-        val elementBinding = { i: LayoutInflater, p: ViewGroup -> FragmentLawRegistryItemBinding.inflate(i, p, false) }
+    override fun inflate(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    )= FragmentLawRegistryBinding.inflate(inflater, container, false)
 
-        val changes = ArrayList(lawRegistry.getLawChanges().sortedByDescending { it.date })
+    override fun inflateChild(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentLawRegistryItemBinding.inflate(inflater, container, false)
 
-        binding.lawChangeList.adapter = ListViewAdapter(elementBinding, changes) { header, binding ->
-            binding.lawChangeName.text = header.name
-            binding.lawDate.text = header.date.format(DateTimeFormatter.ISO_LOCAL_DATE)
-            binding.lawChangeDescription.text = header.shortDescription
+    override fun setupChild(binding: FragmentLawRegistryItemBinding, item: LawChangeHeader) {
+        binding.apply {
+            lawChangeName.text = item.name
+            lawDate.text = item.date.format(DateTimeFormatter.ISO_LOCAL_DATE)
+            lawChangeDescription.text = item.shortDescription
         }
-
-        runWithInterval({ updateLaws(binding.lawChangeList, changes) })
-
-        return binding.root
     }
 
-    private fun updateLaws(rv: RecyclerView, origin: MutableList<LawChangeHeader>) {
-        val newChanges = lawRegistry.getLawChanges().sortedByDescending { it.date }
-        activity?.runOnUiThread {
-            rv.adapter?.apply {
-                origin.addAll(0, newChanges)
-                notifyItemRangeInserted(0, newChanges.size)
-            }
-            binding.lawChangeList.layoutManager.applyIf<RecyclerView.LayoutManager, LinearLayoutManager> {
-                if (findFirstVisibleItemPosition() <= 2){
-                    rv.post { rv.smoothScrollToPosition(0) }
-                }
-            }
-        }
+    override fun loadItems(): List<LawChangeHeader> = lawRegistry.getLawChanges().sortedByDescending { it.date }
+
+    override fun setup() {
+        binding.lawChangeList.adapter = adapter
     }
 
 }
