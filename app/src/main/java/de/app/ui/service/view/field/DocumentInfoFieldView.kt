@@ -22,7 +22,7 @@ class DocumentInfoFieldView (private val binding: ApplicationFormDocumentInfoBin
             binding.label.text = field.label
 
             binding.files.adapter = OpenableFileViewAdapter(
-                fragment.requireActivity(),
+                {fragment.requireActivity()},
                 field.documents
             )
         }

@@ -34,12 +34,9 @@ class DataSafeFragment : Fragment() {
 
 
         val files = getFiles()
-        binding.files.adapter = OpenableFileViewAdapter(requireActivity(), files){
+        binding.files.adapter = OpenableFileViewAdapter({requireActivity()}, files){
             saveFileLauncher.launch(it)
         }
-
-        runWithInterval({updateFiles(binding.files, files)})
-
 
         val pickFileLauncher = lifecycle.launcher(FilePickerIntent(requireActivity()) {
             addFiles(binding.files, files, listOf(it))
@@ -53,12 +50,6 @@ class DataSafeFragment : Fragment() {
         return binding.root
     }
 
-    private fun updateFiles(rv: RecyclerView, origin: MutableList<FileHeader>) {
-        val newMails = getFiles()
-        activity?.runOnUiThread {
-            addFiles(rv, origin, newMails)
-        }
-    }
 
     private fun addFiles(
         rv: RecyclerView,

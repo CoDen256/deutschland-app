@@ -1,106 +1,85 @@
 package de.app.ui.signature
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
-import de.app.api.account.CitizenServiceAccountRepository
-import de.app.api.account.SecretToken
 import de.app.api.safe.DataSafeService
 import de.app.api.signature.SignatureService
-import de.app.core.SessionManager
-import de.app.core.config.DataGenerator.Companion.generateDocuments
 import de.app.data.model.FileHeader
 import de.app.databinding.FragmentSignatureBinding
+import de.app.ui.components.AccountAwareFragment
 import de.app.ui.components.OpenableFileViewAdapter
 import de.app.ui.safe.DataSafePickerFactory
-import de.app.ui.util.*
+import de.app.ui.util.FilePickerIntent
+import de.app.ui.util.FileSaverIntent
+import de.app.ui.util.launcher
+import de.app.ui.util.toast
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DataSignatureFragment : Fragment(){
+class DataSignatureFragment : AccountAwareFragment<FragmentSignatureBinding>() {
 
     @Inject
     lateinit var service: SignatureService
-    @Inject
-    lateinit var sessionManager: SessionManager
-    @Inject
-    lateinit var repo: CitizenServiceAccountRepository
+
     @Inject
     lateinit var dataSafePickerFactory: DataSafePickerFactory
 
     @Inject
     lateinit var dataSafeService: DataSafeService
-    lateinit var binding: FragmentSignatureBinding
 
-    private val files: MutableList<FileHeader> = ArrayList(generateDocuments(5))
+    private val files: MutableList<FileHeader> = ArrayList()
+    private val adapter: OpenableFileViewAdapter =
+        OpenableFileViewAdapter({requireActivity()}, files) { removeFile(it) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun inflate(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentSignatureBinding.inflate(inflater, container, false)
 
-        binding = FragmentSignatureBinding.inflate(inflater, container, false)
+    override fun setup() {
+        binding.files.adapter = adapter
 
-        binding.files.adapter = OpenableFileViewAdapter(requireActivity(), files) {
-            binding.files.adapter?.apply {
-                val index = files.indexOf(it)
-                if(index != -1){
-                    files.removeAt(index)
-                    notifyItemRemoved(index)
-                }
-            }
-        }
-
-
-        val pickFileLauncher = lifecycle.launcher(FilePickerIntent(requireActivity()) {
-            addFile(it)
-        })
+        val pickFileLauncher =
+            lifecycle.launcher(FilePickerIntent(requireActivity()) { addFile(it) })
         val saveFileLauncher = lifecycle.launcher(FileSaverIntent(requireActivity()))
 
         binding.uploadFileLocal.setOnClickListener {
             pickFileLauncher.launch("application/pdf")
         }
 
-        binding.submitLocal.setOnClickListener {
-            files.forEach {
-                saveFileLauncher.launch(service.signFile(it))
+        binding.uploadFileDataSafe.setOnClickListener {
+            dataSafePickerFactory.showPicker(requireActivity(), account) {
+                addFile(it)
             }
         }
 
-        binding.uploadFileDataSafe.setOnClickListener {
-            sessionManager.currentUser?.let { user ->
-                repo.getCitizenAccount(SecretToken( user.accountSecretToken)).onSuccess { accountInfo ->
-                    dataSafePickerFactory.showPicker(requireActivity(), accountInfo) {
-                        addFile(it)
-                    }
-                }
-            }
+        binding.submitLocal.setOnClickListener {
+            files.forEach { saveFileLauncher.launch(service.signFile(it)) }
         }
 
         binding.submitDataSave.setOnClickListener {
-            sessionManager.currentUser?.let { user ->
-                repo.getCitizenAccount(SecretToken( user.accountSecretToken)).onSuccess { accountInfo ->
-                    files.forEach {
-                        dataSafeService.upload(service.signFile(it), accountInfo.accountId)
-                    }
-                    requireActivity().toast("Successfully uploaded ${files.size} files")
-                }
+            files.forEach {
+                dataSafeService.upload(service.signFile(it), account.accountId)
             }
+            requireActivity().toast("Successfully uploaded ${files.size} files")
         }
 
+    }
 
-        return binding.root
+    private fun removeFile(it: FileHeader) {
+        val index = files.indexOf(it)
+        if (index != -1) {
+            files.removeAt(index)
+            adapter.notifyItemRemoved(index)
+        }
     }
 
     private fun addFile(file: FileHeader) {
-        binding.files.adapter?.apply {
-            files.add(0, file)
-            notifyItemInserted(0)
+        files.add(0, file)
+        adapter.notifyItemInserted(0)
+        binding.files.apply {
+            post { smoothScrollToPosition(0) }
         }
-        binding.files.post { binding.files.smoothScrollToPosition(0) }
     }
-
 }
