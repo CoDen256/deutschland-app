@@ -1,16 +1,13 @@
 package de.app.ui.safe
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.api.safe.DataSafeService
-import de.app.core.runWithInterval
 import de.app.data.model.FileHeader
 import de.app.databinding.FragmentDataSafeBinding
+import de.app.ui.components.AccountAwareFragment
 import de.app.ui.components.OpenableFileViewAdapter
 import de.app.ui.util.FilePickerIntent
 import de.app.ui.util.FileSaverIntent
@@ -18,52 +15,35 @@ import de.app.ui.util.launcher
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DataSafeFragment : Fragment() {
+class DataSafeFragment : AccountAwareFragment<FragmentDataSafeBinding>() {
 
     @Inject
     lateinit var service: DataSafeService
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun inflate(inflater: LayoutInflater, container: ViewGroup?) =
+        FragmentDataSafeBinding.inflate(inflater, container, false)
 
-        val binding = FragmentDataSafeBinding.inflate(inflater, container, false)
+    override fun setup() {
+        val files: MutableList<FileHeader> =
+            ArrayList(service.getAllDocumentsForAccountId(account.accountId))
 
         val saveFileLauncher = lifecycle.launcher(FileSaverIntent(requireActivity()))
 
-
-        val files = getFiles()
-        binding.files.adapter = OpenableFileViewAdapter({requireActivity()}, files){
+        val adapter = OpenableFileViewAdapter({ requireActivity() }, files) {
             saveFileLauncher.launch(it)
         }
+        binding.files.adapter = adapter
 
         val pickFileLauncher = lifecycle.launcher(FilePickerIntent(requireActivity()) {
-            addFiles(binding.files, files, listOf(it))
+            files.add(0, it)
+            adapter.notifyItemInserted(0)
+            service.upload(it, account.accountId)
         })
 
         binding.addFile.setOnClickListener {
             pickFileLauncher.launch("application/pdf")
         }
-
-
-        return binding.root
     }
-
-
-    private fun addFiles(
-        rv: RecyclerView,
-        origin: MutableList<FileHeader>,
-        newMails: List<FileHeader>
-    ) {
-        rv.adapter?.apply {
-            origin.addAll(0, newMails)
-            notifyItemRangeInserted(0, newMails.size)
-        }
-    }
-
-    private fun getFiles(): MutableList<FileHeader> =
-        ArrayList(service.getAllDocumentsForAccountId("user-alpha"))
 }
 
 

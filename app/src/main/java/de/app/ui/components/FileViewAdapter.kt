@@ -1,11 +1,11 @@
 package de.app.ui.components
 
 import android.app.Activity
-import de.app.core.inSeparateThread
 import de.app.data.model.FileHeader
 import de.app.databinding.CommonFileItemBinding
 import de.app.ui.util.loadFirstPage
 import de.app.ui.util.openFile
+import java.lang.Integer.min
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -40,10 +40,16 @@ open class FileViewAdapter(
             onLongClickListener(file)
             true
         }
-        binding.fileName.text = file.name
+        binding.fileName.text = cutName(file.name)
     }
 ) {
     companion object{
         val executor: ExecutorService = Executors.newCachedThreadPool()
     }
+}
+
+private fun cutName(name: String): String {
+    val ext = name.substringAfterLast(".")
+    val filename = name.substringBeforeLast(".")
+    return filename.substring(0, min(5, filename.length)) + "..." + ext
 }
