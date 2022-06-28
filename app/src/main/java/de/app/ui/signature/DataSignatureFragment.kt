@@ -1,7 +1,12 @@
 package de.app.ui.signature
 
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.contract.ActivityResultContracts.*
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.api.safe.DataSafeService
 import de.app.api.signature.SignatureService
@@ -10,11 +15,9 @@ import de.app.databinding.FragmentSignatureBinding
 import de.app.ui.components.AccountAwareFragment
 import de.app.ui.components.OpenableFileViewAdapter
 import de.app.ui.safe.DataSafePickerFactory
-import de.app.ui.util.FilePickerIntent
-import de.app.ui.util.FileSaverIntent
-import de.app.ui.util.launcher
-import de.app.ui.util.toast
+import de.app.ui.util.*
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class DataSignatureFragment : AccountAwareFragment<FragmentSignatureBinding>() {
@@ -32,6 +35,7 @@ class DataSignatureFragment : AccountAwareFragment<FragmentSignatureBinding>() {
     private val adapter: OpenableFileViewAdapter =
         OpenableFileViewAdapter({requireActivity()}, files) { removeFile(it) }
 
+
     override fun inflate(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -40,12 +44,12 @@ class DataSignatureFragment : AccountAwareFragment<FragmentSignatureBinding>() {
     override fun setup() {
         binding.files.adapter = adapter
 
-        val pickFileLauncher =
-            lifecycle.launcher(FilePickerIntent(requireActivity()) { addFile(it) })
         val saveFileLauncher = lifecycle.launcher(FileSaverIntent(requireActivity()))
-
+        val pickFileLauncher = openDocumentLauncher(requireActivity()) {
+            addFile(it)
+        }
         binding.uploadFileLocal.setOnClickListener {
-            pickFileLauncher.launch("application/pdf")
+            pickFileLauncher.launch(arrayOf("application/pdf"))
         }
 
         binding.uploadFileDataSafe.setOnClickListener {

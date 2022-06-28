@@ -4,11 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.ComponentActivity
+import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.documentfile.provider.DocumentFile
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import de.app.core.inSeparateThread
+import de.app.core.successOrElse
 import de.app.data.model.FileHeader
 import java.lang.IllegalStateException
 import java.util.*
@@ -36,8 +40,40 @@ class FilePickerIntent(
     }
 
     override fun handleResultOnFailure(throwable: Throwable) {
-        activity.toast("Failed to open a file: ${throwable.message}")
     }
+}
+
+class OpenDocumentCallback(
+    private val activity: ComponentActivity,
+    private val resultHandler: (FileHeader) -> Unit
+) : ResultCallback<Uri>() {
+
+    override fun onSuccess(result: Uri) {
+        val doc = DocumentFile.fromSingleUri(activity, result)!!
+        val name =
+            doc.name ?: throw IllegalStateException("Document does not have a name $result")
+        val type =
+            doc.type ?: throw IllegalStateException("Document does not have a type $result")
+        resultHandler(FileHeader(name, result, type))
+    }
+
+    override fun onFailure(error: Throwable) {
+        activity.toast("Failed to open a document: ${error.message}")
+    }
+}
+
+abstract class ResultCallback<I : Any> : ActivityResultCallback<I?> {
+    override fun onActivityResult(result: I?) {
+        result.successOrElse(IllegalStateException("No Result for ${this.javaClass.simpleName}"))
+            .mapCatching {
+                onSuccess(it)
+            }.onFailure {
+                onFailure(it)
+            }
+    }
+
+    abstract fun onSuccess(result: I)
+    abstract fun onFailure(error: Throwable)
 }
 
 class FileSaverIntent(
@@ -54,7 +90,7 @@ class FileSaverIntent(
     }
 
     override fun handleResultOnSuccess(input: FileHeader, result: Uri) {
-        inSeparateThread{
+        inSeparateThread {
             activity.writeTo(input, result)
             activity.runOnUiThread {
                 activity.toast("Successfully written ${result.lastPathSegment}")
@@ -115,4 +151,12 @@ abstract class ResultContract<I, O> : ActivityResultContract<I, Result<O>>() {
 
 fun <I, O> Lifecycle.launcher(resultContract: ResultContract<I, O>): IntentLauncher<I, O> {
     return IntentLauncher(resultContract, this)
+}
+
+fun Fragment.openDocumentLauncher(
+    activity: ComponentActivity,
+    resultHandler: (FileHeader) -> Unit
+): ActivityResultLauncher<Array<String>> {
+    return registerForActivityResult(ActivityResultContracts.OpenDocument(),
+        OpenDocumentCallback(activity, resultHandler))
 }
