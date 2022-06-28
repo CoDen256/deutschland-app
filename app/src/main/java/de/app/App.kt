@@ -18,6 +18,7 @@ import de.app.api.appointment.AppointmentService
 import de.app.api.emergency.EmergencyInfoProvider
 import de.app.api.geo.GeodataService
 import de.app.api.law.LawRegistryService
+import de.app.api.mail.MailboxService
 import de.app.api.safe.DataSafeService
 import de.app.api.service.AdministrativeServiceRegistry
 import de.app.api.signature.SignatureService
@@ -79,6 +80,9 @@ abstract class AppModule {
 
     @Binds
     abstract fun dataSafeService(service: BaseDataSafeService): DataSafeService
+
+    @Binds
+    abstract fun mailService(service: BaseMailboxService): MailboxService
 
     @Binds
     abstract fun administrativeServiceRegistry(service: BaseAdministrativeServiceRegistry): AdministrativeServiceRegistry

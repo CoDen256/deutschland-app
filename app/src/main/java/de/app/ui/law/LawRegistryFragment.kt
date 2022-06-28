@@ -35,7 +35,7 @@ class LawRegistryFragment : ListFragment<FragmentLawRegistryBinding, FragmentLaw
         }
     }
 
-    override fun loadItems(): List<LawChangeHeader> = lawRegistry.getLawChanges().sortedByDescending { it.date }
+    override fun loadItems() = lawRegistry.getLawChanges().sortedByDescending { it.date }
 
     override fun setup() {
         binding.lawChangeList.adapter = adapter
