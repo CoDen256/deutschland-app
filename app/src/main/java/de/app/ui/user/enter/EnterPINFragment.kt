@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.databinding.FragmentUserEnterPinBinding
 import de.app.ui.MainActivity
+import de.app.ui.components.SimpleFragment
 import de.app.ui.util.afterTextChanged
 import de.app.ui.util.observe
 import de.app.ui.util.onActionDone
@@ -21,19 +22,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class EnterPINFragment : Fragment() {
+class EnterPINFragment : SimpleFragment<FragmentUserEnterPinBinding>() {
 
     @Inject
     lateinit var viewModel: EnterPINViewModel
-    private lateinit var binding: FragmentUserEnterPinBinding
     private val args: EnterPINFragmentArgs by navArgs()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentUserEnterPinBinding.inflate(inflater, container, false)
+    override fun inflate(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentUserEnterPinBinding.inflate(inflater, container, false)
 
+    override fun setup() {
         lifecycleScope.launch {
             viewModel.getUserHeader(args.userId).onSuccess {
                 binding.welcomeUsername.text = getString(
@@ -65,7 +65,6 @@ class EnterPINFragment : Fragment() {
         }
         binding.login.setOnClickListener { submitLogin() }
 
-        return binding.root
     }
 
     private fun submitLogin() {
