@@ -21,6 +21,7 @@ import de.app.api.law.LawRegistryService
 import de.app.api.safe.DataSafeService
 import de.app.api.service.AdministrativeServiceRegistry
 import de.app.api.signature.SignatureService
+import de.app.core.AccountManager
 import de.app.core.db.UserDataSource
 import de.app.core.SessionManager
 import de.app.core.config.*
@@ -31,7 +32,7 @@ import de.app.notifications.notificator.Notificator
 import javax.inject.Singleton
 
 @HiltAndroidApp
-class App: Application() {
+class App : Application() {
     override fun onCreate() {
         super.onCreate()
         this.scheduleNextAlarm(RepeatedNotificatorTrigger.INTERVAL)
@@ -42,19 +43,19 @@ class App: Application() {
 @InstallIn(SingletonComponent::class)
 abstract class AppModule {
     @Binds
-    abstract fun citizenAccountRepo(repo: BaseServiceAccountRepository) : CitizenServiceAccountRepository
+    abstract fun citizenAccountRepo(repo: BaseServiceAccountRepository): CitizenServiceAccountRepository
 
     @Binds
-    abstract fun companyAccountRepo(repo: BaseServiceAccountRepository) : CompanyServiceAccountRepository
+    abstract fun companyAccountRepo(repo: BaseServiceAccountRepository): CompanyServiceAccountRepository
 
     @Binds
-    abstract fun appointmentService(service: BaseAppointmentService) : AppointmentService
+    abstract fun appointmentService(service: BaseAppointmentService): AppointmentService
 
     @Binds
-    abstract fun applicationService(service: BaseApplicationService) : ApplicationService
+    abstract fun applicationService(service: BaseApplicationService): ApplicationService
 
     @Binds
-    abstract fun emergencyInfoProvider(service: BaseEmergencyInfoProvider) : EmergencyInfoProvider
+    abstract fun emergencyInfoProvider(service: BaseEmergencyInfoProvider): EmergencyInfoProvider
 
     @Binds
     abstract fun geodataService(service: BaseGeodataService): GeodataService
@@ -66,10 +67,10 @@ abstract class AppModule {
     abstract fun dataSafeService(service: BaseDataSafeService): DataSafeService
 
     @Binds
-    abstract fun administrativeServiceRegistry(service: BaseAdministrativeServiceRegistry) : AdministrativeServiceRegistry
+    abstract fun administrativeServiceRegistry(service: BaseAdministrativeServiceRegistry): AdministrativeServiceRegistry
 
     @Binds
-    abstract fun signatureService(service: BaseSignatureService) : SignatureService
+    abstract fun signatureService(service: BaseSignatureService): SignatureService
 
     @Binds
     abstract fun aggregatedNotificator(notificator: AggregatedNotificator): Notificator
@@ -81,8 +82,8 @@ object SingletonAppModule {
 
     @Provides
     @Singleton
-    fun provideFusedLocationProviderClient(application: Application)
-    = LocationServices.getFusedLocationProviderClient(application)
+    fun provideFusedLocationProviderClient(application: Application) =
+        LocationServices.getFusedLocationProviderClient(application)
 
     @Singleton
     @Provides
@@ -101,7 +102,22 @@ object SingletonAppModule {
 
     @Singleton
     @Provides
-    fun sessionManager(dataSource: UserDataSource): SessionManager{
+    fun sessionManager(dataSource: UserDataSource): SessionManager {
         return SessionManager(dataSource)
     }
+
+    @Singleton
+    @Provides
+    fun accountManager(
+        sessionManager: SessionManager,
+        citizenRepo: CitizenServiceAccountRepository,
+        companyRepo: CompanyServiceAccountRepository
+    ): AccountManager {
+        return AccountManager(
+            sessionManager,
+            citizenRepo,
+            companyRepo
+        )
+    }
+
 }

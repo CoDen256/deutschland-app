@@ -6,6 +6,8 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 import java.util.concurrent.Executors
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 fun runWithInterval(runnable: () -> Unit, period: Long = 10000) {
     Timer().scheduleAtFixedRate(object : TimerTask() {
@@ -35,6 +37,10 @@ fun <T : Any> T?.successOrElse(exception: Exception): Result<T> {
 inline fun <reified T : Any> T?.successOrElse(): Result<T> {
     return this?.success()
         ?: Result.failure(IllegalArgumentException("Element was not found ${T::class.simpleName}"))
+}
+
+inline fun <R, T> Result<T>.flatMap(transform: (value: T) -> Result<R>): Result<R> {
+    return this.mapCatching { transform(it).getOrThrow() }
 }
 
 fun range(from: LocalDateTime?, to:LocalDateTime?) =

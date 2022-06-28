@@ -8,21 +8,18 @@ import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.api.account.*
-import de.app.core.SessionManager
-import de.app.data.model.UserType
+import de.app.core.AccountManager
 import de.app.databinding.FragmentDashboardAppointmentItemBinding
 import de.app.databinding.FragmentDashboardBinding
 import de.app.databinding.FragmentDashboardSectionBinding
+import de.app.ui.util.getCurrentAccountOrRequireLogin
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
     @Inject
-    lateinit var sessionManager: SessionManager
-    @Inject
-    lateinit var citizenRepo: CitizenServiceAccountRepository
-    @Inject
-    lateinit var companyRepo: CompanyServiceAccountRepository
+    lateinit var accountManager: AccountManager
+
     private lateinit var binding: FragmentDashboardBinding
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,31 +27,34 @@ class DashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        val user = sessionManager.currentUser ?: return binding.root
-
-        val accountInfo = when (user.type) {
-            UserType.COMPANY -> companyRepo.getCompanyAccount(SecretToken(user.accountSecretToken))
-            UserType.CITIZEN -> citizenRepo.getCitizenAccount(SecretToken(user.accountSecretToken))
+        val account = accountManager.getCurrentAccountOrRequireLogin(requireActivity()) {
+            return binding.root
         }
 
-        accountInfo.onSuccess {
-            binding.accountId.text = getString(R.string.account_id_dashboard, it.accountId)
-            binding.address.text = getString(
-                R.string.address_dashboard,
-                it.address.postalCode,
-                it.address.city
-            )
-            binding.welcome.text = getString(R.string.welcome_dashboard, when (it) {
-                    is CitizenAccountInfo ->
-                        "${it.formOfAddress} ${it.firstName} ${it.surname}"
-                    is CompanyAccountInfo -> it.fullName
-                }
-            )
-        }
+        fillHeader(account)
+        fillDashboardInfo()
 
+        return binding.root
+    }
 
+    private fun fillHeader(account: AccountInfo) {
+        binding.accountId.text = getString(R.string.account_id_dashboard, account)
+        binding.address.text = getString(
+            R.string.address_dashboard,
+            account.address.postalCode,
+            account.address.city
+        )
+        binding.welcome.text = getString(
+            R.string.welcome_dashboard, when (account) {
+                is CitizenAccountInfo ->
+                    "${account.formOfAddress} ${account.firstName} ${account.surname}"
+                is CompanyAccountInfo -> account.fullName
+            }
+        )
+    }
+
+    private fun fillDashboardInfo() {
         inflateSection(
             binding.appointments, "Applications", listOf(
                 "19.10.2000" to "You have an appointment at doctor",
@@ -79,7 +79,6 @@ class DashboardFragment : Fragment() {
                 "Emergency #4" to "Too much snow"
             )
         )
-        return root
     }
 
     private fun inflateSection(
