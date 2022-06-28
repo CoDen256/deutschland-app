@@ -42,8 +42,6 @@ class GeoDataFragment : SimpleFragment<FragmentGeoDataBinding>() {
 class GeoDataFragmentCollection(val fragment: Fragment, private val geoDataPager: ViewPager2) :
     FragmentStateAdapter(fragment) {
 
-    val data = MutableLiveData<MapObjectInfo>()
-
     override fun getItemCount(): Int {
         return 2
     }
@@ -51,16 +49,15 @@ class GeoDataFragmentCollection(val fragment: Fragment, private val geoDataPager
     override fun createFragment(position: Int): Fragment =
         when (position) {
             0 -> {
-                GeoDataFilterFragment(this)
+                GeoDataFilterFragment()
             }
             else -> {
-                GeoDataMapFragment(data)
+                GeoDataMapFragment()
             }
         }
 
-    fun moveToMap(data: MapObjectInfo) {
+    fun moveToMap() {
         geoDataPager.setCurrentItem(1, true)
-        this.data.value = data
     }
 
     fun registerOnPageChangeCallback(onPageChangeCallback: ViewPager2.OnPageChangeCallback) {

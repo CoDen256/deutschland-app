@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
@@ -24,18 +25,21 @@ import de.app.core.onSuccess
 import de.app.databinding.FragmentGeoDataTabMapBinding
 import de.app.geo.LocationRepository
 import de.app.ui.components.SimpleFragment
+import de.app.ui.geo.GeoDataViewModel
 import de.app.ui.util.geoDecode
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class GeoDataMapFragment(private val data: LiveData<MapObjectInfo>) : SimpleFragment<FragmentGeoDataTabMapBinding>() {
+class GeoDataMapFragment() : SimpleFragment<FragmentGeoDataTabMapBinding>() {
 
     private var style = "basic"
     private val apiKey: String
         get() = getMapTilerKey()
     private val styleUrl: String
         get() = "https://api.maptiler.com/maps/$style/style.json?key=$apiKey"
+
+    private val viewModel: GeoDataViewModel by viewModels({requireParentFragment()})
 
     @Inject
     lateinit var repo: LocationRepository
@@ -60,9 +64,10 @@ class GeoDataMapFragment(private val data: LiveData<MapObjectInfo>) : SimpleFrag
     override fun setup() {
         setupMap()
 
-        data.observe(viewLifecycleOwner) {
-            binding.currentObject.text = getString(R.string.selected_object, it.name)
+        viewModel.category.observe(viewLifecycleOwner) {
+            binding.currentObject.text = getString(R.string.selected_object, it)
         }
+
 
         repo.requestLocation().onSuccess { location ->
             requireContext().geoDecode(location).map { it.first() }.onSuccess {

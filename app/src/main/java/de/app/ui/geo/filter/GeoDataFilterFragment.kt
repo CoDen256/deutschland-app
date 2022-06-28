@@ -2,15 +2,18 @@ package de.app.ui.geo.filter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.viewpager2.widget.ViewPager2
+import androidx.fragment.app.viewModels
+import com.mapbox.mapboxsdk.geometry.LatLng
 import dagger.hilt.android.AndroidEntryPoint
-import de.app.api.geo.MapObjectInfo
 import de.app.databinding.FragmentGeoDataTabFilterBinding
 import de.app.ui.components.SimpleFragment
-import de.app.ui.geo.GeoDataFragmentCollection
+import de.app.ui.geo.GeoDataViewModel
+import de.app.ui.geo.MapObject
 
 @AndroidEntryPoint
-class GeoDataFilterFragment(private val fragmentCollection: GeoDataFragmentCollection, ) :SimpleFragment<FragmentGeoDataTabFilterBinding>() {
+class GeoDataFilterFragment() :SimpleFragment<FragmentGeoDataTabFilterBinding>() {
+
+    private val viewModel: GeoDataViewModel by viewModels({requireParentFragment()})
 
     override fun inflate(
         inflater: LayoutInflater,
@@ -22,14 +25,16 @@ class GeoDataFilterFragment(private val fragmentCollection: GeoDataFragmentColle
 
         val catAdapter = CategoriesWrapperAdapter(requireContext(), categories)
 
-        fragmentCollection.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageScrollStateChanged(state: Int) {
-                catAdapter.notifyDataSetInvalidated()
-            }
-        })
+//        fragmentCollection.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//            override fun onPageScrollStateChanged(state: Int) {
+//                catAdapter.notifyDataSetInvalidated()
+//            }
+//        })
 
         binding.categoriesView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
-            fragmentCollection.moveToMap(MapObjectInfo(categories[groupPosition].second[childPosition]))
+//            fragmentCollection.moveToMap(MapObjectInfo(categories[groupPosition].second[childPosition]))
+            viewModel.objects.value = listOf(MapObject(LatLng(51.3663, 11.9817)))
+            viewModel.category.value = categories[groupPosition].second[childPosition]
             true
         }
 
