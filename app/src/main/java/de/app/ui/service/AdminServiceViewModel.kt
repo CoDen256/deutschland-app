@@ -60,21 +60,23 @@ class AdminServiceViewModel(serviceId: String) : ViewModel() {
         val rs = registry.sendApplicationForm(service, submittedForm)
 
         result.value = rs.map {
-            val params = buildFormViewMap()
-            if (form.paymentRequired){
-                return@map FormView(
-                    buildPaymentRequiredUriFromParams(params).success(),
-                    Result.failure(AssertionError("You should've unpacked Uri"))
-                )
+            when {
+                form.paymentRequired -> formViewForPayment()
+                else -> formViewWithoutPayment()
             }
-            return@map FormView(
-                Result.failure(AssertionError("You should've unpacked Bundle")),
-                buildBundleFromParams(params).success()
-            )
         }
-
-
     }
+
+    private fun formViewWithoutPayment() = FormView(
+        Result.failure(AssertionError("You should've unpacked Bundle")),
+        buildBundleFromParams(buildFormViewMap()).success()
+    )
+
+    private fun formViewForPayment() = FormView(
+        buildPaymentRequiredUriFromParams(buildFormViewMap()).success(),
+        Result.failure(AssertionError("You should've unpacked Uri"))
+    )
+
 
     private fun buildBundleFromParams(params: Map<String, String>): Bundle {
         return bundleOf(
@@ -82,7 +84,7 @@ class AdminServiceViewModel(serviceId: String) : ViewModel() {
         )
     }
 
-    private fun buildPaymentRequiredUriFromParams(params: Map<String, String>): Uri{
+    private fun buildPaymentRequiredUriFromParams(params: Map<String, String>): Uri {
         return Uri.Builder()
             .scheme("https")
             .authority("coden256.github.io")
@@ -90,7 +92,7 @@ class AdminServiceViewModel(serviceId: String) : ViewModel() {
             .apply {
                 for ((name, value) in params)
                     appendQueryParameter(name, value)
-            }. build()
+            }.build()
     }
 
     private fun buildFormViewMap(): Map<String, String> {
