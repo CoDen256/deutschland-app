@@ -3,7 +3,6 @@ package de.app.ui.application
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.api.account.AccountInfo
@@ -19,48 +18,49 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ApplicationFragment : AccountAwareFragment<FragmentApplicationBinding>() {
+    @Inject
+    lateinit var applicationService: ApplicationService
 
-    @Inject lateinit var applicationService: ApplicationService
+    private val dateTimeFormatter = DateTimeFormatter.ofPattern("dd. MMMM")
 
-    override fun inflateBinding(
+    override fun inflate(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentApplicationBinding.inflate(inflater, container, false)
 
-    override fun setup(account: AccountInfo) {
-        val elementBinding = { i: LayoutInflater, v: ViewGroup ->
-            FragmentApplicationItemBinding.inflate(i, v, false)}
+    fun inflateItem(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentApplicationItemBinding.inflate(inflater, container, false)
 
+    override fun setup(account: AccountInfo) {
         val elements =
             ArrayList<Application>(applicationService.getAllApplicationsByAccountId(account.accountId))
 
-        setupList(elementBinding, elements)
-    }
-
-    private fun setupList(
-        elementBinding: (LayoutInflater, ViewGroup) -> FragmentApplicationItemBinding,
-        elements: List<Application>
-    ) {
-        binding.list.adapter = ListViewAdapter(elementBinding, elements) { e, b ->
+        binding.list.adapter = ListViewAdapter({ i,v -> inflateItem(i,v) }, elements) { e, b ->
             setupItem(b, e)
         }
     }
 
-    private fun setupItem(b: FragmentApplicationItemBinding, e: Application) {
-        b.statusBox.background = getDrawable(
-            requireContext(), when (e.status) {
-                ApplicationStatus.SENT -> R.color.sent
-                ApplicationStatus.VERIFICATION -> R.color.verification
-                ApplicationStatus.PROCESSING -> R.color.processing
-                ApplicationStatus.DONE -> R.color.done
-                ApplicationStatus.REJECTED -> R.color.sent
-            }
-        )
-        b.status.text = getString(
-            R.string.status_placeholder,
-            e.status.name.lowercase().replaceFirstChar { it.uppercase() })
-        b.date.text = e.applicationDate.format(DateTimeFormatter.ofPattern("dd. MMMM"))
-        b.description.text = e.description
-        b.name.text = e.name
+    private fun setupItem(binding: FragmentApplicationItemBinding, application: Application) {
+        binding.apply {
+            statusBox.background = getStatusColor(application)
+            status.text = getString(
+                R.string.status_placeholder,
+                application.status.name.lowercase().replaceFirstChar { it.uppercase() })
+            date.text = application.applicationDate.format(dateTimeFormatter)
+            description.text = application.description
+            name.text = application.name
+        }
     }
+
+    private fun getStatusColor(application: Application) = getDrawable(
+        requireContext(), when (application.status) {
+            ApplicationStatus.SENT -> R.color.sent
+            ApplicationStatus.VERIFICATION -> R.color.verification
+            ApplicationStatus.PROCESSING -> R.color.processing
+            ApplicationStatus.DONE -> R.color.done
+            ApplicationStatus.REJECTED -> R.color.sent
+        }
+    )
 }

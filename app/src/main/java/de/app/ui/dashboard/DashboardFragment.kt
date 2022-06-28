@@ -15,7 +15,7 @@ import de.app.ui.components.AccountAwareFragment
 @AndroidEntryPoint
 class DashboardFragment : AccountAwareFragment<FragmentDashboardBinding>() {
 
-    override fun inflateBinding(
+    override fun inflate(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentDashboardBinding.inflate(inflater, container, false)

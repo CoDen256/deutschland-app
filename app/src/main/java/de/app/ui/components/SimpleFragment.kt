@@ -16,11 +16,11 @@ abstract class SimpleFragment<B: ViewBinding>: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = inflateBinding(inflater, container)
+        binding = inflate(inflater, container)
         setup()
         return binding.root
     }
 
-    abstract fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?): B
+    abstract fun inflate(inflater: LayoutInflater, container: ViewGroup?): B
     abstract fun setup()
 }
