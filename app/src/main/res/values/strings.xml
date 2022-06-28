@@ -63,4 +63,6 @@
     <string name="form_submitted_details">%s\nApplication ID: %s \nSent: %s \nName: %s \nAccount ID: %s</string>
     <string name="form_finish_submitted">Finish submission</string>
     <string name="appointment_address_format">%s, %s, %s</string>
+    <string name="geo_search_tab">Search</string>
+    <string name="get_map_tab">Map</string>
 </resources>

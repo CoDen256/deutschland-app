@@ -1,4 +1,4 @@
-package de.app.ui.geo
+package de.app.ui.geo.map
 
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapboxMap
@@ -18,15 +19,17 @@ import com.mapbox.mapboxsdk.plugins.annotation.CircleOptions
 import com.mapbox.mapboxsdk.utils.ColorUtils
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
+import de.app.api.geo.MapObjectInfo
 import de.app.core.onSuccess
 import de.app.databinding.FragmentGeoDataTabMapBinding
 import de.app.geo.LocationRepository
+import de.app.ui.components.SimpleFragment
 import de.app.ui.util.geoDecode
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class GeoDataMapFragment(private val data: LiveData<MapObjectInfo>) : Fragment() {
+class GeoDataMapFragment(private val data: LiveData<MapObjectInfo>) : SimpleFragment<FragmentGeoDataTabMapBinding>() {
 
     private var style = "basic"
     private val apiKey: String
@@ -34,23 +37,32 @@ class GeoDataMapFragment(private val data: LiveData<MapObjectInfo>) : Fragment()
     private val styleUrl: String
         get() = "https://api.maptiler.com/maps/$style/style.json?key=$apiKey"
 
-
     @Inject
     lateinit var repo: LocationRepository
+    private var savedInstanceState: Bundle? = null
+
+
+    override fun inflate(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    )= FragmentGeoDataTabMapBinding.inflate(inflater, container, false)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val binding = FragmentGeoDataTabMapBinding.inflate(inflater, container, false)
+    ): View? {
+        Mapbox.getInstance(requireActivity(), null)
+        this.savedInstanceState = savedInstanceState
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
-        setupMap(binding, savedInstanceState)
+    override fun setup() {
+        setupMap()
 
         data.observe(viewLifecycleOwner) {
             binding.currentObject.text = getString(R.string.selected_object, it.name)
         }
-
 
         repo.requestLocation().onSuccess { location ->
             requireContext().geoDecode(location).map { it.first() }.onSuccess {
@@ -66,15 +78,9 @@ class GeoDataMapFragment(private val data: LiveData<MapObjectInfo>) : Fragment()
                 }
             }
         }
-
-        return binding.root
     }
 
-    private fun setCamera(
-        map: MapboxMap,
-        location: Location,
-        zoom: Double
-    ) {
+    private fun setCamera(map: MapboxMap, location: Location, zoom: Double) {
         map.cameraPosition = CameraPosition.Builder()
             .target(LatLng(location.latitude, location.longitude))
             .zoom(zoom)
@@ -96,7 +102,7 @@ class GeoDataMapFragment(private val data: LiveData<MapObjectInfo>) : Fragment()
         circleManager.create(circleOptions)
     }
 
-    private fun setupMap(binding: FragmentGeoDataTabMapBinding, savedInstanceState: Bundle?) {
+    private fun setupMap() {
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync { map ->
             // Set the style after mapView was loaded
@@ -119,5 +125,4 @@ class GeoDataMapFragment(private val data: LiveData<MapObjectInfo>) : Fragment()
             PackageManager.GET_META_DATA
         ).metaData.getString("com.maptiler.simplemap.mapTilerKey")!!
     }
-
 }

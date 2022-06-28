@@ -1,4 +1,4 @@
-package de.app.ui.geo
+package de.app.ui.geo.filter
 
 import android.content.Context
 import android.graphics.Typeface

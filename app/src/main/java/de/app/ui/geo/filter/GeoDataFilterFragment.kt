@@ -1,46 +1,40 @@
-package de.app.ui.geo
+package de.app.ui.geo.filter
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
-import de.app.databinding.FragmentGeoDataTabSearchBinding
-import de.app.geo.LocationRepository
-import javax.inject.Inject
+import de.app.api.geo.MapObjectInfo
+import de.app.databinding.FragmentGeoDataTabFilterBinding
+import de.app.ui.components.SimpleFragment
+import de.app.ui.geo.GeoDataFragmentCollection
 
 @AndroidEntryPoint
-class GeoDataSearchFragment(
-    private val fragmentCollection: GeoDataFragmentCollection,
-) :Fragment() {
+class GeoDataFilterFragment(private val fragmentCollection: GeoDataFragmentCollection, ) :SimpleFragment<FragmentGeoDataTabFilterBinding>() {
 
-    override fun onCreateView(
+    override fun inflate(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = FragmentGeoDataTabSearchBinding.inflate(inflater, container, false).apply {
+        container: ViewGroup?
+    )= FragmentGeoDataTabFilterBinding.inflate(inflater, container, false)
 
+    override fun setup() {
         val categories = setupCategories()
 
-        val catAdapter= CategoriesWrapperAdapter(requireContext(), categories)
+        val catAdapter = CategoriesWrapperAdapter(requireContext(), categories)
 
-        fragmentCollection.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        fragmentCollection.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrollStateChanged(state: Int) {
                 catAdapter.notifyDataSetInvalidated()
             }
         })
 
-        categoriesView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
+        binding.categoriesView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
             fragmentCollection.moveToMap(MapObjectInfo(categories[groupPosition].second[childPosition]))
             true
         }
 
-
-
-        categoriesView.setAdapter(catAdapter)
-    }.root
+        binding.categoriesView.setAdapter(catAdapter)
+    }
 
     private fun setupCategories(): List<Pair<String, List<String>>> {
         val listDetail = HashMap<String, List<String>>()

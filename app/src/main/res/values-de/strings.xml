@@ -63,5 +63,7 @@
     <string name="form_submitted_details">%s\nAntrag ID: %s \nGesendet: %s \nName: %s \nKonto ID: %s</string>
     <string name="form_finish_submitted">Beenden</string>
     <string name="appointment_address_format">%s, %s, %s</string>
+    <string name="geo_search_tab">Suche</string>
+    <string name="get_map_tab">Karte</string>
 
 </resources>
