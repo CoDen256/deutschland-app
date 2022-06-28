@@ -46,8 +46,8 @@ class SubmittedResultActivity : AppCompatActivity() {
             resolver("serviceName") ?: "<empty>",
             resolver("applicationId") ?: "<empty>",
             resolver("sentDate") ?: "<empty>",
-            resolver("accountId") ?: "<empty>",
-            resolver("accountDisplayName") ?: "<empty>"
+            resolver("accountDisplayName") ?: "<empty>",
+            resolver("accountId") ?: "<empty>"
         )
     }
 }

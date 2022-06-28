@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import de.app.databinding.FragmentAdministrativeServiceBinding
 import de.app.ui.SubmittedResultActivity
 import de.app.ui.components.AccountAwareFragment
@@ -18,10 +19,13 @@ import de.app.ui.util.observe
 import de.app.ui.util.openUrl
 import de.app.ui.util.runActivity
 import de.app.ui.util.toast
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AdministrativeServiceFragment : AccountAwareFragment<FragmentAdministrativeServiceBinding>() {
     private val args: AdministrativeServiceFragmentArgs by navArgs()
 
+    @Inject lateinit var factory: AdminServiceViewModelFactory
     private lateinit var viewModel: AdminServiceViewModel
     private lateinit var inflater: LayoutInflater
     private lateinit var inputFields: List<InputFieldView>
@@ -35,11 +39,15 @@ class AdministrativeServiceFragment : AccountAwareFragment<FragmentAdministrativ
     }
 
     override fun setup() {
-        viewModel = AdminServiceViewModel(args.id)
+        viewModel = factory.getModelForServiceId(account, args.id).getOrElse {
+            requireActivity().toast("Failed getting view model for service: ${it.message}")
+            return
+        }
+
         val root = binding.layout
 
-        binding.serviceName.text = viewModel.service.name
-        binding.serviceDescription.text = viewModel.service.description
+        binding.serviceName.text = viewModel.getServiceName()
+        binding.serviceDescription.text = viewModel.getServiceDescription()
 
         // Inflate fields
         val fields = inflateFields(this, inflater, root)
@@ -61,7 +69,7 @@ class AdministrativeServiceFragment : AccountAwareFragment<FragmentAdministrativ
         parent: ViewGroup
     ): List<FieldView> {
         val factory = FieldViewFactory(fragment, inflater, parent)
-        return viewModel.form.fields.map { factory.createFieldView(it) }
+        return viewModel.getFields().map { factory.createFieldView(it) }
     }
 
     private fun inflateSubmitButton(inflater: LayoutInflater, parent: ViewGroup): ButtonView {
