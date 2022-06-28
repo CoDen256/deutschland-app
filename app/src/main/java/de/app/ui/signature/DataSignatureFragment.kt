@@ -3,8 +3,6 @@ package de.app.ui.signature
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts.CreateDocument
-import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.api.safe.DataSafeService
 import de.app.api.signature.SignatureService
@@ -14,9 +12,7 @@ import de.app.databinding.FragmentSignatureBinding
 import de.app.ui.components.AccountAwareFragment
 import de.app.ui.components.OpenableFileViewAdapter
 import de.app.ui.safe.DataSafePickerFactory
-import de.app.ui.util.openDocumentLauncher
-import de.app.ui.util.toast
-import de.app.ui.util.writeTo
+import de.app.ui.util.*
 import javax.inject.Inject
 
 
@@ -32,13 +28,11 @@ class DataSignatureFragment : AccountAwareFragment<FragmentSignatureBinding>() {
     @Inject
     lateinit var dataSafeService: DataSafeService
 
+    private lateinit var createFileLauncher: ActivityResultLauncher<String>
     private val files: MutableList<FileHeader> = ArrayList()
     private val adapter: OpenableFileViewAdapter =
         OpenableFileViewAdapter({requireActivity()}, files) { removeFile(it) }
-    private lateinit var launcher: ActivityResultLauncher<String>
 
-    private val downloadingQueue: MutableList<FileHeader> = ArrayList()
-//    private val downloadingQueueLiveData = MutableLiveData<MutableList<FileHeader>>(ArrayList())
 
     override fun inflate(
         inflater: LayoutInflater,
@@ -48,20 +42,13 @@ class DataSignatureFragment : AccountAwareFragment<FragmentSignatureBinding>() {
     override fun setup() {
         binding.files.adapter = adapter
 
+        val writer = IterativeFileWriter(requireActivity()) { createFileLauncher.launch(it.name) }
+
         val pickFileLauncher = openDocumentLauncher(requireActivity()) {
             addFile(it)
         }
-        launcher = registerForActivityResult(CreateDocument("application/pdf")) {
-            it ?: return@registerForActivityResult
-            inSeparateThread {
-                requireActivity().apply {
-                    writeTo(downloadingQueue.removeFirst(), it)
-                    runOnUiThread {
-                        toast("Successfully written ${it.lastPathSegment}")
-                    }
-                    triggerDownloadNext()
-                }
-            }
+        createFileLauncher = createDocumentLauncher(requireActivity(), "application/pdf") {
+            writer.saveNextTo(it)
         }
 
         binding.uploadFileLocal.setOnClickListener {
@@ -75,9 +62,7 @@ class DataSignatureFragment : AccountAwareFragment<FragmentSignatureBinding>() {
         }
 
         binding.submitLocal.setOnClickListener {
-            downloadingQueue.clear()
-            downloadingQueue.addAll(files)
-            triggerDownloadNext()
+            writer.push(files)
         }
 
         binding.submitDataSave.setOnClickListener {
@@ -86,17 +71,12 @@ class DataSignatureFragment : AccountAwareFragment<FragmentSignatureBinding>() {
         }
     }
 
-    private fun triggerDownloadNext() {
-        if (downloadingQueue.isEmpty()) return
-        launcher.launch(service.signFile(downloadingQueue.first()).name)
-    }
 
     private fun removeFile(it: FileHeader) {
         val index = files.indexOf(it)
-        if (index != -1) {
-            files.removeAt(index)
-            adapter.notifyItemRemoved(index)
-        }
+        if (index == -1) return
+        files.removeAt(index)
+        adapter.notifyItemRemoved(index)
     }
 
     private fun addFile(file: FileHeader) {

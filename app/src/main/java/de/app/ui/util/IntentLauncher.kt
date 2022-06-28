@@ -62,6 +62,20 @@ class OpenDocumentCallback(
     }
 }
 
+class CreateDocumentCallback(
+    private val activity: ComponentActivity,
+    private val resultHandler: (Uri) -> Unit
+) : ResultCallback<Uri>() {
+
+    override fun onSuccess(result: Uri) {
+        resultHandler(result)
+    }
+
+    override fun onFailure(error: Throwable) {
+        activity.toast("Failed to open a document: ${error.message}")
+    }
+}
+
 abstract class ResultCallback<I : Any> : ActivityResultCallback<I?> {
     override fun onActivityResult(result: I?) {
         result.successOrElse(IllegalStateException("No Result for ${this.javaClass.simpleName}"))
@@ -159,4 +173,13 @@ fun Fragment.openDocumentLauncher(
 ): ActivityResultLauncher<Array<String>> {
     return registerForActivityResult(ActivityResultContracts.OpenDocument(),
         OpenDocumentCallback(activity, resultHandler))
+}
+
+fun Fragment.createDocumentLauncher(
+    activity: ComponentActivity,
+    mimeType: String,
+    resultHandler: (Uri) -> Unit,
+): ActivityResultLauncher<String> {
+    return registerForActivityResult(ActivityResultContracts.CreateDocument(mimeType),
+        CreateDocumentCallback(activity, resultHandler))
 }
