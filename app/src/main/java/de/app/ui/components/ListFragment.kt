@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 
 abstract class ListFragment<B: ViewBinding, I: ViewBinding, M> :SimpleFragment<B>() {
-    protected lateinit var adapter: ListViewAdapter<M, I>
     protected val items: MutableList<M> = ArrayList()
+    protected val adapter = ListViewAdapter({l, v -> inflateChild(l,v)}, items) { item, binding -> setupChild(binding, item) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -16,8 +16,6 @@ abstract class ListFragment<B: ViewBinding, I: ViewBinding, M> :SimpleFragment<B
         savedInstanceState: Bundle?
     ): View? {
         binding = inflate(inflater, container)
-        adapter = inflateAndSetupChildren()
-
         items.addAll(loadItems())
         adapter.notifyItemRangeInserted(0, items.size)
 
@@ -31,8 +29,4 @@ abstract class ListFragment<B: ViewBinding, I: ViewBinding, M> :SimpleFragment<B
     abstract fun setupChild(binding: I, item: M)
     abstract fun loadItems(): List<M>
     abstract override fun setup()
-
-    open fun inflateAndSetupChildren() =
-        ListViewAdapter({l, v -> inflateChild(l,v)}, items) { item, binding -> setupChild(binding, item)
-    }
 }

@@ -26,19 +26,21 @@ class DashboardFragment : AccountAwareFragment<FragmentDashboardBinding>() {
     }
 
     private fun fillHeader(account: AccountInfo) {
-        binding.accountId.text = getString(R.string.account_id_dashboard, account.accountId)
-        binding.address.text = getString(
-            R.string.address_dashboard,
-            account.address.postalCode,
-            account.address.city
-        )
-        binding.welcome.text = getString(
-            R.string.welcome_dashboard, when (account) {
-                is CitizenAccountInfo ->
-                    "${account.formOfAddress} ${account.firstName} ${account.surname}"
-                is CompanyAccountInfo -> account.fullName
-            }
-        )
+        binding.apply {
+            accountId.text = getString(R.string.account_id_dashboard, account.accountId)
+            address.text = getString(
+                R.string.address_dashboard,
+                account.address.postalCode,
+                account.address.city
+            )
+            welcome.text = getString(
+                R.string.welcome_dashboard, when (account) {
+                    is CitizenAccountInfo ->
+                        "${account.formOfAddress} ${account.firstName} ${account.surname}"
+                    is CompanyAccountInfo -> account.fullName
+                }
+            )
+        }
     }
 
     private fun fillDashboardInfo() {
