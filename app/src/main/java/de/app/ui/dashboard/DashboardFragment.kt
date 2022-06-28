@@ -20,7 +20,7 @@ class DashboardFragment : AccountAwareFragment<FragmentDashboardBinding>() {
         container: ViewGroup?
     ) = FragmentDashboardBinding.inflate(inflater, container, false)
 
-    override fun setup(account: AccountInfo) {
+    override fun setup() {
         fillHeader(account)
         fillDashboardInfo()
     }

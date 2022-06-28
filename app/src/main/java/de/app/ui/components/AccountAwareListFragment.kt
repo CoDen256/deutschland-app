@@ -12,10 +12,10 @@ import de.app.ui.util.runActivity
 import de.app.ui.util.toast
 import javax.inject.Inject
 
+abstract class AccountAwareListFragment<B: ViewBinding, I: ViewBinding, M>: ListFragment<B, I, M>() {
+    @Inject
+    lateinit var accountManager: AccountManager
 
-abstract class AccountAwareFragment<B: ViewBinding>: SimpleFragment<B>() {
-
-    @Inject lateinit var accountManager: AccountManager
     protected lateinit var account: AccountInfo
 
     override fun onCreateView(

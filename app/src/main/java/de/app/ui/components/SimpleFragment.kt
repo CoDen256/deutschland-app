@@ -10,6 +10,8 @@ import androidx.viewbinding.ViewBinding
 abstract class SimpleFragment<B: ViewBinding>: Fragment() {
 
     protected lateinit var binding: B
+    protected val root: View
+        get() = binding.root
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -18,7 +20,7 @@ abstract class SimpleFragment<B: ViewBinding>: Fragment() {
     ): View? {
         binding = inflate(inflater, container)
         setup()
-        return binding.root
+        return root
     }
 
     abstract fun inflate(inflater: LayoutInflater, container: ViewGroup?): B
