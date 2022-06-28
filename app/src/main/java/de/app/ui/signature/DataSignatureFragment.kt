@@ -1,21 +1,22 @@
 package de.app.ui.signature
 
-import android.app.Activity
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.contract.ActivityResultContracts.*
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts.CreateDocument
+import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.api.safe.DataSafeService
 import de.app.api.signature.SignatureService
+import de.app.core.inSeparateThread
 import de.app.data.model.FileHeader
 import de.app.databinding.FragmentSignatureBinding
 import de.app.ui.components.AccountAwareFragment
 import de.app.ui.components.OpenableFileViewAdapter
 import de.app.ui.safe.DataSafePickerFactory
-import de.app.ui.util.*
+import de.app.ui.util.openDocumentLauncher
+import de.app.ui.util.toast
+import de.app.ui.util.writeTo
 import javax.inject.Inject
 
 
@@ -34,7 +35,10 @@ class DataSignatureFragment : AccountAwareFragment<FragmentSignatureBinding>() {
     private val files: MutableList<FileHeader> = ArrayList()
     private val adapter: OpenableFileViewAdapter =
         OpenableFileViewAdapter({requireActivity()}, files) { removeFile(it) }
+    private lateinit var launcher: ActivityResultLauncher<String>
 
+    private val downloadingQueue: MutableList<FileHeader> = ArrayList()
+//    private val downloadingQueueLiveData = MutableLiveData<MutableList<FileHeader>>(ArrayList())
 
     override fun inflate(
         inflater: LayoutInflater,
@@ -44,10 +48,22 @@ class DataSignatureFragment : AccountAwareFragment<FragmentSignatureBinding>() {
     override fun setup() {
         binding.files.adapter = adapter
 
-        val saveFileLauncher = lifecycle.launcher(FileSaverIntent(requireActivity()))
         val pickFileLauncher = openDocumentLauncher(requireActivity()) {
             addFile(it)
         }
+        launcher = registerForActivityResult(CreateDocument("application/pdf")) {
+            it ?: return@registerForActivityResult
+            inSeparateThread {
+                requireActivity().apply {
+                    writeTo(downloadingQueue.removeFirst(), it)
+                    runOnUiThread {
+                        toast("Successfully written ${it.lastPathSegment}")
+                    }
+                    triggerDownloadNext()
+                }
+            }
+        }
+
         binding.uploadFileLocal.setOnClickListener {
             pickFileLauncher.launch(arrayOf("application/pdf"))
         }
@@ -59,16 +75,20 @@ class DataSignatureFragment : AccountAwareFragment<FragmentSignatureBinding>() {
         }
 
         binding.submitLocal.setOnClickListener {
-            files.forEach { saveFileLauncher.launch(service.signFile(it)) }
+            downloadingQueue.clear()
+            downloadingQueue.addAll(files)
+            triggerDownloadNext()
         }
 
         binding.submitDataSave.setOnClickListener {
-            files.forEach {
-                dataSafeService.upload(service.signFile(it), account.accountId)
-            }
+            files.forEach { dataSafeService.upload(service.signFile(it), account.accountId) }
             requireActivity().toast("Successfully uploaded ${files.size} files")
         }
+    }
 
+    private fun triggerDownloadNext() {
+        if (downloadingQueue.isEmpty()) return
+        launcher.launch(service.signFile(downloadingQueue.first()).name)
     }
 
     private fun removeFile(it: FileHeader) {
