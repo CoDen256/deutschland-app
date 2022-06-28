@@ -6,6 +6,7 @@ import android.database.Cursor
 import android.database.MatrixCursor
 import android.provider.BaseColumns
 import android.widget.SearchView
+import de.app.geo.GeoDataSource
 import org.json.JSONArray
 import java.util.concurrent.Executors
 
@@ -39,23 +40,17 @@ class AddressQueryListener (
             )
         )
 
-        // get your search terms from the server here, ex:
-        val map = mapOf("Merseburg" to 0, "Leipzig" to 1, "Berlin" to 2, "Halle" to 3)
-        val terms: JSONArray = JSONArray()
-        for (i in ArrayList(map.keys)) {
-            if (i.lowercase().contains(text.lowercase())) {
-                terms.put(i)
+        GeoDataSource.requestCities()
+            .filter {
+                it.city.lowercase().contains(text.lowercase())
             }
-        }
+            .map {
+                arrayOf<Any>(it.city.hashCode(), it.city)
+            }
+            .forEach {
+                cursor.addRow(it)
+            }
 
-        // parse your search terms into the MatrixCursor
-        for (index in 0 until terms.length()) {
-            val term = terms.getString(index)
-            val row = arrayOf<Any>(map[term]!!, term)
-
-            cursor.addRow(row)
-
-        }
         onChangeCursorListener(cursor)
     }
 }

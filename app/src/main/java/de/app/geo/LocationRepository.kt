@@ -19,6 +19,7 @@ class LocationRepository @Inject constructor(
 ) {
     @SuppressLint("MissingPermission") // Only called when holding location permission.
     fun requestLocation(): Task<Location> {
+        fusedLocationProviderClient.asGoogleApiClient()
         return fusedLocationProviderClient.getLastLocation(LastLocationRequest.Builder().build())
     }
 

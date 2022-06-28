@@ -7,11 +7,13 @@ import android.widget.CursorAdapter.FLAG_AUTO_REQUERY
 import android.widget.SearchView
 import android.widget.SimpleCursorAdapter
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.api.service.AdministrativeService
 import de.app.databinding.FragmentAdministrativeServiceFinderBinding
 import de.app.databinding.FragmentAdministrativeServiceFinderSearchItemBinding
 import de.app.ui.components.ListFragment
+import de.app.ui.util.editable
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,7 +39,9 @@ class AdministrativeServiceFinderFragment :
             serviceName.text = item.name
             serviceDescription.text = item.description
             root.setOnClickListener {
-                AdministrativeServiceFinderFragmentDirections.actionNavFinderToNavAdminService(item.id)
+                navController.navigate(
+                    AdministrativeServiceFinderFragmentDirections.actionNavFinderToNavAdminService(item.id)
+                )
             }
         }
     }
