@@ -8,14 +8,11 @@ import androidx.lifecycle.ViewModel
 import de.app.api.service.AdministrativeServiceRegistry
 import de.app.core.config.BaseAdministrativeServiceRegistry
 import de.app.api.service.AdministrativeService
-import de.app.api.service.form.AttachmentField
-import de.app.api.service.form.DocumentInfoField
 import de.app.api.service.form.Form
 import de.app.api.service.form.InputField
 import de.app.api.service.submit.SubmittedField
 import de.app.api.service.submit.SubmittedForm
 import de.app.core.config.DataGenerator.Companion.citizens
-import de.app.core.config.DataGenerator.Companion.generateDocuments
 import de.app.core.success
 import de.app.ui.service.data.result.FormView
 import de.app.ui.service.data.state.FieldState
@@ -31,13 +28,13 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.collections.HashSet
 
-class AdminServiceViewModel(id: String) : ViewModel() {
+class AdminServiceViewModel(serviceId: String) : ViewModel() {
     private val registry: AdministrativeServiceRegistry = BaseAdministrativeServiceRegistry()
     private val accountInfo = citizens.entries.first().value
 
     private val dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss dd MMMM yy")
 
-    val service: AdministrativeService = registry.getServiceById(id)
+    val service: AdministrativeService = registry.getServiceById(serviceId)
         .getOrThrow()
 
     val form: Form = registry.getApplicationForm(service).getOrThrow()

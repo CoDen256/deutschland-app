@@ -1,13 +1,12 @@
 package de.app.ui.service
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import de.app.databinding.FragmentAdministrativeServiceBinding
 import de.app.ui.SubmittedResultActivity
+import de.app.ui.components.AccountAwareFragment
 import de.app.ui.service.data.result.FormView
 import de.app.ui.service.data.value.FormValue
 import de.app.ui.service.view.button.ButtonView
@@ -20,20 +19,22 @@ import de.app.ui.util.openUrl
 import de.app.ui.util.runActivity
 import de.app.ui.util.toast
 
-class AdministrativeServiceFragment : Fragment() {
+class AdministrativeServiceFragment : AccountAwareFragment<FragmentAdministrativeServiceBinding>() {
     private val args: AdministrativeServiceFragmentArgs by navArgs()
 
     private lateinit var viewModel: AdminServiceViewModel
-
-    private lateinit var binding: FragmentAdministrativeServiceBinding
+    private lateinit var inflater: LayoutInflater
     private lateinit var inputFields: List<InputFieldView>
     private lateinit var submitButtonView: ButtonView
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentAdministrativeServiceBinding.inflate(inflater, container, false)
+    override fun inflate(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentAdministrativeServiceBinding.inflate(inflater, container, false).also {
+        this.inflater = inflater
+    }
+
+    override fun setup() {
         viewModel = AdminServiceViewModel(args.id)
         val root = binding.layout
 
@@ -52,8 +53,6 @@ class AdministrativeServiceFragment : Fragment() {
 
         observeFormState()
         observeResult()
-
-        return binding.root
     }
 
     private fun inflateFields(
@@ -108,4 +107,5 @@ class AdministrativeServiceFragment : Fragment() {
     private fun onError(throwable: Throwable) {
         requireActivity().toast("Error: "+throwable.message)
     }
+
 }
