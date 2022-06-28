@@ -1,45 +1,32 @@
 package de.app.ui.dashboard
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
-import de.app.api.account.*
-import de.app.core.AccountManager
+import de.app.api.account.AccountInfo
+import de.app.api.account.CitizenAccountInfo
+import de.app.api.account.CompanyAccountInfo
 import de.app.databinding.FragmentDashboardAppointmentItemBinding
 import de.app.databinding.FragmentDashboardBinding
 import de.app.databinding.FragmentDashboardSectionBinding
-import de.app.ui.util.getCurrentAccountOrRequireLogin
-import javax.inject.Inject
+import de.app.ui.components.AccountAwareFragment
 
 @AndroidEntryPoint
-class DashboardFragment : Fragment() {
-    @Inject
-    lateinit var accountManager: AccountManager
+class DashboardFragment : AccountAwareFragment<FragmentDashboardBinding>() {
 
-    private lateinit var binding: FragmentDashboardBinding
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        container: ViewGroup?
+    ) = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        val account = accountManager.getCurrentAccountOrRequireLogin(requireActivity()) {
-            return binding.root
-        }
-
+    override fun setup(account: AccountInfo) {
         fillHeader(account)
         fillDashboardInfo()
-
-        return binding.root
     }
 
     private fun fillHeader(account: AccountInfo) {
-        binding.accountId.text = getString(R.string.account_id_dashboard, account)
+        binding.accountId.text = getString(R.string.account_id_dashboard, account.accountId)
         binding.address.text = getString(
             R.string.address_dashboard,
             account.address.postalCode,
