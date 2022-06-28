@@ -44,10 +44,10 @@ class DataSignatureFragment : AccountAwareFragment<FragmentSignatureBinding>() {
 
         val writer = IterativeFileWriter(requireActivity()) { createFileLauncher.launch(it.name) }
 
-        val pickFileLauncher = openDocumentLauncher(requireActivity()) {
+        val pickFileLauncher = openDocumentLauncher {
             addFile(it)
         }
-        createFileLauncher = createDocumentLauncher(requireActivity(), "application/pdf") {
+        createFileLauncher = createDocumentLauncher("application/pdf") {
             writer.saveNextTo(it)
         }
 

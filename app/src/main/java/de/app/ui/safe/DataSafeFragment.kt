@@ -2,16 +2,16 @@ package de.app.ui.safe
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.activity.result.ActivityResultLauncher
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.api.safe.DataSafeService
 import de.app.data.model.FileHeader
 import de.app.databinding.FragmentDataSafeBinding
 import de.app.ui.components.AccountAwareFragment
 import de.app.ui.components.OpenableFileViewAdapter
-import de.app.ui.util.FilePickerIntent
-import de.app.ui.util.FileSaverIntent
-import de.app.ui.util.launcher
+import de.app.ui.util.IterativeFileWriter
+import de.app.ui.util.createDocumentLauncher
+import de.app.ui.util.openDocumentLauncher
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -20,6 +20,8 @@ class DataSafeFragment : AccountAwareFragment<FragmentDataSafeBinding>() {
     @Inject
     lateinit var service: DataSafeService
 
+    private lateinit var createFileLauncher: ActivityResultLauncher<String>
+
     override fun inflate(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentDataSafeBinding.inflate(inflater, container, false)
 
@@ -27,21 +29,24 @@ class DataSafeFragment : AccountAwareFragment<FragmentDataSafeBinding>() {
         val files: MutableList<FileHeader> =
             ArrayList(service.getAllDocumentsForAccountId(account.accountId))
 
-        val saveFileLauncher = lifecycle.launcher(FileSaverIntent(requireActivity()))
+        val writer = IterativeFileWriter(requireActivity()) { createFileLauncher.launch(it.name) }
 
+        createFileLauncher = createDocumentLauncher( "application/pdf") {
+            writer.saveNextTo(it)
+        }
         val adapter = OpenableFileViewAdapter({ requireActivity() }, files) {
-            saveFileLauncher.launch(it)
+            writer.push(listOf(it))
         }
         binding.files.adapter = adapter
 
-        val pickFileLauncher = lifecycle.launcher(FilePickerIntent(requireActivity()) {
+        val pickFileLauncher = openDocumentLauncher() {
             files.add(0, it)
             adapter.notifyItemInserted(0)
             service.upload(it, account.accountId)
-        })
+        }
 
         binding.addFile.setOnClickListener {
-            pickFileLauncher.launch("application/pdf")
+            pickFileLauncher.launch(arrayOf("application/pdf"))
         }
     }
 }
