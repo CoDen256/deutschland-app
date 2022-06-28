@@ -14,6 +14,7 @@ import de.app.databinding.FragmentAdministrativeServiceFinderBinding
 import de.app.databinding.FragmentAdministrativeServiceFinderSearchItemBinding
 import de.app.ui.components.ListFragment
 import de.app.ui.util.editable
+import de.app.ui.util.onClickNavigate
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,11 +39,9 @@ class AdministrativeServiceFinderFragment :
             serviceAddress.text = "%s, %s".format(item.address.postalCode, item.address.city)
             serviceName.text = item.name
             serviceDescription.text = item.description
-            root.setOnClickListener {
-                navController.navigate(
-                    AdministrativeServiceFinderFragmentDirections.actionNavFinderToNavAdminService(item.id)
-                )
-            }
+            root.onClickNavigate(navController,
+                AdministrativeServiceFinderFragmentDirections.actionNavFinderToNavAdminService(item.id)
+            )
         }
     }
 

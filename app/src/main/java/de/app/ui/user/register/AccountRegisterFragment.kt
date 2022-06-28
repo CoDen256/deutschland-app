@@ -1,15 +1,12 @@
 package de.app.ui.user.register
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.data.model.UserType
 import de.app.databinding.FragmentUserRegisterAccountBinding
+import de.app.ui.components.SimpleFragment
 import de.app.ui.util.afterTextChanged
 import de.app.ui.util.observe
 import de.app.ui.util.onActionDone
@@ -17,24 +14,20 @@ import de.app.ui.util.onTabSelected
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AccountRegisterFragment : Fragment() {
+class AccountRegisterFragment : SimpleFragment<FragmentUserRegisterAccountBinding>() {
     @Inject
     lateinit var viewModel: AccountRegisterViewModel
-    private lateinit var binding: FragmentUserRegisterAccountBinding
-    private lateinit var navController: NavController;
-
     private val tabToType = listOf(
         UserType.CITIZEN,
         UserType.COMPANY
     )
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentUserRegisterAccountBinding.inflate(inflater, container, false)
+    override fun inflate(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentUserRegisterAccountBinding.inflate(inflater, container, false)
 
-        navController = findNavController()
+    override fun setup() {
         observe(viewModel.formState) {
             binding.register.isEnabled = isDataValid
 
@@ -57,7 +50,6 @@ class AccountRegisterFragment : Fragment() {
         binding.tabs.onTabSelected(tabToType) { viewModel.accountTypeChanged(it) }
         binding.register.setOnClickListener { submit() }
 
-        return binding.root
     }
 
     private fun submit() {

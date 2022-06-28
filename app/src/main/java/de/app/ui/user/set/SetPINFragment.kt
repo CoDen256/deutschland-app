@@ -1,40 +1,32 @@
 package de.app.ui.user.set
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.data.model.UserType
 import de.app.databinding.FragmentUserSetPinBinding
+import de.app.ui.components.SimpleFragment
 import de.app.ui.util.afterTextChanged
 import de.app.ui.util.observe
 import de.app.ui.util.onActionDone
 import javax.inject.Inject
+
 @AndroidEntryPoint
-class SetPINFragment : Fragment() {
-
-    @Inject lateinit var viewModel: SetPINViewModel
-    private lateinit var binding: FragmentUserSetPinBinding
-    private lateinit var secretToken: String
-    private lateinit var userType: UserType
-    private lateinit var navController: NavController
-
+class SetPINFragment : SimpleFragment<FragmentUserSetPinBinding>() {
     private val args: SetPINFragmentArgs by navArgs()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentUserSetPinBinding.inflate(inflater, container, false)
+    @Inject lateinit var viewModel: SetPINViewModel
+    private lateinit var secretToken: String
+    private lateinit var userType: UserType
 
-        navController = findNavController()
+    override fun inflate(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentUserSetPinBinding.inflate(inflater, container, false)
 
+    override fun setup() {
         secretToken = args.accountSecretToken
         userType = UserType.valueOf(args.type)
 
@@ -53,7 +45,6 @@ class SetPINFragment : Fragment() {
             }
         )
 
-
         binding.pin.apply {
             afterTextChanged {
                 viewModel.pinChanged(binding.pin.text.toString())
@@ -63,7 +54,6 @@ class SetPINFragment : Fragment() {
 
         binding.submitPin.setOnClickListener { submit() }
 
-        return binding.root
     }
 
     private fun submit() {
@@ -71,7 +61,6 @@ class SetPINFragment : Fragment() {
             secretToken, userType, binding.pin.text.toString()
         )
     }
-
 
     private fun onSuccessfulLogin(model: SetPINView) {
         navController.navigate(
