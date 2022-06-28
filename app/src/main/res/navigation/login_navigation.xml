@@ -66,12 +66,16 @@
             app:destination="@id/nav_register_account"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
+            app:popUpTo="@id/nav_select_user"
+            app:popUpToInclusive="false"
             />
         <action
             android:id="@+id/action_nav_result_to_set_pin"
             app:destination="@id/nav_set_pin"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
+            app:popUpTo="@id/nav_select_user"
+            app:popUpToInclusive="false"
             />
     </fragment>
 
@@ -91,6 +95,8 @@
             app:destination="@id/nav_enter_pin"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
+            app:popUpTo="@id/nav_select_user"
+            app:popUpToInclusive="false"
             />
     </fragment>
 
