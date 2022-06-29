@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.geometry.LatLng
+import com.mapbox.mapboxsdk.geometry.LatLngBounds
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.CircleManager
@@ -19,6 +20,7 @@ import de.app.R
 import de.app.databinding.FragmentGeoDataTabMapBinding
 import de.app.ui.components.SimpleFragment
 import de.app.ui.geo.GeoDataViewModel
+import java.lang.Double.max
 import javax.inject.Inject
 
 
@@ -31,7 +33,7 @@ class GeoDataMapFragment : SimpleFragment<FragmentGeoDataTabMapBinding>() {
         get() = getMapTilerKey()
     private val styleUrl: String
         get() = "https://api.maptiler.com/maps/$style/style.json?key=$apiKey"
-
+    private val delta = 1
 
     @Inject
     lateinit var viewModel: GeoDataViewModel
@@ -95,17 +97,26 @@ class GeoDataMapFragment : SimpleFragment<FragmentGeoDataTabMapBinding>() {
     private fun renderPositions(currentPosition: LatLng?, map: MapboxMap, style: Style, objects: List<LatLng>) {
         val locations = ArrayList<CircleOptions>()
         currentPosition?.let {
-            locations.add(createLocation(it, Color.RED))
+            locations.add(createLocation(it, Color.BLUE))
         }
         objects.forEach {
-            locations.add(createLocation(it, Color.GREEN))
+            locations.add(createLocation(it, Color.MAGENTA))
         }
         displayLocations(locations, map, style)
     }
 
     private fun computePositionAndSetCamera(map: MapboxMap, currentPosition: LatLng?, objects: List<LatLng>) {
         val position = currentPosition ?: default
-        setCamera(map, position, 14.0)
+
+        var start = LatLngBounds.from(
+            position.latitude+delta, position.longitude+delta,
+            position.latitude-delta, position.longitude-delta
+        )
+
+        objects.forEach {
+            start = start.include(it)
+        }
+        setCamera(map, start.center, 25-((start.latitudeSpan-0.2)/(6-0.2))*(20))
     }
 
     private fun setCamera(map: MapboxMap, location: LatLng, zoom: Double) {

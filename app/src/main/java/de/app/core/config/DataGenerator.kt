@@ -296,7 +296,7 @@ class DataGenerator {
                 GeoSet(
                     UUID.randomUUID().toString(),
                     sets.random(),
-                    generatePositions(nextInt(20))
+                    generatePositions(nextInt(20, 40))
                 )
             }
         }
@@ -304,8 +304,8 @@ class DataGenerator {
         fun generatePositions(num: Int): List<LatLng> {
             return (0..num).map {
                 LatLng(
-                    nextDouble(-90.0, 90.0),
-                    nextDouble(-180.0, 180.0)
+                    nextDouble(48.0, 54.0),
+                    nextDouble(6.5, 14.5)
                 )
             }
         }
