@@ -3,18 +3,19 @@ package de.app.ui.geo
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
-import com.mapbox.mapboxsdk.Mapbox
+import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
-import de.app.api.geo.MapObjectInfo
 import de.app.databinding.FragmentGeoDataBinding
 import de.app.ui.components.SimpleFragment
 import de.app.ui.geo.filter.GeoDataFilterFragment
 import de.app.ui.geo.map.GeoDataMapFragment
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class GeoDataFragment : SimpleFragment<FragmentGeoDataBinding>() {
 
     private val tabToName by lazy {
@@ -24,43 +25,44 @@ class GeoDataFragment : SimpleFragment<FragmentGeoDataBinding>() {
         )
     }
 
+    @Inject
+    lateinit var viewModel: GeoDataViewModel
+
     override fun inflate(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentGeoDataBinding.inflate(inflater, container, false)
 
     override fun setup() {
+        viewModel.init(requireContext())
 
         val geoDataPager = binding.geoDataPager
 
         geoDataPager.isUserInputEnabled = false
-        geoDataPager.adapter = GeoDataFragmentCollection(this, geoDataPager)
-        TabLayoutMediator(binding.tabLayout, geoDataPager) { tab, pos ->
-            tab.text = tabToName[pos]
-        }.attach()
+        geoDataPager.adapter = GeoDataFragmentCollection(this).also {
+            it.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+                override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
+                    super.onItemRangeMoved(fromPosition, toPosition, itemCount)
+                }
+            })
+        }
+
+        TabLayoutMediator(binding.tabLayout, geoDataPager) { tab, pos -> tab.text = tabToName[pos] }.attach()
+
+        geoDataPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrollStateChanged(state: Int) {
+                viewModel.currentTab.value = state
+            }
+        })
+        viewModel.tabRequested.observe(viewLifecycleOwner) {
+            geoDataPager.setCurrentItem(it, true)
+            viewModel.tabRequested.value = null
+        }
     }
 }
 
-class GeoDataFragmentCollection(val fragment: Fragment, private val geoDataPager: ViewPager2) :
-    FragmentStateAdapter(fragment) {
-
-    override fun getItemCount(): Int {
-        return 2
-    }
-
-    override fun createFragment(position: Int): Fragment =
-        when (position) {
-            0 -> {
-                GeoDataFilterFragment()
-            }
-            else -> {
-                GeoDataMapFragment()
-            }
-        }
-
-    fun moveToMap() {
-        geoDataPager.setCurrentItem(1, true)
-    }
-
-    fun registerOnPageChangeCallback(onPageChangeCallback: ViewPager2.OnPageChangeCallback) {
-        geoDataPager.registerOnPageChangeCallback(onPageChangeCallback)
-    }
+class GeoDataFragmentCollection(fragment: Fragment) : FragmentStateAdapter(fragment) {
+    private val filter = GeoDataFilterFragment()
+    private val map = GeoDataMapFragment()
+    private val tabToFragment = listOf(filter, map)
+    override fun getItemCount() =tabToFragment.size
+    override fun createFragment(position: Int): Fragment = tabToFragment[position]
 }

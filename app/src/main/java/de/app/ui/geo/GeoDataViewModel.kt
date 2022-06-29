@@ -1,26 +1,44 @@
 package de.app.ui.geo
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mapbox.mapboxsdk.geometry.LatLng
-import de.app.data.model.Address
+import de.app.core.onSuccess
+import de.app.geo.LocationRepository
+import de.app.ui.util.geoDecode
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GeoDataViewModel @Inject constructor(): ViewModel() {
+class GeoDataViewModel @Inject constructor(
+    private val repository: LocationRepository
+) : ViewModel() {
 
-    val objects = MutableLiveData<List<MapObject>>()
-    val category = MutableLiveData<String>()
+    val objectCategory = MutableLiveData<MapObjectCategory>()
     val currentPosition = MutableLiveData<CurrentPositionObject>()
+    val currentTab = MutableLiveData<Int>()
+    val tabRequested = MutableLiveData<Int>()
+
+    fun init(context: Context) {
+        repository.requestLocation().onSuccess { location ->
+            context.geoDecode(location).map { it.first() }.onSuccess {
+                currentPosition.value = CurrentPositionObject(
+                    location = LatLng(location.latitude, location.longitude),
+                    address = it.getAddressLine(0)
+                )
+            }
+        }
+    }
 }
 
 
 data class CurrentPositionObject(
     val location: LatLng,
-    val address: Address,
+    val address: String,
 )
 
-data class MapObject(
-    val location: LatLng
+data class MapObjectCategory(
+    val category: String,
+    val objects: List<LatLng>
 )

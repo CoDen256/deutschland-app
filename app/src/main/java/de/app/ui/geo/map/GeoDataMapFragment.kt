@@ -2,14 +2,10 @@ package de.app.ui.geo.map
 
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.geometry.LatLng
@@ -20,108 +16,115 @@ import com.mapbox.mapboxsdk.plugins.annotation.CircleOptions
 import com.mapbox.mapboxsdk.utils.ColorUtils
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
-import de.app.api.geo.MapObjectInfo
-import de.app.core.onSuccess
 import de.app.databinding.FragmentGeoDataTabMapBinding
-import de.app.geo.LocationRepository
 import de.app.ui.components.SimpleFragment
 import de.app.ui.geo.GeoDataViewModel
-import de.app.ui.util.geoDecode
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class GeoDataMapFragment() : SimpleFragment<FragmentGeoDataTabMapBinding>() {
+class GeoDataMapFragment : SimpleFragment<FragmentGeoDataTabMapBinding>() {
 
-    private var style = "basic"
+    private val default = LatLng(51.3563, 11.9917)
+    private val style = "basic"
     private val apiKey: String
         get() = getMapTilerKey()
     private val styleUrl: String
         get() = "https://api.maptiler.com/maps/$style/style.json?key=$apiKey"
 
-    private val viewModel: GeoDataViewModel by viewModels({requireParentFragment()})
 
     @Inject
-    lateinit var repo: LocationRepository
-    private var savedInstanceState: Bundle? = null
+    lateinit var viewModel: GeoDataViewModel
 
+    private var savedInstanceState: Bundle? = null
 
     override fun inflate(
         inflater: LayoutInflater,
         container: ViewGroup?
-    )= FragmentGeoDataTabMapBinding.inflate(inflater, container, false)
+    ) = FragmentGeoDataTabMapBinding.inflate(inflater, container, false)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        preInit(savedInstanceState)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    private fun preInit(savedInstanceState: Bundle?) {
         Mapbox.getInstance(requireActivity(), null)
         this.savedInstanceState = savedInstanceState
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun setup() {
         setupMap()
 
-        viewModel.category.observe(viewLifecycleOwner) {
-            binding.currentObject.text = getString(R.string.selected_object, it)
+        viewModel.objectCategory.observe(viewLifecycleOwner) {
+            binding.currentObject.text = getString(R.string.selected_object, it.category)
+            updateMap(viewModel.currentPosition.value?.location, it.objects)
         }
 
+        viewModel.currentPosition.observe(viewLifecycleOwner) { currentPosition ->
+            binding.currentPosition.text = getString(R.string.your_position_is, currentPosition.address)
+            updateMap(currentPosition.location, viewModel.objectCategory.value?.objects.orEmpty())
+        }
 
-        repo.requestLocation().onSuccess { location ->
-            requireContext().geoDecode(location).map { it.first() }.onSuccess {
-                binding.currentPosition.text =
-                    getString(R.string.your_position_is, it.getAddressLine(0))
-            }
+    }
 
-            binding.mapView.getMapAsync { map ->
-                map.setStyle(styleUrl) { style ->
-                    map.uiSettings.isAttributionEnabled = false
-                    displayLocation(binding, map, style, location, Color.RED)
-                    setCamera(map, location, 14.0)
-                }
+    private fun setupMap() {
+        binding.mapView.onCreate(savedInstanceState)
+        binding.mapView.getMapAsync { map ->
+            map.setStyle(styleUrl) {
+                map.uiSettings.isAttributionEnabled = false
+                computePositionAndSetCamera(
+                    map,
+                    viewModel.currentPosition.value?.location,
+                    viewModel.objectCategory.value?.objects.orEmpty()
+                )
             }
         }
     }
 
-    private fun setCamera(map: MapboxMap, location: Location, zoom: Double) {
+    private fun updateMap(currentPosition: LatLng?, objects: List<LatLng>) {
+        binding.mapView.getMapAsync { map ->
+            map.setStyle(styleUrl) { style ->
+                map.uiSettings.isAttributionEnabled = false
+                renderPositions(currentPosition, map, style, objects)
+                computePositionAndSetCamera(map, currentPosition, objects)
+            }
+        }
+    }
+
+    private fun renderPositions(currentPosition: LatLng?, map: MapboxMap, style: Style, objects: List<LatLng>) {
+        val locations = ArrayList<CircleOptions>()
+        currentPosition?.let {
+            locations.add(createLocation(it, Color.RED))
+        }
+        objects.forEach {
+            locations.add(createLocation(it, Color.GREEN))
+        }
+        displayLocations(locations, map, style)
+    }
+
+    private fun computePositionAndSetCamera(map: MapboxMap, currentPosition: LatLng?, objects: List<LatLng>) {
+        val position = currentPosition ?: default
+        setCamera(map, position, 14.0)
+    }
+
+    private fun setCamera(map: MapboxMap, location: LatLng, zoom: Double) {
         map.cameraPosition = CameraPosition.Builder()
             .target(LatLng(location.latitude, location.longitude))
             .zoom(zoom)
             .build()
     }
 
-    private fun displayLocation(
-        binding: FragmentGeoDataTabMapBinding,
-        map: MapboxMap,
-        style: Style,
-        location: Location,
-        color: Int
-    ) {
+    private fun displayLocations(locations: List<CircleOptions>, map: MapboxMap, style: Style) {
         val circleManager = CircleManager(binding.mapView, map, style)
-        val circleOptions = CircleOptions()
+        circleManager.create(locations)
+    }
+
+    private fun createLocation(location: LatLng, color: Int): CircleOptions {
+        return CircleOptions()
             .withLatLng(LatLng(location.latitude, location.longitude))
             .withCircleColor(ColorUtils.colorToRgbaString(color))
             .withCircleRadius(5f)
-        circleManager.create(circleOptions)
-    }
-
-    private fun setupMap() {
-        binding.mapView.onCreate(savedInstanceState)
-        binding.mapView.getMapAsync { map ->
-            // Set the style after mapView was loaded
-            map.setStyle(styleUrl) { style->
-                map.uiSettings.isAttributionEnabled = false
-
-                // Set the map view center
-                map.cameraPosition = CameraPosition.Builder()
-                    .target(LatLng(51.3563, 11.9917))
-                    .zoom(14.0)
-                    .build()
-            }
-        }
-
     }
 
     private fun getMapTilerKey(): String = requireActivity().let {

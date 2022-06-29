@@ -2,19 +2,21 @@ package de.app.ui.geo.filter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import com.mapbox.mapboxsdk.geometry.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.databinding.FragmentGeoDataTabFilterBinding
 import de.app.ui.components.SimpleFragment
 import de.app.ui.geo.GeoDataViewModel
-import de.app.ui.geo.MapObject
+import de.app.ui.geo.MapObjectCategory
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class GeoDataFilterFragment() :SimpleFragment<FragmentGeoDataTabFilterBinding>() {
+class GeoDataFilterFragment :SimpleFragment<FragmentGeoDataTabFilterBinding>() {
 
-    private val viewModel: GeoDataViewModel by viewModels({requireParentFragment()})
+    @Inject
+    lateinit var viewModel: GeoDataViewModel
 
+    lateinit var catAdapter: CategoriesWrapperAdapter
     override fun inflate(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -23,19 +25,17 @@ class GeoDataFilterFragment() :SimpleFragment<FragmentGeoDataTabFilterBinding>()
     override fun setup() {
         val categories = setupCategories()
 
-        val catAdapter = CategoriesWrapperAdapter(requireContext(), categories)
-
-//        fragmentCollection.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageScrollStateChanged(state: Int) {
-//                catAdapter.notifyDataSetInvalidated()
-//            }
-//        })
+        catAdapter = CategoriesWrapperAdapter(requireContext(), categories)
 
         binding.categoriesView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
-//            fragmentCollection.moveToMap(MapObjectInfo(categories[groupPosition].second[childPosition]))
-            viewModel.objects.value = listOf(MapObject(LatLng(51.3663, 11.9817)))
-            viewModel.category.value = categories[groupPosition].second[childPosition]
+            viewModel.currentTab.value = 1
+            viewModel.objectCategory.value = MapObjectCategory(category = categories[groupPosition].second[childPosition],
+                listOf(LatLng(51.3663, 11.9817)))
             true
+        }
+
+        viewModel.currentTab.observe(viewLifecycleOwner) {
+            catAdapter.notifyDataSetInvalidated()
         }
 
         binding.categoriesView.setAdapter(catAdapter)
