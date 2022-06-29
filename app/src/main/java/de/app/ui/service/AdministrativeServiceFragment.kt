@@ -8,6 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import de.app.databinding.FragmentAdministrativeServiceBinding
 import de.app.ui.SubmittedResultActivity
 import de.app.ui.components.AccountAwareFragment
+import de.app.ui.safe.DataSafePickerFactory
 import de.app.ui.service.data.result.FormView
 import de.app.ui.service.data.value.FormValue
 import de.app.ui.service.view.button.ButtonView
@@ -26,6 +27,7 @@ class AdministrativeServiceFragment : AccountAwareFragment<FragmentAdministrativ
     private val args: AdministrativeServiceFragmentArgs by navArgs()
 
     @Inject lateinit var factory: AdminServiceViewModelFactory
+    @Inject lateinit var pickerFactory: DataSafePickerFactory
     private lateinit var viewModel: AdminServiceViewModel
     private lateinit var inflater: LayoutInflater
     private lateinit var inputFields: List<InputFieldView>
@@ -68,7 +70,7 @@ class AdministrativeServiceFragment : AccountAwareFragment<FragmentAdministrativ
         inflater: LayoutInflater,
         parent: ViewGroup
     ): List<FieldView> {
-        val factory = FieldViewFactory(fragment, inflater, parent)
+        val factory = FieldViewFactory(fragment, inflater, parent, pickerFactory.createShower(requireActivity(), account))
         return viewModel.getFields().map { factory.createFieldView(it) }
     }
 

@@ -14,17 +14,22 @@ import javax.inject.Singleton
 @Singleton
 class DataSafePickerFactory @Inject constructor(private val service: DataSafeService) {
     fun showPicker(activity: Activity, info: AccountInfo, onSuccess: (FileHeader) -> Unit) {
-        val binding = FragmentDataSafePickerDialogBinding.inflate(activity.layoutInflater)
+        createShower(activity,info).show(onSuccess)
+    }
 
-        MaterialAlertDialogBuilder(activity)
+    fun createShower(activity: Activity, info: AccountInfo): DataSafePickerShower{
+        val binding = FragmentDataSafePickerDialogBinding.inflate(activity.layoutInflater)
+        val dialog = MaterialAlertDialogBuilder(activity)
             .setView(binding.root)
             .setTitle("Pick a file from Data Safe")
             .setNegativeButton("Cancel", null)
             .create()
-            .apply { inflate(binding, info, onSuccess, activity) }
-            .show()
+        return object : DataSafePickerShower {
+            override fun show(onSuccess: (FileHeader) -> Unit) {
+                dialog.apply { inflate(binding, info, onSuccess, activity) }.show()
+            }
+        }
     }
-
     private fun AlertDialog.inflate(
         binding: FragmentDataSafePickerDialogBinding,
         info: AccountInfo,
@@ -37,4 +42,9 @@ class DataSafePickerFactory @Inject constructor(private val service: DataSafeSer
             dismiss()
         }
     }
+}
+
+@FunctionalInterface
+interface DataSafePickerShower {
+    fun show(onSuccess: (FileHeader) -> Unit)
 }

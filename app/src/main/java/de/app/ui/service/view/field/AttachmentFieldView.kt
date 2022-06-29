@@ -1,12 +1,13 @@
 package de.app.ui.service.view.field
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import de.app.api.service.form.AttachmentField
+import de.app.data.model.FileHeader
 import de.app.databinding.ApplicationFormAttachmentBinding
+import de.app.ui.components.OpenableFileViewAdapter
+import de.app.ui.safe.DataSafePickerShower
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue
 import de.app.ui.util.*
@@ -15,7 +16,7 @@ import de.app.ui.util.*
 class AttachmentFieldView(
     private val binding: ApplicationFormAttachmentBinding,
     private val id: String,
-    private val uriHolder: MutableLiveData<Uri>
+    private val files: List<FileHeader>
 ) : InputFieldView {
 
     override fun applyState(formState: FormState) {
@@ -29,41 +30,52 @@ class AttachmentFieldView(
     }
 
     override fun getValue(): FieldValue {
-        return FieldValue(id, uriHolder.value)
+        return FieldValue(id, files)
     }
 
 
     override fun setOnValueChangedListener(handler: () -> Unit) {
-        binding.filePath.afterTextChanged { handler() }
     }
 
     class Inflater {
         private lateinit var binding: ApplicationFormAttachmentBinding
         private lateinit var id: String
-        private val uriHolder: MutableLiveData<Uri> = MutableLiveData()
+        private val files = ArrayList<FileHeader>()
+        private lateinit var adapter: OpenableFileViewAdapter
 
 
         fun inflate(inflater: LayoutInflater, parent: ViewGroup): Inflater = apply {
             binding = ApplicationFormAttachmentBinding.inflate(inflater, parent, true)
         }
 
-        fun populate(field: AttachmentField, fragment: Fragment): Inflater = apply {
-
-            val launcher = fragment.openDocumentLauncher{
-                binding.filePath.text = it.name
-                uriHolder.value = it.uri
+        fun populate(field: AttachmentField, fragment: Fragment, shower: DataSafePickerShower): Inflater = apply {
+            val pickFileLauncher = fragment.openDocumentLauncher { addFile(it) }
+            binding.uploadFrom.uploadFileLocal.setOnClickListener {
+                pickFileLauncher.launch(arrayOf(field.mimeType))
             }
 
+            binding.uploadFrom.uploadFileDataSafe.setOnClickListener {
+                shower.show { addFile(it) }
+            }
+            adapter = OpenableFileViewAdapter({fragment.requireActivity()}, files)
+
+            binding.files.adapter = adapter
             binding.label.text = field.label
-            binding.field.setOnClickListener {
-                launcher.launch(arrayOf(field.mimeType))
-            }
-
             id = field.id
         }
 
-        fun build() = AttachmentFieldView(binding, id, uriHolder)
+        fun build() = AttachmentFieldView(binding, id, files)
+
+        private fun addFile(file: FileHeader) {
+            files.add(0, file)
+            adapter.notifyItemInserted(0)
+            binding.files.apply {
+                post { smoothScrollToPosition(0) }
+            }
+        }
     }
+
+
 }
 
 
