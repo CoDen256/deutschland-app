@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeLanguageSwitch() {
         binding.switchLanguage.setOnClickListener {
-            val languageEn = "en-EN"
+            val languageEn = "uk-UA"
             val languageDe = "de-DE"
             val current = resources.configuration.locales[0]
             if (current.toString().startsWith("de")) {
