@@ -17,7 +17,7 @@ class GeoDataViewModel @Inject constructor(
 
     val objectCategory = MutableLiveData<MapObjectCategory>()
     val currentPosition = MutableLiveData<CurrentPositionObject>()
-    val currentTab = MutableLiveData<Int>()
+    val tabState = MutableLiveData<Int>()
     val tabRequested = MutableLiveData<Int>()
 
     fun init(context: Context) {

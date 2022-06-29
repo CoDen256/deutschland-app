@@ -37,22 +37,17 @@ class GeoDataFragment : SimpleFragment<FragmentGeoDataBinding>() {
         val geoDataPager = binding.geoDataPager
 
         geoDataPager.isUserInputEnabled = false
-        geoDataPager.adapter = GeoDataFragmentCollection(this).also {
-            it.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
-                override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
-                    super.onItemRangeMoved(fromPosition, toPosition, itemCount)
-                }
-            })
-        }
+        geoDataPager.adapter = GeoDataFragmentCollection(this)
 
         TabLayoutMediator(binding.tabLayout, geoDataPager) { tab, pos -> tab.text = tabToName[pos] }.attach()
 
         geoDataPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrollStateChanged(state: Int) {
-                viewModel.currentTab.value = state
+                viewModel.tabState.value = state
             }
         })
         viewModel.tabRequested.observe(viewLifecycleOwner) {
+            it ?: return@observe
             geoDataPager.setCurrentItem(it, true)
             viewModel.tabRequested.value = null
         }

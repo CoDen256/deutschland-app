@@ -2,6 +2,7 @@ package de.app.ui.geo.filter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING
 import com.mapbox.mapboxsdk.geometry.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.databinding.FragmentGeoDataTabFilterBinding
@@ -28,14 +29,14 @@ class GeoDataFilterFragment :SimpleFragment<FragmentGeoDataTabFilterBinding>() {
         catAdapter = CategoriesWrapperAdapter(requireContext(), categories)
 
         binding.categoriesView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
-            viewModel.currentTab.value = 1
+            viewModel.tabRequested.value = 1
             viewModel.objectCategory.value = MapObjectCategory(category = categories[groupPosition].second[childPosition],
                 listOf(LatLng(51.3663, 11.9817)))
             true
         }
 
-        viewModel.currentTab.observe(viewLifecycleOwner) {
-            catAdapter.notifyDataSetInvalidated()
+        viewModel.tabState.observe(viewLifecycleOwner) {
+            if (it == 0) catAdapter.notifyDataSetInvalidated()
         }
 
         binding.categoriesView.setAdapter(catAdapter)
