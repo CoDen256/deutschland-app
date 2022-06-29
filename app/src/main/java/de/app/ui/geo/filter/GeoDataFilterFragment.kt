@@ -2,13 +2,14 @@ package de.app.ui.geo.filter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING
 import com.mapbox.mapboxsdk.geometry.LatLng
 import dagger.hilt.android.AndroidEntryPoint
+import de.app.api.geo.GeodataService
 import de.app.databinding.FragmentGeoDataTabFilterBinding
 import de.app.ui.components.SimpleFragment
 import de.app.ui.geo.GeoDataViewModel
-import de.app.ui.geo.MapObjectCategory
+import de.app.ui.geo.GeoObjectSet
+import de.app.ui.util.toast
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -17,21 +18,26 @@ class GeoDataFilterFragment :SimpleFragment<FragmentGeoDataTabFilterBinding>() {
     @Inject
     lateinit var viewModel: GeoDataViewModel
 
-    lateinit var catAdapter: CategoriesWrapperAdapter
+    @Inject
+    lateinit var service: GeodataService
+
     override fun inflate(
         inflater: LayoutInflater,
         container: ViewGroup?
     )= FragmentGeoDataTabFilterBinding.inflate(inflater, container, false)
 
     override fun setup() {
-        val categories = setupCategories()
+        val categories = service.getAllCategories()
+        val catAdapter = CategoriesWrapperAdapter(requireContext(), categories)
 
-        catAdapter = CategoriesWrapperAdapter(requireContext(), categories)
-
-        binding.categoriesView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
+        binding.categoriesView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
+            val set = categories[groupPosition].sets[childPosition]
+            service.getSetById(set.id).onSuccess {
+                viewModel.objectSet.value = GeoObjectSet(name = it.name, it.positions)
+            }.onFailure {
+                requireActivity().toast("Failed to display category: ${it.message}")
+            }
             viewModel.tabRequested.value = 1
-            viewModel.objectCategory.value = MapObjectCategory(category = categories[groupPosition].second[childPosition],
-                listOf(LatLng(51.3663, 11.9817)))
             true
         }
 
@@ -40,25 +46,5 @@ class GeoDataFilterFragment :SimpleFragment<FragmentGeoDataTabFilterBinding>() {
         }
 
         binding.categoriesView.setAdapter(catAdapter)
-    }
-
-    private fun setupCategories(): List<Pair<String, List<String>>> {
-        val listDetail = HashMap<String, List<String>>()
-
-        val category0 = listOf(
-            "Energie", "Schutzgebiete", "Wasser", "Boden"
-        )
-
-        val category1 = listOf(
-            "Acker und Wald-Boden", "Landwirtschaft", "Forstwirtschaft"
-        )
-
-        val category2 = listOf(
-            "Strasse", "Schiene", "Flug", "Schiff"
-        )
-        listDetail.put("Umwelt und Energie", category0)
-        listDetail.put("Land und Forstwirtschaft", category1)
-        listDetail.put("Verkehr und Technologie", category2)
-        return listDetail.entries.map { it.toPair() }
     }
 }

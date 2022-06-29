@@ -15,15 +15,15 @@ class GeoDataViewModel @Inject constructor(
     private val repository: LocationRepository
 ) : ViewModel() {
 
-    val objectCategory = MutableLiveData<MapObjectCategory>()
-    val currentPosition = MutableLiveData<CurrentPositionObject>()
+    val objectSet = MutableLiveData<GeoObjectSet>()
+    val currentPosition = MutableLiveData<CurrentPositionGeoObject>()
     val tabState = MutableLiveData<Int>()
     val tabRequested = MutableLiveData<Int>()
 
     fun init(context: Context) {
         repository.requestLocation().onSuccess { location ->
             context.geoDecode(location).map { it.first() }.onSuccess {
-                currentPosition.value = CurrentPositionObject(
+                currentPosition.value = CurrentPositionGeoObject(
                     location = LatLng(location.latitude, location.longitude),
                     address = it.getAddressLine(0)
                 )
@@ -33,12 +33,12 @@ class GeoDataViewModel @Inject constructor(
 }
 
 
-data class CurrentPositionObject(
+data class CurrentPositionGeoObject(
     val location: LatLng,
     val address: String,
 )
 
-data class MapObjectCategory(
-    val category: String,
+data class GeoObjectSet(
+    val name: String,
     val objects: List<LatLng>
 )

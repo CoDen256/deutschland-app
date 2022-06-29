@@ -56,14 +56,14 @@ class GeoDataMapFragment : SimpleFragment<FragmentGeoDataTabMapBinding>() {
     override fun setup() {
         setupMap()
 
-        viewModel.objectCategory.observe(viewLifecycleOwner) {
-            binding.currentObject.text = getString(R.string.selected_object, it.category)
+        viewModel.objectSet.observe(viewLifecycleOwner) {
+            binding.currentObject.text = getString(R.string.selected_object, it.name)
             updateMap(viewModel.currentPosition.value?.location, it.objects)
         }
 
         viewModel.currentPosition.observe(viewLifecycleOwner) { currentPosition ->
             binding.currentPosition.text = getString(R.string.your_position_is, currentPosition.address)
-            updateMap(currentPosition.location, viewModel.objectCategory.value?.objects.orEmpty())
+            updateMap(currentPosition.location, viewModel.objectSet.value?.objects.orEmpty())
         }
 
     }
@@ -76,7 +76,7 @@ class GeoDataMapFragment : SimpleFragment<FragmentGeoDataTabMapBinding>() {
                 computePositionAndSetCamera(
                     map,
                     viewModel.currentPosition.value?.location,
-                    viewModel.objectCategory.value?.objects.orEmpty()
+                    viewModel.objectSet.value?.objects.orEmpty()
                 )
             }
         }

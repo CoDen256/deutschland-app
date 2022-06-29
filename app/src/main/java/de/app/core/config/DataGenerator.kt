@@ -1,5 +1,6 @@
 package de.app.core.config
 
+import com.mapbox.mapboxsdk.geometry.LatLng
 import de.app.api.account.AccountInfo
 import de.app.api.account.CitizenAccountInfo
 import de.app.api.account.CompanyAccountInfo
@@ -8,13 +9,14 @@ import de.app.api.applications.Application
 import de.app.api.applications.ApplicationStatus
 import de.app.api.appointment.Appointment
 import de.app.api.emergency.Emergency
+import de.app.api.geo.GeoCategory
+import de.app.api.geo.GeoSet
 import de.app.api.law.LawChangeInfo
 import de.app.api.mail.MailMessageHeader
 import de.app.api.service.AdministrativeService
 import de.app.api.service.form.*
 import de.app.data.model.Address
 import de.app.data.model.FileHeader
-import de.app.geo.GeoDataSource
 import org.fluttercode.datafactory.impl.DataFactory
 import java.time.Instant
 import java.time.LocalDate
@@ -22,6 +24,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.random.Random.Default.nextBoolean
+import kotlin.random.Random.Default.nextDouble
 import kotlin.random.Random.Default.nextInt
 
 
@@ -270,6 +273,43 @@ class DataGenerator {
                 )
             }
         }
+
+        val sets = listOf(
+            "Energie", "Schutzgebiete", "Wasser", "Boden",
+            "Acker und Wald-Boden", "Landwirtschaft", "Forstwirtschaft",
+            "Strasse", "Schiene", "Flug", "Schiff"
+        )
+        val categories = listOf("Umwelt und Energie", "Land und Forstwirtschaft", "Verkehr und Technologie")
+
+        fun generateCategories(num: Int, setsNum: Int, sets: List<GeoSet>): List<GeoCategory> {
+            return (0..num).map {
+                GeoCategory(
+                    UUID.randomUUID().toString(),
+                    categories.random(),
+                    (0..setsNum).map { sets.random() }
+                )
+            }
+        }
+
+        fun generateSets(num: Int): List<GeoSet>{
+            return (0..num).map {
+                GeoSet(
+                    UUID.randomUUID().toString(),
+                    sets.random(),
+                    generatePositions(nextInt(20))
+                )
+            }
+        }
+
+        fun generatePositions(num: Int): List<LatLng> {
+            return (0..num).map {
+                LatLng(
+                    nextDouble(-90.0, 90.0),
+                    nextDouble(-180.0, 180.0)
+                )
+            }
+        }
+
 
         fun generateMails(num: Int): List<MailMessageHeader> {
             return (0..num).map {

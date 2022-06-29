@@ -6,12 +6,12 @@ open class UserHeader(
 )
 
 class User(
-    _userId: String,
-    _displayName: String,
+    userId: String,
+    displayName: String,
     val accountSecretToken: String,
     val address: Address,
     val type: UserType,
-): UserHeader(_userId, _displayName)
+): UserHeader(userId, displayName)
 
 enum class UserType { CITIZEN, COMPANY }
 

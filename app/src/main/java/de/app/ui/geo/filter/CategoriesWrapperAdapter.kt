@@ -6,20 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
+import de.app.api.geo.GeoCategory
+import de.app.api.geo.GeoSetHeader
 import de.app.databinding.FragmentGeoCategoryGroupBinding
 import de.app.databinding.FragmentGeoCategoryGroupItemBinding
 
 
 class CategoriesWrapperAdapter(private val context: Context,
-                               private val categories: List<Pair<String, List<String>>>
+                               private val categories: List<GeoCategory>
                         ): BaseExpandableListAdapter() {
 
     override fun getGroupCount(): Int {
         return categories.size
     }
 
-    override fun getGroup(groupPosition: Int): Any {
-        return categories[groupPosition].first
+    override fun getGroup(groupPosition: Int): GeoCategory {
+        return categories[groupPosition]
     }
 
     override fun getGroupId(groupPosition: Int): Long {
@@ -34,8 +36,9 @@ class CategoriesWrapperAdapter(private val context: Context,
     ): View {
         val wrapper = inflateGroup(parent)
         wrapper.wrapperTitle.apply {
+            val group = getGroup(groupPosition)
             setTypeface(null, Typeface.BOLD)
-            text = getGroup(groupPosition) as String
+            text = group.categoryName
         }
         return wrapper.root
     }
@@ -47,11 +50,11 @@ class CategoriesWrapperAdapter(private val context: Context,
     }
 
     override fun getChildrenCount(groupPosition: Int): Int {
-        return categories[groupPosition].second.size
+        return categories[groupPosition].sets.size
     }
 
-    override fun getChild(groupPosition: Int, childPosition: Int): Any {
-        return categories[groupPosition].second[childPosition]
+    override fun getChild(groupPosition: Int, childPosition: Int): GeoSetHeader {
+        return categories[groupPosition].sets[childPosition]
     }
 
     override fun getChildId(groupPosition: Int, childPosition: Int): Long {
@@ -67,7 +70,7 @@ class CategoriesWrapperAdapter(private val context: Context,
     ): View {
         val mapObject = getChild(groupPosition, childPosition)
         val categoryView = inflateChild(parent)
-        categoryView.`object`.text = mapObject as String
+        categoryView.`object`.text = mapObject.name
         return categoryView.root
     }
 
