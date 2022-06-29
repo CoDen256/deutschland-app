@@ -1,0 +1,15 @@
+[ // Разные изменения законов
+  // https://www.onlinezugangsgesetz.de/SharedDocs/downloads/Webs/OZG/DE/Registermodernisierungsgesetz.pdf;jsessionid=75CE98AE89FE8DAE929CA91076C977D7.1_cid287?__blob=publicationFile&v=1
+  // эту линку он предлагал как основу, там вроде есть разные изменения законов
+  // просто вставь оттуда заголовки и контент, чтобы похоже на правду было, можешь оч много поставить, но если не идет
+  // то можно и не оч много, хотябы как здесь
+  // 10 штук
+  {
+  "date": "2020-01-10",
+    "id": 1,  // уникальный
+    // Заголовок вкратце
+    "name": "Änderung des 0. Gesetzes über \u0027Suspense rescue caves light television hatch\u0027",
+    // Описание, можно оч длинное
+    "description": "Das 0. Gesetz vom 2022 Dez. 16  (BGBl. I S. 1084), das zuletzt durch Artikel 38 des Gesetzes vom 2023 Apr. 22  (BGBl. I S. 530) geändert worden ist"
+  }
+]

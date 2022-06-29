@@ -1,0 +1,12 @@
+[ // Список бедствий каких-нибудь, потопы, сильные ветры, гололед и тд // 5
+  {
+    "city": "Merseburg", //  хотя бы 5 разных мест, и чтобы было Merseburg, и + пересекающиеся с аккаунтами
+    "country": "Germany",
+    "postalCode": "39104",
+    "date-time": "2020-10-01 19:10:00", // когда
+    "description": "Very very big storm kills everyone. Shit its a big storm man, its really big oh shit",
+    "id": 1, // любое, но потом сюда ссылаться будем
+    "name": "Storm", // Название краткое
+    "severity": "LOW" // LOW, HIGH, MIDDLE
+  }
+]

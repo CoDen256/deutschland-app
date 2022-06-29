@@ -9,7 +9,8 @@ data class Emergency(
     val city: String,
     val postalCode: String,
     val country: String,
-    val date: LocalDateTime
+    val date: LocalDateTime,
+    val severity: EmergecySeverity
 )
 
 enum class EmergecySeverity {

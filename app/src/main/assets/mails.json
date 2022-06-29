@@ -1,0 +1,32 @@
+{
+  // старые письма, похуй от кого, похуй когда пришли, должны быть раньше сегодня
+  // могут не коррелироваться с services.json
+  // тоже со смыслом, но похуй когда
+  "old": [ // 5
+    {
+      "preview": "Words probably generated caves ending waited moved monster rescue probably through discovered light probably numbers ghost about ending",
+      "received": "2020-01-20 19:00:00",
+      "subject": "Enter computer others smoke throw"
+    }
+  ],
+  // важно какие письма, важно от кого, должны коллерироваться с services.json для бургерров (для citizen)
+  // то есть если service-id указывает на подачу ауфа
+  // здесь что-то в стиле ваш ауф рассматривается мы получили антраг и тд
+  "new-citizen": [    // 2
+    {
+      "service-id": 1, // от сервиса которого письмо пришло
+      "preview": "Words probably generated caves ending waited moved monster rescue probably through discovered light probably numbers ghost about ending",
+      "received": "2020-01-20 19:00:00",
+      "subject": "Enter computer others smoke throw"
+    }
+  ],
+  // тоже самое только сервисы для компании
+  "new-company": [    // 2
+    {
+      "service-id": 1, // от сервиса которого письмо пришло
+      "preview": "Words probably generated caves ending waited moved monster rescue probably through discovered light probably numbers ghost about ending",
+      "received": "2020-01-20 19:00:00",
+      "subject": "Enter computer others smoke throw"
+    }
+  ]
+}

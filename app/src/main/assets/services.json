@@ -1,0 +1,16 @@
+{  // Verwaltungsleistungen, сделай реальные как будто, там податься на ауф, продать дом, подать развод ит д
+  "citizen": [ // 5 штук услуги которые могли бы быть у бургера
+    {
+      "id": "1", // сюда ссылаться еще будем,
+      "description": "Sie können Ihre Aufenthaltserlaubnis zur Fortsetzung eines im EU-Ausland begonnenen Studiums vor Ablauf ihrer Geltungsdauer verlängern lassen",
+      "name": "Verlängerung der Aufenthaltserlaubnis" // краткое описание
+    }
+  ],
+  "company": [ // 5 штук услуги которые могли бы быть у компании
+    {
+      "id": "1", // сюда ссылаться еще будем,
+      "description": "Sie können Ihre Aufenthaltserlaubnis zur Fortsetzung eines im EU-Ausland begonnenen Studiums vor Ablauf ihrer Geltungsdauer verlängern lassen",
+      "name": "Verlängerung der Aufenthaltserlaubnis"
+    }
+  ]
+}

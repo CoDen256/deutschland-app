@@ -1,0 +1,9 @@
+[ // 20 штук, рандомный адресов для сервисов
+  // все города из accounts.json должны быть тут хотя бы один адрес
+  {
+    "city": "Halle",
+    "country": "Germany",
+    "postalCode": "06108",
+    "address": "Eppley Str. 110"
+  }
+]

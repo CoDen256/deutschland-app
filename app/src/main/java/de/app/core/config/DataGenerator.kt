@@ -8,6 +8,7 @@ import de.app.api.account.SecretToken
 import de.app.api.applications.Application
 import de.app.api.applications.ApplicationStatus
 import de.app.api.appointment.Appointment
+import de.app.api.emergency.EmergecySeverity
 import de.app.api.emergency.Emergency
 import de.app.api.geo.GeoCategory
 import de.app.api.geo.GeoSet
@@ -234,7 +235,8 @@ class DataGenerator {
                     address.city,
                     address.postalCode,
                     address.country,
-                    generateLocalDateTime()
+                    generateLocalDateTime(),
+                    EmergecySeverity.values().random()
                 )
             }
         }

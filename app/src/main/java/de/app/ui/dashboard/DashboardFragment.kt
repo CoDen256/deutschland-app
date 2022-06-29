@@ -36,7 +36,7 @@ class DashboardFragment : AccountAwareFragment<FragmentDashboardBinding>() {
             welcome.text = getString(
                 R.string.welcome_dashboard, when (account) {
                     is CitizenAccountInfo ->
-                        "${account.formOfAddress} ${account.firstName} ${account.surname}"
+                        "${account.salutation} ${account.firstName} ${account.surname}"
                     is CompanyAccountInfo -> account.fullName
                 }
             )

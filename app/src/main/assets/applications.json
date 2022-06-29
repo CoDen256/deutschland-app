@@ -1,0 +1,33 @@
+{
+  "old": [
+    // 5 рандомных заявок, похуй от какого сервиса, главное чтобы был смысл
+    {
+      "applicationDate": "2020-01-03 19:00:00", // до сейчас
+      "description": "Für das Fällen von Bäumen kann aus unterschiedlichen Gründen eine Genehmigung erforderlich sein.",
+      "name": "Genehmigung zum Baumfällen",
+      "status": "VERIFICATION",     //SENT, VERIFICATION, PROCESSING, DONE, REJECTED
+    }
+  ],
+  "citizen-new": [
+    // 2 рандомных заявок, но коллерируется с какими либо сервисами
+    // то есть если service-id указывает на подачу ауфа, то и заявка соответсвующая
+    // то есть что-то типа Antrag auf Aufenthaltstitel и со смыслом описание
+    {
+      "service-id": 1,
+      "applicationDate": "2020-01-03 19:00:00",
+      "description": "Für das Fällen von Bäumen kann aus unterschiedlichen Gründen eine Genehmigung erforderlich sein.",
+      "name": "Genehmigung zum Baumfällen",
+      "status": "VERIFICATION",     //SENT, VERIFICATION, PROCESSING, DONE, REJECTED
+    }
+  ],
+  "company-new": [
+    // 2 аналогично, только для компании сервисы
+    {
+      "service-id": 1,
+      "applicationDate": "2020-01-03 19:00:00",
+      "description": "Für das Fällen von Bäumen kann aus unterschiedlichen Gründen eine Genehmigung erforderlich sein.",
+      "name": "Genehmigung zum Baumfällen",
+      "status": "VERIFICATION",     //SENT, VERIFICATION, PROCESSING, DONE, REJECTED
+    }
+  ]
+}

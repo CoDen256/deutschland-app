@@ -1,0 +1,39 @@
+{
+  "citizens": [// 3
+    {
+      "accountId": "user-alpha", // что-то внятное, к этому потом ссылаться надо будет и пользователь будет вводить
+      "address": { // только из германии
+        "address": "Eberhard-Leibnitz-Strasse 1",
+        "city": "Merseburg",
+        "country": "Germany",
+        "postalCode": "06217"
+      },
+      "dateOfBirth": "2020-01-02",
+      "displayName": "Alpha Beta Jr.",
+      "firstName": "Alpha",
+      "surname": "Beta",
+      "nationality": "Ukraine",
+      "placeOfBirth": { // похуй
+        "address": "Eberhard-Leibnitz-Strasse 1",
+        "city": "Merseburg",
+        "country": "Ukraine",
+        "postalCode": "06217"
+      },
+      "salutation": "Frau"
+    }
+  ],
+  "company": [ // 3
+    {
+      "accountId": "comp-yoba", // аналогично
+      "address": { // только из германии
+        "address": "Käthe-Kollwitz-Straße 1",
+        "city": "Leipzig",
+        "country": "Germany",
+        "postalCode": "04103"
+      },
+      "displayName": "Yota Gmbh",
+      "foundedDate": "2020-01-02",
+      "fullName": "Yoba Gmbh Inc."
+    }
+  ]
+}
