@@ -6,7 +6,6 @@ import androidx.activity.result.ActivityResultLauncher
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.api.safe.DataSafeService
 import de.app.api.signature.SignatureService
-import de.app.core.inSeparateThread
 import de.app.data.model.FileHeader
 import de.app.databinding.FragmentSignatureBinding
 import de.app.ui.components.AccountAwareFragment
@@ -51,11 +50,11 @@ class DataSignatureFragment : AccountAwareFragment<FragmentSignatureBinding>() {
             writer.saveNextTo(it)
         }
 
-        binding.uploadFileLocal.setOnClickListener {
+        binding.uploadFrom.uploadFileLocal.setOnClickListener {
             pickFileLauncher.launch(arrayOf("application/pdf"))
         }
 
-        binding.uploadFileDataSafe.setOnClickListener {
+        binding.uploadFrom.uploadFileDataSafe.setOnClickListener {
             dataSafePickerFactory.showPicker(requireActivity(), account) {
                 addFile(it)
             }

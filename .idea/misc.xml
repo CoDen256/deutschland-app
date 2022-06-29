@@ -54,6 +54,7 @@
         <entry key="app/src/main/res/layout/application_form_submit.xml" value="0.11594202898550725" />
         <entry key="app/src/main/res/layout/application_form_text.xml" value="0.4466666666666667" />
         <entry key="app/src/main/res/layout/common_file_item.xml" value="0.4466666666666667" />
+        <entry key="app/src/main/res/layout/common_upload_from.xml" value="0.24456521739130435" />
         <entry key="app/src/main/res/layout/content_login.xml" value="0.18568840579710144" />
         <entry key="app/src/main/res/layout/content_mail_box.xml" value="0.265625" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
@@ -90,7 +91,7 @@
         <entry key="app/src/main/res/layout/fragment_mail_box.xml" value="0.11351079859367152" />
         <entry key="app/src/main/res/layout/fragment_mail_box_item.xml" value="0.4466666666666667" />
         <entry key="app/src/main/res/layout/fragment_mail_box_list.xml" value="0.19746376811594202" />
-        <entry key="app/src/main/res/layout/fragment_signature.xml" value="0.16111111111111112" />
+        <entry key="app/src/main/res/layout/fragment_signature.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_signature_file_item.xml" value="0.17300724637681159" />
         <entry key="app/src/main/res/layout/fragment_user_enter_pin.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_user_header.xml" value="0.2164855072463768" />

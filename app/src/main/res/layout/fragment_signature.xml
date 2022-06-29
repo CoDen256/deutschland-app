@@ -7,7 +7,6 @@
     android:orientation="vertical"
     tools:context=".ui.signature.DataSignatureFragment">
 
-
     <ImageView
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -17,59 +16,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <include
+        android:id="@+id/upload_from"
+        layout="@layout/common_upload_from"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:orientation="horizontal"
-        android:paddingHorizontal="5dp"
-        android:paddingVertical="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/upload_file_local"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/rectangle_dotted"
-            android:clickable="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/upload_from_storage"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/upload_file_data_safe"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/rectangle_dotted"
-            android:clickable="true">
-
-            <TextView
-                android:textAlignment="center"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/upload_from_data_safe"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        app:layout_constraintTop_toBottomOf="@+id/header" />
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
