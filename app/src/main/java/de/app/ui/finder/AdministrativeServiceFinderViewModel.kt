@@ -19,7 +19,8 @@ class AdministrativeServiceFinderViewModel @Inject constructor(
 ) : ViewModel() {
 
     val services = MutableLiveData<List<AdministrativeService>>()
-    val currentAddress = MutableLiveData<Address>()
+    val currentAddress = MutableLiveData<String>()
+    val currentQuery = MutableLiveData<String>()
 
     fun search(account: AccountInfo, searchQuery: String, address: String) {
         val result = getServicesForAccount(account)
@@ -29,7 +30,6 @@ class AdministrativeServiceFinderViewModel @Inject constructor(
             it.address.city.containsIgnoreCase(address)
         }
     }
-
     private fun String.containsIgnoreCase(other: String): Boolean {
         return lowercase().contains(other.lowercase())
     }
@@ -44,13 +44,9 @@ class AdministrativeServiceFinderViewModel @Inject constructor(
     fun init(context: Context, account: AccountInfo) {
         viewModelScope.launch {
             locationRepository.requestSimplifiedAddress(context).addOnSuccessListener { result ->
-                result.onSuccess {
-                    currentAddress.value = it
-                    search(account, "", it.city)
-                }.onFailure {
-                    currentAddress.value = account.address
-                    search(account, "", account.address.city)
-                }
+                val address: Address = result.getOrDefault(account.address)
+                currentAddress.value = address.city
+                currentQuery.value = ""
             }
         }
     }

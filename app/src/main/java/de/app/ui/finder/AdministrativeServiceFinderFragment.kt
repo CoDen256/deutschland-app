@@ -11,7 +11,6 @@ import de.app.api.service.AdministrativeService
 import de.app.databinding.FragmentAdministrativeServiceFinderBinding
 import de.app.databinding.FragmentAdministrativeServiceFinderSearchItemBinding
 import de.app.ui.components.AccountAwareListFragment
-import de.app.ui.components.ListFragment
 import de.app.ui.util.observe
 import de.app.ui.util.onClickNavigate
 import javax.inject.Inject
@@ -60,13 +59,17 @@ class AdministrativeServiceFinderFragment :
             },
             { requireActivity().runOnUiThread {
                 binding.searchAddress.suggestionsAdapter.changeCursor(it)
-                } }
+            } }
         ))
 
         setupAddressSuggestions()
 
         observe(viewModel.currentAddress) {
-            binding.searchAddress.setQuery(city, true)
+            binding.searchAddress.setQuery(this, true)
+        }
+
+        observe(viewModel.currentQuery) {
+            binding.searchService.setQuery(this, true)
         }
 
         observe(viewModel.services) {
