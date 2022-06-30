@@ -1,42 +1,38 @@
 package de.app.ui.components
 
-import android.graphics.Rect
-import android.view.*
+import android.content.Context
+import android.view.MenuItem
+import android.view.View
+import android.widget.PopupMenu
 import de.app.R
 
 class FileContextMenu(
     private val onRemoveClicked: () -> Unit,
     private val onDownloadClicked: () -> Unit,
-    ): ActionMode.Callback2() {
-    override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-        val inflater: MenuInflater = mode.menuInflater
-        inflater.inflate(R.menu.file_actions, menu)
-        return true
-    }
+    view:View,
+    context: Context
+    ): PopupMenu.OnMenuItemClickListener {
 
-    override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
-        return false
-    }
+    val menu = PopupMenu(context, view).apply {
+            setOnMenuItemClickListener(this@FileContextMenu)
+            inflate(R.menu.file_actions)
+        }
 
-    override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-        return when (item.itemId) {
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
             R.id.remove_file -> {
                 onRemoveClicked()
-                mode.finish() // Action picked, so close the CAB
                 true
             }
             R.id.download_file -> {
                 onDownloadClicked()
-                mode.finish()
                 true
             }
             else -> false
         }
     }
 
-    override fun onDestroyActionMode(mode: ActionMode?) {}
-
-    override fun onGetContentRect(mode: ActionMode, view: View, outRect: Rect) {
-        outRect.set(0, 0, 0, 0)
+    fun show(){
+        menu.show()
     }
 }

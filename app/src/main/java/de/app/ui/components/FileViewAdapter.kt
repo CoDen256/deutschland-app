@@ -23,11 +23,14 @@ class OpenableFileViewAdapter(
 ) : FileViewAdapter(fileHeaders, activity,
     onClickListener = { activity().openFile(it.uri, it.mimeType) },
     extra = { file, binding ->
-        binding.root.setOnLongClickListener { view ->
-            activity().startActionMode(FileContextMenu(
-                onDownloadClicked= {onDownloaded(file)},
-                onRemoveClicked = {onRemoved(file)}
-            ), TYPE_FLOATING)
+        val menu = FileContextMenu(
+            onDownloadClicked= {onDownloaded(file)},
+            onRemoveClicked = {onRemoved(file)},
+            view = binding.root,
+            context = activity()
+        )
+        binding.root.setOnLongClickListener {
+            menu.show()
             true
         }
     }
