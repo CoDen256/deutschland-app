@@ -71,4 +71,6 @@
     <string name="language_en">English</string>
     <string name="language_de">Deutsch</string>
     <string name="language_uk">Українська</string>
+    <string name="file_context_download">Download</string>
+    <string name="file_context_remove">Remove</string>
 </resources>
