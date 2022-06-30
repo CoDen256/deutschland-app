@@ -1,12 +1,6 @@
 package de.app.ui.components
 
 import android.app.Activity
-import android.view.ActionMode
-import android.view.ActionMode.TYPE_FLOATING
-import android.view.Menu
-import android.view.MenuInflater
-import android.widget.TextView
-import de.app.R
 import de.app.data.model.FileHeader
 import de.app.databinding.CommonFileItemBinding
 import de.app.ui.util.loadFirstPage

@@ -10,4 +10,8 @@ class SelectUserViewModel @Inject constructor(private val manager: SessionManage
     suspend fun getAccounts(): List<UserHeader> {
         return manager.getUsers()
     }
+
+    suspend fun removeAccount(user: UserHeader) {
+        manager.removeAccount(user.userId)
+    }
 }

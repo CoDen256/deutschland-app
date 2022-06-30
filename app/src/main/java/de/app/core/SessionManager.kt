@@ -36,6 +36,10 @@ class SessionManager (private val dataSource: UserDataSource) {
         }
     }
 
+    suspend fun removeAccount(userId: String){
+        dataSource.remove(userId)
+    }
+
     suspend fun login(userId: String, pin: String): Result<User> {
         return dataSource.login(userId, pin).onSuccess { login(it) }
     }
