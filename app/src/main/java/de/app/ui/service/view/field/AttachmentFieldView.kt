@@ -57,7 +57,9 @@ class AttachmentFieldView(
             binding.uploadFrom.uploadFileDataSafe.setOnClickListener {
                 shower.show { addFile(it) }
             }
-            adapter = OpenableFileViewAdapter({fragment.requireActivity()}, files)
+            adapter = OpenableFileViewAdapter({fragment.requireActivity()}, files,
+                onRemoved = {removeFile(it)}
+            )
 
             binding.files.adapter = adapter
             binding.label.text = field.label
@@ -72,6 +74,13 @@ class AttachmentFieldView(
             binding.files.apply {
                 post { smoothScrollToPosition(0) }
             }
+        }
+
+        private fun removeFile(it: FileHeader) {
+            val index = files.indexOf(it)
+            if (index == -1) return
+            files.removeAt(index)
+            adapter.notifyItemRemoved(index)
         }
     }
 

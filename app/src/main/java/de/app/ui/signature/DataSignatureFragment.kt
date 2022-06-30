@@ -30,7 +30,9 @@ class DataSignatureFragment : AccountAwareFragment<FragmentSignatureBinding>() {
     private lateinit var createFileLauncher: ActivityResultLauncher<String>
     private val files: MutableList<FileHeader> = ArrayList()
     private val adapter: OpenableFileViewAdapter =
-        OpenableFileViewAdapter({requireActivity()}, files) { removeFile(it) }
+        OpenableFileViewAdapter({requireActivity()}, files,
+            onRemoved = {removeFile(it)},
+        )
 
 
     override fun inflate(

@@ -20,4 +20,8 @@ class BaseDataSafeService @Inject constructor(): DataSafeService {
     override fun upload(fileHeader: FileHeader, accountId: String) {
         documents[accountId]?.add(fileHeader)
     }
+
+    override fun remove(fileHeader: FileHeader, accountId: String) {
+        documents[accountId]?.remove(fileHeader)
+    }
 }

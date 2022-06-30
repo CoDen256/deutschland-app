@@ -21,6 +21,7 @@ class DataSafeFragment : AccountAwareFragment<FragmentDataSafeBinding>() {
     lateinit var service: DataSafeService
 
     private lateinit var createFileLauncher: ActivityResultLauncher<String>
+    private lateinit var adapter: OpenableFileViewAdapter
 
     override fun inflate(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentDataSafeBinding.inflate(inflater, container, false)
@@ -34,12 +35,20 @@ class DataSafeFragment : AccountAwareFragment<FragmentDataSafeBinding>() {
         createFileLauncher = createDocumentLauncher( "application/pdf") {
             writer.saveNextTo(it)
         }
-        val adapter = OpenableFileViewAdapter({ requireActivity() }, files) {
-            writer.push(listOf(it))
-        }
+        adapter = OpenableFileViewAdapter({ requireActivity() }, files,
+            onRemoved = {
+                val index = files.indexOf(it)
+                if (index != -1){
+                    files.removeAt(index)
+                    adapter.notifyItemRemoved(index)
+                    service.remove(it, account.accountId)
+                }
+            },
+            onDownloaded = {writer.push(listOf(it))}
+            )
         binding.files.adapter = adapter
 
-        val pickFileLauncher = openDocumentLauncher() {
+        val pickFileLauncher = openDocumentLauncher {
             files.add(0, it)
             adapter.notifyItemInserted(0)
             service.upload(it, account.accountId)
