@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <SearchView
@@ -18,6 +19,9 @@
         android:layout_height="wrap_content"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="0.5dp"
-        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" />
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        tools:listitem="@layout/fragment_geo_category_group_item"
+        tools:listheader="@layout/fragment_geo_category_group"
+        />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

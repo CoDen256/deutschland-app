@@ -29,10 +29,7 @@
         android:padding="4dp"
         android:scrollbars="vertical"
         app:layoutManager="LinearLayoutManager"
-        >
-
-
-    </androidx.recyclerview.widget.RecyclerView>
+        tools:listitem="@layout/fragment_administrative_service_finder_search_item"/>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
