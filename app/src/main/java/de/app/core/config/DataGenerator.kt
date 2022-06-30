@@ -318,8 +318,6 @@ class DataGenerator {
                 MailMessageHeader(
                     generateText(5, 9),
                     Instant.now(),
-                    removed = nextBoolean(),
-                    important = nextBoolean(),
                     UUID.randomUUID().toString(),
                     preview = generateText(9, 25),
                 )

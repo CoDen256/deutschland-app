@@ -72,7 +72,7 @@ class AdminServiceViewModel internal constructor(
                 add(SubmittedField(it.id, it.value))
             }
         })
-        val rs = registry.sendApplicationForm(service, submittedForm)
+        val rs = registry.sendApplicationForm(account, service, submittedForm)
 
         result.value = rs.map {
             when {

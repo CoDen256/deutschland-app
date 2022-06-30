@@ -8,7 +8,9 @@ import javax.inject.Singleton
 
 @Singleton
 class BaseAppointmentService @Inject constructor(): AppointmentService {
-    private val appointments = generateAppointments(40, BaseAdministrativeServiceRegistry.services)
+    private val appointments = ArrayList(
+        generateAppointments(40, BaseAdministrativeServiceRegistry.services)
+    )
 
     override fun getAllAppointmentsByAccountId(accountId: String): List<Appointment> {
         return appointments.filter { it.accountId == accountId }
@@ -18,6 +20,7 @@ class BaseAppointmentService @Inject constructor(): AppointmentService {
         accountId: String,
         appointment: Appointment
     ): Result<Unit> {
-        TODO("Not yet implemented")
+        appointments.add(appointment)
+        return Result.success(Unit)
     }
 }

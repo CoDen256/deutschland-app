@@ -6,8 +6,6 @@ import java.util.*
 data class MailMessageHeader(
     val subject: String,
     val received: Instant,
-    val removed: Boolean,
-    val important: Boolean,
     val id: String,
     val preview: String = ""
 ) {

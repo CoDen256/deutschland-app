@@ -4,10 +4,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.databinding.ActivitySubmittedResultBinding
 import de.app.ui.util.runActivity
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SubmittedResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySubmittedResultBinding

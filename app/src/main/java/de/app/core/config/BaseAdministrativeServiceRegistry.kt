@@ -1,5 +1,13 @@
 package de.app.core.config
 
+import de.app.api.account.AccountInfo
+import de.app.api.applications.Application
+import de.app.api.applications.ApplicationService
+import de.app.api.applications.ApplicationStatus
+import de.app.api.appointment.Appointment
+import de.app.api.appointment.AppointmentService
+import de.app.api.mail.MailMessageHeader
+import de.app.api.mail.MailboxService
 import de.app.api.service.AdministrativeService
 import de.app.api.service.AdministrativeServiceProvider
 import de.app.api.service.AdministrativeServiceRegistry
@@ -7,14 +15,23 @@ import de.app.api.service.form.Form
 import de.app.api.service.submit.SubmittedForm
 import de.app.core.config.DataGenerator.Companion.generateFields
 import de.app.core.successOrElse
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random.Default.nextBoolean
 import kotlin.random.Random.Default.nextInt
+import kotlin.time.DurationUnit
 
 
 @Singleton
-class BaseAdministrativeServiceRegistry @Inject constructor(): AdministrativeServiceRegistry {
+class BaseAdministrativeServiceRegistry @Inject constructor(
+    private val mailboxService: MailboxService,
+    private val appointmentService: AppointmentService,
+    private val applicationService: ApplicationService
+): AdministrativeServiceRegistry {
 
     companion object {
         val citizenServices = DataGenerator.generateServices(30)
@@ -51,10 +68,56 @@ class BaseAdministrativeServiceRegistry @Inject constructor(): AdministrativeSer
     }
 
     override fun sendApplicationForm(
+        account: AccountInfo,
         service: AdministrativeService,
         submittedForm: SubmittedForm
     ): Result<Unit> {
+        dispatch(account, service)
         return Result.success(Unit)
+    }
+
+    private fun dispatch(account: AccountInfo, service: AdministrativeService) {
+        dispatchMail(account, service)
+        dispatchApplication(account, service)
+        dispatchAppointment(account, service)
+    }
+
+    private fun dispatchApplication(account: AccountInfo, service: AdministrativeService) {
+        applicationService.addApplicationForAccountId(
+            account.accountId,
+            Application(
+                name = "Antrag zu `${service.name}`",
+                description = "${account.displayName}, Sie haben einen Antrag für '${service.name}' gesendet",
+                serviceId = service.id,
+                accountId = account.accountId,
+                status = ApplicationStatus.SENT,
+                applicationDate = LocalDateTime.now()
+            )
+        )
+    }
+
+    private fun dispatchAppointment(account: AccountInfo, service: AdministrativeService) {
+        appointmentService.addAppointmentForAccountId(account.accountId, Appointment(
+            name = "Termin zum ${service.name}",
+            description = "${account.displayName}, Sie haben einen Termin bei ${service.name} vereinbart",
+            address = service.address,
+            additionalInfo = "Bringen Sie bitte alle notwendigen Unterlagen mit",
+            serviceId = service.id,
+            accountId = account.accountId,
+            appointment = LocalDateTime.now().plus(2, ChronoUnit.DAYS)
+        ))
+    }
+
+    private fun dispatchMail(account: AccountInfo, service: AdministrativeService) {
+        mailboxService.sendMessageToAccountId(
+            account.accountId,
+            MailMessageHeader(
+                "Your application has been received",
+                preview = "Thank you for sending application to ${service.name}, ${account.displayName}",
+                received = Instant.now(),
+                id = UUID.randomUUID().toString()
+            )
+        )
     }
 }
 
