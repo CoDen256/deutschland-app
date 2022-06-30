@@ -1,6 +1,7 @@
 package de.app.ui
 
 import android.Manifest
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.Menu
 import androidx.activity.result.ActivityResultLauncher
@@ -14,11 +15,13 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
 import de.app.core.SessionManager
 import de.app.databinding.ActivityMainBinding
+import de.app.ui.components.SelectLanguagePickerFactory
 import de.app.ui.user.LoginActivity
 import de.app.ui.util.runActivity
 import de.app.ui.util.setLanguage
@@ -30,6 +33,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var sessionManager: SessionManager
+    @Inject
+    lateinit var factory: SelectLanguagePickerFactory
+
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
@@ -112,13 +118,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeLanguageSwitch() {
         binding.switchLanguage.setOnClickListener {
-            val languageEn = "uk-UA"
-            val languageDe = "de-DE"
-            val current = resources.configuration.locales[0]
-            if (current.toString().startsWith("de")) {
-                setLanguage(languageEn)
-            } else {
-                setLanguage(languageDe)
+            factory.show(this) {
+                setLanguage(it.langCode)
             }
         }
     }
@@ -148,7 +149,6 @@ class MainActivity : AppCompatActivity() {
     private fun jumpBackToLogin() {
         runActivity(LoginActivity::class.java)
     }
-
 
 
 }

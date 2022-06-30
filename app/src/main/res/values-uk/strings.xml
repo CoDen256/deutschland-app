@@ -66,4 +66,10 @@
     <string name="appointment_address_format">%s, %s, %s</string>
     <string name="geo_search_tab">Пошук</string>
     <string name="get_map_tab">Мапа</string>
+    <string name="select_data_safe_dialog">Виберіть файл з файлового сейфу</string>
+    <string name="select_language_dialog">Виберіть мову</string>
+    <string name="cancel_dialog_button">Відмінити</string>
+    <string name="language_en">English</string>
+    <string name="language_de">Deutsch</string>
+    <string name="language_uk">Українська</string>
 </resources>

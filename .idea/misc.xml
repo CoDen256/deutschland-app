@@ -31,6 +31,8 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2164855072463768" />
         <entry key="app/src/main/res/layout/activity_mail_box.xml" value="0.265625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.44375" />
+        <entry key="app/src/main/res/layout/activity_main_select_language.xml" value="0.25885416666666666" />
+        <entry key="app/src/main/res/layout/activity_main_select_language_item.xml" value="0.25885416666666666" />
         <entry key="app/src/main/res/layout/activity_register_account.xml" value="0.11820652173913043" />
         <entry key="app/src/main/res/layout/activity_submitted_result.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.13284781516825717" />
@@ -58,9 +60,10 @@
         <entry key="app/src/main/res/layout/content_login.xml" value="0.18568840579710144" />
         <entry key="app/src/main/res/layout/content_mail_box.xml" value="0.265625" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fake.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_admin_service.xml" value="0.17889492753623187" />
         <entry key="app/src/main/res/layout/fragment_administrative_service.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_administrative_service_finder.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_administrative_service_finder.xml" value="0.16666666666666666" />
         <entry key="app/src/main/res/layout/fragment_administrative_service_finder_search_item.xml" value="0.1924198250728863" />
         <entry key="app/src/main/res/layout/fragment_application.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_application_item.xml" value="0.3333333333333333" />
@@ -75,10 +78,11 @@
         <entry key="app/src/main/res/layout/fragment_file_signature.xml" value="0.13284781516825717" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.265625" />
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.19746376811594202" />
-        <entry key="app/src/main/res/layout/fragment_geo_category_group.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_geo_category_group.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_geo_category_group_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_geo_data.xml" value="0.16666666666666666" />
-        <entry key="app/src/main/res/layout/fragment_geo_data_tab_map.xml" value="0.5502318392581144" />
+        <entry key="app/src/main/res/layout/fragment_geo_data_tab_filter.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_geo_data_tab_map.xml" value="0.21518987341772153" />
         <entry key="app/src/main/res/layout/fragment_geo_data_tab_search.xml" value="0.2611111111111111" />
         <entry key="app/src/main/res/layout/fragment_law_registry.xml" value="0.21354166666666666" />
         <entry key="app/src/main/res/layout/fragment_law_registry_item.xml" value="0.2755208333333333" />
@@ -97,6 +101,7 @@
         <entry key="app/src/main/res/layout/fragment_user_header.xml" value="0.2164855072463768" />
         <entry key="app/src/main/res/layout/fragment_user_register_account.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_user_register_result.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_user_register_result_bad.xml" value="0.1793478260869565" />
         <entry key="app/src/main/res/layout/fragment_user_select.xml" value="0.2164855072463768" />
         <entry key="app/src/main/res/layout/fragment_user_set_pin.xml" value="0.22509057971014493" />
         <entry key="app/src/main/res/layout/geo_data_fragment.xml" value="0.1539855072463768" />
@@ -106,6 +111,7 @@
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.2078804347826087" />
         <entry key="app/src/main/res/layout/web.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.3333333333333333" />
+        <entry key="app/src/main/res/menu/main.xml" value="0.25885416666666666" />
       </map>
     </option>
   </component>

@@ -3,6 +3,7 @@ package de.app.ui.safe
 import android.app.Activity
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import de.app.R
 import de.app.api.account.AccountInfo
 import de.app.api.safe.DataSafeService
 import de.app.data.model.FileHeader
@@ -21,8 +22,8 @@ class DataSafePickerFactory @Inject constructor(private val service: DataSafeSer
         val binding = FragmentDataSafePickerDialogBinding.inflate(activity.layoutInflater)
         val dialog = MaterialAlertDialogBuilder(activity)
             .setView(binding.root)
-            .setTitle("Pick a file from Data Safe")
-            .setNegativeButton("Cancel", null)
+            .setTitle(activity.getString(R.string.select_data_safe_dialog))
+            .setNegativeButton(activity.getString(R.string.cancel_dialog_button), null)
             .create()
         return object : DataSafePickerShower {
             override fun show(onSuccess: (FileHeader) -> Unit) {

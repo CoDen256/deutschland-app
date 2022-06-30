@@ -65,4 +65,10 @@
     <string name="appointment_address_format">%s, %s, %s</string>
     <string name="geo_search_tab">Search</string>
     <string name="get_map_tab">Map</string>
+    <string name="select_data_safe_dialog">Pick a file from Data Safe</string>
+    <string name="select_language_dialog">Choose a language</string>
+    <string name="cancel_dialog_button">Cancel</string>
+    <string name="language_en">English</string>
+    <string name="language_de">Deutsch</string>
+    <string name="language_uk">Українська</string>
 </resources>
