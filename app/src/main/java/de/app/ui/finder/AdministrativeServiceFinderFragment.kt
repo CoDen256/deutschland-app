@@ -1,26 +1,24 @@
 package de.app.ui.finder
 
+import android.R
 import android.app.SearchManager.SUGGEST_COLUMN_TEXT_1
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.CursorAdapter.FLAG_AUTO_REQUERY
-import android.widget.SearchView
 import android.widget.SimpleCursorAdapter
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.api.service.AdministrativeService
 import de.app.databinding.FragmentAdministrativeServiceFinderBinding
 import de.app.databinding.FragmentAdministrativeServiceFinderSearchItemBinding
+import de.app.ui.components.AccountAwareListFragment
 import de.app.ui.components.ListFragment
-import de.app.ui.util.editable
+import de.app.ui.util.observe
 import de.app.ui.util.onClickNavigate
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class AdministrativeServiceFinderFragment :
-    ListFragment<FragmentAdministrativeServiceFinderBinding, FragmentAdministrativeServiceFinderSearchItemBinding, AdministrativeService>()
+    AccountAwareListFragment<FragmentAdministrativeServiceFinderBinding, FragmentAdministrativeServiceFinderSearchItemBinding, AdministrativeService>()
 {
     @Inject
     lateinit var viewModel: AdministrativeServiceFinderViewModel
@@ -48,44 +46,44 @@ class AdministrativeServiceFinderFragment :
     override fun loadItems() = listOf<AdministrativeService>()
 
     override fun setup() {
+        viewModel.init(requireContext(), account)
+
         binding.serviceList.adapter = adapter
 
-        binding.searchService.setOnQueryTextListener(ServiceQueryListener{
-            searchDatabase(it.orEmpty(), binding.searchAddress.query.toString())
+        binding.searchService.setOnQueryTextListener(ServiceQueryListener {
+            viewModel.search(account, it.orEmpty(), binding.searchAddress.query.toString())
         })
 
-        lifecycleScope.launch {
-            viewModel.requestAddress(requireContext()).addOnSuccessListener { result ->
-                result.onSuccess {
-                    binding.searchAddress.setQuery(it.city, true)
-                    searchDatabase("", it.city)
-                }
-            }
-        }
-
-        binding.searchAddress.suggestionsAdapter = SimpleCursorAdapter(
-            context, android.R.layout.simple_list_item_1, null,
-            arrayOf(SUGGEST_COLUMN_TEXT_1), intArrayOf(android.R.id.text1),
-            FLAG_AUTO_REQUERY
-        )
-
         binding.searchAddress.setOnQueryTextListener(AddressQueryListener(binding.searchAddress,
-            { searchDatabase(binding.searchService.query.toString(), it.orEmpty()) },
+            {
+                viewModel.search(account, binding.searchService.query.toString(), it.orEmpty())
+            },
             { requireActivity().runOnUiThread {
                 binding.searchAddress.suggestionsAdapter.changeCursor(it)
                 } }
         ))
 
+        setupAddressSuggestions()
+
+        observe(viewModel.currentAddress) {
+            binding.searchAddress.setQuery(city, true)
+        }
+
+        observe(viewModel.services) {
+            items.clear()
+            items.addAll(this)
+            adapter.notifyDataSetChanged()
+        }
+
+    }
+
+    private fun setupAddressSuggestions() {
+        binding.searchAddress.suggestionsAdapter = SimpleCursorAdapter(
+            context, R.layout.simple_list_item_1, null,
+            arrayOf(SUGGEST_COLUMN_TEXT_1), intArrayOf(R.id.text1),
+            FLAG_AUTO_REQUERY
+        )
         binding.searchAddress.setOnSuggestionListener(AddressSuggestionListener(binding.searchAddress))
     }
 
-    private fun searchDatabase(query: String, address: String) {
-        viewModel.search(query, address).observe(viewLifecycleOwner) { list ->
-            list.let {
-                items.clear()
-                items.addAll(it)
-                adapter.notifyDataSetChanged()
-            }
-        }
-    }
 }

@@ -17,7 +17,9 @@ import kotlin.random.Random.Default.nextInt
 class BaseAdministrativeServiceRegistry @Inject constructor(): AdministrativeServiceRegistry {
 
     companion object {
-        val services = DataGenerator.generateServices(30)
+        val citizenServices = DataGenerator.generateServices(30)
+        val companyServices = DataGenerator.generateServices(30)
+        val services = citizenServices + companyServices
     }
 
     private val forms = services.map{it.id}.associateWith {
@@ -28,12 +30,16 @@ class BaseAdministrativeServiceRegistry @Inject constructor(): AdministrativeSer
         TODO("Not yet implemented")
     }
 
-    override fun getProviderById(id: String): Result<AdministrativeServiceProvider> {
-        TODO("Not yet implemented")
+    override fun getAllCitizenServices(): List<AdministrativeService> {
+        return citizenServices
     }
 
-    override fun getAllServices(): List<AdministrativeService> {
-        return services
+    override fun getAllCompanyServices(): List<AdministrativeService> {
+        return companyServices
+    }
+
+    override fun getProviderById(id: String): Result<AdministrativeServiceProvider> {
+        TODO("Not yet implemented")
     }
 
     override fun getServiceById(id: String): Result<AdministrativeService> {
