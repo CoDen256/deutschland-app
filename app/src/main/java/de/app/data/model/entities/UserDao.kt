@@ -70,6 +70,7 @@ data class UserEntity(
     val postalCode: String,
     val address: String,
     val type: String,
+    val icon: String
 )
 
 @Entity(

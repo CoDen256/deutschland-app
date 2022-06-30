@@ -1,5 +1,6 @@
 package de.app.ui.user.select
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -8,7 +9,10 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.LEFT
 import androidx.recyclerview.widget.ItemTouchHelper.RIGHT
 import androidx.recyclerview.widget.RecyclerView
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import de.app.R
 import de.app.data.model.UserHeader
 import de.app.databinding.FragmentUserSelectBinding
 import de.app.databinding.FragmentUserSelectItemBinding
@@ -35,9 +39,14 @@ class SelectUserFragment :
         container: ViewGroup?
     ) = FragmentUserSelectItemBinding.inflate(inflater, container, false)
 
-    override fun setupChild(binding: FragmentUserSelectItemBinding, item: UserHeader) {
-        binding.apply {
+    override fun setupChild(itemBinding: FragmentUserSelectItemBinding, item: UserHeader) {
+        itemBinding.apply {
             accountName.text = item.displayName
+            Glide
+            GlideToVectorYou.init()
+                .with(requireContext())
+                .placeHolder(R.drawable.ic_account, R.string.account_icon_failed)
+                .load(Uri.parse("https://avatars.dicebear.com/api/jdenticon/${item.userId}.svg"), accountIcon)
             root.onClickNavigate(
                 navController,
                 SelectUserFragmentDirections.actionNavSelectToEnterPin(item.userId)

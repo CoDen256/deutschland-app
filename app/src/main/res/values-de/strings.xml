@@ -73,5 +73,6 @@
     <string name="language_uk">Українська</string>
     <string name="file_context_download">Herunterladen</string>
     <string name="file_context_remove">Löschen</string>
+    <string name="account_icon_failed">Failed to load account icon</string>
 
 </resources>

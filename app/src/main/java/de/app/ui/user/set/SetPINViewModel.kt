@@ -30,8 +30,8 @@ class SetPINViewModel @Inject constructor(
         viewModelScope.launch {
             val secretToken = SecretToken(token)
             val user: Result<User> = when (type) {
-                UserType.CITIZEN -> getUser(citizenRepo.getCitizenAccount(secretToken), token, type)
-                UserType.COMPANY -> getUser(companyRepo.getCompanyAccount(secretToken), token, type)
+                UserType.CITIZEN -> createUser(citizenRepo.getCitizenAccount(secretToken), token, type)
+                UserType.COMPANY -> createUser(companyRepo.getCompanyAccount(secretToken), token, type)
             }
             setPINResult.value = user.map {
                 sessionManager.addAccount(it, pin)
@@ -40,17 +40,25 @@ class SetPINViewModel @Inject constructor(
         }
     }
 
-    private fun getUser(account: Result<AccountInfo>, token: String, type: UserType): Result<User> {
+    private fun createUser(account: Result<AccountInfo>, token: String, type: UserType): Result<User> {
         return account.map {
             User(
                 UUID.randomUUID().toString(),
                 it.displayName,
+                randomString(10),
                 token,
                 it.address,
-                type)
+                type,
+            )
         }
 
     }
+
+    private val charPool : List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+    private fun randomString(len: Int) = (1..len)
+        .map { kotlin.random.Random.nextInt(0, charPool.size) }
+        .map(charPool::get)
+        .joinToString("")
 
     fun pinChanged(password: String) {
         if (!isPasswordValid(password)) {

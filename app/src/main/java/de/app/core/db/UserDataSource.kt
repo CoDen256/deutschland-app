@@ -92,7 +92,8 @@ class UserDataSource(
             country = user.address.country,
             postalCode = user.address.postalCode,
             address = user.address.address,
-            type=user.type.name
+            type=user.type.name,
+            icon=user.icon
         )
     }
 
@@ -100,9 +101,10 @@ class UserDataSource(
         return User(
             user.userId,
             user.displayName,
+            user.icon,
             user.accountSecretToken,
             Address(user.city, user.country, user.postalCode, user.address),
-            UserType.valueOf(user.type)
+            UserType.valueOf(user.type),
         )
     }
 }

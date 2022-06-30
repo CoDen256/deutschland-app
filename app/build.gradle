@@ -70,8 +70,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:20.0.0'
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation "org.fluttercode.datafactory:datafactory:0.8"
-    implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
-
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'com.github.corouteam:GlideToVectorYou:v2.0.0'
 }
 
 kapt {
