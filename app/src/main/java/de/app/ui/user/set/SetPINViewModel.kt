@@ -16,6 +16,14 @@ import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
+/**
+ * Set p i n view model
+ *
+ * @property sessionManager
+ * @property citizenRepo
+ * @property companyRepo
+ * @constructor Create empty Set p i n view model
+ */
 class SetPINViewModel @Inject constructor(
     private val sessionManager: SessionManager,
     private val citizenRepo: CitizenServiceAccountRepository,
@@ -26,6 +34,13 @@ class SetPINViewModel @Inject constructor(
     val setPINResult = MutableLiveData<Result<SetPINView>>()
 
 
+    /**
+     * Set p i n
+     *
+     * @param token
+     * @param type
+     * @param pin
+     */
     fun setPIN(token: String, type: UserType, pin: String) {
         viewModelScope.launch {
             val secretToken = SecretToken(token)
@@ -52,6 +67,12 @@ class SetPINViewModel @Inject constructor(
         }
 
     }
+
+    /**
+     * Pin changed
+     *
+     * @param password
+     */
     fun pinChanged(password: String) {
         if (!isPasswordValid(password)) {
             setPINFormState.value = SetPINFormState(passwordError = R.string.invalid_password)

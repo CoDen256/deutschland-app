@@ -5,6 +5,8 @@ plugins {
     id "org.jetbrains.kotlin.kapt"
     id "dagger.hilt.android.plugin"
     id 'androidx.navigation.safeargs.kotlin'
+    id 'org.jetbrains.dokka'
+//    id 'org.jetbrains.dokka-android'
 }
 
 android {
@@ -72,6 +74,11 @@ dependencies {
     implementation "org.fluttercode.datafactory:datafactory:0.8"
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'com.github.corouteam:GlideToVectorYou:v2.0.0'
+
+//    dokka {
+//        outputFormat = 'html'
+//        outputDirectory = "$buildDir/javadoc"
+//    }
 }
 
 kapt {
