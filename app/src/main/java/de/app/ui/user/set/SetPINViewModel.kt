@@ -45,7 +45,6 @@ class SetPINViewModel @Inject constructor(
             User(
                 UUID.randomUUID().toString(),
                 it.displayName,
-                randomString(10),
                 token,
                 it.address,
                 type,
@@ -53,13 +52,6 @@ class SetPINViewModel @Inject constructor(
         }
 
     }
-
-    private val charPool : List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
-    private fun randomString(len: Int) = (1..len)
-        .map { kotlin.random.Random.nextInt(0, charPool.size) }
-        .map(charPool::get)
-        .joinToString("")
-
     fun pinChanged(password: String) {
         if (!isPasswordValid(password)) {
             setPINFormState.value = SetPINFormState(passwordError = R.string.invalid_password)
