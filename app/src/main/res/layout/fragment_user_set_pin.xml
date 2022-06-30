@@ -46,6 +46,8 @@
             android:layout_marginTop="96dp"
             android:hint="@string/prompt_pin"
             android:inputType="numberPassword"
+            android:lines="1"
+            android:singleLine="true"
             android:imeOptions="actionDone"
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
