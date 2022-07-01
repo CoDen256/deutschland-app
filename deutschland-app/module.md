@@ -1,11 +1,10 @@
-# Module app
+# Module deutschland-app
 
 ## Description
 
 This adds a custom module-level description for the app module.
 
-# Package de.app.api.account
-
+# Package de.app.api
 This is the only package in the sample app.
 It demonstrate usages of `notktx:core` and `notktx:utilities`
 

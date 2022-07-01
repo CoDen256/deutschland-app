@@ -24,9 +24,9 @@ data class SecretToken(
  *  Enthält alle notwendige Informationen bezüglich eines Nutzers
  *  bzw. Unternehmens
  *
- * @property [accountId] ID des Kontos
- * @property [displayName] Anzeigename
- * @property [address] aktuelle Wohnadresse
+ * @property accountId ID des Kontos
+ * @property displayName Anzeigename des Kontos
+ * @property address aktuelle Wohnadresse oder Adresse des Bürgers bzw. des Unternehmens
  */
 sealed interface ServiceAccount{
     val accountId: String
@@ -35,8 +35,7 @@ sealed interface ServiceAccount{
 }
 
 /**
- * [CitizenServiceAccount] repräsentiert ein Servicekonto
- * für Bürger
+ * [CitizenServiceAccount] repräsentiert ein Servicekonto für Bürger
  *
  * @property accountId Konto ID (wird verwendet, um sich bei Servicekonto-API zu authentifizieren)
  * @property displayName Anzeigename des Bürgers
@@ -61,14 +60,13 @@ data class CitizenServiceAccount(
     ): ServiceAccount
 
 /**
- * [CompanyServiceAccount] repräsentiert ein Servicekonto für ein Unternehmen
+ * [CompanyServiceAccount] repräsentiert ein Servicekonto für Unternehmen
  *
- * @property accountId - Konto ID
- * @property displayName - Anzeigename
+ * @property accountId - Konto ID des Unternehmen (wird bei der Authentifizierung verwendet)
+ * @property displayName - Anzeigename des Unternehmens (ähnlich wie bei [fullName])
  * @property address - Adresse des Unternehmens
  * @property fullName - voller Name des Unternehmens
- * @property foundedDate - Gründungsdatum
- * @constructor Create empty Company service account
+ * @property foundedDate - Gründungsdatum des Unternehmens
  */
 data class CompanyServiceAccount(
     override val accountId: String,
