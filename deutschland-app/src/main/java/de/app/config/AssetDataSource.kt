@@ -1,20 +1,27 @@
 package de.app.config
 
 import android.content.Context
-import com.google.gson.*
-import com.google.gson.reflect.TypeToken
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonElement
 import de.app.core.success
 import de.app.ui.util.toast
 import java.io.IOException
 import java.lang.reflect.Type
 import java.time.LocalDate
 
-abstract class AssetDataSource<T, O> {
+abstract class AssetDataSource<T, O>(
+    private val context: Context,
+    private val fileName: String) {
 
     private val gson = GsonBuilder()
         .registerTypeAdapter(LocalDate::class.java, LocalDateConverter())
         .create()
-    private val data: MutableList<T> = ArrayList()
+
+    val data: List<T> by lazy {
+        initialFetch(context, fileName)
+    }
 
     private fun getJsonDataFromAsset(context: Context, fileName: String): Result<String> {
         return try {
@@ -24,21 +31,21 @@ abstract class AssetDataSource<T, O> {
         }
     }
 
-    fun init(context: Context, fileName: String) {
-        getJsonDataFromAsset(context, fileName).mapCatching {
-            val type = object : TypeToken<List<LawChangeAsset>>() {}.type
-            val elements = gson.fromJson<List<T>>(it, type)
-            data.addAll(elements)
-        }.onFailure {
+    private fun initialFetch(context: Context, fileName: String): List<T> {
+        return getJsonDataFromAsset(context, fileName).mapCatching {
+            gson.fromJson<List<O>>(it, getJsonType())
+        }.mapCatching { list ->
+            mapList(list)
+        }.getOrElse {
             context.toast("Unable to fetch data for ${this.javaClass.simpleName}: ${it.message}")
+            emptyList()
         }
     }
 
-//    abstract fun map()
+    private fun mapList(list: List<O>) = list.map { map(it) }
 
-    fun getAll(): List<T>{
-        return data
-    }
+    abstract fun map(origin: O) : T
+    abstract fun getJsonType(): Type
 }
 
 class LocalDateConverter :JsonDeserializer<LocalDate> {

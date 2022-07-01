@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?attr/textAppearanceCaption"
-            android:maxLines="4"
+            android:maxLines="10"
             tools:text="Das Bundesmeldegesetz vom 3. Mai 2013 (BGBl. I S. 1084), das zuletzt durch Artikel 7 des Gesetzes vom 15. Januar 2021 (BGBl. I S. 530) geändert worden ist.">
         </TextView>
 
