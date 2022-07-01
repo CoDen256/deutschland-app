@@ -1,4 +1,4 @@
-package de.app.core.config
+package de.app.config
 
 import de.app.api.signature.SignatureService
 import de.app.data.model.FileHeader

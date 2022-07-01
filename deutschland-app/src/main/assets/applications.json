@@ -1,33 +1,66 @@
 {
   "old": [
-    // 5 рандомных заявок, похуй от какого сервиса, главное чтобы был смысл
     {
-      "applicationDate": "2020-01-03 19:00:00", // до сейчас
+      "applicationDate": "2020-01-03 19:00:00",
       "description": "Für das Fällen von Bäumen kann aus unterschiedlichen Gründen eine Genehmigung erforderlich sein.",
       "name": "Genehmigung zum Baumfällen",
-      "status": "VERIFICATION",     //SENT, VERIFICATION, PROCESSING, DONE, REJECTED
+      "status": "VERIFICATION" 
+    },
+    {
+      "applicationDate": "2021-02-07 19:30:00",
+      "description": "Sie müssen Ihr Tier angemelden werden, ansonsten bekommen Sie eine Strafe.",
+      "name": "Tieranmeldung",
+      "status": "SENT" 
+    },
+    {
+      "applicationDate": "2021-11-15 18:05:00",
+      "description": "Wenn Rechte Ihrer Firma beeinträchtigt wurden, können Sie eine Klage bei Gericht einreichen",
+      "name": "Klage bei Gericht einreichen",
+      "status": "REJECTED"
+    },
+    {
+      "applicationDate": "2020-10-25 11:02:00",
+      "description": "Wenn Sie Ihre Wohnung bzw. Ihre Umgebung sicher und sauber erhalten möchten, steht ein Hausmeister-Service zur Verfügung.",
+      "name": "Hausmeister Service",
+      "status": "PROCESSING"
+    },
+    {
+      "applicationDate": "2020-08-17 10:12:00",
+      "description": "Wenn die Bäume vor Ihrem Haus zu hoch gewachsen sind oder stören Ihnen, sollen sie gesägt werden.",
+      "name": "Bäume sägen",
+      "status": "PROCESSING"
     }
   ],
   "citizen-new": [
-    // 2 рандомных заявок, но коллерируется с какими либо сервисами
-    // то есть если service-id указывает на подачу ауфа, то и заявка соответсвующая
-    // то есть что-то типа Antrag auf Aufenthaltstitel и со смыслом описание
     {
       "service-id": 1,
       "applicationDate": "2020-01-03 19:00:00",
-      "description": "Für das Fällen von Bäumen kann aus unterschiedlichen Gründen eine Genehmigung erforderlich sein.",
-      "name": "Genehmigung zum Baumfällen",
-      "status": "VERIFICATION",     //SENT, VERIFICATION, PROCESSING, DONE, REJECTED
+      "description": "Sie können Ihre Aufenthaltserlaubnis zur Fortsetzung eines im EU-Ausland begonnenen Studiums vor Ablauf ihrer Geltungsdauer verlängern lassen",
+      "name": "Verlängerung der Aufenthaltserlaubnis",
+      "status": "VERIFICATION"
+    },
+    {
+      "service-id": 4,
+      "applicationDate": "2022-11-05 16:00:00",
+      "description": "Damit Ihres Kind rechtzeitig für Sie in Kita geht, soll es dafür beantragt werden.",
+      "name": "Beantragung für Kita",
+      "status": "DONE"
     }
   ],
   "company-new": [
-    // 2 аналогично, только для компании сервисы
     {
       "service-id": 1,
       "applicationDate": "2020-01-03 19:00:00",
-      "description": "Für das Fällen von Bäumen kann aus unterschiedlichen Gründen eine Genehmigung erforderlich sein.",
-      "name": "Genehmigung zum Baumfällen",
-      "status": "VERIFICATION",     //SENT, VERIFICATION, PROCESSING, DONE, REJECTED
+      "description": "Jedes Quartal sollen Sie ein Einkommensübersicht zur Verfügung stellen. Damit beantragen Sie einen.",
+      "name": "Einkommensübersicht beantragen",
+      "status": "PROCESSING"
+    },
+    {
+      "service-id": 3,
+      "applicationDate": "2020-01-03 19:00:00",
+      "description": "Falls Sie beliebige Daten zur Firma ändern wollen, z.B Name, Adresse usw, können Sie es beantragen..",
+      "name": "Stammdaten ändern",
+      "status": "DONE" 
     }
   ]
 }

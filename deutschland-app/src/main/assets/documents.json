@@ -3,25 +3,84 @@
   // ДЛЯ бургеров: прикрепи либо ссылки либо сами пдф, если ссылки нет - какие могли быть у чувака в сейфе, то есть мб ауфентхальты, паспорта, страховки
   "citizen-files": [ // 5
     {
-      "mimeType": "application/pdf",          // не менять
-      "name": "Television.pdf",               // адекватное имя соотвествующее контенту
-      "uri": ""                               // ссылка на пдф(если есть)
-    }
-  ],
-  // Для компании: прикрепи либо ссылки либо сами пдф, если ссылки нет - документы которые теоретически могли быть у компании, какие нибудь страховки налоги  и тд
-  "company-files" : [ // 5
+      "mimeType": "application/pdf",
+      "name": "Lebenslauf.pdf",
+      "uri": "https://www.tabellarischer-lebenslauf.net/wp-content/uploads/2014/03/lebenslauf-muster-schueler.pdf"
+    },
     {
       "mimeType": "application/pdf",
-      "name": "Television.pdf",
-      "uri": ""
-    }
-  ],
-  // Для сервисов прикрепи ТОЛЬКО ссылки. то есть тоже доки которые могли бы быть при подаче заявлений(от стороны сервиса) - какие-то формуляры, реквизиты, выписки с законами
-  "admin-service-files" : [ // 5
+      "name": "Ausweis.pdf",
+      "uri": "https://www.datenschutz-wiki.de/images/9/90/Personalausweis_Muster_geschwaerzt.pdf"
+    },
     {
       "mimeType": "application/pdf",
-      "name": "Television.pdf",
+      "name": "Krankenversicherungnachweis.pdf",
+      "uri": "https://www.hs-augsburg.de/Binaries/Binary16619/information-Krankenversicherung.pdf"
+    },
+    {
+      "mimeType": "application/pdf",
+      "name": "Anmeldebescheinigung.pdf",
+      "uri": "https://www.hc24.de/files/internal/17306492.pdf"
+    },
+    {
+      "mimeType": "image/jpg",
+      "name": "SteuerId.pdf",
+      "uri": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Bundeszentralamt_f%C3%BCr_Steuern_-_Zuteilung_Identifikationsnummer_2008.jpg/640px-Bundeszentralamt_f%C3%BCr_Steuern_-_Zuteilung_Identifikationsnummer_2008.jpg?1656652308114"
+    }
+  ],
+  "company-files": [
+    {
+      "mimeType": "application/pdf",
+      "name": "Einkommensübersicht.pdf",
+      "uri": ""
+    },
+    {
+      "mimeType": "application/pdf",
+      "name": "Steuerungserklärung.pdf",
+      "uri": ""
+    },
+    {
+      "mimeType": "application/pdf",
+      "name": "Spendebenachweis.pdf",
+      "uri": ""
+    },
+    {
+      "mimeType": "application/pdf",
+      "name": "Versicherung.pdf",
+      "uri": ""
+    },
+    {
+      "mimeType": "application/pdf",
+      "name": "Kreditbescheinugng.pdf",
       "uri": ""
     }
+
+  ],
+ "admin-service-files" : [
+  {
+    "mimeType": "application/pdf",
+    "name": "Formular Konkurs melden.pdf",
+    "uri": ""
+  },
+  {
+    "mimeType": "application/pdf",
+    "name": "Tiermeldenantrag.pdf",
+    "uri": ""
+  },
+  {
+    "mimeType": "application/pdf",
+    "name": "Bäumesäegenantrag.pdf",
+    "uri": ""
+  },
+  {
+    "mimeType": "application/pdf",
+    "name": "Kitaantrag.pdf",
+    "uri": ""
+  },
+  {
+    "mimeType": "application/pdf",
+    "name": "Beantragung einer Klage bei Gericht.pdf",
+    "uri": ""
+  }
   ]
 }

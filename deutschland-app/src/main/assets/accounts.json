@@ -1,39 +1,94 @@
 {
-  "citizens": [// 3
+  "citizens": [ 
     {
-      "accountId": "user-alpha", // что-то внятное, к этому потом ссылаться надо будет и пользователь будет вводить
-      "address": { // только из германии
-        "address": "Eberhard-Leibnitz-Strasse 1",
-        "city": "Merseburg",
+      "accountId": "toni-kroos",
+      "address": {
+        "address": "Hirschstraße 1",
+        "city": "Munich",
         "country": "Germany",
-        "postalCode": "06217"
+        "postalCode": "80993"
       },
-      "dateOfBirth": "2020-01-02",
-      "displayName": "Alpha Beta Jr.",
-      "firstName": "Alpha",
-      "surname": "Beta",
-      "nationality": "Ukraine",
-      "placeOfBirth": { // похуй
-        "address": "Eberhard-Leibnitz-Strasse 1",
-        "city": "Merseburg",
-        "country": "Ukraine",
-        "postalCode": "06217"
+      "dateOfBirth": "1990-01-04",
+      "displayName": "Toni Kroos",
+      "firstName": "Toni",
+      "surname": "Kroos",
+      "nationality": "DE",
+      "placeOfBirth": {
+        "address": "Hirschstraße 1",
+        "city": "Munich",
+        "country": "Germany",
+        "postalCode": "80993"
       },
-      "salutation": "Frau"
+      "salutation": "Herr"
+    },
+    {
+      "accountId": "franz-beckenbauer",
+      "address": {
+        "address": "Chloratstraße 1",
+        "city": "Bitterfeld-Wolfen",
+        "country": "Germany",
+        "postalCode": "06749"
+      },
+      "dateOfBirth": "1945-09-11",
+      "displayName": "Franz Beckenbauer",
+      "firstName": "Franz",
+      "surname": "Beckenbauer",
+      "nationality": "DE",
+      "placeOfBirth": {
+        "address": "Chloratstraße 1",
+        "city": "Bitterfeld-Wolfen",
+        "country": "Germany",
+        "postalCode": "06749"
+      },
+      "salutation": "Herr"
+    },
+    {
+      "accountId": "thomas-müller",
+      "address": {
+        "address": "Sankt-Pöltener-Straße 69",
+        "city": "Stuttgart",
+        "country": "Germany",
+        "postalCode": "70469"
+      },
+      "dateOfBirth": "1990-01-04",
+      "displayName": "Franz Beckenbauer",
+      "firstName": "Franz",
+      "surname": "Beckenbauer",
+      "nationality": "DE",
+      "placeOfBirth": {
+        "address": "Mulzerstraße 32c",
+        "city": "Augsburg",
+        "country": "Germany",
+        "postalCode": "86159"
+      },
+      "salutation": "Herr"
     }
   ],
-  "company": [ // 3
+
+  "company": [
     {
-      "accountId": "comp-yoba", // аналогично
-      "address": { // только из германии
-        "address": "Käthe-Kollwitz-Straße 1",
-        "city": "Leipzig",
+      "accountId": "volkswagen-ag",
+      "address": {
+        "address": "Berliner Ring 2",
+        "city": "Wolfsburg",
         "country": "Germany",
-        "postalCode": "04103"
+        "postalCode": "38440"
       },
-      "displayName": "Yota Gmbh",
-      "foundedDate": "2020-01-02",
-      "fullName": "Yoba Gmbh Inc."
+      "displayName": "Volkswagen",
+      "foundedDate": "1937-05-28",
+      "fullName": "Volkswagen AG"
+    },
+    {
+      "accountId": "siemens-ag",
+      "address": {
+        "address": "Wittelsbacherpl. 1",
+        "city": "Munich",
+        "country": "Germany",
+        "postalCode": "80333"
+      },
+      "displayName": "Siemens",
+      "foundedDate": "1996-10-01",
+      "fullName": "Siemens AG"
     }
   ]
 }

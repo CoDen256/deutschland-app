@@ -5,7 +5,6 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import de.app.core.success
 import java.io.IOException
-import de.app.core.config.DataGenerator.*
 
 object GeoDataSource {
 

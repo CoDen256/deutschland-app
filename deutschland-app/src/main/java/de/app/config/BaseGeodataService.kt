@@ -1,10 +1,10 @@
-package de.app.core.config
+package de.app.config
 
 import de.app.api.geo.GeoCategory
 import de.app.api.geo.GeoSet
 import de.app.api.geo.GeodataService
-import de.app.core.config.DataGenerator.Companion.generateCategories
-import de.app.core.config.DataGenerator.Companion.generateSets
+import de.app.config.DataGenerator.Companion.generateCategories
+import de.app.config.DataGenerator.Companion.generateSets
 import de.app.core.successOrElse
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -25,7 +25,7 @@ import de.app.api.signature.SignatureService
 import de.app.core.AccountManager
 import de.app.core.db.UserDataSource
 import de.app.core.SessionManager
-import de.app.core.config.*
+import de.app.config.*
 import de.app.core.db.AppDatabase
 import de.app.geo.GeoDataSource
 import de.app.notifications.*
@@ -38,6 +38,11 @@ import javax.inject.Singleton
 
 @HiltAndroidApp
 class App : Application() {
+
+    private val assetSources = listOf<Pair<AssetDataSource<*, *>, String>>(
+        LawAssetDataSource() to "laws.json"
+    )
+
     companion object {
         var applicationScope = MainScope()
     }
@@ -46,6 +51,9 @@ class App : Application() {
         this.scheduleNextAlarm(RepeatedNotificatorTrigger.INTERVAL)
         applicationScope.launch {
             GeoDataSource.init(this@App, "de.json")
+            assetSources.forEach {
+                it.first.init(this@App, it.second)
+            }
         }
     }
     override fun onLowMemory() {

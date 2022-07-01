@@ -1,8 +1,8 @@
-package de.app.core.config
+package de.app.config
 
 import de.app.api.account.*
-import de.app.core.config.DataGenerator.Companion.citizens
-import de.app.core.config.DataGenerator.Companion.companies
+import de.app.config.DataGenerator.Companion.citizens
+import de.app.config.DataGenerator.Companion.companies
 import de.app.core.successOrElse
 import java.lang.IllegalArgumentException
 import javax.inject.Inject

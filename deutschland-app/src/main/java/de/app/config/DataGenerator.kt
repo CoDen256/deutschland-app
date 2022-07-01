@@ -1,10 +1,10 @@
-package de.app.core.config
+package de.app.config
 
 import com.mapbox.mapboxsdk.geometry.LatLng
-import de.app.api.account.ServiceAccount
 import de.app.api.account.CitizenServiceAccount
 import de.app.api.account.CompanyServiceAccount
 import de.app.api.account.SecretToken
+import de.app.api.account.ServiceAccount
 import de.app.api.applications.Application
 import de.app.api.applications.ApplicationStatus
 import de.app.api.appointment.Appointment
@@ -12,7 +12,6 @@ import de.app.api.emergency.EmergecySeverity
 import de.app.api.emergency.Emergency
 import de.app.api.geo.GeoCategory
 import de.app.api.geo.GeoSet
-import de.app.api.law.LawChangeInfo
 import de.app.api.mail.MailMessageHeader
 import de.app.api.service.AdministrativeService
 import de.app.api.service.form.*
@@ -22,7 +21,6 @@ import org.fluttercode.datafactory.impl.DataFactory
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.random.Random.Default.nextBoolean
 import kotlin.random.Random.Default.nextDouble
@@ -256,25 +254,6 @@ class DataGenerator {
             0
         )
 
-        fun generateLawChanges(num: Int): List<LawChangeInfo> {
-            return (0..num).map {
-                val date = generateLocalDate().format(DateTimeFormatter.ofPattern("yyyy MMM dd "))
-                val date2 = generateLocalDate().format(DateTimeFormatter.ofPattern("yyyy MMM dd "))
-                LawChangeInfo(
-                    UUID.randomUUID().toString(),
-                    "Änderung des $it. Gesetzes über '${generateText(5, 10)}'",
-                    shortDescription = "Das $it. Gesetz vom $date (BGBl. I S. 1084), das zuletzt durch Artikel ${
-                        nextInt(
-                            1,
-                            50
-                        )
-                    } des Gesetzes vom $date2 (BGBl. I S. 530) geändert worden ist",
-                    content = generateText(500, 2000),
-                    attachments = generateDocuments(5),
-                    date = generateLocalDate()
-                )
-            }
-        }
 
         val sets = listOf(
             "Energie", "Schutzgebiete", "Wasser", "Boden",

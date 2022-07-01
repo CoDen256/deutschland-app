@@ -1,8 +1,8 @@
-package de.app.core.config
+package de.app.config
 
 import de.app.api.safe.DataSafeService
-import de.app.core.config.DataGenerator.Companion.accounts
-import de.app.core.config.DataGenerator.Companion.generateDocuments
+import de.app.config.DataGenerator.Companion.accounts
+import de.app.config.DataGenerator.Companion.generateDocuments
 import de.app.data.model.FileHeader
 import javax.inject.Inject
 import javax.inject.Singleton

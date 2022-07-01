@@ -1,4 +1,4 @@
-package de.app.core.config
+package de.app.config
 
 import de.app.api.account.ServiceAccount
 import de.app.api.applications.Application
@@ -13,7 +13,7 @@ import de.app.api.service.AdministrativeServiceProvider
 import de.app.api.service.AdministrativeServiceRegistry
 import de.app.api.service.form.Form
 import de.app.api.service.submit.SubmittedForm
-import de.app.core.config.DataGenerator.Companion.generateFields
+import de.app.config.DataGenerator.Companion.generateFields
 import de.app.core.successOrElse
 import java.time.Instant
 import java.time.LocalDateTime

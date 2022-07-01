@@ -1,9 +1,8 @@
-package de.app.core.config
+package de.app.config
 
 import de.app.api.applications.Application
 import de.app.api.applications.ApplicationService
-import de.app.core.config.DataGenerator.Companion.generateApplications
-import de.app.core.successOrElse
+import de.app.config.DataGenerator.Companion.generateApplications
 import javax.inject.Inject
 import javax.inject.Singleton
 

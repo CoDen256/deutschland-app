@@ -1,9 +1,9 @@
-package de.app.core.config
+package de.app.config
 
 import de.app.api.mail.MailMessageHeader
 import de.app.api.mail.MailboxService
-import de.app.core.config.DataGenerator.Companion.accounts
-import de.app.core.config.DataGenerator.Companion.generateMails
+import de.app.config.DataGenerator.Companion.accounts
+import de.app.config.DataGenerator.Companion.generateMails
 import javax.inject.Inject
 import javax.inject.Singleton
 

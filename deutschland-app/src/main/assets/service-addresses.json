@@ -5,5 +5,120 @@
     "country": "Germany",
     "postalCode": "06108",
     "address": "Eppley Str. 110"
+  },
+  {
+    "address": "Hirschstraße 1",
+    "city": "Munich",
+    "country": "Germany",
+    "postalCode": "80993"
+  },
+  {
+    "address": "Chloratstraße 1",
+    "city": "Bitterfeld-Wolfen",
+    "country": "Germany",
+    "postalCode": "06749"
+  },
+  {
+    "address": "Chloratstraße 6",
+    "city": "Bitterfeld-Wolfen",
+    "country": "Germany",
+    "postalCode": "06749"
+  },
+  {
+    "address": "Sankt-Pöltener-Straße 69",
+    "city": "Stuttgart",
+    "country": "Germany",
+    "postalCode": "70469"
+  },
+  {
+    "address": "Mulzerstraße 32c",
+    "city": "Augsburg",
+    "country": "Germany",
+    "postalCode": "86159"
+  },
+  {
+    "address": "Berliner Ring 2",
+    "city": "Wolfsburg",
+    "country": "Germany",
+    "postalCode": "38440"
+  },
+  {
+    "address": "Wittelsbacherpl. 1",
+    "city": "Munich",
+    "country": "Germany",
+    "postalCode": "80333"
+  },
+  {
+    "address": "Prießnitzstraße 35",
+    "city": "Leipzig",
+    "country": "Germany",
+    "postalCode": "04179"
+  },
+  {
+    "address": "Georg-Schwarz-Straße 28",
+    "city": "Leipzig",
+    "country": "Germany",
+    "postalCode": "04177"
+  },
+  {
+    "address": "Komarowstraße 2",
+    "city": "Leipzig",
+    "country": "Germany",
+    "postalCode": "04357"
+  },
+  {
+    "address": "Mendelejewstraße 25",
+    "city": "Leipzig",
+    "country": "Germany",
+    "postalCode": "04357"
+  },
+  {
+    "address": "Hauptstraße 23",
+    "city": "Dresden",
+    "country": "Germany",
+    "postalCode": "01097"
+  },
+  {
+    "address": "Haydnstraße 23",
+    "city": "Dresden",
+    "country": "Germany",
+    "postalCode": "01309"
+  },
+  {
+    "address": "Am Lagerpl. 8",
+    "city": "Dresden",
+    "country": "Germany",
+    "postalCode": "01099"
+  },
+  {
+    "address": "Messering 6",
+    "city": "Dresden",
+    "country": "Germany",
+    "postalCode": "01067"
+  },
+  {
+    "address": "Schloß Nymphenburg 1",
+    "city": "München",
+    "country": "Germany",
+    "postalCode": "80638"
+  },
+  {
+    "address": "Landsberger Str. 338",
+    "city": "München",
+    "country": "Germany",
+    "postalCode": "80687"
+  },
+  {
+    "address": "Marsstraße 43",
+    "city": "München",
+    "country": "Germany",
+    "postalCode": "80335"
+  },
+  {
+    "address": "Hirschgarten 1",
+    "city": "München",
+    "country": "Germany",
+    "postalCode": "80639"
   }
+
 ]

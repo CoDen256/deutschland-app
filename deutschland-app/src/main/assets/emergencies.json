@@ -1,12 +1,52 @@
 [ // Список бедствий каких-нибудь, потопы, сильные ветры, гололед и тд // 5
   {
-    "city": "Merseburg", //  хотя бы 5 разных мест, и чтобы было Merseburg, и + пересекающиеся с аккаунтами
+    "city": "Merseburg",
+    "country": "Germany",
+    "postalCode": "06217",
+    "date-time": "2022-07-15 19:10:00",
+    "description": "Very very big storm get out of here it's gonna make some trouble.",
+    "id": 1,
+    "name": "Storm",
+    "severity": "LOW"
+  },
+  {
+    "city": "Weissenfels",
+    "country": "Germany",
+    "postalCode": "06667",
+    "date-time": "2022-07-16 19:10:00",
+    "description": "Hochwasser vorgesehen. Bitte kein Kontakt mit Wasser.",
+    "id": 2,
+    "name": "Hochwasser",
+    "severity": "HIGH"
+  },
+  {
+    "city": "Grosskorbetha",
+    "country": "Germany",
+    "postalCode": "06688",
+    "date-time": "2022-07-17 19:10:00",
+    "description": "Tieren aus Zoo wurden entlassen. Bitte kein Kontakt mit Löwen und Bären.",
+    "id": 3,
+    "name": "Tieren herumlaufen",
+    "severity": "LOW"
+  },
+  {
+    "city": "Schkopau",
+    "country": "Germany",
+    "postalCode": "06258",
+    "date-time": "2022-07-18 19:10:00",
+    "description": "Kraftwerk explodition. Haus nicht verlassen.",
+    "id": 4,
+    "name": "Kraftwerk explodition",
+    "severity": "HIGH"
+  },
+  {
+    "city": "Mücheln",
     "country": "Germany",
     "postalCode": "39104",
-    "date-time": "2020-10-01 19:10:00", // когда
-    "description": "Very very big storm kills everyone. Shit its a big storm man, its really big oh shit",
-    "id": 1, // любое, но потом сюда ссылаться будем
-    "name": "Storm", // Название краткое
-    "severity": "LOW" // LOW, HIGH, MIDDLE
+    "date-time": "2022-07-19 19:10:00",
+    "description": "Pferde und Kühe die Strassen gedreckt haben. Bitte vorsicht",
+    "id": 5,
+    "name": "Strassen gedreckt",
+    "severity": "LOW"
   }
 ]

@@ -1,8 +1,8 @@
-package de.app.core.config
+package de.app.config
 
 import de.app.api.appointment.Appointment
 import de.app.api.appointment.AppointmentService
-import de.app.core.config.DataGenerator.Companion.generateAppointments
+import de.app.config.DataGenerator.Companion.generateAppointments
 import javax.inject.Inject
 import javax.inject.Singleton
 

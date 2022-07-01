@@ -2,7 +2,7 @@ package de.app.notifications.notificator
 
 import android.content.Context
 import de.app.api.mail.MailMessageHeader
-import de.app.core.config.DataGenerator.Companion.generateMails
+import de.app.config.DataGenerator.Companion.generateMails
 import io.karn.notify.Notify
 import javax.inject.Inject
 import javax.inject.Singleton

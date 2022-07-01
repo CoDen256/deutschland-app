@@ -1,8 +1,8 @@
-package de.app.core.config
+package de.app.config
 
 import de.app.api.emergency.Emergency
 import de.app.api.emergency.EmergencyInfoProvider
-import de.app.core.config.DataGenerator.Companion.generateEmergencies
+import de.app.config.DataGenerator.Companion.generateEmergencies
 import de.app.core.range
 import java.time.LocalDateTime
 import javax.inject.Inject
