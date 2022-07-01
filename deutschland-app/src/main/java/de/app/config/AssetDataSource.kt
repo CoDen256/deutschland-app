@@ -10,6 +10,7 @@ import de.app.ui.util.toast
 import java.io.IOException
 import java.lang.reflect.Type
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 abstract class AssetDataSource<T, O>(
     private val context: Context,
@@ -17,6 +18,7 @@ abstract class AssetDataSource<T, O>(
 
     private val gson = GsonBuilder()
         .registerTypeAdapter(LocalDate::class.java, LocalDateConverter())
+        .registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeConverter())
         .create()
 
     val data: List<T> by lazy {
@@ -51,4 +53,9 @@ abstract class AssetDataSource<T, O>(
 class LocalDateConverter :JsonDeserializer<LocalDate> {
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext
     ): LocalDate = LocalDate.parse(json.asJsonPrimitive.asString)
+}
+
+class LocalDateTimeConverter :JsonDeserializer<LocalDateTime> {
+    override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext
+    ): LocalDateTime = LocalDateTime.parse(json.asJsonPrimitive.asString)
 }

@@ -1,7 +1,7 @@
 package de.app.api.law
 
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 interface LawRegistryService {
-    fun getLawChanges(from: LocalDate?=null, to: LocalDate?=null): List<LawChangeHeader>
+    fun getLawChanges(from: LocalDateTime?=null, to: LocalDateTime?=null): List<LawChange>
 }

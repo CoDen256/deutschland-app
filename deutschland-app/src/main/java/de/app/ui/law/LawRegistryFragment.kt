@@ -3,16 +3,17 @@ package de.app.ui.law
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import dagger.hilt.android.AndroidEntryPoint
-import de.app.api.law.LawChangeHeader
+import de.app.api.law.LawChange
 import de.app.api.law.LawRegistryService
 import de.app.databinding.FragmentLawRegistryBinding
 import de.app.databinding.FragmentLawRegistryItemBinding
 import de.app.ui.components.ListFragment
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LawRegistryFragment : ListFragment<FragmentLawRegistryBinding, FragmentLawRegistryItemBinding, LawChangeHeader>() {
+class LawRegistryFragment : ListFragment<FragmentLawRegistryBinding, FragmentLawRegistryItemBinding, LawChange>() {
 
     @Inject
     lateinit var lawRegistry: LawRegistryService
@@ -27,15 +28,15 @@ class LawRegistryFragment : ListFragment<FragmentLawRegistryBinding, FragmentLaw
         container: ViewGroup?
     ) = FragmentLawRegistryItemBinding.inflate(inflater, container, false)
 
-    override fun setupChild(binding: FragmentLawRegistryItemBinding, item: LawChangeHeader) {
+    override fun setupChild(binding: FragmentLawRegistryItemBinding, item: LawChange) {
         binding.apply {
             lawChangeName.text = item.name
             lawDate.text = item.date.format(DateTimeFormatter.ISO_LOCAL_DATE)
-            lawChangeDescription.text = item.shortDescription
+            lawChangeDescription.text = item.description
         }
     }
 
-    override fun loadItems() = lawRegistry.getLawChanges().sortedByDescending { it.date }
+    override fun loadItems() = lawRegistry.getLawChanges(to=LocalDateTime.now()).sortedByDescending { it.date }
 
     override fun setup() {
         binding.lawChangeList.adapter = adapter

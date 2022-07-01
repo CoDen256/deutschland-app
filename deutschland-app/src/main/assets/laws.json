@@ -1,60 +1,60 @@
 [
   {
-    "date": "2021-01-10",
+    "date": "2022-07-01T16:52:00",
     "id": 1,
-    "name": "Änderung des 0. Gesetzes über 'Suspense rescue caves light television hatch'",
-    "description": "Das 0. Gesetz vom 2022 Dez. 16  (BGBl. I S. 1084), das zuletzt durch Artikel 38 des Gesetzes vom 2023 Apr. 22  (BGBl. I S. 530) geändert worden ist"
+    "name": "Änderung der Handwerksordnung",
+    "description": "In § 113 Absatz 2 Satz 8 werden nach dem Wort „Bemessungsgrundlagen“ die  Wörter „einschließlich der Identifikationsnummer nach dem Identifikationsnummerngesetz“ eingefügt"
   },
   {
-    "date": "2022-01-10",
+    "date": "2022-06-25T00:00:00",
     "id": 2,
     "name": "Änderung des Onlinezugangsgesetzes",
     "description": "Das Onlinezugangsgesetz vom 14. August 2017 (BGBl. I S. 3122, 3138), das zuletzt durch Artikel 1 des Gesetzes vom 3. Dezember 2020 (BGBl. I S. 2668) geändert worden ist, wird wie folgt geändert:  In § 2 Absatz 6 werden nach dem Wort „Basisdienste“ die Wörter „, digitale Werkzeuge“ eingefügt. "
   },
   {
-    "date": "2022-01-10",
+    "date": "2022-06-10T00:00:00",
     "id": 3,
     "name": "Änderung der Abgabenordnung ",
     "description": "In Satz 1 werden nach den Wörtern „jedem Steuerpflichtigen“ die Wörter „und jeder sonstigen natürlichen Person, die bei einer öffentlichen Stelle ein Verwaltungsverfahren führt,“ eingefügt und das Wort „Besteuerungsverfahren“ durch die Wörter „Besteuerungs- und Verwaltungsverfahren“ ersetzt. "
   },
   {
-    "date": "2022-01-10",
+    "date": "2022-06-08T00:00:00",
     "id": 4,
     "name": "Änderung des Bundesmeldegesetzes ",
     "description": "Die Identifikationsnummer nach § 139b der Abgabenordnung wird als zusätzliches Ordnungsmerkmal im Melderegister geführt. Eine Übermittlung nach Absatz 3 ist nur zulässig, wenn eine Übermittlung der Identifikationsnummer an den Empfänger der Daten nach anderen Rechtsvorschriften zulässig ist"
   },
   {
-    "date": "2022-01-10",
+    "date": "2022-05-25T00:00:00",
     "id": 5,
     "name": "Änderung des Personenstandsgesetzes",
     "description": "Dem § 3 wird folgender Absatz 3 angefügt: „(3) Den Registereinträgen werden als funktionale Ordnungsmerkmale außerhalb des urkundlichen Teils und des Hinweisteils 1. die Daten einer Stilllegung nach § 47 Absatz 4,2. die Sperrvermerke nach § 64 und 3. die Identifikationsnummern nach dem Identifikationsnummerngesetz für die beurkundeten Personen zugeordnet.“"
   },
   {
-    "date": "2022-01-10",
+    "date": "2022-04-30T00:00:00",
     "id": 6,
     "name": "Änderung des AZR-Gesetzes",
     "description": "„(5) Bei Ausländern nach § 2 Absatz 1a und 2 Nummer 1 bis 4, 9, 10, 13, 14, Absatz 3 Nummer 1 bis 4 werden zur Erfüllung von Aufgaben nach § 2 des Identifikationsnummerngesetzes und zur Erbringung von Verwaltungsleistungen im Sinne des Onlinezugangsgesetzes zusätzlich gespeichert: 1. die Identifikationsnummer nach dem Identifikationsnummerngesetz, 2. die Auskunftssperre nach dem Bundesmeldegesetz sowie 3. das Datum des letzten Verwaltungskontakts (Monat, Jahr).“"
   },
   {
-    "date": "2022-01-10",
+    "date": "2022-03-28T00:00:00",
     "id": 7,
     "name": "Änderung des Passgesetzes ",
     "description": " Nach Satz 5 wird folgender Satz eingefügt: „Ferner dürfen die zur Ausstellung 1. des Führerscheins, 2. des Fahrerqualifizierungsnachweises oder 3. der Fahrerkarte zuständigen Behörden das Lichtbild sowie die Unterschrift der antragstellenden Person im automatisierten Verfahren abrufen, wenn die antragstellende Person zuvor im Rahmen der Online-Beantragung in die elektronische Übermittlung eingewilligt hat.“ "
   },
   {
-    "date": "2022-01-10",
+    "date": "2022-02-15T00:00:00",
     "id": 8,
     "name": "Änderung des Personalausweisgesetzes",
     "description": "Nach Satz 4 wird folgender Satz eingefügt:„Ferner dürfen die zur Ausstellung 1. des Führerscheins, 2. des Fahrerqualifizierungsnachweises oder 3. der Fahrerkarte zuständigen Behörden das Lichtbild sowie die Unterschrift der antragstellenden Person im automatisierten Verfahren abrufen, wenn die antragstellende Person zuvor im Rahmen der Online-Beantragung in die elektronische Übermittlung eingewilligt hat.“"
   },
   {
-    "date": "2020-01-10",
+    "date": "2022-01-10T00:00:00",
     "id": 9,
     "name": "Änderung des eID-Karte-Gesetzes",
     "description": "„(5) Die Verarbeitung der Identifikationsnummer nach dem Identifikationsnummerngesetz durch die eID-Karte-Behörden ist nach diesem Gesetz zum Zwecke der Erbringung von Verwaltungsleistungen nach dem Onlinezugangsgesetz zulässig. Ist zu einer Person keine Identifikationsnummer nach dem Identifikationsnummerngesetz im eID-Karten Register gespeichert, kann der Eintrag durch Abgleich mit dem Melderegister erfolgen. Die eIDKarten-Behörden können die Identifikationsnummer nach dem Identifikationsnummerngesetz auch durch einen Datenabruf nach § 6 Absatz 2 des Identifikationsnummerngesetzes bei der Registermodernisierungsbehörde erheben. Existiert zu der Person noch keine Identifikationsnummer nach dem Identifikationsnummerngesetz, ist diese auf Veranlassung der eID-Karten-Behörden bei der Registermodernisierungsbehörde durch das Bundeszentralamt für Steuern zu vergeben.“"
   },
   {
-    "date": "2020-01-10",
+    "date": "2021-01-10T00:00:00",
     "id": 10,
     "name": "Änderung des Staatsangehörigkeitsgesetzes",
     "description": "„(2) Die Verarbeitung der Identifikationsnummer nach dem Identifikationsnummerngesetz durch die Staatsangehörigkeitsbehörden ist nach diesem Gesetz zum Zwecke der Erbringung von Verwaltungsleistungen nach dem Onlinezugangsgesetz zulässig. Ergibt die Abfrage bei der Registermodernisierungsbehörde, dass noch keine Identifikationsnummer nach dem Identifikationsnummerngesetz besteht, ist diese auf Veranlassung der Staatsangehörigkeitsbehörde bei der Registermodernisierungsbehörde durch das Bundeszentralamt für Steuern zu vergeben; zu diesem Zweck darf die Staatsangehörigkeitsbehörde die erforderlichen Daten übermitteln.“"

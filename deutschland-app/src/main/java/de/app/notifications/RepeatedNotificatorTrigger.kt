@@ -13,7 +13,7 @@ class RepeatedNotificatorTrigger: BroadcastReceiver() {
     @Inject lateinit var notificator: Notificator
 
     companion object {
-        const val INTERVAL = 1000L*10*1
+        const val INTERVAL = 1000L*70*1
         const val repeat = false
     }
 
