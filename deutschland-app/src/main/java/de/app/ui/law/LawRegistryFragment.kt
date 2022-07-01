@@ -39,6 +39,17 @@ class LawRegistryFragment : ListFragment<FragmentLawRegistryBinding, FragmentLaw
     override fun loadItems() = lawRegistry.getLawChanges(to=LocalDateTime.now()).sortedByDescending { it.date }
 
     override fun setup() {
+        binding.root.setOnRefreshListener {
+            val new = ArrayList(loadItems()).apply {
+                removeAll(items)
+            }
+            items.addAll(0, new)
+            adapter.notifyItemRangeInserted(0, new.size)
+            binding.root.isRefreshing = false
+            binding.lawChangeList.post {
+                binding.lawChangeList.smoothScrollToPosition(0)
+            }
+        }
         binding.lawChangeList.adapter = adapter
     }
 

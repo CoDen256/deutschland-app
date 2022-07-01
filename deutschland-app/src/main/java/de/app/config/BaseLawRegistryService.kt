@@ -14,6 +14,8 @@ import javax.inject.Singleton
 @Singleton
 class BaseLawRegistryService @Inject constructor(private val source: LawAssetDataSource) :
     LawRegistryService {
+
+    private val secondDelay = 10L
     private val lawChanges: MutableList<LawChange> by lazy {
         fakeFirstLawAsNew(source.data)
     }
@@ -22,12 +24,10 @@ class BaseLawRegistryService @Inject constructor(private val source: LawAssetDat
         return lawChanges.filter { it.date in range(from, to) }
     }
 
-    private val minDelay = 1L
-
     private fun fakeFirstLawAsNew(changes: List<LawChange>): MutableList<LawChange> =
         ArrayList(changes).apply {
             replaceAll {
-                if (it.id == 1) LawChange(it.id, it.name, it.description, LocalDateTime.now().plusMinutes(minDelay))
+                if (it.id == 1) LawChange(it.id, it.name, it.description, LocalDateTime.now().plusSeconds(secondDelay))
                 else it
             }
         }

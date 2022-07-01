@@ -13,8 +13,8 @@ class RepeatedNotificatorTrigger: BroadcastReceiver() {
     @Inject lateinit var notificator: Notificator
 
     companion object {
-        const val INTERVAL = 1000L*70*1
-        const val repeat = false
+        const val INTERVAL = 1000L*15*1
+        const val repeat = true
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {

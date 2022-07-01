@@ -74,6 +74,6 @@
     <string name="language_uk">Українська</string>
     <string name="file_context_download">Завантажити</string>
     <string name="file_context_remove">Видалити</string>
-    <string name="account_icon_failed">Failed to load account icon</string>
+    <string name="notify_new_law">Нові змінення в законі</string>
 
 </resources>

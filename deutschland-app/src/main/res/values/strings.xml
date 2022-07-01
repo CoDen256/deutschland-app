@@ -73,5 +73,5 @@
     <string name="language_uk">Українська</string>
     <string name="file_context_download">Download</string>
     <string name="file_context_remove">Remove</string>
-    <string name="account_icon_failed">Failed to load account icon</string>
+    <string name="notify_new_law">A new law has been registered</string>
 </resources>

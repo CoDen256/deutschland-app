@@ -1,6 +1,7 @@
 package de.app.notifications.notificator
 
 import android.content.Context
+import de.app.R
 import de.app.api.law.LawChange
 import de.app.api.law.LawRegistryService
 import io.karn.notify.Notify
@@ -25,7 +26,7 @@ class LawChangeNotificator @Inject constructor(): BaseNotificator<LawChange>() {
     override fun notify(context: Context, data: List<LawChange>) {
         Notify.with(context)
             .asBigText {
-                title = "A new law has been registered"
+                title = context.getString(R.string.notify_new_law)
                 expandedText = data.first().description
                 text = data.first().name
                 bigText = data.first().name
