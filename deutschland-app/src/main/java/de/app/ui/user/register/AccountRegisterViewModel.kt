@@ -18,8 +18,8 @@ class AccountRegisterViewModel @Inject constructor(
 
     fun register(accountId: String, type: UserType) {
         val secretToken = when (type) {
-            UserType.CITIZEN -> citizenRepo.getCitizenAccountSecretToken(accountId)
-            UserType.COMPANY -> companyRepo.getCompanyAccountSecretToken(accountId)
+            UserType.CITIZEN -> citizenRepo.authenticateCitizen(accountId)
+            UserType.COMPANY -> companyRepo.authenticateCompany(accountId)
         }
 
         formResult.value = secretToken.map { RegisterView(it, type) }

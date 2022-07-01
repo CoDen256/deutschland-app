@@ -13,7 +13,7 @@ import javax.inject.Singleton
 class BaseServiceAccountRepository @Inject constructor() :
     CitizenServiceAccountRepository,
     CompanyServiceAccountRepository {
-    override fun getCitizenAccountSecretToken(accountId: String): Result<SecretToken> {
+    override fun authenticateCitizen(accountId: String): Result<SecretToken> {
         return findAccountSecretToken(citizens, accountId)
     }
 
@@ -21,7 +21,7 @@ class BaseServiceAccountRepository @Inject constructor() :
         return findAccountByToken(citizens, secretToken)
     }
 
-    override fun getCompanyAccountSecretToken(accountId: String): Result<SecretToken> {
+    override fun authenticateCompany(accountId: String): Result<SecretToken> {
         return findAccountSecretToken(companies, accountId)
     }
 

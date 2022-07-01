@@ -10,7 +10,7 @@ import java.time.LocalDate
  * zusätzliche Informationen für den jeweiligen Nutzer durch
  * ein [ServiceAccount] abzufragen
  *
- * @property token das Token
+ * @property token der eindeutige Token-Wert
  */
 data class SecretToken(
     val token: String
