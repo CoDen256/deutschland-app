@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import de.app.api.account.AccountInfo
+import de.app.api.account.ServiceAccount
 import de.app.core.AccountManager
 import de.app.ui.user.LoginActivity
 import de.app.ui.util.runActivity
@@ -16,7 +16,7 @@ abstract class AccountAwareListFragment<B: ViewBinding, I: ViewBinding, M>: List
     @Inject
     lateinit var accountManager: AccountManager
 
-    protected lateinit var account: AccountInfo
+    protected lateinit var account: ServiceAccount
 
     override fun onCreateView(
         inflater: LayoutInflater,

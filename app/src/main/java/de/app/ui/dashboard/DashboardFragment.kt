@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
-import de.app.api.account.AccountInfo
-import de.app.api.account.CitizenAccountInfo
-import de.app.api.account.CompanyAccountInfo
+import de.app.api.account.ServiceAccount
+import de.app.api.account.CitizenServiceAccount
+import de.app.api.account.CompanyServiceAccount
 import de.app.databinding.FragmentDashboardAppointmentItemBinding
 import de.app.databinding.FragmentDashboardBinding
 import de.app.databinding.FragmentDashboardSectionBinding
@@ -25,7 +25,7 @@ class DashboardFragment : AccountAwareFragment<FragmentDashboardBinding>() {
         fillDashboardInfo()
     }
 
-    private fun fillHeader(account: AccountInfo) {
+    private fun fillHeader(account: ServiceAccount) {
         binding.apply {
             accountId.text = getString(R.string.account_id_dashboard, account.accountId)
             address.text = getString(
@@ -35,9 +35,9 @@ class DashboardFragment : AccountAwareFragment<FragmentDashboardBinding>() {
             )
             welcome.text = getString(
                 R.string.welcome_dashboard, when (account) {
-                    is CitizenAccountInfo ->
+                    is CitizenServiceAccount ->
                         "${account.salutation} ${account.firstName} ${account.surname}"
-                    is CompanyAccountInfo -> account.fullName
+                    is CompanyServiceAccount -> account.fullName
                 }
             )
         }

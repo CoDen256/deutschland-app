@@ -1,16 +1,12 @@
 package de.app.core
 
-import android.app.Activity
-import de.app.api.account.AccountInfo
+import de.app.api.account.ServiceAccount
 import de.app.api.account.CitizenServiceAccountRepository
 import de.app.api.account.CompanyServiceAccountRepository
 import de.app.api.account.SecretToken
 import de.app.data.model.User
 import de.app.data.model.UserHeader
 import de.app.data.model.UserType
-import de.app.ui.user.LoginActivity
-import de.app.ui.util.runActivity
-import de.app.ui.util.toast
 import java.lang.IllegalArgumentException
 
 class AccountManager(
@@ -19,11 +15,11 @@ class AccountManager(
     private val companyRepo: CompanyServiceAccountRepository
 ) {
 
-    suspend fun getAccountForUserHeader(userHeader: UserHeader): Result<AccountInfo> {
+    suspend fun getAccountForUserHeader(userHeader: UserHeader): Result<ServiceAccount> {
         return getAccountForUserId(userHeader.userId)
     }
 
-    suspend fun getAccountForUserId(userId: String): Result<AccountInfo> {
+    suspend fun getAccountForUserId(userId: String): Result<ServiceAccount> {
         return manager.getUserById(userId).flatMap {
             getAccountForUser(it)
         }
@@ -38,7 +34,7 @@ class AccountManager(
         return SecretToken(user.accountSecretToken)
     }
 
-    fun getCurrentAccount(): Result<AccountInfo>{
+    fun getCurrentAccount(): Result<ServiceAccount>{
         return manager.currentUser?.let {
             return getAccountForUser(it)
         } ?: Result.failure(IllegalArgumentException("No user logged in"))

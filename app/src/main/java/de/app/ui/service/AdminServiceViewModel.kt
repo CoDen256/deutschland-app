@@ -5,16 +5,14 @@ import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import de.app.api.account.AccountInfo
+import de.app.api.account.ServiceAccount
 import de.app.api.service.AdministrativeServiceRegistry
-import de.app.core.config.BaseAdministrativeServiceRegistry
 import de.app.api.service.AdministrativeService
 import de.app.api.service.form.Field
 import de.app.api.service.form.Form
 import de.app.api.service.form.InputField
 import de.app.api.service.submit.SubmittedField
 import de.app.api.service.submit.SubmittedForm
-import de.app.core.config.DataGenerator.Companion.citizens
 import de.app.core.flatMap
 import de.app.core.success
 import de.app.ui.service.data.result.FormView
@@ -35,7 +33,7 @@ import kotlin.collections.HashSet
 
 class AdminServiceViewModel internal constructor(
     private val registry: AdministrativeServiceRegistry,
-    private val account: AccountInfo,
+    private val account: ServiceAccount,
     private val service: AdministrativeService,
     private val form: Form
 ) : ViewModel() {
@@ -136,7 +134,7 @@ class AdminServiceViewModel internal constructor(
 @Singleton
 class AdminServiceViewModelFactory @Inject constructor(private val registry: AdministrativeServiceRegistry) {
 
-    fun getModelForServiceId(account: AccountInfo, serviceId: String): Result<AdminServiceViewModel> =
+    fun getModelForServiceId(account: ServiceAccount, serviceId: String): Result<AdminServiceViewModel> =
         registry.getServiceById(serviceId).flatMap { service ->
             registry.getApplicationForm(service).map { service to it }
         }.map {

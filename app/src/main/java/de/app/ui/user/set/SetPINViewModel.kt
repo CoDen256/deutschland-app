@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import de.app.R
-import de.app.api.account.AccountInfo
+import de.app.api.account.ServiceAccount
 import de.app.api.account.CitizenServiceAccountRepository
 import de.app.api.account.CompanyServiceAccountRepository
 import de.app.api.account.SecretToken
@@ -55,7 +55,7 @@ class SetPINViewModel @Inject constructor(
         }
     }
 
-    private fun createUser(account: Result<AccountInfo>, token: String, type: UserType): Result<User> {
+    private fun createUser(account: Result<ServiceAccount>, token: String, type: UserType): Result<User> {
         return account.map {
             User(
                 UUID.randomUUID().toString(),

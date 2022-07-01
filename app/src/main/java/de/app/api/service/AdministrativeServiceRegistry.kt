@@ -1,6 +1,6 @@
 package de.app.api.service
 
-import de.app.api.account.AccountInfo
+import de.app.api.account.ServiceAccount
 import de.app.api.service.form.Form
 import de.app.api.service.submit.SubmittedForm
 
@@ -14,6 +14,6 @@ interface AdministrativeServiceRegistry {
     fun getServiceById(id: String): Result<AdministrativeService>
 
     fun getApplicationForm(service: AdministrativeService): Result<Form>
-    fun sendApplicationForm(account: AccountInfo, service: AdministrativeService, submittedForm: SubmittedForm): Result<Unit>
+    fun sendApplicationForm(account: ServiceAccount, service: AdministrativeService, submittedForm: SubmittedForm): Result<Unit>
 }
 

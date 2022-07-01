@@ -2,10 +2,9 @@ package de.app.ui.finder
 
 import android.content.Context
 import androidx.lifecycle.*
-import com.google.android.gms.tasks.Task
-import de.app.api.account.AccountInfo
-import de.app.api.account.CitizenAccountInfo
-import de.app.api.account.CompanyAccountInfo
+import de.app.api.account.ServiceAccount
+import de.app.api.account.CitizenServiceAccount
+import de.app.api.account.CompanyServiceAccount
 import de.app.api.service.AdministrativeService
 import de.app.api.service.AdministrativeServiceRegistry
 import de.app.data.model.Address
@@ -22,7 +21,7 @@ class AdministrativeServiceFinderViewModel @Inject constructor(
     val currentAddress = MutableLiveData<String>()
     val currentQuery = MutableLiveData<String>()
 
-    fun search(account: AccountInfo, searchQuery: String, address: String) {
+    fun search(account: ServiceAccount, searchQuery: String, address: String) {
         val result = getServicesForAccount(account)
         services.value = result.filter {
             it.name.containsIgnoreCase(searchQuery) || it.description.containsIgnoreCase(searchQuery)
@@ -34,14 +33,14 @@ class AdministrativeServiceFinderViewModel @Inject constructor(
         return lowercase().contains(other.lowercase())
     }
 
-    private fun getServicesForAccount(accountInfo: AccountInfo): List<AdministrativeService> {
+    private fun getServicesForAccount(accountInfo: ServiceAccount): List<AdministrativeService> {
         return when(accountInfo) {
-            is CitizenAccountInfo -> registry.getAllCitizenServices()
-            is CompanyAccountInfo -> registry.getAllCompanyServices()
+            is CitizenServiceAccount -> registry.getAllCitizenServices()
+            is CompanyServiceAccount -> registry.getAllCompanyServices()
         }
     }
 
-    fun init(context: Context, account: AccountInfo) {
+    fun init(context: Context, account: ServiceAccount) {
         viewModelScope.launch {
             locationRepository.requestSimplifiedAddress(context).addOnSuccessListener { result ->
                 val address: Address = result.getOrDefault(account.address)

@@ -7,46 +7,46 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_dashboard"
-            android:icon="@android:drawable/ic_dialog_dialer"
+            android:icon="@drawable/ic_menu_dashboard"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_finder"
-            android:icon="@android:drawable/ic_menu_search"
+            android:icon="@drawable/ic_menu_finder"
             android:title="@string/menu_finder" />
 
         <item
             android:id="@+id/nav_mailbox"
-            android:icon="@android:drawable/ic_dialog_email"
+            android:icon="@drawable/ic_menu_mail"
             android:title="@string/menu_mailbox" />
 
         <item
             android:id="@+id/nav_applications"
-            android:icon="?attr/actionModePasteDrawable"
+            android:icon="@drawable/ic_menu_applications"
             android:title="@string/menu_applications" />
 
         <item
             android:id="@+id/nav_appointments"
-            android:icon="@android:drawable/ic_menu_agenda"
+            android:icon="@drawable/ic_menu_appointments"
             android:title="@string/menu_appointments" />
 
         <item
             android:id="@+id/nav_data_safe"
-            android:icon="@android:drawable/ic_menu_save"
+            android:icon="@drawable/ic_menu_datasafe"
             android:title="@string/menu_data_safe" />
 
         <item
             android:id="@+id/nav_signature"
-            android:icon="@android:drawable/ic_menu_edit"
+            android:icon="@drawable/ic_menu_signature"
             android:title="@string/menu_signature" />
 
         <item
             android:id="@+id/nav_geodata"
-            android:icon="@android:drawable/ic_dialog_map"
+            android:icon="@drawable/ic_menu_geodata"
             android:title="@string/menu_geodata" />
 
         <item
             android:id="@+id/nav_law_registry"
-            android:icon="?android:attr/actionModeFindDrawable"
+            android:icon="@drawable/ic_menu_laws"
             android:title="@string/menu_law_registry" />
     </group>
 </menu>

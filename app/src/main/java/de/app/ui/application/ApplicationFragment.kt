@@ -5,14 +5,12 @@ import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
-import de.app.api.account.AccountInfo
 import de.app.api.applications.Application
 import de.app.api.applications.ApplicationService
 import de.app.api.applications.ApplicationStatus
 import de.app.databinding.FragmentApplicationBinding
 import de.app.databinding.FragmentApplicationItemBinding
 import de.app.ui.components.AccountAwareListFragment
-import de.app.ui.components.ListViewAdapter
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 

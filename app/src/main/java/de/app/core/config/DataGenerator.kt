@@ -1,9 +1,9 @@
 package de.app.core.config
 
 import com.mapbox.mapboxsdk.geometry.LatLng
-import de.app.api.account.AccountInfo
-import de.app.api.account.CitizenAccountInfo
-import de.app.api.account.CompanyAccountInfo
+import de.app.api.account.ServiceAccount
+import de.app.api.account.CitizenServiceAccount
+import de.app.api.account.CompanyServiceAccount
 import de.app.api.account.SecretToken
 import de.app.api.applications.Application
 import de.app.api.applications.ApplicationStatus
@@ -34,7 +34,7 @@ class DataGenerator {
         val df = DataFactory().apply { randomize(System.currentTimeMillis().toInt()) }
 
         val citizens = mapOf(
-            SecretToken("ua01") to CitizenAccountInfo(
+            SecretToken("ua01") to CitizenServiceAccount(
                 "user-alpha", "Alpha Beta",
                 Address(
                     "Merseburg", "Germany", "06217",
@@ -42,7 +42,7 @@ class DataGenerator {
                 ),
                 "Alpha", "Beta", "Frau"
             ),
-            SecretToken("ub02") to CitizenAccountInfo(
+            SecretToken("ub02") to CitizenServiceAccount(
                 "user-bob", "Uncle Bob",
                 Address(
                     "Halle", "Germany", "06108",
@@ -50,7 +50,7 @@ class DataGenerator {
                 ),
                 "Uncle", "Bob", "Herr"
             ),
-            SecretToken("ud03") to CitizenAccountInfo(
+            SecretToken("ud03") to CitizenServiceAccount(
                 "user-delta", "Delta Zeta",
                 Address(
                     "Leipzig", "Germany", "04103",
@@ -61,7 +61,7 @@ class DataGenerator {
         )
 
         val companies = mapOf(
-            SecretToken("cy04") to CompanyAccountInfo(
+            SecretToken("cy04") to CompanyServiceAccount(
                 "comp-yota", "Yota Gmbh",
                 Address(
                     "Leipzig", "Germany", "04103",
@@ -69,7 +69,7 @@ class DataGenerator {
                 ),
                 "Yota Gmbh Inc."
             ),
-            SecretToken("ck05") to CompanyAccountInfo(
+            SecretToken("ck05") to CompanyServiceAccount(
                 "comp-kappa", "Kappa Gmbh",
                 Address(
                     "Bakhmut", "Ukraine", "84500",
@@ -188,7 +188,7 @@ class DataGenerator {
             }
         }
 
-        val accounts: Map<SecretToken, AccountInfo> = citizens + companies
+        val accounts: Map<SecretToken, ServiceAccount> = citizens + companies
 
         fun generateApplications(
             num: Int,

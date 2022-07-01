@@ -1,6 +1,6 @@
 package de.app.core.config
 
-import de.app.api.account.AccountInfo
+import de.app.api.account.ServiceAccount
 import de.app.api.applications.Application
 import de.app.api.applications.ApplicationService
 import de.app.api.applications.ApplicationStatus
@@ -23,7 +23,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random.Default.nextBoolean
 import kotlin.random.Random.Default.nextInt
-import kotlin.time.DurationUnit
 
 
 @Singleton
@@ -68,7 +67,7 @@ class BaseAdministrativeServiceRegistry @Inject constructor(
     }
 
     override fun sendApplicationForm(
-        account: AccountInfo,
+        account: ServiceAccount,
         service: AdministrativeService,
         submittedForm: SubmittedForm
     ): Result<Unit> {
@@ -76,13 +75,13 @@ class BaseAdministrativeServiceRegistry @Inject constructor(
         return Result.success(Unit)
     }
 
-    private fun dispatch(account: AccountInfo, service: AdministrativeService) {
+    private fun dispatch(account: ServiceAccount, service: AdministrativeService) {
         dispatchMail(account, service)
         dispatchApplication(account, service)
         dispatchAppointment(account, service)
     }
 
-    private fun dispatchApplication(account: AccountInfo, service: AdministrativeService) {
+    private fun dispatchApplication(account: ServiceAccount, service: AdministrativeService) {
         applicationService.addApplicationForAccountId(
             account.accountId,
             Application(
@@ -96,7 +95,7 @@ class BaseAdministrativeServiceRegistry @Inject constructor(
         )
     }
 
-    private fun dispatchAppointment(account: AccountInfo, service: AdministrativeService) {
+    private fun dispatchAppointment(account: ServiceAccount, service: AdministrativeService) {
         appointmentService.addAppointmentForAccountId(account.accountId, Appointment(
             name = "Termin zum ${service.name}",
             description = "${account.displayName}, Sie haben einen Termin bei ${service.name} vereinbart",
@@ -108,7 +107,7 @@ class BaseAdministrativeServiceRegistry @Inject constructor(
         ))
     }
 
-    private fun dispatchMail(account: AccountInfo, service: AdministrativeService) {
+    private fun dispatchMail(account: ServiceAccount, service: AdministrativeService) {
         mailboxService.sendMessageToAccountId(
             account.accountId,
             MailMessageHeader(

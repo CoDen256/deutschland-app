@@ -10,10 +10,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
-import de.app.api.account.AccountInfo
-import de.app.core.AccountManager
 import de.app.core.successOrElse
-import de.app.ui.user.LoginActivity
 import java.util.*
 
 

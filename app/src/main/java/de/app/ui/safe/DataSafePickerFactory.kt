@@ -4,7 +4,7 @@ import android.app.Activity
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import de.app.R
-import de.app.api.account.AccountInfo
+import de.app.api.account.ServiceAccount
 import de.app.api.safe.DataSafeService
 import de.app.data.model.FileHeader
 import de.app.databinding.FragmentDataSafePickerDialogBinding
@@ -14,11 +14,11 @@ import javax.inject.Singleton
 
 @Singleton
 class DataSafePickerFactory @Inject constructor(private val service: DataSafeService) {
-    fun showPicker(activity: Activity, info: AccountInfo, onSuccess: (FileHeader) -> Unit) {
+    fun showPicker(activity: Activity, info: ServiceAccount, onSuccess: (FileHeader) -> Unit) {
         createShower(activity,info).show(onSuccess)
     }
 
-    fun createShower(activity: Activity, info: AccountInfo): DataSafePickerShower{
+    fun createShower(activity: Activity, info: ServiceAccount): DataSafePickerShower{
         val binding = FragmentDataSafePickerDialogBinding.inflate(activity.layoutInflater)
         val dialog = MaterialAlertDialogBuilder(activity)
             .setView(binding.root)
@@ -33,7 +33,7 @@ class DataSafePickerFactory @Inject constructor(private val service: DataSafeSer
     }
     private fun AlertDialog.inflate(
         binding: FragmentDataSafePickerDialogBinding,
-        info: AccountInfo,
+        info: ServiceAccount,
         onSuccess: (FileHeader) -> Unit,
         activity: Activity
     ) {
