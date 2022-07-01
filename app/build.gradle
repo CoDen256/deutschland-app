@@ -81,6 +81,15 @@ dependencies {
 //    }
 }
 
+tasks.named("dokkaHtml") {
+    dokkaSourceSets {
+        named("main") {
+            includeNonPublic.set(true)
+            includes.from("module.md")
+        }
+    }
+}
+
 kapt {
     correctErrorTypes = true
 }
