@@ -1,63 +1,56 @@
 [
     {
+      "applicationId": 0,
       "serviceId": "serv-baum",
-      "applicationDate": "2020-01-03 19:00:00",
       "description": "Für das Fällen von Bäumen kann aus unterschiedlichen Gründen eine Genehmigung erforderlich sein.",
-      "name": "Genehmigung zum Baumfällen",
-      "status": "VERIFICATION" 
+      "name": "Genehmigung zum Baumfällen"
     },
     {
+      "applicationId":  1,
       "serviceId": "serv-tier",
       "description": "Sie müssen Ihr Tier angemelden werden, ansonsten bekommen Sie eine Strafe.",
-      "name": "Tieranmeldung",
+      "name": "Tieranmeldung"
     },
     {
+      "applicationId":  2,
       "serviceId": "serv-rechte",
-      "applicationDate": "2021-11-15 18:05:00",
       "description": "Wenn Rechte Ihrer Firma beeinträchtigt wurden, können Sie eine Klage bei Gericht einreichen",
-      "name": "Klage bei Gericht einreichen",
-      "status": "REJECTED"
+      "name": "Klage bei Gericht einreichen"
     },
     {
+      "applicationId":  3,
       "serviceId": "serv-hausmeister",
-      "applicationDate": "2020-10-25 11:02:00",
       "description": "Wenn Sie Ihre Wohnung bzw. Ihre Umgebung sicher und sauber erhalten möchten, steht ein Hausmeister-Service zur Verfügung.",
-      "name": "Hausmeister Service",
-      "status": "PROCESSING"
+      "name": "Hausmeister Service"
     },
     {
+      "applicationId":  4,
       "serviceId": "serv-baum",
-      "applicationDate": "2020-08-17 10:12:00",
       "description": "Wenn die Bäume vor Ihrem Haus zu hoch gewachsen sind oder stören Ihnen, sollen sie gesägt werden.",
-      "name": "Bäume sägen",
-      "status": "PROCESSING"
+      "name": "Bäume sägen"
     },
     {
-      "service-id": "",
-      "applicationDate": "2020-01-03 19:00:00",
+      "applicationId": 5,
+      "serviceId": "serv-aufenthalt",
       "description": "Sie können Ihre Aufenthaltserlaubnis zur Fortsetzung eines im EU-Ausland begonnenen Studiums vor Ablauf ihrer Geltungsdauer verlängern lassen",
-      "name": "Verlängerung der Aufenthaltserlaubnis",
-      "status": "VERIFICATION"
+      "name": "Verlängerung der Aufenthaltserlaubnis"
     },
     {
-      "service-id": "",
-      "applicationDate": "2022-11-05 16:00:00",
+      "applicationId":  6,
+      "serviceId": "serv-kita",
       "description": "Damit Ihres Kind rechtzeitig für Sie in Kita geht, soll es dafür beantragt werden.",
-      "name": "Beantragung für Kita",
-      "status": "DONE"
+      "name": "Beantragung für Kita"
     },
     {
-      "service-id": "",
-      "applicationDate": "2020-01-03 19:00:00",
+      "applicationId":  7,
+      "serviceId": "serv-einkommen",
       "description": "Jedes Quartal sollen Sie ein Einkommensübersicht zur Verfügung stellen. Damit beantragen Sie einen.",
-      "name": "Einkommensübersicht beantragen",
-      "status": "PROCESSING"
+      "name": "Einkommensübersicht beantragen"
     },
     {
-      "service-id": "",
-      "applicationDate": "2020-01-03 19:00:00",
+      "applicationId":  8,
+      "serviceId": "serv-daten",
       "description": "Falls Sie beliebige Daten zur Firma ändern wollen, z.B Name, Adresse usw, können Sie es beantragen..",
-      "name": "Stammdaten ändern",
-      "status": "DONE" 
+      "name": "Stammdaten ändern"
     }
   ]

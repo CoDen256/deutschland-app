@@ -46,7 +46,7 @@
         "field": {
           "id": "attachment-4",
           "label": "Throw",
-          "mimeType": "application/pdf,",
+          "mimeType": "application/pdf",
           "required": false
         },
         "type": "AttachmentField"

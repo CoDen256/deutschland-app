@@ -1,0 +1,12 @@
+[
+  {
+    "accountId": "toni-kroos",
+    "appointments": [
+      {
+        "appointmentId": 0,
+        "dateTime": "2020-10-20T19:00:00",
+        "addressId": 0
+      }
+    ]
+  }
+]

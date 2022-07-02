@@ -173,3 +173,23 @@ data class ServiceAsset(
         )
     }
 }
+
+@Singleton
+class ApplicationDataSource @Inject constructor(
+    @ApplicationContext context: Context
+) :
+    AssetDataSource<ApplicationAsset, ApplicationAsset>(context, "origin/applications.json") {
+
+    override fun map(origin: ApplicationAsset): ApplicationAsset {
+        return origin
+    }
+
+    override fun getJsonType(): Type = object : TypeToken<List<ApplicationAsset>>() {}.type
+}
+
+data class ApplicationAsset(
+    val applicationId: Int,
+    val serviceId: String,
+    val description: String,
+    val name: String
+)
