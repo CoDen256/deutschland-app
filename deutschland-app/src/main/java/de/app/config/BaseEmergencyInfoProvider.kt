@@ -6,6 +6,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import de.app.api.emergency.Emergency
 import de.app.api.emergency.EmergencyInfoProvider
 import de.app.api.emergency.EmergencySeverity
+import de.app.config.common.AssetDataSource
 import de.app.core.range
 import java.lang.reflect.Type
 import java.time.LocalDateTime

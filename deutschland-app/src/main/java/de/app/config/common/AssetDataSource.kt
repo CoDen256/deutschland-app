@@ -1,13 +1,11 @@
-package de.app.config
+package de.app.config.common
 
 import android.content.Context
-import android.util.Log
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import de.app.core.success
-import de.app.ui.util.toast
 import java.io.IOException
 import java.lang.reflect.Type
 import java.time.LocalDate

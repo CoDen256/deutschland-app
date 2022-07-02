@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.qualifiers.ApplicationContext
 import de.app.api.law.LawChange
 import de.app.api.law.LawRegistryService
+import de.app.config.common.AssetDataSource
 import de.app.core.range
 import java.lang.reflect.Type
 import java.time.LocalDateTime

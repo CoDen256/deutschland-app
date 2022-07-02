@@ -1,35 +1,35 @@
 [
   {
     "accountId": "toni-kroos",
-    "addressId": 0,
+    "addressId": 1,
     "dateOfBirth": "1990-01-04",
     "displayName": "Toni Kroos",
     "firstName": "Toni",
     "surname": "Kroos",
     "nationality": "DE",
-    "placeOfBirthId": 0,
+    "placeOfBirthId": 1,
     "salutation": "Herr"
   },
   {
     "accountId": "franz-beckenbauer",
-    "addressId": 0,
+    "addressId": 2,
     "dateOfBirth": "1945-09-11",
     "displayName": "Franz Beckenbauer",
     "firstName": "Franz",
     "surname": "Beckenbauer",
     "nationality": "DE",
-    "placeOfBirthId": 0,
+    "placeOfBirthId": 2,
     "salutation": "Herr"
   },
   {
     "accountId": "thomas-müller",
-    "addressId": 0,
+    "addressId": 3,
     "dateOfBirth": "1990-01-04",
     "displayName": "Franz Beckenbauer",
     "firstName": "Franz",
     "surname": "Beckenbauer",
     "nationality": "DE",
-    "placeOfBirthId": 0,
+    "placeOfBirthId": 3,
     "salutation": "Herr"
   }
 ]

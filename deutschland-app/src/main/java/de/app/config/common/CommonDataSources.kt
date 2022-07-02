@@ -5,7 +5,6 @@ import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.qualifiers.ApplicationContext
 import de.app.api.account.CitizenServiceAccount
 import de.app.api.account.CompanyServiceAccount
-import de.app.config.AssetDataSource
 import de.app.data.model.Address
 import de.app.data.model.FileHeader
 import java.lang.reflect.Type
@@ -127,5 +126,22 @@ data class CompanyServiceAccountAsset(
         addressById[addressId]!!.map(),
         fullName,
         foundedDate)
+    }
+}
+
+
+@Singleton
+class AccountDataSource @Inject constructor(
+    citizensDataSource: CitizenAccountDataSource,
+    companiesDataSource: CompanyAccountDataSource
+){
+    val citizens by lazy {
+        citizensDataSource.data
+    }
+    val companies by lazy {
+        companiesDataSource.data
+    }
+    val all by lazy {
+        companies + citizens
     }
 }

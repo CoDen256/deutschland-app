@@ -24,8 +24,12 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         lifecycleScope.launchWhenCreated {
+            intent.extras?.let {
+                it.getString("failed")?.let {
+                    sessionManager.logout()
+                }
+            }
             sessionManager.init()
             if (sessionManager.isLoggedIn) {
                 runActivity(MainActivity::class.java)
