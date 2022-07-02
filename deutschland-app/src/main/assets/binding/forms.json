@@ -1,91 +1,124 @@
 [
   {
-    "serviceId" : "serv-aufenthalt",
-    "paymentRequired" : false,
-    "fields" : [
+    "serviceId": "serv-aufenthalt",
+    "paymentRequired": false,
+    "fields": [
       {
-        "type": "DateField",
         "field": {
-          "id": "date-0",
-          "required": false,
-          "hint": "Z.B. 19.10.2000",
-          "label": "Geburtsdatum"
-        }
+          "imageUri": "https://source.unsplash.com/random/1024x1024?sig=123123123",
+          "label": "Image of Light"
+        },
+        "type": "ImageField"
       },
       {
-        "type": "AttachmentField",
         "field": {
-          "id": "attachment-0",
-          "required": false,
-          "hint": "Z.B. 19.10.2000",
-          "label": "Geburtsdatum"
-        }
+          "id": "single-1",
+          "label": "People",
+          "options": [
+            "Hatch",
+            "Numbers",
+            "Visions",
+            "Smoke"
+          ],
+          "required": false
+        },
+        "type": "SingleChoiceField"
       },
       {
-        "type": "DateField",
         "field": {
-          "id": "date-0",
-          "required": false,
-          "hint": "Z.B. 19.10.2000",
-          "label": "Geburtsdatum"
-        }
+          "hint": "Sacrifice",
+          "id": "big-2",
+          "label": "Speed",
+          "required": false
+        },
+        "type": "BigTextField"
       },
       {
-        "type": "DateField",
         "field": {
-          "id": "date-0",
-          "required": false,
-          "hint": "Z.B. 19.10.2000",
-          "label": "Geburtsdatum"
-        }
+          "hint": "Date of Probably",
+          "id": "date-3",
+          "label": "Date of About",
+          "required": false
+        },
+        "type": "DateField"
       },
       {
-        "type": "DateField",
         "field": {
-          "id": "date-0",
-          "required": false,
-          "hint": "Z.B. 19.10.2000",
-          "label": "Geburtsdatum"
-        }
+          "id": "attachment-4",
+          "label": "Throw",
+          "mimeType": "application/pdf,",
+          "required": false
+        },
+        "type": "AttachmentField"
       },
       {
-        "type": "DateField",
         "field": {
-          "id": "date-0",
-          "required": false,
-          "hint": "Z.B. 19.10.2000",
-          "label": "Geburtsdatum"
-        }
+          "id": "multiple-5",
+          "label": "Suspense",
+          "options": [
+            "Speed",
+            "While",
+            "Something",
+            "Throw"
+          ],
+          "required": true
+        },
+        "type": "MultipleChoiceField"
       },
       {
-        "type": "DateField",
         "field": {
-          "id": "date-0",
-          "required": false,
-          "hint": "Z.B. 19.10.2000",
-          "label": "Geburtsdatum"
-        }
+          "text": "Pique people probably ending words something something something numbers where throw"
+        },
+        "type": "TextInfoField"
       },
       {
-        "type": "DateField",
         "field": {
-          "id": "date-0",
-          "required": false,
-          "hint": "Z.B. 19.10.2000",
-          "label": "Geburtsdatum"
-        }
+          "hint": "Headphones",
+          "id": "text-13",
+          "label": "Probably",
+          "required": false
+        },
+        "type": "TextField"
       },
       {
-        "type": "DateField",
         "field": {
-          "id": "date-0",
-          "required": false,
-          "hint": "Z.B. 19.10.2000",
-          "label": "Geburtsdatum"
-        }
+          "hint": "Number of Until",
+          "id": "number-15",
+          "label": "Number of Light",
+          "required": false
+        },
+        "type": "NumberField"
+      },
+      {
+        "field": {
+          "id": "radio-19",
+          "label": "Headphones",
+          "options": [
+            "Ending",
+            "Light",
+            "Moved",
+            "Computer"
+          ],
+          "required": true
+        },
+        "type": "RadioChoiceField"
+      },
+      {
+        "field": {
+          "documents": [0,1],
+          "label": "Document of While"
+        },
+        "type": "DocumentInfoField"
+      },
+      {
+        "field": {
+          "hint": "Email of Waited",
+          "id": "email-22",
+          "label": "Email of Asked",
+          "required": true
+        },
+        "type": "EmailField"
       }
     ]
   }
-
-
 ]
