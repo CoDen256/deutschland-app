@@ -27,7 +27,7 @@ class BaseLawRegistryService @Inject constructor(private val source: LawAssetDat
     private fun fakeFirstLawAsNew(changes: List<LawChange>): MutableList<LawChange> =
         ArrayList(changes).apply {
             replaceAll {
-                if (it.id == 1) LawChange(it.id, it.name, it.description, LocalDateTime.now().plusSeconds(secondDelay))
+                if (it.id == 1) it.copy(date= LocalDateTime.now().plusSeconds(secondDelay))
                 else it
             }
         }

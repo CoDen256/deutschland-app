@@ -49,7 +49,7 @@ class SessionManager (private val dataSource: UserDataSource) {
         return dataSource.getUserById(userId)
     }
 
-    suspend fun getUsers(): List<UserHeader> {
+    suspend fun getUsers(): List<User> {
         return dataSource.getUsers()
     }
 

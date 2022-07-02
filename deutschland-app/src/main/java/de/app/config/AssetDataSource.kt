@@ -1,6 +1,7 @@
 package de.app.config
 
 import android.content.Context
+import android.util.Log
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
@@ -39,7 +40,8 @@ abstract class AssetDataSource<T, O>(
         }.mapCatching { list ->
             mapList(list)
         }.getOrElse {
-            context.toast("Unable to fetch data for ${this.javaClass.simpleName}: ${it.message}")
+            throw it
+            Log.e("de-app","Unable to fetch data for ${this.javaClass.simpleName}: ${it.message}")
             emptyList()
         }
     }

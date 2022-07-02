@@ -74,4 +74,7 @@
     <string name="file_context_download">Download</string>
     <string name="file_context_remove">Remove</string>
     <string name="notify_new_law">A new law has been registered</string>
+    <string name="notify_emergency_high">ATTENTION: %s</string>
+    <string name="notify_emergency_medium">WARNING: %s</string>
+    <string name="notify_emergency_low">Careful: %s</string>
 </resources>

@@ -1,19 +1,19 @@
-[ // Список бедствий каких-нибудь, потопы, сильные ветры, гололед и тд // 5
+[
   {
     "city": "Merseburg",
     "country": "Germany",
     "postalCode": "06217",
-    "date-time": "2022-07-15 19:10:00",
-    "description": "Very very big storm get out of here it's gonna make some trouble.",
+    "date-time": "2022-07-15T19:10:00",
+    "description": "Die Hitzeblase erreicht am Samstag flächendeckend ihren Höhepunkt. 30 bis 35 Grad überfluten den Westen, den Norden und den Osten",
     "id": 1,
-    "name": "Storm",
-    "severity": "LOW"
+    "name": "Extreme Hitzewelle",
+    "severity": "MEDIUM"
   },
   {
     "city": "Weissenfels",
     "country": "Germany",
     "postalCode": "06667",
-    "date-time": "2022-07-16 19:10:00",
+    "date-time": "2022-07-16T19:10:00",
     "description": "Hochwasser vorgesehen. Bitte kein Kontakt mit Wasser.",
     "id": 2,
     "name": "Hochwasser",
@@ -23,7 +23,7 @@
     "city": "Grosskorbetha",
     "country": "Germany",
     "postalCode": "06688",
-    "date-time": "2022-07-17 19:10:00",
+    "date-time": "2022-07-17T19:10:00",
     "description": "Tieren aus Zoo wurden entlassen. Bitte kein Kontakt mit Löwen und Bären.",
     "id": 3,
     "name": "Tieren herumlaufen",
@@ -33,20 +33,10 @@
     "city": "Schkopau",
     "country": "Germany",
     "postalCode": "06258",
-    "date-time": "2022-07-18 19:10:00",
-    "description": "Kraftwerk explodition. Haus nicht verlassen.",
+    "date-time": "2022-07-18T19:10:00",
+    "description": "Kraftwerk-Explodition. Haus nicht verlassen.",
     "id": 4,
-    "name": "Kraftwerk explodition",
+    "name": "Kraftwerk-Explodition",
     "severity": "HIGH"
-  },
-  {
-    "city": "Mücheln",
-    "country": "Germany",
-    "postalCode": "39104",
-    "date-time": "2022-07-19 19:10:00",
-    "description": "Pferde und Kühe die Strassen gedreckt haben. Bitte vorsicht",
-    "id": 5,
-    "name": "Strassen gedreckt",
-    "severity": "LOW"
   }
 ]

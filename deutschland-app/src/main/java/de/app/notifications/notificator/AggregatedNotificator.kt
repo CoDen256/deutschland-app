@@ -10,9 +10,10 @@ class AggregatedNotificator @Inject constructor(): Notificator {
 
     @Inject lateinit var mail: MailNotificator
     @Inject lateinit var law: LawChangeNotificator
+    @Inject lateinit var emergency: EmergencyNotificator
 
     override fun trigger(context: Context) {
-        val notificators = listOf(mail, law)
+        val notificators = listOf(mail, law, emergency)
         notificators.forEach{ it.trigger(context) }
     }
 

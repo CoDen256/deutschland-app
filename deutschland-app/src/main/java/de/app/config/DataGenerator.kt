@@ -8,7 +8,7 @@ import de.app.api.account.ServiceAccount
 import de.app.api.applications.Application
 import de.app.api.applications.ApplicationStatus
 import de.app.api.appointment.Appointment
-import de.app.api.emergency.EmergecySeverity
+import de.app.api.emergency.EmergencySeverity
 import de.app.api.emergency.Emergency
 import de.app.api.geo.GeoCategory
 import de.app.api.geo.GeoSet
@@ -223,21 +223,6 @@ class DataGenerator {
             }
         }
 
-        fun generateEmergencies(num: Int): List<Emergency> {
-            return (0..num).map {
-                val address = generateAddress()
-                Emergency(
-                    UUID.randomUUID().toString(),
-                    "Emergency: ${rnd()}",
-                    generateText(10, 50),
-                    address.city,
-                    address.postalCode,
-                    address.country,
-                    generateLocalDateTime(),
-                    EmergecySeverity.values().random()
-                )
-            }
-        }
 
         fun generateLocalDate(): LocalDate = LocalDate.of(
             nextInt(2022, 2024),

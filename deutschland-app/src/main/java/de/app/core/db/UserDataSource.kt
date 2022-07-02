@@ -14,7 +14,7 @@ class UserDataSource(
     private val userDao: UserDao,
 ) {
 
-    suspend fun getUsers(): List<UserHeader> {
+    suspend fun getUsers(): List<User> {
         return userDao.getAllUsers().map {deserializeUser(it)}
     }
 
