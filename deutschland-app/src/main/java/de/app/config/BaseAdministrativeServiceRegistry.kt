@@ -120,3 +120,11 @@ class BaseAdministrativeServiceRegistry @Inject constructor(
     }
 }
 
+
+
+@Singleton
+class AdminServiceDataSource @Inject constructor(dataSource: FileHeaderAssetDataSource){
+    val data by lazy {
+        dataSource.data[0].`admin-service-files`
+    }
+}

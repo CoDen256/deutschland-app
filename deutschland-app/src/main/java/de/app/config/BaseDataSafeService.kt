@@ -9,7 +9,11 @@ import javax.inject.Singleton
 import kotlin.random.Random.Default.nextInt
 
 @Singleton
-class BaseDataSafeService @Inject constructor(): DataSafeService {
+class BaseDataSafeService @Inject constructor(
+    source: DataSaveDataSource
+
+): DataSafeService {
+
     private val documents = HashMap(accounts.values
         .associate { it.accountId to ArrayList(generateDocuments(nextInt(10))) })
 
@@ -23,5 +27,16 @@ class BaseDataSafeService @Inject constructor(): DataSafeService {
 
     override fun remove(fileHeader: FileHeader, accountId: String) {
         documents[accountId]?.remove(fileHeader)
+    }
+}
+
+@Singleton
+class DataSaveDataSource @Inject constructor(dataSource: FileHeaderAssetDataSource){
+    val citizenData by lazy {
+        dataSource.data[0].`citizen-files`
+    }
+
+    val companyData by lazy {
+        dataSource.data[0].`company-files`
     }
 }

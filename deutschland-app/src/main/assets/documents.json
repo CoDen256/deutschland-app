@@ -1,7 +1,5 @@
-{    // найди внятные пдф  в сети, просто ссылки на них и сами пдф
-
-  // ДЛЯ бургеров: прикрепи либо ссылки либо сами пдф, если ссылки нет - какие могли быть у чувака в сейфе, то есть мб ауфентхальты, паспорта, страховки
-  "citizen-files": [ // 5
+[{
+  "citizen-files": [
     {
       "mimeType": "application/pdf",
       "name": "Lebenslauf.pdf",
@@ -32,27 +30,27 @@
     {
       "mimeType": "application/pdf",
       "name": "Einkommensübersicht.pdf",
-      "uri": ""
+      "uri": "http://www.africau.edu/images/default/sample.pdf"
     },
     {
       "mimeType": "application/pdf",
       "name": "Steuerungserklärung.pdf",
-      "uri": ""
+      "uri": "http://www.africau.edu/images/default/sample.pdf"
     },
     {
       "mimeType": "application/pdf",
       "name": "Spendebenachweis.pdf",
-      "uri": ""
+      "uri": "http://www.africau.edu/images/default/sample.pdf"
     },
     {
       "mimeType": "application/pdf",
       "name": "Versicherung.pdf",
-      "uri": ""
+      "uri": "http://www.africau.edu/images/default/sample.pdf"
     },
     {
       "mimeType": "application/pdf",
       "name": "Kreditbescheinugng.pdf",
-      "uri": ""
+      "uri": "http://www.africau.edu/images/default/sample.pdf"
     }
 
   ],
@@ -60,27 +58,27 @@
   {
     "mimeType": "application/pdf",
     "name": "Formular Konkurs melden.pdf",
-    "uri": ""
+    "uri": "http://www.africau.edu/images/default/sample.pdf"
   },
   {
     "mimeType": "application/pdf",
     "name": "Tiermeldenantrag.pdf",
-    "uri": ""
+    "uri": "http://www.africau.edu/images/default/sample.pdf"
   },
   {
     "mimeType": "application/pdf",
     "name": "Bäumesäegenantrag.pdf",
-    "uri": ""
+    "uri": "http://www.africau.edu/images/default/sample.pdf"
   },
   {
     "mimeType": "application/pdf",
     "name": "Kitaantrag.pdf",
-    "uri": ""
+    "uri": "http://www.africau.edu/images/default/sample.pdf"
   },
   {
     "mimeType": "application/pdf",
     "name": "Beantragung einer Klage bei Gericht.pdf",
-    "uri": ""
+    "uri": "http://www.africau.edu/images/default/sample.pdf"
   }
   ]
-}
+}]
