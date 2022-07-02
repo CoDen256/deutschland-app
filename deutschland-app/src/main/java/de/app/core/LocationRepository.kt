@@ -1,4 +1,4 @@
-package de.app.geo
+package de.app.core
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,7 +6,6 @@ import android.location.Location
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LastLocationRequest
 import com.google.android.gms.tasks.Task
-import de.app.core.onSuccess
 import de.app.data.model.Address
 import de.app.data.model.simplify
 import de.app.ui.util.geoDecode

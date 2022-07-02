@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mapbox.mapboxsdk.geometry.LatLng
 import de.app.core.onSuccess
-import de.app.geo.LocationRepository
+import de.app.core.LocationRepository
 import de.app.ui.util.geoDecode
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -1,16 +1,14 @@
 package de.app.ui.finder
 
-import android.app.Activity
 import android.app.SearchManager
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.provider.BaseColumns
 import android.widget.SearchView
-import de.app.geo.GeoDataSource
-import org.json.JSONArray
 import java.util.concurrent.Executors
 
 class AddressQueryListener (
+    private val source: List<String>,
     private val searchAddressView: SearchView,
     private val queryChangedListener: (String?) -> Unit,
     private val onChangeCursorListener: (Cursor) -> Unit
@@ -40,12 +38,12 @@ class AddressQueryListener (
             )
         )
 
-        GeoDataSource.requestCities()
+        source
             .filter {
-                it.city.lowercase().contains(text.lowercase())
+                it.lowercase().contains(text.lowercase())
             }
             .map {
-                arrayOf<Any>(it.city.hashCode(), it.city)
+                arrayOf<Any>(it.hashCode(), it)
             }
             .forEach {
                 cursor.addRow(it)

@@ -27,7 +27,6 @@ import de.app.core.db.UserDataSource
 import de.app.core.SessionManager
 import de.app.config.*
 import de.app.core.db.AppDatabase
-import de.app.geo.GeoDataSource
 import de.app.notifications.*
 import de.app.notifications.notificator.AggregatedNotificator
 import de.app.notifications.notificator.Notificator
@@ -39,19 +38,9 @@ import javax.inject.Singleton
 @HiltAndroidApp
 class App : Application() {
 
-    companion object {
-        var applicationScope = MainScope()
-    }
     override fun onCreate() {
         super.onCreate()
         this.scheduleNextAlarm(RepeatedNotificatorTrigger.INTERVAL)
-        applicationScope.launch {
-            GeoDataSource.init(this@App, "de.json")
-        }
-    }
-    override fun onLowMemory() {
-        super.onLowMemory()
-        applicationScope.cancel()
     }
 }
 

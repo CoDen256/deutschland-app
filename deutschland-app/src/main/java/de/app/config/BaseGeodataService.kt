@@ -1,26 +1,113 @@
 package de.app.config
 
-import de.app.api.geo.GeoCategory
-import de.app.api.geo.GeoSet
-import de.app.api.geo.GeodataService
-import de.app.config.DataGenerator.Companion.generateCategories
-import de.app.config.DataGenerator.Companion.generateSets
+import android.content.Context
+import com.google.gson.reflect.TypeToken
+import com.mapbox.mapboxsdk.geometry.LatLng
+import dagger.hilt.android.qualifiers.ApplicationContext
+import de.app.api.geo.*
 import de.app.core.successOrElse
+import java.lang.reflect.Type
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class BaseGeodataService @Inject constructor(): GeodataService {
+class BaseGeodataService @Inject constructor(
+    private val cityDataSource: GeoCityAssetDataSource,
+    private val source: GeoCategoryAssetDataSource
+): GeodataService {
 
-    private val sets: List<GeoSet> = generateSets(20)
-    private val categories: List<GeoCategory> = generateCategories(5, 5, sets)
+    private val fullCategories by lazy {
+        source.data
+    }
 
+    private val reducedCategories by lazy {
+        fullCategories.map {
+            GeoCategory(it.categoryId, it.categoryName, it.sets)
+        }
+    }
+
+    private val sets by lazy {
+        fullCategories.flatMap { it.sets }
+    }
+
+    private val cities by lazy {
+        cityDataSource.data
+    }
     override fun getAllCategories(): List<GeoCategory> {
-        return categories
+        return reducedCategories
     }
 
     override fun getSetById(id: String): Result<GeoSet> {
         return sets.find { it.id == id }
             .successOrElse(IllegalArgumentException("No Set with id `$id` was found"))
     }
+
+    override fun getAllCities(): List<City> = cities
 }
+
+@Singleton
+class GeoCategoryAssetDataSource @Inject constructor(@ApplicationContext private val context: Context) :
+    AssetDataSource<FullGeoCategory, GeoCategoryAsset>(context, "geo.json") {
+    override fun map(origin: GeoCategoryAsset): FullGeoCategory {
+        return FullGeoCategory(
+            categoryId = UUID.randomUUID().toString(),
+            categoryName = origin.name,
+            sets = origin.subcategories.map{mapSet(it)}
+        )
+    }
+
+    private fun mapSet(origin: GeoSetAsset): GeoSet {
+        return GeoSet(
+            id = UUID.randomUUID().toString(),
+            name=origin.name,
+            positions = origin.positions.map { LatLng(it.lat, it.long) }
+        )
+    }
+
+
+    override fun getJsonType(): Type = object : TypeToken<List<GeoCategoryAsset>>() {}.type
+}
+
+data class GeoCategoryAsset(
+    val name: String,
+    val subcategories: List<GeoSetAsset>
+)
+
+data class GeoSetAsset(
+    val name: String,
+    val positions: List<PositionAsset>
+)
+
+data class PositionAsset(
+    val lat: Double,
+    val long: Double
+)
+
+@Singleton
+class GeoCityAssetDataSource @Inject constructor(@ApplicationContext private val context: Context) :
+    AssetDataSource<City, CityAsset>(context, "de.json") {
+    override fun map(origin: CityAsset): City {
+        return City(
+            city = origin.city,
+            country = origin.country,
+            pos = LatLng(origin.lat, origin.lng),
+            adminName = origin.admin_name
+        )
+    }
+
+    override fun getJsonType(): Type = object : TypeToken<List<CityAsset>>() {}.type
+}
+
+
+data class CityAsset(
+    val city: String,
+    val lat: Double,
+    val lng: Double,
+    val country: String,
+    val iso2: String,
+    val admin_name: String,
+    val capital: String,
+    val population: String,
+    val population_proper: String,
+)

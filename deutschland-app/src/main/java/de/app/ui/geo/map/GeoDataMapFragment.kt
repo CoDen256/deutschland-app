@@ -21,6 +21,7 @@ import de.app.databinding.FragmentGeoDataTabMapBinding
 import de.app.ui.components.SimpleFragment
 import de.app.ui.geo.GeoDataViewModel
 import java.lang.Double.max
+import java.lang.Double.min
 import javax.inject.Inject
 
 
@@ -106,7 +107,7 @@ class GeoDataMapFragment : SimpleFragment<FragmentGeoDataTabMapBinding>() {
     }
 
     private fun computePositionAndSetCamera(map: MapboxMap, currentPosition: LatLng?, objects: List<LatLng>) {
-        val position = currentPosition ?: default
+        val position = (if (objects.isNotEmpty()) objects.first() else currentPosition) ?: default
 
         var start = LatLngBounds.from(
             position.latitude+delta, position.longitude+delta,
@@ -116,7 +117,8 @@ class GeoDataMapFragment : SimpleFragment<FragmentGeoDataTabMapBinding>() {
         objects.forEach {
             start = start.include(it)
         }
-        setCamera(map, start.center, 25-((start.latitudeSpan-0.2)/(6-0.2))*(20))
+        val span = min(max(start.latitudeSpan, start.longitudeSpan), 90.0)
+        setCamera(map, start.center, 25-((span-0.2)/(6-0.2))*(24))
     }
 
     private fun setCamera(map: MapboxMap, location: LatLng, zoom: Double) {

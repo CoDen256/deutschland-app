@@ -8,7 +8,7 @@ import de.app.api.account.CompanyServiceAccount
 import de.app.api.service.AdministrativeService
 import de.app.api.service.AdministrativeServiceRegistry
 import de.app.data.model.Address
-import de.app.geo.LocationRepository
+import de.app.core.LocationRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -39,11 +39,7 @@ abstract class AssetDataSource<T, O>(
             gson.fromJson<List<O>>(it, getJsonType())
         }.mapCatching { list ->
             mapList(list)
-        }.getOrElse {
-            throw it
-            Log.e("de-app","Unable to fetch data for ${this.javaClass.simpleName}: ${it.message}")
-            emptyList()
-        }
+        }.getOrThrow()
     }
 
     private fun mapList(list: List<O>) = list.map { map(it) }

@@ -142,7 +142,6 @@
   {
     "name": "Schutzgebiete",
     "subcategories": [
-      [
         {
           "name": "Naturschutzgebiete",
           "positions": [
@@ -413,13 +412,11 @@
             }
           ]
         }
-      ]
     ]
   },
   {
     "name": "Wasser",
     "subcategories": [
-      [
         {
           "name": "Wassergewinnung",
           "positions": [
@@ -601,12 +598,10 @@
           ]
         }
       ]
-    ]
   },
   {
     "name": "Hochwasser und Starkregen",
     "subcategories": [
-      [
         {
           "name": "Hochwasserschutz",
           "positions": [
@@ -743,12 +738,10 @@
           ]
         }
       ]
-    ]
   },
   {
     "name": "Umwelteinwirkungen",
     "subcategories": [
-      [
         {
           "name": "Umweltradioaktivitaet",
           "positions": [
@@ -884,7 +877,6 @@
             }
           ]
         }
-      ]
     ]
   }
 ]

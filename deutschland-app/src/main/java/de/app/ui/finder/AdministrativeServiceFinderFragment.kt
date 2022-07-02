@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.CursorAdapter.FLAG_AUTO_REQUERY
 import android.widget.SimpleCursorAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import de.app.api.geo.GeodataService
 import de.app.api.service.AdministrativeService
 import de.app.databinding.FragmentAdministrativeServiceFinderBinding
 import de.app.databinding.FragmentAdministrativeServiceFinderSearchItemBinding
@@ -21,6 +22,9 @@ class AdministrativeServiceFinderFragment :
 {
     @Inject
     lateinit var viewModel: AdministrativeServiceFinderViewModel
+
+    @Inject
+    lateinit var service: GeodataService
 
     override fun inflate(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentAdministrativeServiceFinderBinding.inflate(inflater, container, false)
@@ -53,7 +57,9 @@ class AdministrativeServiceFinderFragment :
             viewModel.search(account, it.orEmpty(), binding.searchAddress.query.toString())
         })
 
-        binding.searchAddress.setOnQueryTextListener(AddressQueryListener(binding.searchAddress,
+        binding.searchAddress.setOnQueryTextListener(AddressQueryListener(
+            service.getAllCities().map { it.city },
+            binding.searchAddress,
             {
                 viewModel.search(account, binding.searchService.query.toString(), it.orEmpty())
             },
