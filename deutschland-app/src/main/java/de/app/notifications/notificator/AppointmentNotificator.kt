@@ -1,6 +1,9 @@
 package de.app.notifications.notificator
 
 import android.content.Context
+import de.app.R
+import de.app.api.account.ServiceAccount
+import de.app.api.appointment.Appointment
 import de.app.api.appointment.AppointmentService
 import de.app.api.mail.MailMessageHeader
 import de.app.core.AccountManager
@@ -31,17 +34,8 @@ class AppointmentNotificator @Inject constructor(): Notificator {
                     accountManger.getAccountForUser(user).onSuccess {
                         val ml = service.getAllAppointmentsByAccountId(it.accountId)
                         if (ml.isNotEmpty()){
-                            Notify.with(context)
-                                .asBigText {
-                                    this.title = "You have a new message"
-                                    this.bigText = ml.first().description
-                                    this.expandedText = ml.first().description
-//                                    this.conversationTitle = "You have a new mail"
-//                                    this.userDisplayName = it.displayName
-//                                    this.messages = listOf(
-//
-//                                    )
-                                }.show()
+                            val appointment = ml.first()
+                            notify(context, appointment, it)
                         }
                     }
                 }
@@ -49,6 +43,28 @@ class AppointmentNotificator @Inject constructor(): Notificator {
             }
 
         }
+    }
+
+    private fun notify(
+        context: Context,
+        appointment: Appointment,
+        account: ServiceAccount,
+    ) {
+        Notify.with(context)
+            .header {
+                this.headerText = "Appointment! for ${account.displayName}"
+                this.icon = R.drawable.ic_menu_appointments
+            }
+            .asBigText {
+                this.title = "You have a new message"
+                this.bigText = appointment.description
+                this.expandedText = appointment.description
+    //                                    this.conversationTitle = "You have a new mail"
+    //                                    this.userDisplayName = it.displayName
+    //                                    this.messages = listOf(
+    //
+    //                                    )
+            }.show()
     }
 
 }

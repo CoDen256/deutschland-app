@@ -1,6 +1,9 @@
 package de.app.notifications.notificator
 
 import android.content.Context
+import de.app.R
+import de.app.api.account.ServiceAccount
+import de.app.api.applications.Application
 import de.app.api.applications.ApplicationService
 import de.app.api.mail.MailMessageHeader
 import de.app.core.AccountManager
@@ -31,17 +34,8 @@ class ApplicationNotificator @Inject constructor(): Notificator {
                     accountManger.getAccountForUser(user).onSuccess {
                         val ml = service.getAllApplicationsByAccountId(it.accountId)
                         if (ml.isNotEmpty()){
-                            Notify.with(context)
-                                .asBigText {
-                                    this.title = "You have a new message"
-                                    this.bigText = ml.first().description
-                                    this.expandedText = ml.first().description
-//                                    this.conversationTitle = "You have a new mail"
-//                                    this.userDisplayName = it.displayName
-//                                    this.messages = listOf(
-//
-//                                    )
-                                }.show()
+                            val first = ml.first()
+                            notify(context, first, it)
                         }
                     }
                 }
@@ -49,6 +43,24 @@ class ApplicationNotificator @Inject constructor(): Notificator {
             }
 
         }
+    }
+
+    private fun notify(context: Context, application: Application, account: ServiceAccount) {
+        Notify.with(context)
+            .header {
+                this.headerText = "Application! ${account.displayName}"
+                this.icon = R.drawable.ic_menu_applications
+            }
+            .asBigText {
+                this.bigText = application.description
+                this.expandedText = application.description
+    //                                    this.conversationTitle = "You have a new mail"
+    //                                    this.userDisplayName = it.displayName
+    //                                    this.messages = listOf(
+    //
+    //                                    )
+            }
+            .show()
     }
 
 }

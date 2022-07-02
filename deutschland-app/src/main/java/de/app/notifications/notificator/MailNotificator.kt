@@ -1,6 +1,8 @@
 package de.app.notifications.notificator
 
 import android.content.Context
+import de.app.R
+import de.app.api.account.ServiceAccount
 import de.app.api.mail.MailMessageHeader
 import de.app.api.mail.MailboxService
 import de.app.core.AccountManager
@@ -32,17 +34,8 @@ class MailNotificator @Inject constructor(): Notificator {
                     accountManger.getAccountForUser(user).onSuccess {
                         val ml = service.getAllMessagesForAccountId(it.accountId)
                         if (ml.isNotEmpty()){
-                            Notify.with(context)
-                                .asBigText {
-                                    this.title = "You have a new message"
-                                    this.bigText = ml.first().preview
-                                    this.expandedText = ml.first().preview
-//                                    this.conversationTitle = "You have a new mail"
-//                                    this.userDisplayName = it.displayName
-//                                    this.messages = listOf(
-//
-//                                    )
-                                }.show()
+                            val message = ml.first()
+                            notify(context, message, it)
                         }
                     }
                 }
@@ -50,6 +43,24 @@ class MailNotificator @Inject constructor(): Notificator {
             }
 
         }
+    }
+
+    private fun notify(context: Context, message: MailMessageHeader, account: ServiceAccount) {
+        Notify.with(context)
+            .header {
+                this.headerText = "Mail! for ${account.displayName}"
+                this.icon = R.drawable.ic_menu_mail
+            }
+            .asBigText {
+                this.title = "You have a new message"
+                this.bigText = message.preview
+                this.expandedText = message.preview
+    //                                    this.conversationTitle = "You have a new mail"
+    //                                    this.userDisplayName = it.displayName
+    //                                    this.messages = listOf(
+    //
+    //                                    )
+            }.show()
     }
 
 
