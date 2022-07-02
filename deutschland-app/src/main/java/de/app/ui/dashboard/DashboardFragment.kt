@@ -81,11 +81,11 @@ class DashboardFragment : AccountAwareListFragment<FragmentDashboardBinding, Fra
 
         val appointments = appointmentService.getAllAppointmentsByAccountId(account.accountId)
             .sortedByDescending { it.appointment }
-            .take(2)
+            .take(3)
 
         val applications = applicationService.getAllApplicationsByAccountId(account.accountId)
             .sortedByDescending { it.applicationDate }
-            .take(2)
+            .take(3)
 
 
         loaded.addAll(cityEmergencies.map { extractFeedItem(it) })
