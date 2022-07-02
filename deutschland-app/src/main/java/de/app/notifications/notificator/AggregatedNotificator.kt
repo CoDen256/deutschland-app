@@ -1,9 +1,6 @@
 package de.app.notifications.notificator
 
-import ApplicationNotificator
-import AppointmentNotificator
 import android.content.Context
-import de.app.api.applications.ApplicationService
 import javax.inject.Inject
 import javax.inject.Singleton
 

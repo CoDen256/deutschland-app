@@ -1,11 +1,11 @@
+package de.app.notifications.notificator
+
 import android.content.Context
 import de.app.api.applications.ApplicationService
 import de.app.api.mail.MailMessageHeader
-import de.app.api.mail.MailboxService
 import de.app.core.AccountManager
 import de.app.core.SessionManager
 import de.app.core.inSeparateThread
-import de.app.notifications.notificator.Notificator
 import io.karn.notify.Notify
 import kotlinx.coroutines.runBlocking
 import java.time.LocalDateTime
