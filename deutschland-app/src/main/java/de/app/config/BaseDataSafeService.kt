@@ -1,21 +1,22 @@
 package de.app.config
 
+import android.content.Context
+import com.google.gson.reflect.TypeToken
+import dagger.hilt.android.qualifiers.ApplicationContext
 import de.app.api.safe.DataSafeService
-import de.app.config.DataGenerator.Companion.generateDocuments
+import de.app.config.common.FileHeaderAsset
+import de.app.config.common.FileHeaderDataSource
 import de.app.data.model.FileHeader
+import java.lang.reflect.Type
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.random.Random.Default.nextBoolean
-import kotlin.random.Random.Default.nextInt
 
 @Singleton
-class BaseDataSafeService @Inject constructor(
-    source: DataSaveDataSource,
-    accounts: AccountDataSource
-): DataSafeService {
+class BaseDataSafeService @Inject constructor(source: DatasafeDataSource): DataSafeService {
 
-    private val documents = HashMap(accounts.citizens
-        .associateBy{ it to source.citizenData.filter { nextBoolean() }})
+    private val documents = HashMap(mapOf(*source.data.map {
+        it.first to ArrayList(it.second)
+    }.toTypedArray()))
 
     override fun getAllDocumentsForAccountId(accountId: String): List<FileHeader> {
         return documents[accountId] ?: emptyList()
@@ -31,12 +32,20 @@ class BaseDataSafeService @Inject constructor(
 }
 
 @Singleton
-class DataSaveDataSource @Inject constructor(dataSource: FileHeaderAssetDataSource){
-    val citizenData by lazy {
-        dataSource.data[0].`citizen-files`
+class DatasafeDataSource @Inject constructor(@ApplicationContext private val context: Context, fileHeaders: FileHeaderDataSource, ) :
+    AssetDataSource<Pair<String, List<FileHeader>>, DatasafeBinding>(context, "binding/datasafe.json") {
+
+    private val fileHeadersById: Map<Int, FileHeaderAsset> by lazy {
+        fileHeaders.data.associateBy { it.id }
+    }
+    override fun map(origin: DatasafeBinding): Pair<String, List<FileHeader>> {
+        return origin.accountId to origin.fileIds.mapNotNull { fileHeadersById[it] }.map { it.map() }
     }
 
-    val companyData by lazy {
-        dataSource.data[0].`company-files`
-    }
+    override fun getJsonType(): Type = object : TypeToken<List<DatasafeBinding>>() {}.type
 }
+
+data class DatasafeBinding(
+    val accountId: String,
+    val fileIds: List<Int>
+)

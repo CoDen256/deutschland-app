@@ -1,0 +1,16 @@
+[
+  {
+    "accountId": "volkswagen-ag",
+    "addressId": 0,
+    "displayName": "Volkswagen",
+    "foundedDate": "1937-05-28",
+    "fullName": "Volkswagen AG"
+  },
+  {
+    "accountId": "siemens-ag",
+    "addressId": 0,
+    "displayName": "Siemens",
+    "foundedDate": "1996-10-01",
+    "fullName": "Siemens AG"
+  }
+]

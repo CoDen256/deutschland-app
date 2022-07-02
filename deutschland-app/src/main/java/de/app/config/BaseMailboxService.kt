@@ -1,8 +1,8 @@
 package de.app.config
 
+import de.app.api.account.ServiceAccount
 import de.app.api.mail.MailMessageHeader
 import de.app.api.mail.MailboxService
-import de.app.config.DataGenerator.Companion.accounts
 import de.app.config.DataGenerator.Companion.generateMails
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -11,7 +11,7 @@ import javax.inject.Singleton
 class BaseMailboxService @Inject constructor(): MailboxService {
 
     companion object {
-        val accountToMessage = HashMap(accounts.values.associate {
+        val accountToMessage = HashMap(HashMap<Any, ServiceAccount>().values.associate {
             it.accountId to ArrayList(generateMails(50))
         })
     }

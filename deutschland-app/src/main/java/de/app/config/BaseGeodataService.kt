@@ -86,7 +86,7 @@ data class PositionAsset(
 
 @Singleton
 class GeoCityAssetDataSource @Inject constructor(@ApplicationContext private val context: Context) :
-    AssetDataSource<City, CityAsset>(context, "common/de.json") {
+    AssetDataSource<City, CityAsset>(context, "common/cities.json") {
     override fun map(origin: CityAsset): City {
         return City(
             city = origin.city,

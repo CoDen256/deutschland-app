@@ -1,124 +1,198 @@
-[ // 20 штук, рандомный адресов для сервисов
-  // все города из accounts.json должны быть тут хотя бы один адрес
+[
   {
+    "id": 0,
+    "address": "Eppley Str. 110",
     "city": "Halle",
     "country": "Germany",
-    "postalCode": "06108",
-    "address": "Eppley Str. 110"
+    "postalCode": "06108"
   },
   {
+    "id":  1,
     "address": "Hirschstraße 1",
     "city": "Munich",
     "country": "Germany",
     "postalCode": "80993"
   },
   {
+    "id": 2,
     "address": "Chloratstraße 1",
     "city": "Bitterfeld-Wolfen",
     "country": "Germany",
     "postalCode": "06749"
   },
   {
+    "id":  3,
     "address": "Chloratstraße 6",
     "city": "Bitterfeld-Wolfen",
     "country": "Germany",
     "postalCode": "06749"
   },
   {
+    "id":  4,
     "address": "Sankt-Pöltener-Straße 69",
     "city": "Stuttgart",
     "country": "Germany",
     "postalCode": "70469"
   },
   {
+    "id":  5,
     "address": "Mulzerstraße 32c",
     "city": "Augsburg",
     "country": "Germany",
     "postalCode": "86159"
   },
   {
+    "id":  6,
     "address": "Berliner Ring 2",
     "city": "Wolfsburg",
     "country": "Germany",
     "postalCode": "38440"
   },
   {
+    "id":  7,
     "address": "Wittelsbacherpl. 1",
     "city": "Munich",
     "country": "Germany",
     "postalCode": "80333"
   },
   {
+    "id":  8,
     "address": "Prießnitzstraße 35",
     "city": "Leipzig",
     "country": "Germany",
     "postalCode": "04179"
   },
   {
+    "id":  9,
     "address": "Georg-Schwarz-Straße 28",
     "city": "Leipzig",
     "country": "Germany",
     "postalCode": "04177"
   },
   {
+    "id": 10,
     "address": "Komarowstraße 2",
     "city": "Leipzig",
     "country": "Germany",
     "postalCode": "04357"
   },
   {
+    "id":  11,
     "address": "Mendelejewstraße 25",
     "city": "Leipzig",
     "country": "Germany",
     "postalCode": "04357"
   },
   {
+    "id": 12,
     "address": "Hauptstraße 23",
     "city": "Dresden",
     "country": "Germany",
     "postalCode": "01097"
   },
   {
+    "id":  13,
     "address": "Haydnstraße 23",
     "city": "Dresden",
     "country": "Germany",
     "postalCode": "01309"
   },
   {
+    "id":  14,
     "address": "Am Lagerpl. 8",
     "city": "Dresden",
     "country": "Germany",
     "postalCode": "01099"
   },
   {
+    "id":  15,
     "address": "Messering 6",
     "city": "Dresden",
     "country": "Germany",
     "postalCode": "01067"
   },
   {
+    "id":  16,
     "address": "Schloß Nymphenburg 1",
     "city": "München",
     "country": "Germany",
     "postalCode": "80638"
   },
   {
+    "id":  17,
     "address": "Landsberger Str. 338",
     "city": "München",
     "country": "Germany",
     "postalCode": "80687"
   },
   {
+    "id":  18,
     "address": "Marsstraße 43",
     "city": "München",
     "country": "Germany",
     "postalCode": "80335"
   },
   {
+    "id":  19,
     "address": "Hirschgarten 1",
     "city": "München",
     "country": "Germany",
     "postalCode": "80639"
+  },
+  {
+    "id":  20,
+    "address": "Hirschstraße 1",
+    "city": "Munich",
+    "country": "Germany",
+    "postalCode": "80993"
+  },
+  {
+    "id":  21,
+    "address": "Chloratstraße 1",
+    "city": "Bitterfeld-Wolfen",
+    "country": "Germany",
+    "postalCode": "06749"
+  },
+  {
+    "id":  20,
+    "address": "Chloratstraße 1",
+    "city": "Bitterfeld-Wolfen",
+    "country": "Germany",
+    "postalCode": "06749"
+  },
+  {
+    "id":  22,
+    "address": "Hirschstraße 1",
+    "city": "Munich",
+    "country": "Germany",
+    "postalCode": "80993"
+  },
+  {
+    "id":  23,
+    "address": "Sankt-Pöltener-Straße 69",
+    "city": "Stuttgart",
+    "country": "Germany",
+    "postalCode": "70469"
+  },
+  {
+    "id":  24,
+    "address": "Mulzerstraße 32c",
+    "city": "Augsburg",
+    "country": "Germany",
+    "postalCode": "86159"
+  },
+  {
+    "id":  25,
+    "address": "Berliner Ring 2",
+    "city": "Wolfsburg",
+    "country": "Germany",
+    "postalCode": "38440"
+  },
+  {
+    "id":  26,
+    "address": "Wittelsbacherpl. 1",
+    "city": "Munich",
+    "country": "Germany",
+    "postalCode": "80333"
   }
-
 ]
