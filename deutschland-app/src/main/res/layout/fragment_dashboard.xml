@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
     tools:context=".ui.dashboard.DashboardFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:orientation="horizontal"
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -18,17 +20,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/materialCardView"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/welcome"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:textColor="@color/black"
                 android:textSize="25sp"
@@ -64,6 +63,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView"
+            android:layout_marginTop="20dp"
             android:layout_width="80dp"
             android:layout_height="80dp"
             app:cardCornerRadius="0dp"
@@ -78,7 +78,7 @@
                 android:cropToPadding="true"
                 android:src="@drawable/img" />
         </com.google.android.material.card.MaterialCardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
@@ -120,4 +120,4 @@
 
         </TextView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
