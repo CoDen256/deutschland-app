@@ -1,0 +1,91 @@
+[
+  {
+    "serviceId" : "serv-aufenthalt",
+    "paymentRequired" : false,
+    "fields" : [
+      {
+        "type": "DateField",
+        "field": {
+          "id": "date-0",
+          "required": false,
+          "hint": "Z.B. 19.10.2000",
+          "label": "Geburtsdatum"
+        }
+      },
+      {
+        "type": "AttachmentField",
+        "field": {
+          "id": "attachment-0",
+          "required": false,
+          "hint": "Z.B. 19.10.2000",
+          "label": "Geburtsdatum"
+        }
+      },
+      {
+        "type": "DateField",
+        "field": {
+          "id": "date-0",
+          "required": false,
+          "hint": "Z.B. 19.10.2000",
+          "label": "Geburtsdatum"
+        }
+      },
+      {
+        "type": "DateField",
+        "field": {
+          "id": "date-0",
+          "required": false,
+          "hint": "Z.B. 19.10.2000",
+          "label": "Geburtsdatum"
+        }
+      },
+      {
+        "type": "DateField",
+        "field": {
+          "id": "date-0",
+          "required": false,
+          "hint": "Z.B. 19.10.2000",
+          "label": "Geburtsdatum"
+        }
+      },
+      {
+        "type": "DateField",
+        "field": {
+          "id": "date-0",
+          "required": false,
+          "hint": "Z.B. 19.10.2000",
+          "label": "Geburtsdatum"
+        }
+      },
+      {
+        "type": "DateField",
+        "field": {
+          "id": "date-0",
+          "required": false,
+          "hint": "Z.B. 19.10.2000",
+          "label": "Geburtsdatum"
+        }
+      },
+      {
+        "type": "DateField",
+        "field": {
+          "id": "date-0",
+          "required": false,
+          "hint": "Z.B. 19.10.2000",
+          "label": "Geburtsdatum"
+        }
+      },
+      {
+        "type": "DateField",
+        "field": {
+          "id": "date-0",
+          "required": false,
+          "hint": "Z.B. 19.10.2000",
+          "label": "Geburtsdatum"
+        }
+      }
+    ]
+  }
+
+
+]

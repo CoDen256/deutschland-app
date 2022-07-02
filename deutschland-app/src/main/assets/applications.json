@@ -1,66 +1,63 @@
-{
-  "old": [
+[
     {
+      "serviceId": "serv-baum",
       "applicationDate": "2020-01-03 19:00:00",
       "description": "Für das Fällen von Bäumen kann aus unterschiedlichen Gründen eine Genehmigung erforderlich sein.",
       "name": "Genehmigung zum Baumfällen",
       "status": "VERIFICATION" 
     },
     {
-      "applicationDate": "2021-02-07 19:30:00",
+      "serviceId": "serv-tier",
       "description": "Sie müssen Ihr Tier angemelden werden, ansonsten bekommen Sie eine Strafe.",
       "name": "Tieranmeldung",
-      "status": "SENT" 
     },
     {
+      "serviceId": "serv-rechte",
       "applicationDate": "2021-11-15 18:05:00",
       "description": "Wenn Rechte Ihrer Firma beeinträchtigt wurden, können Sie eine Klage bei Gericht einreichen",
       "name": "Klage bei Gericht einreichen",
       "status": "REJECTED"
     },
     {
+      "serviceId": "serv-hausmeister",
       "applicationDate": "2020-10-25 11:02:00",
       "description": "Wenn Sie Ihre Wohnung bzw. Ihre Umgebung sicher und sauber erhalten möchten, steht ein Hausmeister-Service zur Verfügung.",
       "name": "Hausmeister Service",
       "status": "PROCESSING"
     },
     {
+      "serviceId": "serv-baum",
       "applicationDate": "2020-08-17 10:12:00",
       "description": "Wenn die Bäume vor Ihrem Haus zu hoch gewachsen sind oder stören Ihnen, sollen sie gesägt werden.",
       "name": "Bäume sägen",
       "status": "PROCESSING"
-    }
-  ],
-  "citizen-new": [
+    },
     {
-      "service-id": 1,
+      "service-id": "",
       "applicationDate": "2020-01-03 19:00:00",
       "description": "Sie können Ihre Aufenthaltserlaubnis zur Fortsetzung eines im EU-Ausland begonnenen Studiums vor Ablauf ihrer Geltungsdauer verlängern lassen",
       "name": "Verlängerung der Aufenthaltserlaubnis",
       "status": "VERIFICATION"
     },
     {
-      "service-id": 4,
+      "service-id": "",
       "applicationDate": "2022-11-05 16:00:00",
       "description": "Damit Ihres Kind rechtzeitig für Sie in Kita geht, soll es dafür beantragt werden.",
       "name": "Beantragung für Kita",
       "status": "DONE"
-    }
-  ],
-  "company-new": [
+    },
     {
-      "service-id": 1,
+      "service-id": "",
       "applicationDate": "2020-01-03 19:00:00",
       "description": "Jedes Quartal sollen Sie ein Einkommensübersicht zur Verfügung stellen. Damit beantragen Sie einen.",
       "name": "Einkommensübersicht beantragen",
       "status": "PROCESSING"
     },
     {
-      "service-id": 3,
+      "service-id": "",
       "applicationDate": "2020-01-03 19:00:00",
       "description": "Falls Sie beliebige Daten zur Firma ändern wollen, z.B Name, Adresse usw, können Sie es beantragen..",
       "name": "Stammdaten ändern",
       "status": "DONE" 
     }
   ]
-}
