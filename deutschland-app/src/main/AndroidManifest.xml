@@ -55,5 +55,6 @@
             </intent-filter>
         </activity>
         <receiver android:name=".notifications.RepeatedNotificatorTrigger" />
+
     </application>
 </manifest>

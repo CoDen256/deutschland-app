@@ -16,7 +16,7 @@ class RepeatedNotificatorTrigger: BroadcastReceiver() {
 
     companion object {
         const val INTERVAL = 1000L*15*1
-        const val repeat = true
+        const val repeat = false
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
