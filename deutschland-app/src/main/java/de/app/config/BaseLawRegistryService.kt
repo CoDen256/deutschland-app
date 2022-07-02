@@ -35,7 +35,7 @@ class BaseLawRegistryService @Inject constructor(private val source: LawAssetDat
 
 @Singleton
 class LawAssetDataSource @Inject constructor(@ApplicationContext private val context: Context) :
-    AssetDataSource<LawChange, LawChangeAsset>(context, "laws.json") {
+    AssetDataSource<LawChange, LawChangeAsset>(context, "common/laws.json") {
     override fun map(origin: LawChangeAsset): LawChange {
         return LawChange(origin.id, origin.name, origin.description, origin.date)
     }

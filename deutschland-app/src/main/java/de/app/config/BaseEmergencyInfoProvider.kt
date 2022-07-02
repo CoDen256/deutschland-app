@@ -53,7 +53,7 @@ class BaseEmergencyInfoProvider @Inject constructor(
 
 @Singleton
 class EmergencyAssetDataSource @Inject constructor(@ApplicationContext private val context: Context) :
-    AssetDataSource<Emergency, EmergencyAsset>(context, "emergencies.json") {
+    AssetDataSource<Emergency, EmergencyAsset>(context, "common/emergencies.json") {
     override fun map(origin: EmergencyAsset): Emergency {
         return Emergency(
             id = origin.id,

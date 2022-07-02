@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 @Singleton
 class FileHeaderAssetDataSource @Inject constructor(@ApplicationContext private val context: Context) :
-    AssetDataSource<FileHeaderCollectionAsset, FileHeaderCollectionAsset>(context, "documents.json") {
+    AssetDataSource<FileHeaderCollectionAsset, FileHeaderCollectionAsset>(context, "common/documents.json") {
     override fun map(origin: FileHeaderCollectionAsset): FileHeaderCollectionAsset {
         return origin
     }

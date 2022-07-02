@@ -1,4 +1,4 @@
-{
+[{
   "citizens": [ 
     {
       "accountId": "toni-kroos",
@@ -91,4 +91,4 @@
       "fullName": "Siemens AG"
     }
   ]
-}
+}]

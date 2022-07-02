@@ -1,21 +1,21 @@
 package de.app.config
 
 import de.app.api.safe.DataSafeService
-import de.app.config.DataGenerator.Companion.accounts
 import de.app.config.DataGenerator.Companion.generateDocuments
 import de.app.data.model.FileHeader
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.random.Random.Default.nextBoolean
 import kotlin.random.Random.Default.nextInt
 
 @Singleton
 class BaseDataSafeService @Inject constructor(
-    source: DataSaveDataSource
-
+    source: DataSaveDataSource,
+    accounts: AccountDataSource
 ): DataSafeService {
 
-    private val documents = HashMap(accounts.values
-        .associate { it.accountId to ArrayList(generateDocuments(nextInt(10))) })
+    private val documents = HashMap(accounts.citizens
+        .associateBy{ it to source.citizenData.filter { nextBoolean() }})
 
     override fun getAllDocumentsForAccountId(accountId: String): List<FileHeader> {
         return documents[accountId] ?: emptyList()

@@ -31,52 +31,6 @@ class DataGenerator {
     companion object {
         val df = DataFactory().apply { randomize(System.currentTimeMillis().toInt()) }
 
-        val citizens = mapOf(
-            SecretToken("ua01") to CitizenServiceAccount(
-                "user-alpha", "Alpha Beta",
-                Address(
-                    "Merseburg", "Germany", "06217",
-                    "Eberhard-Leibnitz-Strasse 1"
-                ),
-                "Alpha", "Beta", "Frau"
-            ),
-            SecretToken("ub02") to CitizenServiceAccount(
-                "user-bob", "Uncle Bob",
-                Address(
-                    "Halle", "Germany", "06108",
-                    "Gottschedstraße 10a"
-                ),
-                "Uncle", "Bob", "Herr"
-            ),
-            SecretToken("ud03") to CitizenServiceAccount(
-                "user-delta", "Delta Zeta",
-                Address(
-                    "Leipzig", "Germany", "04103",
-                    "Eberhard-Leibnitz-Strasse"
-                ),
-                "Delta", "Zeta", ""
-            )
-        )
-
-        val companies = mapOf(
-            SecretToken("cy04") to CompanyServiceAccount(
-                "comp-yota", "Yota Gmbh",
-                Address(
-                    "Leipzig", "Germany", "04103",
-                    "Käthe-Kollwitz-Straße 1"
-                ),
-                "Yota Gmbh Inc."
-            ),
-            SecretToken("ck05") to CompanyServiceAccount(
-                "comp-kappa", "Kappa Gmbh",
-                Address(
-                    "Bakhmut", "Ukraine", "84500",
-                    "Ul. Gagarina 1"
-                ),
-                "Kappa Gmbh Inc."
-            )
-        )
-
         val cities = listOf("Merseburg", "Berlin", "Leipzig", "Halle", "Magdeburg", "Frankfurt")
         val postalCodes = listOf("06217", "04103", "10115", "06108", "39104", "60306")
 
@@ -186,8 +140,6 @@ class DataGenerator {
             }
         }
 
-        val accounts: Map<SecretToken, ServiceAccount> = citizens + companies
-
         fun generateApplications(
             num: Int,
             services: List<AdministrativeService>
@@ -196,7 +148,7 @@ class DataGenerator {
                 val service = services.random()
                 Application(
                     service.id,
-                    accounts.values.random().accountId,
+                    mapOf<SecretToken, ServiceAccount>().values.random().accountId,
                     service.name,
                     service.description,
                     ApplicationStatus.values().random(),
@@ -215,7 +167,7 @@ class DataGenerator {
                     generateText(5, 8),
                     generateText(10, 25),
                     serviceId = service.id,
-                    accountId = (citizens + companies).values.random().accountId,
+                    accountId = mapOf<SecretToken, ServiceAccount>().values.random().accountId,
                     additionalInfo = generateText(5, 15),
                     address = generateAddress(),
                     appointment = generateLocalDateTime()

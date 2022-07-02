@@ -48,7 +48,7 @@ class BaseGeodataService @Inject constructor(
 
 @Singleton
 class GeoCategoryAssetDataSource @Inject constructor(@ApplicationContext private val context: Context) :
-    AssetDataSource<FullGeoCategory, GeoCategoryAsset>(context, "geo.json") {
+    AssetDataSource<FullGeoCategory, GeoCategoryAsset>(context, "common/geo.json") {
     override fun map(origin: GeoCategoryAsset): FullGeoCategory {
         return FullGeoCategory(
             categoryId = UUID.randomUUID().toString(),
@@ -86,7 +86,7 @@ data class PositionAsset(
 
 @Singleton
 class GeoCityAssetDataSource @Inject constructor(@ApplicationContext private val context: Context) :
-    AssetDataSource<City, CityAsset>(context, "de.json") {
+    AssetDataSource<City, CityAsset>(context, "common/de.json") {
     override fun map(origin: CityAsset): City {
         return City(
             city = origin.city,
