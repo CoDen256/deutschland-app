@@ -69,17 +69,7 @@ class CitizenAccountDataSource @Inject constructor(
     private val addressById = addressDataSource.data.associateBy { it.id }
 
     override fun map(origin: CitizenServiceAccountAsset): CitizenServiceAccount {
-        return CitizenServiceAccount(
-            origin.accountId,
-            origin.displayName,
-            addressById[origin.addressId]!!.map(),
-            origin.firstName,
-            origin.surname,
-            origin.salutation,
-            origin.dateOfBirth,
-            origin.nationality,
-            addressById[origin.placeOfBirthId]!!.map()
-        )
+        return origin.map(addressById)
     }
 
     override fun getJsonType(): Type = object : TypeToken<List<CitizenServiceAccountAsset>>() {}.type
@@ -96,13 +86,7 @@ class CompanyAccountDataSource @Inject constructor(
     private val addressById = addressDataSource.data.associateBy { it.id }
 
     override fun map(origin: CompanyServiceAccountAsset): CompanyServiceAccount {
-        return CompanyServiceAccount(
-            origin.accountId,
-            origin.displayName,
-            addressById[origin.addressId]!!.map(),
-            origin.fullName,
-            origin.foundedDate
-        )
+        return origin.map(addressById)
     }
 
     override fun getJsonType(): Type = object : TypeToken<List<CompanyServiceAccountAsset>>() {}.type
@@ -118,7 +102,15 @@ data class CitizenServiceAccountAsset(
     val dateOfBirth: LocalDate,
     val nationality: String,
     val placeOfBirthId: Int,
-)
+){
+    fun map(addressById: Map<Int, AddressAsset>): CitizenServiceAccount{
+        return CitizenServiceAccount(
+            accountId, displayName,  addressById[addressId]!!.map(),
+            firstName, surname, salutation, dateOfBirth, nationality,
+            placeOfBirth = addressById[placeOfBirthId]!!.map()
+        )
+    }
+}
 
 
 data class CompanyServiceAccountAsset(
@@ -127,4 +119,13 @@ data class CompanyServiceAccountAsset(
     val addressId: Int,
     val fullName: String,
     val foundedDate: LocalDate
-)
+){
+    fun map(addressById: Map<Int, AddressAsset>): CompanyServiceAccount {
+        return CompanyServiceAccount(
+        accountId,
+        displayName,
+        addressById[addressId]!!.map(),
+        fullName,
+        foundedDate)
+    }
+}
