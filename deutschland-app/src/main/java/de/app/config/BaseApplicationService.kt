@@ -8,7 +8,7 @@ import javax.inject.Singleton
 
 @Singleton
 class BaseApplicationService @Inject constructor(): ApplicationService {
-    private val applications = ArrayList(generateApplications(40, BaseAdministrativeServiceRegistry.services))
+    private val applications = ArrayList(generateApplications(40, listOf()))
     override fun getAllApplicationsByAccountId(accountId: String): List<Application> {
         return applications.filter { it.accountId == accountId }
     }

@@ -9,7 +9,7 @@ import javax.inject.Singleton
 @Singleton
 class BaseAppointmentService @Inject constructor(): AppointmentService {
     private val appointments = ArrayList(
-        generateAppointments(40, BaseAdministrativeServiceRegistry.services)
+        generateAppointments(40, listOf())
     )
 
     override fun getAllAppointmentsByAccountId(accountId: String): List<Appointment> {

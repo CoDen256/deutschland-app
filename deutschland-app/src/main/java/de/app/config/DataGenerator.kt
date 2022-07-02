@@ -14,6 +14,7 @@ import de.app.api.geo.GeoCategory
 import de.app.api.geo.GeoSet
 import de.app.api.mail.MailMessageHeader
 import de.app.api.service.AdministrativeService
+import de.app.api.service.ServiceType
 import de.app.api.service.form.*
 import de.app.data.model.Address
 import de.app.data.model.FileHeader
@@ -70,22 +71,6 @@ class DataGenerator {
             "text/html"
         )
 
-        fun generateServices(num: Int): List<AdministrativeService> {
-            return (0..num).map {
-                val rndInt = nextInt(names.size + 4)
-                val extra = rndInt >= names.size
-                val name = if (extra) generateText(5, 10) else names[rndInt]
-                val desc = if (extra) generateText(10, 50) else descriptions[rndInt]
-                val endpoint = if (extra) generateEndpoint() else endpoints[rndInt]
-                AdministrativeService(
-                    UUID.randomUUID().toString(),
-                    name,
-                    desc,
-                    endpoint,
-                    generateAddress()
-                )
-            }
-        }
 
         fun generateImageUri(): String {
             return "https://source.unsplash.com/random/1024x1024?sig=${nextInt()}"
@@ -145,10 +130,13 @@ class DataGenerator {
             services: List<AdministrativeService>
         ): List<Application> {
             return (0..num).map {
-                val service = services.random()
+                val service = AdministrativeService(
+                    "","","","", Address("","","",""),
+                    ServiceType.COMPANY
+                )
                 Application(
-                    service.id,
-                    mapOf<SecretToken, ServiceAccount>().values.random().accountId,
+                    "",
+                    "mapOf<SecretToken, ServiceAccount>().values.random().accountId",
                     service.name,
                     service.description,
                     ApplicationStatus.values().random(),
@@ -162,12 +150,11 @@ class DataGenerator {
             services: List<AdministrativeService>
         ): List<Appointment> {
             return (0..num).map {
-                val service = services.random()
                 Appointment(
                     generateText(5, 8),
                     generateText(10, 25),
-                    serviceId = service.id,
-                    accountId = mapOf<SecretToken, ServiceAccount>().values.random().accountId,
+                    serviceId = "",
+                    accountId = "mapOf<SecretToken, ServiceAccount>().values.random().accountId",
                     additionalInfo = generateText(5, 15),
                     address = generateAddress(),
                     appointment = generateLocalDateTime()

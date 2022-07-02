@@ -11,10 +11,12 @@ import de.app.api.mail.MailboxService
 import de.app.api.service.AdministrativeService
 import de.app.api.service.AdministrativeServiceProvider
 import de.app.api.service.AdministrativeServiceRegistry
+import de.app.api.service.ServiceType
 import de.app.api.service.form.Form
 import de.app.api.service.submit.SubmittedForm
 import de.app.config.DataGenerator.Companion.generateFields
 import de.app.config.common.FileHeaderDataSource
+import de.app.config.common.ServiceDataSource
 import de.app.core.successOrElse
 import java.time.Instant
 import java.time.LocalDateTime
@@ -28,36 +30,28 @@ import kotlin.random.Random.Default.nextInt
 
 @Singleton
 class BaseAdministrativeServiceRegistry @Inject constructor(
+    private val serviceDataSource: ServiceDataSource,
     private val mailboxService: MailboxService,
     private val appointmentService: AppointmentService,
     private val applicationService: ApplicationService
 ): AdministrativeServiceRegistry {
 
-    companion object {
-        val citizenServices = DataGenerator.generateServices(30)
-        val companyServices = DataGenerator.generateServices(30)
-        val services = citizenServices + companyServices
-    }
+   private val services by lazy {
+       serviceDataSource.data
+   }
 
     private val forms = services.map{it.id}.associateWith {
         Form(generateFields(nextInt(30)), nextBoolean())
     }
 
-    override fun getAllProviders(): List<AdministrativeServiceProvider> {
-        TODO("Not yet implemented")
-    }
-
     override fun getAllCitizenServices(): List<AdministrativeService> {
-        return citizenServices
+        return services.filter { it.type != ServiceType.COMPANY }
     }
 
     override fun getAllCompanyServices(): List<AdministrativeService> {
-        return companyServices
+        return services.filter { it.type != ServiceType.CITIZEN }
     }
 
-    override fun getProviderById(id: String): Result<AdministrativeServiceProvider> {
-        TODO("Not yet implemented")
-    }
 
     override fun getServiceById(id: String): Result<AdministrativeService> {
         return services.find { id == it.id }.successOrElse()
@@ -122,12 +116,5 @@ class BaseAdministrativeServiceRegistry @Inject constructor(
 }
 
 
-
-//@Singleton
-//class AdminServiceDataSource @Inject constructor(dataSource: FileHeaderDataSource){
-//    val data by lazy {
-//        dataSource.data[0].`admin-service-files`
-//    }
-//}
 
 

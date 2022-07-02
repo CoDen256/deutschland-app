@@ -8,5 +8,11 @@ data class AdministrativeService(
     val name: String,
     val description: String,
     val apiEndpoint: String,
-    val address: Address
+    val address: Address,
+    val type: ServiceType
 )
+
+enum class ServiceType{
+    CITIZEN, COMPANY, COMMON
+}
+

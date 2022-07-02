@@ -5,6 +5,8 @@ import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.qualifiers.ApplicationContext
 import de.app.api.account.CitizenServiceAccount
 import de.app.api.account.CompanyServiceAccount
+import de.app.api.service.AdministrativeService
+import de.app.api.service.ServiceType
 import de.app.data.model.Address
 import de.app.data.model.FileHeader
 import java.lang.reflect.Type
@@ -145,3 +147,35 @@ class AccountDataSource @Inject constructor(
         companies + citizens
     }
 }
+
+@Singleton
+class ServiceDataSource @Inject constructor(
+    @ApplicationContext context: Context,
+    addressDataSource: AddressDataSource
+) :
+    AssetDataSource<AdministrativeService, ServiceAsset>(context, "origin/services.json") {
+
+    private val addressById = addressDataSource.data.associateBy { it.id }
+
+    override fun map(origin: ServiceAsset): AdministrativeService {
+        return AdministrativeService(
+            origin.id,
+            origin.name,
+            origin.description,
+            origin.endpoint,
+            addressById[origin.addressId]!!.map(),
+            ServiceType.valueOf(origin.type)
+        )
+    }
+
+    override fun getJsonType(): Type = object : TypeToken<List<ServiceAsset>>() {}.type
+}
+
+data class ServiceAsset(
+    val id: String,
+    val addressId: Int,
+    val description: String,
+    val name: String,
+    val type: String,
+    val endpoint: String
+)
