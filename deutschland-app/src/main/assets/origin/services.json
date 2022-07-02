@@ -1,79 +1,69 @@
 [
   {
-    "id": "1",
-    "addressId": 1,
+    "id": "serv-aufenthalt",
     "description": "Sie können Ihre Aufenthaltserlaubnis zur Fortsetzung eines im EU-Ausland begonnenen Studiums vor Ablauf ihrer Geltungsdauer verlängern lassen",
     "name": "Verlängerung der Aufenthaltserlaubnis",
     "endpoint": "dhttps://www.e-app.de/api/",
     "type": "CITIZEN"
   },
   {
-    "id": "2",
-    "addressId":  1,
+    "id": "serv-tier",
     "description": "Sie müssen Ihr Tier angemelden werden, ansonsten bekommen Sie eine Strafe.",
     "name": "Tieranmeldung",
     "endpoint":  "https://www.de-app.de/api/",
     "type":  "CITIZEN"
   },
   {
-    "id": "3",
-    "addressId":  1,
+    "id": "serv-hausmeister",
     "description": "Wenn Sie Ihre Wohnung bzw. Ihre Umgebung sicher und sauber erhalten möchten, steht ein Hausmeister-Service zur Verfügung.",
     "name": "Hausmeister Service",
     "endpoint":  "https://www.de-app.de/api/",
     "type":  "CITIZEN"
   },
   {
-    "id": "4",
-    "addressId":  1,
+    "id": "serv-kita",
     "description": "Damit Ihres Kind rechtzeitig für Sie in Kita geht, soll es dafür beantragt werden.",
     "name": "Beantragung für Kita",
     "endpoint":  "https://www.de-app.de/api/",
     "type":  "CITIZEN"
   },
   {
-    "id": "5",
-    "addressId":  1,
+    "id": "serv-baum",
     "description": "Wenn die Bäume vor Ihrem Haus zu hoch gewachsen sind oder stören Ihnen, sollen sie gesägt werden.",
     "name": "Bäume sägen",
     "endpoint":  "https://www.de-app.de/api/",
     "type":  "COMMON"
   },
   {
-    "id": "1",
-    "addressId":  1,
+    "id": "serv-einkommen",
     "description": "Jedes Quartal sollen Sie ein Einkommensübersicht zur Verfügung stellen. Damit beantragen Sie einen.",
     "name": "Einkommensübersicht beantragen",
     "endpoint":  "https://www.de-app.de/api/",
     "type":  "COMMON"
   },
   {
-    "id": "2",
-    "addressId":  1,
+    "id": "serv-rechte",
     "description": "Wenn Rechte Ihrer Firma beeinträchtigt wurden, können Sie eine Klage bei Gericht einreichen",
     "name": "Klage bei Gericht einreichen",
     "endpoint":  "https://www.de-app.de/api/",
     "type":  "COMPANY"
   },
   {
-    "id": "3",
-    "addressId":  1,
+    "id": "serv-",
     "description": "Falls Sie beliebige Daten zur Firma ändern wollen, z.B Name, Adresse usw, können Sie es beantragen.",
     "name": "Stammdaten ändern",
     "endpoint":  "https://www.de-app.de/api/",
     "type":  "COMPANY"
   },
   {
-    "id": "4",
-    "addressId":  1,
+    "id": "serv-pleitier",
     "description": "Wenn Ihre Firma ein Pleitier geworden ist, können Sie es melden.",
     "name": "Konkurs melden",
     "endpoint":  "https://www.de-app.de/api/",
     "type":  "COMPANY"
   },
   {
-    "id": "5",
-    "addressId":  1,
+    "id": "serv-anwalt",
     "description": "Sie dürfen eine Beratung eines Anwaltes bestellen, wenn in Firma fragwürdige Situationen entstehen.",
     "name": "Anwaltberatung",
     "endpoint":  "https://www.de-app.de/api/",

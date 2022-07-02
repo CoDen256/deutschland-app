@@ -149,23 +149,12 @@ class AccountDataSource @Inject constructor(
 }
 
 @Singleton
-class ServiceDataSource @Inject constructor(
-    @ApplicationContext context: Context,
-    addressDataSource: AddressDataSource
-) :
-    AssetDataSource<AdministrativeService, ServiceAsset>(context, "origin/services.json") {
+class ServiceAssetDataSource @Inject constructor(
+    @ApplicationContext context: Context) :
+    AssetDataSource<ServiceAsset, ServiceAsset>(context, "origin/services.json") {
 
-    private val addressById = addressDataSource.data.associateBy { it.id }
-
-    override fun map(origin: ServiceAsset): AdministrativeService {
-        return AdministrativeService(
-            origin.id,
-            origin.name,
-            origin.description,
-            origin.endpoint,
-            addressById[origin.addressId]!!.map(),
-            ServiceType.valueOf(origin.type)
-        )
+    override fun map(origin: ServiceAsset): ServiceAsset {
+        return origin
     }
 
     override fun getJsonType(): Type = object : TypeToken<List<ServiceAsset>>() {}.type
@@ -173,9 +162,14 @@ class ServiceDataSource @Inject constructor(
 
 data class ServiceAsset(
     val id: String,
-    val addressId: Int,
     val description: String,
     val name: String,
     val type: String,
     val endpoint: String
-)
+) {
+    fun map(address: Address): AdministrativeService {
+        return AdministrativeService(
+            id,name,description, endpoint, address, ServiceType.valueOf(type)
+        )
+    }
+}

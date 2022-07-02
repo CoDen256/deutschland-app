@@ -1,5 +1,8 @@
 package de.app.config
 
+import android.content.Context
+import com.google.gson.reflect.TypeToken
+import dagger.hilt.android.qualifiers.ApplicationContext
 import de.app.api.account.ServiceAccount
 import de.app.api.applications.Application
 import de.app.api.applications.ApplicationService
@@ -9,15 +12,16 @@ import de.app.api.appointment.AppointmentService
 import de.app.api.mail.MailMessageHeader
 import de.app.api.mail.MailboxService
 import de.app.api.service.AdministrativeService
-import de.app.api.service.AdministrativeServiceProvider
 import de.app.api.service.AdministrativeServiceRegistry
 import de.app.api.service.ServiceType
 import de.app.api.service.form.Form
 import de.app.api.service.submit.SubmittedForm
 import de.app.config.DataGenerator.Companion.generateFields
-import de.app.config.common.FileHeaderDataSource
-import de.app.config.common.ServiceDataSource
+import de.app.config.common.AddressDataSource
+import de.app.config.common.AssetDataSource
+import de.app.config.common.ServiceAssetDataSource
 import de.app.core.successOrElse
+import java.lang.reflect.Type
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
@@ -30,14 +34,14 @@ import kotlin.random.Random.Default.nextInt
 
 @Singleton
 class BaseAdministrativeServiceRegistry @Inject constructor(
-    private val serviceDataSource: ServiceDataSource,
+    private val serviceDataSource: ServiceByAddressDataSource,
     private val mailboxService: MailboxService,
     private val appointmentService: AppointmentService,
     private val applicationService: ApplicationService
 ): AdministrativeServiceRegistry {
 
-   private val services by lazy {
-       serviceDataSource.data
+   private val services: List<AdministrativeService> by lazy {
+       serviceDataSource.data.flatten()
    }
 
     private val forms = services.map{it.id}.associateWith {
@@ -118,3 +122,30 @@ class BaseAdministrativeServiceRegistry @Inject constructor(
 
 
 
+@Singleton
+class ServiceByAddressDataSource @Inject constructor(
+    @ApplicationContext context: Context,
+    addressDataSource: AddressDataSource,
+    serviceDataSource: ServiceAssetDataSource,
+) :
+    AssetDataSource<List<AdministrativeService>, ServiceByAddress>(context, "binding/service-by-address.json") {
+
+    private val addressById = addressDataSource.data.associateBy { it.id }
+    private val serviceById = serviceDataSource.data.associateBy { it.id }
+
+    override fun map(origin: ServiceByAddress): List<AdministrativeService> {
+        return origin.addressIds.map{
+                val serv = serviceById[origin.serviceId]!!.map(addressById[it]!!.map())
+            serv.copy(
+                    id =serv.id + "-"+serv.address.postalCode
+                )
+        }
+    }
+
+    override fun getJsonType(): Type = object : TypeToken<List<ServiceByAddress>>() {}.type
+}
+
+data class ServiceByAddress(
+    val serviceId: String,
+    val addressIds: List<Int>
+)
