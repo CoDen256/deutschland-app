@@ -193,3 +193,43 @@ data class ApplicationAsset(
     val description: String,
     val name: String
 )
+
+@Singleton
+class AppointmentDataSource @Inject constructor(
+    @ApplicationContext context: Context
+) :
+    AssetDataSource<AppointmentAsset, AppointmentAsset>(context, "origin/appointments.json") {
+
+    override fun map(origin: AppointmentAsset): AppointmentAsset {
+        return origin
+    }
+
+    override fun getJsonType(): Type = object : TypeToken<List<AppointmentAsset>>() {}.type
+}
+
+data class AppointmentAsset(
+    val appointmentId: Int,
+    val serviceId: String,
+    val description: String,
+    val name: String,
+    val additionalInfo: String
+)
+
+@Singleton
+class MailDataSource @Inject constructor(
+    @ApplicationContext context: Context
+) :
+    AssetDataSource<MailAsset, MailAsset>(context, "origin/mails.json") {
+
+    override fun map(origin: MailAsset): MailAsset {
+        return origin
+    }
+
+    override fun getJsonType(): Type = object : TypeToken<List<MailAsset>>() {}.type
+}
+
+data class MailAsset(
+    val mailId: Int,
+    val preview: String,
+    val subject: String,
+)

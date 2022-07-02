@@ -6,8 +6,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import de.app.api.applications.Application
 import de.app.api.applications.ApplicationService
 import de.app.api.applications.ApplicationStatus
-import de.app.config.DataGenerator.Companion.generateApplications
-import de.app.config.common.*
+import de.app.config.common.ApplicationAsset
+import de.app.config.common.ApplicationDataSource
+import de.app.config.common.AssetDataSource
 import java.lang.reflect.Type
 import java.time.LocalDateTime
 import javax.inject.Inject
@@ -38,7 +39,7 @@ class BaseApplicationService @Inject constructor(
 class ApplicationByAccountDataSource @Inject constructor(
     @ApplicationContext context: Context,
     applications: ApplicationDataSource
-) : AssetDataSource<List<Application>, ApplicationByAccount>(context, "origin/services.json") {
+) : AssetDataSource<List<Application>, ApplicationByAccount>(context, "binding/application-by-account.json") {
 
     private val applicationById: Map<Int, ApplicationAsset> = applications.data.associateBy { it.applicationId }
 

@@ -114,7 +114,7 @@ class BaseAdministrativeServiceRegistry @Inject constructor(
             MailMessageHeader(
                 "Your application has been received",
                 preview = "Thank you for sending application to ${service.name}, ${account.displayName}",
-                received = Instant.now(),
+                received = LocalDateTime.now(),
                 id = UUID.randomUUID().toString()
             )
         )

@@ -1,11 +1,10 @@
 package de.app.api.mail
 
-import java.time.Instant
-import java.util.*
+import java.time.LocalDateTime
 
 data class MailMessageHeader(
     val subject: String,
-    val received: Instant,
+    val received: LocalDateTime,
     val id: String,
     val preview: String = ""
 ) {
