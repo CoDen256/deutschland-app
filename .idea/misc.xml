@@ -135,7 +135,9 @@
         <entry key="deutschland-app/src/main/res/drawable/rectangle_black.xml" value="0.1455" />
         <entry key="deutschland-app/src/main/res/layout/fragment_application.xml" value="0.27447916666666666" />
         <entry key="deutschland-app/src/main/res/layout/fragment_appointment.xml" value="0.27447916666666666" />
-        <entry key="deutschland-app/src/main/res/layout/fragment_dashboard.xml" value="0.2694746376811594" />
+        <entry key="deutschland-app/src/main/res/layout/fragment_appointment_item.xml" value="0.21557971014492755" />
+        <entry key="deutschland-app/src/main/res/layout/fragment_dashboard.xml" value="0.22" />
+        <entry key="deutschland-app/src/main/res/layout/fragment_dashboard_feed_item.xml" value="0.3333333333333333" />
         <entry key="deutschland-app/src/main/res/layout/fragment_law_registry.xml" value="0.22" />
         <entry key="deutschland-app/src/main/res/layout/fragment_law_registry_item.xml" value="0.5" />
         <entry key="deutschland-app/src/main/res/layout/fragment_mail_box_item.xml" value="0.171875" />

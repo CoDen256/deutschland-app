@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="5dp"
+    android:clickable="true"
+    android:elevation="8dp"
+    android:padding="5dp"
+    app:cardCornerRadius="8dp"
+    app:strokeColor="@color/purple_500"
+    app:strokeWidth="1dp">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/type"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:background="@color/emergency"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:textAppearance="@style/notfall_gew"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="Notfall: Gewitter" />
+
+            <TextView
+                android:id="@+id/short_info"
+                android:fontFamily="@font/poppins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="3dp"
+                android:textSize="12sp"
+                tools:text="Merseburg, Eberhard-Leibnitz-Straße 1" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="3dp"
+                android:fontFamily="@font/poppins"
+                android:textSize="11sp"
+                android:maxLines="2"
+                tools:text="Lorem ipsum something, please come, please please, i beg you, plase come to my place" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/ic_menu_appointments" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    tools:text="Montag, 27. Juli" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:layout_marginHorizontal="2dp"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/ic_time" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    tools:text="12:15" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</com.google.android.material.card.MaterialCardView>

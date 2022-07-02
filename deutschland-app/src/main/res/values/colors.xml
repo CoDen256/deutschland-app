@@ -7,12 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="successful">#8BC34A</color>
-    <color name="failed">#F44336</color>
+    <color name="successful">#C2E9AF</color>
+    <color name="failed">#E35151</color>
 
-    <color name="sent">#80F44336</color>
-    <color name="received">#80A2A2A2</color>
-    <color name="done">#804CAF50</color>
-    <color name="processing">#8003A9F4</color>
-    <color name="verification">#80CDDC39</color>
+    <color name="sent">#E35151</color>
+    <color name="received">#E3C651</color>
+    <color name="done">#C2E9AF</color>
+    <color name="processing">#7678ED</color>
+    <color name="verification">#AFDCE9</color>
+
+    <color name="emergency">#E35151</color>
+    <color name="appointment">#C2E9AF</color>
+    <color name="application">#7678ED</color>
 </resources>

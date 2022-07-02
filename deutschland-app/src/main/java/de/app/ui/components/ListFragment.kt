@@ -16,6 +16,7 @@ abstract class ListFragment<B: ViewBinding, I: ViewBinding, M> :SimpleFragment<B
         savedInstanceState: Bundle?
     ): View? {
         binding = inflate(inflater, container)
+        items.clear()
         items.addAll(loadItems())
         adapter.notifyItemRangeInserted(0, items.size)
 
