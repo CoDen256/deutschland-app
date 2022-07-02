@@ -10,6 +10,18 @@
         android:name="de.app.ui.dashboard.DashboardFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_applications"
+            app:destination="@id/nav_applications"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            />
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_appointments"
+            app:destination="@id/nav_appointments"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            />
     </fragment>
 
     <fragment

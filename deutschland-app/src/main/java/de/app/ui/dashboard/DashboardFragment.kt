@@ -58,10 +58,21 @@ class DashboardFragment : AccountAwareListFragment<FragmentDashboardBinding, Fra
             name.text = item.name
             type.setBackgroundColor(requireActivity().getColor(when(item.type){
                 Application::class -> R.color.application
-                Emergency::class -> R.color.emergency
                 Appointment::class -> R.color.appointment
+                Emergency::class -> R.color.emergency
                 else -> R.color.black
             }))
+
+            root.setOnClickListener {
+                when(item.type){
+                    Application::class -> {
+                        navController.navigate(DashboardFragmentDirections.actionNavDashboardToNavApplications())
+                    }
+                    Appointment::class -> {
+                        navController.navigate(DashboardFragmentDirections.actionNavDashboardToNavAppointments())
+                    }
+                }
+            }
         }
     }
 
