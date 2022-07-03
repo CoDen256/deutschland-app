@@ -146,4 +146,9 @@ class GeoDataMapFragment : SimpleFragment<FragmentGeoDataTabMapBinding>() {
             PackageManager.GET_META_DATA
         ).metaData.getString("com.maptiler.simplemap.mapTilerKey")!!
     }
+
+    override fun onDestroy() {
+        binding.mapView.onDestroy()
+        super.onDestroy()
+    }
 }
