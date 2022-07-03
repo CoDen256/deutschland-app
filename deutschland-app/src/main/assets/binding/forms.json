@@ -85,7 +85,1024 @@
       },
       {
         "field": {
-          "documents": [15],
+          "documents": [
+            15
+          ],
+          "label": "Antrag auf Erteilung eines Aufenthaltstitels"
+        },
+        "type": "DocumentInfoField"
+      },
+      {
+        "field": {
+          "id": "multiple-1",
+          "label": "",
+          "options": [
+            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
+            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
+          ],
+          "required": true
+        },
+        "type": "MultipleChoiceField"
+      },
+      {
+        "field": {
+          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "id": "attachment-1",
+          "label": "",
+          "mimeType": "application/pdf",
+          "required": true
+        },
+        "type": "AttachmentField"
+      },
+      {
+        "field": {
+          "id": "single-1",
+          "label": "11. Wählen Sie bitte Art Ihres Visums",
+          "hint": "Visumsart",
+          "options": [
+            "Schengen-Visa",
+            "Nationale Visa",
+            "Studentenvisa"
+          ],
+          "required": false
+        },
+        "type": "SingleChoiceField"
+      },
+      {
+        "field": {
+          "hint": "Aktuelles Beruf...\nAusbildung... ",
+          "id": "big-1",
+          "label": "12. Kurzes Lebenslauf",
+          "required": false
+        },
+        "type": "BigTextField"
+      }
+    ]
+  },
+  {
+    "serviceId": "serv-rechte",
+    "paymentRequired":  false,
+    "fields": [
+      {
+        "field": {
+          "imageUri": "https://www.oldenburg-reisen.ch/images/content/ReiseHinweise/1200px-Auswrtiges_Amt_Logo.svg.png",
+          "label": ""
+        },
+        "type": "ImageField"
+      },
+      {
+        "field": {
+          "hint": "Muster",
+          "id": "text-1",
+          "label": "1. Vorname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-2",
+          "label": "2. Nachname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-3",
+          "label": "3. Geburtsname",
+          "required": false
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "label": "4. Ihre Email-Adresse",
+          "id": "email-1",
+          "hint": "muster@gmai.com",
+          "required": true
+        },
+        "type": "EmailField"
+      },
+      {
+        "field": {
+          "id": "radio-1",
+          "label": "5. Geschlecht",
+          "options": [
+            "männlich",
+            "weiblich",
+            "diverse"
+          ],
+          "required": true
+        },
+        "type": "RadioChoiceField"
+      },
+      {
+        "field": {
+          "hint": "1,2..",
+          "id": "number-1",
+          "label": "6. Anzahl der Kinder",
+          "required": false
+        },
+        "type": "NumberField"
+      },
+      {
+        "field": {
+          "hint": "19.10.2000",
+          "id": "date-1",
+          "label": "7. Geburtsdatum",
+          "required": true
+        },
+        "type": "DateField"
+      },
+      {
+        "field": {
+          "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "documents": [
+            15
+          ],
+          "label": "Antrag auf Erteilung eines Aufenthaltstitels"
+        },
+        "type": "DocumentInfoField"
+      },
+      {
+        "field": {
+          "id": "multiple-1",
+          "label": "",
+          "options": [
+            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
+            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
+          ],
+          "required": true
+        },
+        "type": "MultipleChoiceField"
+      },
+      {
+        "field": {
+          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "id": "attachment-1",
+          "label": "",
+          "mimeType": "application/pdf",
+          "required": true
+        },
+        "type": "AttachmentField"
+      },
+      {
+        "field": {
+          "id": "single-1",
+          "label": "11. Wählen Sie bitte Art Ihres Visums",
+          "hint": "Visumsart",
+          "options": [
+            "Schengen-Visa",
+            "Nationale Visa",
+            "Studentenvisa"
+          ],
+          "required": false
+        },
+        "type": "SingleChoiceField"
+      },
+      {
+        "field": {
+          "hint": "Aktuelles Beruf...\nAusbildung... ",
+          "id": "big-1",
+          "label": "12. Kurzes Lebenslauf",
+          "required": false
+        },
+        "type": "BigTextField"
+      }
+    ]
+  },
+  {
+    "serviceId": "serv-daten",
+    "paymentRequired":  false,
+    "fields": [
+      {
+        "field": {
+          "imageUri": "https://www.oldenburg-reisen.ch/images/content/ReiseHinweise/1200px-Auswrtiges_Amt_Logo.svg.png",
+          "label": ""
+        },
+        "type": "ImageField"
+      },
+      {
+        "field": {
+          "hint": "Muster",
+          "id": "text-1",
+          "label": "1. Vorname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-2",
+          "label": "2. Nachname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-3",
+          "label": "3. Geburtsname",
+          "required": false
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "label": "4. Ihre Email-Adresse",
+          "id": "email-1",
+          "hint": "muster@gmai.com",
+          "required": true
+        },
+        "type": "EmailField"
+      },
+      {
+        "field": {
+          "id": "radio-1",
+          "label": "5. Geschlecht",
+          "options": [
+            "männlich",
+            "weiblich",
+            "diverse"
+          ],
+          "required": true
+        },
+        "type": "RadioChoiceField"
+      },
+      {
+        "field": {
+          "hint": "1,2..",
+          "id": "number-1",
+          "label": "6. Anzahl der Kinder",
+          "required": false
+        },
+        "type": "NumberField"
+      },
+      {
+        "field": {
+          "hint": "19.10.2000",
+          "id": "date-1",
+          "label": "7. Geburtsdatum",
+          "required": true
+        },
+        "type": "DateField"
+      },
+      {
+        "field": {
+          "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "documents": [
+            15
+          ],
+          "label": "Antrag auf Erteilung eines Aufenthaltstitels"
+        },
+        "type": "DocumentInfoField"
+      },
+      {
+        "field": {
+          "id": "multiple-1",
+          "label": "",
+          "options": [
+            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
+            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
+          ],
+          "required": true
+        },
+        "type": "MultipleChoiceField"
+      },
+      {
+        "field": {
+          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "id": "attachment-1",
+          "label": "",
+          "mimeType": "application/pdf",
+          "required": true
+        },
+        "type": "AttachmentField"
+      },
+      {
+        "field": {
+          "id": "single-1",
+          "label": "11. Wählen Sie bitte Art Ihres Visums",
+          "hint": "Visumsart",
+          "options": [
+            "Schengen-Visa",
+            "Nationale Visa",
+            "Studentenvisa"
+          ],
+          "required": false
+        },
+        "type": "SingleChoiceField"
+      },
+      {
+        "field": {
+          "hint": "Aktuelles Beruf...\nAusbildung... ",
+          "id": "big-1",
+          "label": "12. Kurzes Lebenslauf",
+          "required": false
+        },
+        "type": "BigTextField"
+      }
+    ]
+  },
+  {
+    "serviceId": "serv-pleitier",
+    "paymentRequired":  false,
+    "fields": [
+      {
+        "field": {
+          "imageUri": "https://www.oldenburg-reisen.ch/images/content/ReiseHinweise/1200px-Auswrtiges_Amt_Logo.svg.png",
+          "label": ""
+        },
+        "type": "ImageField"
+      },
+      {
+        "field": {
+          "hint": "Muster",
+          "id": "text-1",
+          "label": "1. Vorname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-2",
+          "label": "2. Nachname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-3",
+          "label": "3. Geburtsname",
+          "required": false
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "label": "4. Ihre Email-Adresse",
+          "id": "email-1",
+          "hint": "muster@gmai.com",
+          "required": true
+        },
+        "type": "EmailField"
+      },
+      {
+        "field": {
+          "id": "radio-1",
+          "label": "5. Geschlecht",
+          "options": [
+            "männlich",
+            "weiblich",
+            "diverse"
+          ],
+          "required": true
+        },
+        "type": "RadioChoiceField"
+      },
+      {
+        "field": {
+          "hint": "1,2..",
+          "id": "number-1",
+          "label": "6. Anzahl der Kinder",
+          "required": false
+        },
+        "type": "NumberField"
+      },
+      {
+        "field": {
+          "hint": "19.10.2000",
+          "id": "date-1",
+          "label": "7. Geburtsdatum",
+          "required": true
+        },
+        "type": "DateField"
+      },
+      {
+        "field": {
+          "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "documents": [
+            15
+          ],
+          "label": "Antrag auf Erteilung eines Aufenthaltstitels"
+        },
+        "type": "DocumentInfoField"
+      },
+      {
+        "field": {
+          "id": "multiple-1",
+          "label": "",
+          "options": [
+            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
+            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
+          ],
+          "required": true
+        },
+        "type": "MultipleChoiceField"
+      },
+      {
+        "field": {
+          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "id": "attachment-1",
+          "label": "",
+          "mimeType": "application/pdf",
+          "required": true
+        },
+        "type": "AttachmentField"
+      },
+      {
+        "field": {
+          "id": "single-1",
+          "label": "11. Wählen Sie bitte Art Ihres Visums",
+          "hint": "Visumsart",
+          "options": [
+            "Schengen-Visa",
+            "Nationale Visa",
+            "Studentenvisa"
+          ],
+          "required": false
+        },
+        "type": "SingleChoiceField"
+      },
+      {
+        "field": {
+          "hint": "Aktuelles Beruf...\nAusbildung... ",
+          "id": "big-1",
+          "label": "12. Kurzes Lebenslauf",
+          "required": false
+        },
+        "type": "BigTextField"
+      }
+    ]
+  },
+  {
+    "serviceId": "serv-baum",
+    "paymentRequired":  false,
+    "fields": [
+      {
+        "field": {
+          "imageUri": "https://www.oldenburg-reisen.ch/images/content/ReiseHinweise/1200px-Auswrtiges_Amt_Logo.svg.png",
+          "label": ""
+        },
+        "type": "ImageField"
+      },
+      {
+        "field": {
+          "hint": "Muster",
+          "id": "text-1",
+          "label": "1. Vorname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-2",
+          "label": "2. Nachname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-3",
+          "label": "3. Geburtsname",
+          "required": false
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "label": "4. Ihre Email-Adresse",
+          "id": "email-1",
+          "hint": "muster@gmai.com",
+          "required": true
+        },
+        "type": "EmailField"
+      },
+      {
+        "field": {
+          "id": "radio-1",
+          "label": "5. Geschlecht",
+          "options": [
+            "männlich",
+            "weiblich",
+            "diverse"
+          ],
+          "required": true
+        },
+        "type": "RadioChoiceField"
+      },
+      {
+        "field": {
+          "hint": "1,2..",
+          "id": "number-1",
+          "label": "6. Anzahl der Kinder",
+          "required": false
+        },
+        "type": "NumberField"
+      },
+      {
+        "field": {
+          "hint": "19.10.2000",
+          "id": "date-1",
+          "label": "7. Geburtsdatum",
+          "required": true
+        },
+        "type": "DateField"
+      },
+      {
+        "field": {
+          "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "documents": [
+            15
+          ],
+          "label": "Antrag auf Erteilung eines Aufenthaltstitels"
+        },
+        "type": "DocumentInfoField"
+      },
+      {
+        "field": {
+          "id": "multiple-1",
+          "label": "",
+          "options": [
+            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
+            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
+          ],
+          "required": true
+        },
+        "type": "MultipleChoiceField"
+      },
+      {
+        "field": {
+          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "id": "attachment-1",
+          "label": "",
+          "mimeType": "application/pdf",
+          "required": true
+        },
+        "type": "AttachmentField"
+      },
+      {
+        "field": {
+          "id": "single-1",
+          "label": "11. Wählen Sie bitte Art Ihres Visums",
+          "hint": "Visumsart",
+          "options": [
+            "Schengen-Visa",
+            "Nationale Visa",
+            "Studentenvisa"
+          ],
+          "required": false
+        },
+        "type": "SingleChoiceField"
+      },
+      {
+        "field": {
+          "hint": "Aktuelles Beruf...\nAusbildung... ",
+          "id": "big-1",
+          "label": "12. Kurzes Lebenslauf",
+          "required": false
+        },
+        "type": "BigTextField"
+      }
+    ]
+  },
+  {
+    "serviceId": "serv-kita",
+    "paymentRequired":  false,
+    "fields": [
+      {
+        "field": {
+          "imageUri": "https://www.oldenburg-reisen.ch/images/content/ReiseHinweise/1200px-Auswrtiges_Amt_Logo.svg.png",
+          "label": ""
+        },
+        "type": "ImageField"
+      },
+      {
+        "field": {
+          "hint": "Muster",
+          "id": "text-1",
+          "label": "1. Vorname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-2",
+          "label": "2. Nachname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-3",
+          "label": "3. Geburtsname",
+          "required": false
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "label": "4. Ihre Email-Adresse",
+          "id": "email-1",
+          "hint": "muster@gmai.com",
+          "required": true
+        },
+        "type": "EmailField"
+      },
+      {
+        "field": {
+          "id": "radio-1",
+          "label": "5. Geschlecht",
+          "options": [
+            "männlich",
+            "weiblich",
+            "diverse"
+          ],
+          "required": true
+        },
+        "type": "RadioChoiceField"
+      },
+      {
+        "field": {
+          "hint": "1,2..",
+          "id": "number-1",
+          "label": "6. Anzahl der Kinder",
+          "required": false
+        },
+        "type": "NumberField"
+      },
+      {
+        "field": {
+          "hint": "19.10.2000",
+          "id": "date-1",
+          "label": "7. Geburtsdatum",
+          "required": true
+        },
+        "type": "DateField"
+      },
+      {
+        "field": {
+          "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "documents": [
+            15
+          ],
+          "label": "Antrag auf Erteilung eines Aufenthaltstitels"
+        },
+        "type": "DocumentInfoField"
+      },
+      {
+        "field": {
+          "id": "multiple-1",
+          "label": "",
+          "options": [
+            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
+            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
+          ],
+          "required": true
+        },
+        "type": "MultipleChoiceField"
+      },
+      {
+        "field": {
+          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "id": "attachment-1",
+          "label": "",
+          "mimeType": "application/pdf",
+          "required": true
+        },
+        "type": "AttachmentField"
+      },
+      {
+        "field": {
+          "id": "single-1",
+          "label": "11. Wählen Sie bitte Art Ihres Visums",
+          "hint": "Visumsart",
+          "options": [
+            "Schengen-Visa",
+            "Nationale Visa",
+            "Studentenvisa"
+          ],
+          "required": false
+        },
+        "type": "SingleChoiceField"
+      },
+      {
+        "field": {
+          "hint": "Aktuelles Beruf...\nAusbildung... ",
+          "id": "big-1",
+          "label": "12. Kurzes Lebenslauf",
+          "required": false
+        },
+        "type": "BigTextField"
+      }
+    ]
+  },
+  {
+    "serviceId": "serv-einkommen",
+    "paymentRequired":  false,
+    "fields": [
+      {
+        "field": {
+          "imageUri": "https://www.oldenburg-reisen.ch/images/content/ReiseHinweise/1200px-Auswrtiges_Amt_Logo.svg.png",
+          "label": ""
+        },
+        "type": "ImageField"
+      },
+      {
+        "field": {
+          "hint": "Muster",
+          "id": "text-1",
+          "label": "1. Vorname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-2",
+          "label": "2. Nachname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-3",
+          "label": "3. Geburtsname",
+          "required": false
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "label": "4. Ihre Email-Adresse",
+          "id": "email-1",
+          "hint": "muster@gmai.com",
+          "required": true
+        },
+        "type": "EmailField"
+      },
+      {
+        "field": {
+          "id": "radio-1",
+          "label": "5. Geschlecht",
+          "options": [
+            "männlich",
+            "weiblich",
+            "diverse"
+          ],
+          "required": true
+        },
+        "type": "RadioChoiceField"
+      },
+      {
+        "field": {
+          "hint": "1,2..",
+          "id": "number-1",
+          "label": "6. Anzahl der Kinder",
+          "required": false
+        },
+        "type": "NumberField"
+      },
+      {
+        "field": {
+          "hint": "19.10.2000",
+          "id": "date-1",
+          "label": "7. Geburtsdatum",
+          "required": true
+        },
+        "type": "DateField"
+      },
+      {
+        "field": {
+          "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "documents": [
+            15
+          ],
+          "label": "Antrag auf Erteilung eines Aufenthaltstitels"
+        },
+        "type": "DocumentInfoField"
+      },
+      {
+        "field": {
+          "id": "multiple-1",
+          "label": "",
+          "options": [
+            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
+            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
+          ],
+          "required": true
+        },
+        "type": "MultipleChoiceField"
+      },
+      {
+        "field": {
+          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "id": "attachment-1",
+          "label": "",
+          "mimeType": "application/pdf",
+          "required": true
+        },
+        "type": "AttachmentField"
+      },
+      {
+        "field": {
+          "id": "single-1",
+          "label": "11. Wählen Sie bitte Art Ihres Visums",
+          "hint": "Visumsart",
+          "options": [
+            "Schengen-Visa",
+            "Nationale Visa",
+            "Studentenvisa"
+          ],
+          "required": false
+        },
+        "type": "SingleChoiceField"
+      },
+      {
+        "field": {
+          "hint": "Aktuelles Beruf...\nAusbildung... ",
+          "id": "big-1",
+          "label": "12. Kurzes Lebenslauf",
+          "required": false
+        },
+        "type": "BigTextField"
+      }
+    ]
+  },
+  {
+    "serviceId": "serv-tier",
+    "paymentRequired":  false,
+    "fields": [
+      {
+        "field": {
+          "imageUri": "https://www.oldenburg-reisen.ch/images/content/ReiseHinweise/1200px-Auswrtiges_Amt_Logo.svg.png",
+          "label": ""
+        },
+        "type": "ImageField"
+      },
+      {
+        "field": {
+          "hint": "Muster",
+          "id": "text-1",
+          "label": "1. Vorname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-2",
+          "label": "2. Nachname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-3",
+          "label": "3. Geburtsname",
+          "required": false
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "label": "4. Ihre Email-Adresse",
+          "id": "email-1",
+          "hint": "muster@gmai.com",
+          "required": true
+        },
+        "type": "EmailField"
+      },
+      {
+        "field": {
+          "id": "radio-1",
+          "label": "5. Geschlecht",
+          "options": [
+            "männlich",
+            "weiblich",
+            "diverse"
+          ],
+          "required": true
+        },
+        "type": "RadioChoiceField"
+      },
+      {
+        "field": {
+          "hint": "1,2..",
+          "id": "number-1",
+          "label": "6. Anzahl der Kinder",
+          "required": false
+        },
+        "type": "NumberField"
+      },
+      {
+        "field": {
+          "hint": "19.10.2000",
+          "id": "date-1",
+          "label": "7. Geburtsdatum",
+          "required": true
+        },
+        "type": "DateField"
+      },
+      {
+        "field": {
+          "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "documents": [
+            15
+          ],
           "label": "Antrag auf Erteilung eines Aufenthaltstitels"
         },
         "type": "DocumentInfoField"

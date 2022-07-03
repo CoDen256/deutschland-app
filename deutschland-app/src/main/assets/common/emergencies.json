@@ -1,7 +1,7 @@
 [
   {
-    "city": "Munich",
-    "country": "Germany",
+    "city": "Halle",
+    "country": "Deutschland",
     "postalCode": "06217",
     "date-time": "2022-07-15T19:10:00",
     "description": "Die Hitzeblase erreicht am Samstag flächendeckend ihren Höhepunkt. 30 bis 35 Grad überfluten den Westen, den Norden und den Osten",
@@ -10,8 +10,8 @@
     "severity": "MEDIUM"
   },
   {
-    "city": "Weissenfels",
-    "country": "Germany",
+    "city": "Weißenfels",
+    "country": "Deutschland",
     "postalCode": "06667",
     "date-time": "2022-07-16T19:10:00",
     "description": "Hochwasser vorgesehen. Bitte kein Kontakt mit Wasser.",
@@ -20,8 +20,8 @@
     "severity": "HIGH"
   },
   {
-    "city": "Grosskorbetha",
-    "country": "Germany",
+    "city": "Großkorbetha",
+    "country": "Deutschland",
     "postalCode": "06688",
     "date-time": "2022-07-17T19:10:00",
     "description": "Tieren aus Zoo wurden entlassen. Bitte kein Kontakt mit Löwen und Bären.",
@@ -31,7 +31,7 @@
   },
   {
     "city": "Schkopau",
-    "country": "Germany",
+    "country": "Deutschland",
     "postalCode": "06258",
     "date-time": "2022-07-18T19:10:00",
     "description": "Kraftwerk-Explodition. Haus nicht verlassen.",

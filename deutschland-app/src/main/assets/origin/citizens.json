@@ -1,7 +1,7 @@
 [
   {
     "accountId": "toni-kroos",
-    "addressId": 1,
+    "addressId": 0,
     "dateOfBirth": "1990-01-04",
     "displayName": "Toni Kroos",
     "firstName": "Toni",
@@ -56,7 +56,7 @@
   },
   {
     "accountId": "geordie-blackwood",
-    "addressId": 6,
+    "addressId": 1,
     "dateOfBirth": "1999-10-21",
     "displayName": "Geordie Blackwood",
     "firstName": "Geordie",
