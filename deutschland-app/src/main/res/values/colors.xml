@@ -10,8 +10,8 @@
     <color name="successful">#C2E9AF</color>
     <color name="failed">#E35151</color>
 
-    <color name="sent">#E35151</color>
-    <color name="received">#E3C651</color>
+    <color name="sent">#E3C651</color>
+    <color name="rejected">#E35151</color>
     <color name="done">#C2E9AF</color>
     <color name="processing">#7678ED</color>
     <color name="verification">#AFDCE9</color>

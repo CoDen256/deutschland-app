@@ -3,9 +3,34 @@
     "accountId": "toni-kroos",
     "applications": [
       {
-        "applicationId": 0,
+        "applicationId": 6,
         "applicationDateTime": "2020-10-20T19:00:00",
         "status": "DONE"
+      },
+      {
+        "applicationId": 5,
+        "applicationDateTime": "2020-10-20T19:00:00",
+        "status": "DONE"
+      },
+      {
+        "applicationId": 4,
+        "applicationDateTime": "2020-10-20T19:00:00",
+        "status": "SENT"
+      },
+      {
+        "applicationId": 3,
+        "applicationDateTime": "2020-10-20T19:00:00",
+        "status": "REJECTED"
+      },
+      {
+        "applicationId": 2,
+        "applicationDateTime": "2020-10-20T19:00:00",
+        "status": "VERIFICATION"
+      },
+      {
+        "applicationId": 0,
+        "applicationDateTime": "2020-10-20T19:00:00",
+        "status": "PROCESSING"
       }
     ]
   }

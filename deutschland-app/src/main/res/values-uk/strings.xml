@@ -74,8 +74,12 @@
     <string name="file_context_download">Завантажити</string>
     <string name="file_context_remove">Видалити</string>
     <string name="notify_new_law">Нові змінення в законі</string>
-    <string name="notify_emergency_high">ATTENTION: %s</string>
-    <string name="notify_emergency_medium">WARNING: %s</string>
-    <string name="notify_emergency_low">Careful: %s</string>
-
+    <string name="notify_emergency_high">ТРИВОГА: %s</string>
+    <string name="notify_emergency_medium">УВАГА: %s</string>
+    <string name="notify_emergency_low">Обережно: %s</string>
+    <string name="application_sent">ВІДПРАВЛЕННО</string>
+    <string name="application_verification">ПЕРЕВІРКА</string>
+    <string name="application_processing">ОБРОБКА</string>
+    <string name="application_done">ЗРОБЛЕНО</string>
+    <string name="application_rejected">ВІДМОВЛЕНО</string>
 </resources>

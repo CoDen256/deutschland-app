@@ -32,7 +32,7 @@ class ApplicationFragment : AccountAwareListFragment<FragmentApplicationBinding,
             statusBox.background = getStatusColor(item)
             status.text = getString(
                 R.string.status_placeholder,
-                item.status.name.lowercase().replaceFirstChar { it.uppercase() })
+                item.status.toString(requireContext()).lowercase().replaceFirstChar { it.uppercase() })
             date.text = item.applicationDate.format(dateTimeFormatter)
             description.text = item.description
             name.text = item.name
@@ -65,7 +65,7 @@ class ApplicationFragment : AccountAwareListFragment<FragmentApplicationBinding,
             ApplicationStatus.VERIFICATION -> R.color.verification
             ApplicationStatus.PROCESSING -> R.color.processing
             ApplicationStatus.DONE -> R.color.done
-            ApplicationStatus.REJECTED -> R.color.sent
+            ApplicationStatus.REJECTED -> R.color.rejected
         }
     )
 

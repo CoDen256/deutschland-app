@@ -5,7 +5,27 @@
       {
         "appointmentId": 0,
         "dateTime": "2020-10-20T19:00:00",
+        "addressId": 3
+      },
+      {
+        "appointmentId": 1,
+        "dateTime": "2020-10-20T19:00:00",
         "addressId": 0
+      },
+      {
+        "appointmentId": 2,
+        "dateTime": "2020-10-20T19:00:00",
+        "addressId": 4
+      },
+      {
+        "appointmentId": 3,
+        "dateTime": "2020-10-20T19:00:00",
+        "addressId": 1
+      },
+      {
+        "appointmentId": 2,
+        "dateTime": "2020-10-20T19:00:00",
+        "addressId":1
       }
     ]
   }

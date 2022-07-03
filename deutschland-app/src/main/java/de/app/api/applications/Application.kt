@@ -1,5 +1,7 @@
 package de.app.api.applications
 
+import android.content.Context
+import de.app.R
 import java.time.LocalDateTime
 
 /**
@@ -62,5 +64,16 @@ enum class ApplicationStatus(val order: Int) {
      *
      * @constructor Create empty Rejected
      */
-    REJECTED(3)
+    REJECTED(3);
+
+
+    fun toString(context: Context): String{
+        return context.getString(when(this){
+            DONE -> R.string.application_done
+            SENT -> R.string.application_sent
+            REJECTED -> R.string.application_rejected
+            PROCESSING -> R.string.application_processing
+            VERIFICATION -> R.string.application_verification
+        })
+    }
 }

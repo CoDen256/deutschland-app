@@ -122,7 +122,7 @@ class DashboardFragment : AccountAwareListFragment<FragmentDashboardBinding, Fra
         return FeedItem(
             Application::class,
             application.name,
-            application.status.toString(),
+            application.status.toString(requireContext()),
             application.description,
             application.applicationDate
         )

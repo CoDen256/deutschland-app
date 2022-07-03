@@ -76,4 +76,9 @@
     <string name="notify_emergency_high">ATTENTION: %s</string>
     <string name="notify_emergency_medium">WARNING: %s</string>
     <string name="notify_emergency_low">Careful: %s</string>
+    <string name="application_sent">SENT</string>
+    <string name="application_verification">VERIFICATION</string>
+    <string name="application_processing">PROCESSING</string>
+    <string name="application_done">DONE</string>
+    <string name="application_rejected">REJECTED</string>
 </resources>
