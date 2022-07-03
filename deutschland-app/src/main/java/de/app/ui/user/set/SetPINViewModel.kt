@@ -37,11 +37,15 @@ class SetPINViewModel @Inject constructor(
     /**
      * Set p i n
      *
-     * @param token
+     * @param tokenА
      * @param type
      * @param pin
      */
     fun setPIN(token: String, type: UserType, pin: String) {
+        pinChanged(pin)
+        if (setPINFormState.value?.isDataValid != true){
+            return
+        }
         viewModelScope.launch {
             val secretToken = SecretToken(token)
             val user: Result<User> = when (type) {

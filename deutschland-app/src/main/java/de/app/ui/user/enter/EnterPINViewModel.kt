@@ -20,6 +20,10 @@ class EnterPINViewModel @Inject constructor(private val sessionManager: SessionM
     }
 
     fun login(userId: String, pin: String) {
+        loginDataChanged(pin)
+        if (loginFormState.value?.isDataValid != true){
+            return
+        }
         viewModelScope.launch {
             val result = sessionManager.login(userId, pin)
 
