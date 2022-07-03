@@ -1,68 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:name="de.app.ui.application.ApplicationFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_background"
     android:orientation="vertical"
+    android:weightSum="10"
     tools:context=".ui.signature.DataSignatureFragment">
 
-    <ImageView
-        android:id="@+id/header"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/gradient_background_2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/menu_signature"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:background="@drawable/login_foreground"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        android:paddingHorizontal="5dp"
-        android:paddingVertical="50dp">
-        <include android:id="@+id/upload_from" layout="@layout/common_upload_from" />
+        app:layout_constraintTop_toBottomOf="@+id/header">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="50dp">
+
+            <include
+                android:id="@+id/upload_from"
+                layout="@layout/common_upload_from" />
+        </LinearLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:dividerColor="#B2000000"
+            >
+
+        </com.google.android.material.divider.MaterialDivider>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/files"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/common_file_item" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:dividerColor="#B2000000"
+            >
+
+        </com.google.android.material.divider.MaterialDivider>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+        <Button
+            android:id="@+id/submit_local"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/appointment"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:text="@string/sign_uploaded_locally" />
+
+
+        <Button
+            android:id="@+id/submit_data_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:backgroundTint="#7678ED"
+            android:text="@string/sign_uploaded_data_safe" />
+
     </LinearLayout>
-
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </com.google.android.material.divider.MaterialDivider>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/files"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        tools:listitem="@layout/common_file_item"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        />
-
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </com.google.android.material.divider.MaterialDivider>
-
-    <Button
-        android:id="@+id/submit_local"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/successful"
-        android:text="@string/sign_uploaded_locally" />
-
-
-    <Button
-        android:id="@+id/submit_data_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/teal_700"
-        android:text="@string/sign_uploaded_data_safe" />
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</LinearLayout>

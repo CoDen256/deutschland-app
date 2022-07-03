@@ -4,10 +4,10 @@
     android:shape="rectangle">
 
     <corners android:radius="15dp" />
-    <solid android:color="#4F52D0FD" />
+    <solid android:color="#707678ED" />
     <stroke
         android:dashWidth="10px"
         android:dashGap="10px"
-        android:color="@color/purple_500"
+        android:color="#000000"
         android:width="3dip" />
 </shape>
