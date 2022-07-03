@@ -1,34 +1,34 @@
 [
   {
     "serviceId": "serv-aufenthalt",
-    "addressIds": [0,1,2]
+    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
   },
   {
     "serviceId": "serv-rechte",
-    "addressIds": [0,1,2]
+    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
   },
   {
     "serviceId": "serv-daten",
-    "addressIds": [0,1,2]
+    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
   },
   {
     "serviceId": "serv-pleitier",
-    "addressIds": [0,1,2]
+    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
   },
   {
     "serviceId": "serv-baum",
-    "addressIds": [0,1,2]
+    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
   },
   {
     "serviceId": "serv-kita",
-    "addressIds": [0,1,2]
+    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
   },
   {
     "serviceId": "serv-einkommen",
-    "addressIds": [0,1,2]
+    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
   },
   {
     "serviceId": "serv-tier",
-    "addressIds": [0,1,2]
+    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
   }
 ]
