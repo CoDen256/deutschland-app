@@ -71,7 +71,9 @@ class CitizenRepoDataSource @Inject constructor(
     private val citizenById = source.data.associateBy { it.accountId }
 
     override fun map(origin: TokenBinding): Pair<SecretToken, CitizenServiceAccount> {
-        return SecretToken(origin.token) to citizenById[origin.accountId]!!
+        val citizen = citizenById[origin.accountId]
+            ?: throw IllegalArgumentException("No account with id ${origin.accountId} in repository")
+        return SecretToken(origin.token) to citizen
     }
 
     override fun getJsonType(): Type = object : TypeToken<List<TokenBinding>>() {}.type

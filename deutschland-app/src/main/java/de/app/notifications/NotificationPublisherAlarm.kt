@@ -8,7 +8,8 @@ import android.os.SystemClock
 
 fun Context.scheduleNextAlarm(delay: Long) {
     val intent = Intent(this, RepeatedNotificatorTrigger::class.java)
-    val pending = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+    val pending = PendingIntent.getBroadcast(this, 0, intent,
+        PendingIntent.FLAG_IMMUTABLE)
 
     val future = SystemClock.elapsedRealtime() + delay
     val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager

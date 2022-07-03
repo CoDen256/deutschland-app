@@ -3,9 +3,9 @@
     "id": "serv-aufenthalt",
     "description": "Sie können Ihre Aufenthaltserlaubnis zur Fortsetzung eines im EU-Ausland begonnenen Studiums vor Ablauf ihrer Geltungsdauer verlängern lassen",
     "name": "Verlängerung der Aufenthaltserlaubnis",
-    "endpoint": "https://www.e-app.de/api/",
+    "endpoint": "https://www.de-app.de/api/",
     "type": "CITIZEN",
-    "email": "serv@aufenthalt.com"
+    "email": "auslaenderbehoerde@info.com"
   },
   {
     "id": "serv-tier",

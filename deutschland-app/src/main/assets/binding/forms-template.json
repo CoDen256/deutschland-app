@@ -1,0 +1,124 @@
+[
+  {
+    "serviceId": "serv-aufenthalt",
+    "paymentRequired": false,
+    "fields": [
+      {
+        "field": {
+          "imageUri": "https://source.unsplash.com/random/1024x1024?sig=123123123",
+          "label": "Image of Light"
+        },
+        "type": "ImageField"
+      },
+      {
+        "field": {
+          "id": "single-1",
+          "label": "People",
+          "options": [
+            "Hatch",
+            "Numbers",
+            "Visions",
+            "Smoke"
+          ],
+          "required": false
+        },
+        "type": "SingleChoiceField"
+      },
+      {
+        "field": {
+          "hint": "Sacrifice",
+          "id": "big-2",
+          "label": "Speed",
+          "required": false
+        },
+        "type": "BigTextField"
+      },
+      {
+        "field": {
+          "hint": "Date of Probably",
+          "id": "date-3",
+          "label": "Date of About",
+          "required": false
+        },
+        "type": "DateField"
+      },
+      {
+        "field": {
+          "id": "attachment-4",
+          "label": "Throw",
+          "mimeType": "application/pdf",
+          "required": false
+        },
+        "type": "AttachmentField"
+      },
+      {
+        "field": {
+          "id": "multiple-5",
+          "label": "Suspense",
+          "options": [
+            "Speed",
+            "While",
+            "Something",
+            "Throw"
+          ],
+          "required": true
+        },
+        "type": "MultipleChoiceField"
+      },
+      {
+        "field": {
+          "text": "Pique people probably ending words something something something numbers where throw"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "hint": "Headphones",
+          "id": "text-13",
+          "label": "Probably",
+          "required": false
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Number of Until",
+          "id": "number-15",
+          "label": "Number of Light",
+          "required": false
+        },
+        "type": "NumberField"
+      },
+      {
+        "field": {
+          "id": "radio-19",
+          "label": "Headphones",
+          "options": [
+            "Ending",
+            "Light",
+            "Moved",
+            "Computer"
+          ],
+          "required": true
+        },
+        "type": "RadioChoiceField"
+      },
+      {
+        "field": {
+          "documents": [0,1],
+          "label": "Document of While"
+        },
+        "type": "DocumentInfoField"
+      },
+      {
+        "field": {
+          "hint": "Email of Waited",
+          "id": "email-22",
+          "label": "Email of Asked",
+          "required": true
+        },
+        "type": "EmailField"
+      }
+    ]
+  }
+]

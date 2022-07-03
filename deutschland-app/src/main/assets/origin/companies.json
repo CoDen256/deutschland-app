@@ -7,10 +7,10 @@
     "fullName": "Volkswagen AG"
   },
   {
-    "accountId": "siemens-ag",
+    "accountId": "siemens-gmbh",
     "addressId": 0,
     "displayName": "Siemens",
     "foundedDate": "1996-10-01",
-    "fullName": "Siemens AG"
+    "fullName": "Siemens GmbH"
   }
 ]

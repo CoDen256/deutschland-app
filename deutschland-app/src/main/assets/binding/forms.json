@@ -5,99 +5,48 @@
     "fields": [
       {
         "field": {
-          "imageUri": "https://source.unsplash.com/random/1024x1024?sig=123123123",
-          "label": "Image of Light"
-        },
-        "type": "ImageField"
-      },
-      {
-        "field": {
-          "id": "single-1",
-          "label": "People",
-          "options": [
-            "Hatch",
-            "Numbers",
-            "Visions",
-            "Smoke"
-          ],
-          "required": false
-        },
-        "type": "SingleChoiceField"
-      },
-      {
-        "field": {
-          "hint": "Sacrifice",
-          "id": "big-2",
-          "label": "Speed",
-          "required": false
-        },
-        "type": "BigTextField"
-      },
-      {
-        "field": {
-          "hint": "Date of Probably",
-          "id": "date-3",
-          "label": "Date of About",
-          "required": false
-        },
-        "type": "DateField"
-      },
-      {
-        "field": {
-          "id": "attachment-4",
-          "label": "Throw",
-          "mimeType": "application/pdf",
-          "required": false
-        },
-        "type": "AttachmentField"
-      },
-      {
-        "field": {
-          "id": "multiple-5",
-          "label": "Suspense",
-          "options": [
-            "Speed",
-            "While",
-            "Something",
-            "Throw"
-          ],
+          "hint": "Muster",
+          "id": "text-1",
+          "label": "Vorname",
           "required": true
         },
-        "type": "MultipleChoiceField"
+        "type": "TextField"
       },
       {
         "field": {
-          "text": "Pique people probably ending words something something something numbers where throw"
+          "hint": "Mustermann",
+          "id": "text-2",
+          "label": "Nachname",
+          "required": true
         },
-        "type": "TextInfoField"
+        "type": "TextField"
       },
       {
         "field": {
-          "hint": "Headphones",
-          "id": "text-13",
-          "label": "Probably",
+          "hint": "Mustermann",
+          "id": "text-3",
+          "label": "Geburtsname",
           "required": false
         },
         "type": "TextField"
       },
       {
         "field": {
-          "hint": "Number of Until",
-          "id": "number-15",
-          "label": "Number of Light",
-          "required": false
+          "hint": "Ihre Email-Adresse",
+          "id": "email-1",
+          "label": "muster@gmai.com",
+          "required": true
         },
-        "type": "NumberField"
+        "type": "EmailField"
       },
       {
         "field": {
-          "id": "radio-19",
-          "label": "Headphones",
+          "id": "radio-1",
+          "label": "Geschlecht",
           "options": [
-            "Ending",
-            "Light",
-            "Moved",
-            "Computer"
+            "Männlich",
+            "Weiblich",
+            "Diverse"
           ],
           "required": true
         },
@@ -105,19 +54,21 @@
       },
       {
         "field": {
-          "documents": [0,1],
-          "label": "Document of While"
+          "hint": "1,2..",
+          "id": "number-1",
+          "label": "Anzahl der Kinder",
+          "required": false
         },
-        "type": "DocumentInfoField"
+        "type": "NumberField"
       },
       {
         "field": {
-          "hint": "Email of Waited",
-          "id": "email-22",
-          "label": "Email of Asked",
+          "hint": "19.10.2000",
+          "id": "date-1",
+          "label": "Geburtsdatum",
           "required": true
         },
-        "type": "EmailField"
+        "type": "DateField"
       }
     ]
   }

@@ -25,11 +25,44 @@
     "accountId": "thomas-müller",
     "addressId": 3,
     "dateOfBirth": "1990-01-04",
-    "displayName": "Franz Beckenbauer",
-    "firstName": "Franz",
-    "surname": "Beckenbauer",
+    "displayName": "Thomas Müller",
+    "firstName": "Thomas",
+    "surname": "Müller",
     "nationality": "DE",
     "placeOfBirthId": 3,
+    "salutation": "Herr"
+  },
+  {
+    "accountId": "odilie-schubert",
+    "addressId": 4,
+    "dateOfBirth": "1986-03-09",
+    "displayName": "Odilie Schubert",
+    "firstName": "Odilie",
+    "surname": "Schubert",
+    "nationality": "DE",
+    "placeOfBirthId": 4,
+    "salutation": "Frau"
+  },
+  {
+    "accountId": "stefania-kravchenko",
+    "addressId": 5,
+    "dateOfBirth": "2000-03-12",
+    "displayName": "Stefania Kravchenko",
+    "firstName": "Stefania",
+    "surname": "Kravchenko",
+    "nationality": "UA",
+    "placeOfBirthId": 5,
+    "salutation": "Frau"
+  },
+  {
+    "accountId": "geordie-blackwood",
+    "addressId": 6,
+    "dateOfBirth": "1999-10-21",
+    "displayName": "Geordie Blackwood",
+    "firstName": "Geordie",
+    "surname": "Blackwood",
+    "nationality": "UK",
+    "placeOfBirthId": 6,
     "salutation": "Herr"
   }
 ]
