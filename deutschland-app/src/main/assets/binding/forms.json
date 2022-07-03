@@ -1,8 +1,15 @@
 [
   {
     "serviceId": "serv-aufenthalt",
-    "paymentRequired": false,
+    "paymentRequired": true,
     "fields": [
+      {
+        "field": {
+          "imageUri": "https://www.oldenburg-reisen.ch/images/content/ReiseHinweise/1200px-Auswrtiges_Amt_Logo.svg.png",
+          "label": ""
+        },
+        "type": "ImageField"
+      },
       {
         "field": {
           "hint": "Muster",
@@ -32,9 +39,9 @@
       },
       {
         "field": {
-          "hint": "Ihre Email-Adresse",
+          "label": "Ihre Email-Adresse",
           "id": "email-1",
-          "label": "muster@gmai.com",
+          "hint": "muster@gmai.com",
           "required": true
         },
         "type": "EmailField"
@@ -44,9 +51,9 @@
           "id": "radio-1",
           "label": "Geschlecht",
           "options": [
-            "Männlich",
-            "Weiblich",
-            "Diverse"
+            "männlich",
+            "weiblich",
+            "diverse"
           ],
           "required": true
         },
@@ -69,6 +76,68 @@
           "required": true
         },
         "type": "DateField"
+      },
+      {
+        "field": {
+          "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "documents": [15],
+          "label": "Antrag auf Erteilung eines Aufenthaltstitels"
+        },
+        "type": "DocumentInfoField"
+      },
+      {
+        "field": {
+          "id": "multiple-1",
+          "label": "",
+          "options": [
+            "Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
+            "Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
+          ],
+          "required": true
+        },
+        "type": "MultipleChoiceField"
+      },
+      {
+        "field": {
+          "text": "Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n1.Aktueller Aufenthaltstitel\n2.Ausweis\n3.Ausgefülltes Formular"
+        },
+        "type": "TextInfoField"
+      },
+      {
+        "field": {
+          "id": "attachment-1",
+          "label": "",
+          "mimeType": "application/pdf",
+          "required": true
+        },
+        "type": "AttachmentField"
+      },
+      {
+        "field": {
+          "id": "single-1",
+          "label": "Wählen Sie bitte Art Ihres Visums",
+          "options": [
+            "Schengen-Visa",
+            "Nationale Visa",
+            "Studentenvisa"
+          ],
+          "required": false
+        },
+        "type": "SingleChoiceField"
+      },
+      {
+        "field": {
+          "hint": "Aktuelles Beruf...\nAusbildung... ",
+          "id": "big-1",
+          "label": "Kurzes Lebenslauf",
+          "required": false
+        },
+        "type": "BigTextField"
       }
     ]
   }
