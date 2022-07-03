@@ -3,6 +3,7 @@ package de.app.ui.dashboard
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import dagger.hilt.android.AndroidEntryPoint
 import de.app.R
@@ -135,7 +136,9 @@ class DashboardFragment : AccountAwareListFragment<FragmentDashboardBinding, Fra
             items.addAll(loadItems())
             adapter.notifyDataSetChanged()
             binding.feedSwipe.isRefreshing = false
+            binding.empty.isVisible = items.isEmpty()
         }
+        binding.empty.isVisible = items.isEmpty()
     }
 
     private fun fillHeader(account: ServiceAccount) {

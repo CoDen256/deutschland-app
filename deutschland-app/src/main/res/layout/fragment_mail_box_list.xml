@@ -7,7 +7,7 @@
     android:weightSum="10"
     android:background="@drawable/login_background"
     android:orientation="vertical"
-    tools:context=".ui.dashboard.DashboardFragment">
+    tools:context=".ui.mailbox.MailBoxFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

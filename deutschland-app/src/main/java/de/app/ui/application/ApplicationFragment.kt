@@ -41,13 +41,13 @@ class ApplicationFragment : AccountAwareListFragment<FragmentApplicationBinding,
 
     override fun setup() {
         binding.list.adapter = adapter
-        binding.root.setOnRefreshListener {
+        binding.swipe.setOnRefreshListener {
             val new = ArrayList(loadItems()).apply {
                 removeAll(items)
             }
             items.addAll(0, new)
             adapter.notifyItemRangeInserted(0, new.size)
-            binding.root.isRefreshing = false
+            binding.swipe.isRefreshing = false
             binding.list.post {
                 binding.list.smoothScrollToPosition(0)
             }
