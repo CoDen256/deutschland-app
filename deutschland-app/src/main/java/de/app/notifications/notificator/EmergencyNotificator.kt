@@ -40,6 +40,9 @@ class EmergencyNotificator @Inject constructor(): Notificator {
     private fun notify(context: Context, data: List<Emergency>) {
         data.forEach {
             Notify.with(context)
+                .header {
+                    icon = R.drawable.ic_emergency
+                }
                 .asBigText {
                     title = context.getString(getTitle(it.severity), it.name)
                     text = it.description
