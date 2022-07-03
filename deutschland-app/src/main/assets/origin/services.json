@@ -4,69 +4,79 @@
     "description": "Sie können Ihre Aufenthaltserlaubnis zur Fortsetzung eines im EU-Ausland begonnenen Studiums vor Ablauf ihrer Geltungsdauer verlängern lassen",
     "name": "Verlängerung der Aufenthaltserlaubnis",
     "endpoint": "https://www.e-app.de/api/",
-    "type": "CITIZEN"
+    "type": "CITIZEN",
+    "email": "serv@aufenthalt.com"
   },
   {
     "id": "serv-tier",
     "description": "Sie müssen Ihr Tier anmelden, ansonsten bekommen Sie eine Strafe.",
     "name": "Tieranmeldung",
     "endpoint":  "https://www.de-app.de/api/",
-    "type":  "CITIZEN"
+    "type":  "CITIZEN",
+    "email":  "serv@tier.com"
   },
   {
     "id": "serv-hausmeister",
     "description": "Wenn Sie Ihre Wohnung bzw. Ihre Umgebung sicher und sauber erhalten möchten, steht ein Hausmeister-Service zur Verfügung.",
     "name": "Hausmeister Service",
     "endpoint":  "https://www.de-app.de/api/",
-    "type":  "CITIZEN"
+    "type":  "CITIZEN",
+    "email":  "serv@hausmeister.com"
   },
   {
     "id": "serv-kita",
     "description": "Damit Ihres Kind rechtzeitig für Sie in Kita geht, soll es dafür beantragt werden.",
     "name": "Beantragung für Kita",
     "endpoint":  "https://www.de-app.de/api/",
-    "type":  "CITIZEN"
+    "type":  "CITIZEN",
+    "email":  "serv@kita.com"
   },
   {
     "id": "serv-baum",
     "description": "Wenn die Bäume vor Ihrem Haus zu hoch gewachsen sind oder stören Ihnen, sollen sie gesägt werden.",
     "name": "Bäume sägen",
     "endpoint":  "https://www.de-app.de/api/",
-    "type":  "COMMON"
+    "type":  "COMMON",
+    "email":  "serv@baum.com"
   },
   {
     "id": "serv-einkommen",
     "description": "Jedes Quartal sollen Sie ein Einkommensübersicht zur Verfügung stellen. Damit beantragen Sie einen.",
     "name": "Einkommensübersicht beantragen",
     "endpoint":  "https://www.de-app.de/api/",
-    "type":  "COMMON"
+    "type":  "COMMON",
+    "email":  "serv@einkommen.com"
   },
   {
     "id": "serv-rechte",
     "description": "Wenn Rechte Ihrer Firma beeinträchtigt wurden, können Sie eine Klage bei Gericht einreichen",
     "name": "Klage bei Gericht einreichen",
     "endpoint":  "https://www.de-app.de/api/",
-    "type":  "COMPANY"
+    "type":  "COMPANY",
+    "email":  "serv@rechte.com"
   },
   {
     "id": "serv-daten",
     "description": "Falls Sie beliebige Daten zur Firma ändern wollen, z.B Name, Adresse usw, können Sie es beantragen.",
     "name": "Stammdaten ändern",
     "endpoint":  "https://www.de-app.de/api/",
-    "type":  "COMPANY"
+    "type":  "COMPANY",
+    "email":  "serv@daten.com"
   },
   {
     "id": "serv-pleitier",
     "description": "Wenn Ihre Firma ein Pleitier geworden ist, können Sie es melden.",
     "name": "Konkurs melden",
     "endpoint":  "https://www.de-app.de/api/",
-    "type":  "COMPANY"
+    "type":  "COMPANY",
+    "email":  "serv@pleitier.com"
   },
   {
     "id": "serv-anwalt",
     "description": "Sie dürfen eine Beratung eines Anwaltes bestellen, wenn in Firma fragwürdige Situationen entstehen.",
     "name": "Anwaltberatung",
     "endpoint":  "https://www.de-app.de/api/",
-    "type":  "COMPANY"
+    "type":  "COMPANY",
+    "email":  "serv@anwalt.com"
   }
 ]

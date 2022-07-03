@@ -4,6 +4,7 @@ import de.app.data.model.Address
 import java.util.*
 
 data class AdministrativeService(
+    val email: String,
     val id: String,
     val name: String,
     val description: String,

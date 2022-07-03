@@ -63,16 +63,6 @@ class DashboardFragment : AccountAwareListFragment<FragmentDashboardBinding, Fra
                 else -> R.color.black
             }))
 
-            root.setOnClickListener {
-                when(item.type){
-                    Application::class -> {
-                        navController.navigate(DashboardFragmentDirections.actionNavDashboardToNavApplications())
-                    }
-                    Appointment::class -> {
-                        navController.navigate(DashboardFragmentDirections.actionNavDashboardToNavAppointments())
-                    }
-                }
-            }
         }
     }
 

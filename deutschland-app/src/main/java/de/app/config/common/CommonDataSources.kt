@@ -165,11 +165,12 @@ data class ServiceAsset(
     val description: String,
     val name: String,
     val type: String,
-    val endpoint: String
+    val endpoint: String,
+    val email: String
 ) {
     fun map(address: Address): AdministrativeService {
         return AdministrativeService(
-            id,name,description, endpoint, address, ServiceType.valueOf(type)
+            email, id,name,description, endpoint, address, ServiceType.valueOf(type)
         )
     }
 }
@@ -232,4 +233,5 @@ data class MailAsset(
     val mailId: Int,
     val preview: String,
     val subject: String,
+    val sender: String
 )

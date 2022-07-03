@@ -6,6 +6,6 @@ data class MailMessageHeader(
     val subject: String,
     val received: LocalDateTime,
     val id: String,
-    val preview: String = ""
-) {
-}
+    val preview: String,
+    val sender: String
+)

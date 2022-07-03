@@ -2,46 +2,55 @@
   {
     "mailId": 0,
     "preview": "Ich schaffe es leider nicht an dem Termin rechzeitig zu kommen. Würde gern nach eine Woche verschieben.",
-    "subject": "Termin mit Sozialamt vershieben"
+    "subject": "Termin mit Sozialamt vershieben",
+    "sender": "auslaenderbehoerde"
   },
   {
     "mailId":  1,
     "preview": "Ich würde gern 2 Tieren gleichzeitig anmelden. Und zwar, eine Katze und ein Hund.",
-    "subject": "2 Tiere anmelden"
+    "subject": "2 Tiere anmelden",
+    "sender":  "auslaenderbehoerde"
   },
   {
     "mailId":  2,
     "preview": "Es tut mir leid, aber ich muss mitteilen, dass nicht alle Bäume gesägt wurde. Dafür bräuchte ich noch ein Termin.",
-    "subject": "Nicht alle Bäume wurde gesägt."
+    "subject": "Nicht alle Bäume wurde gesägt.",
+    "sender":  "auslaenderbehoerde"
   },
   {
     "mailId":  3,
     "preview": "Als ich ein Termin bei Ausländerbehörde hatte, habe ich aus Versehen falsche Daten eingegeben. Ich bitte um noch einen Termin, um richtige Daten anzugeben.",
-    "subject": "Angaben gefälscht"
+    "subject": "Angaben gefälscht",
+    "sender":  "auslaenderbehoerde"
   },
   {
     "mailId":  4,
     "preview": "Aktueller Hausmeister macht passt mir nicht, würde ich ihn wecheln.",
-    "subject": "Hausmeister wechseln"
+    "subject": "Hausmeister wechseln",
+    "sender":  "auslaenderbehoerde"
   },
   {
     "mailId":  5,
     "preview": "Ich habe ein neues Tier gehabt! Sofort melde ich es!",
-    "subject": "Neues Tier"
+    "subject": "Neues Tier",
+    "sender":  "auslaenderbehoerde"
   },
   {
     "mailId":  6,
     "preview": "Die Bäume um mein Haus herum sind überall! Ich bitte um Hilfe.",
-    "subject": "Bäume müssen gesägt werden"
+    "subject": "Bäume müssen gesägt werden",
+    "sender":  "auslaenderbehoerde"
   },
   {
     "mailId":  7,
     "preview": "Die Adresse der Hauptabteilung unserer Firma wurde geänder. Nun es lautet: ´Berlin, Kantstrasse 1´",
-    "subject": "Headquaters Adresse ändern"
+    "subject": "Headquaters Adresse ändern",
+    "sender":  "auslaenderbehoerde"
   },
   {
     "mailId":  8,
     "preview": "Wir müssen mitteilen, dass unsre Firma aktuell kein Geld hat, um Kredit zu tilgen. Wir sind Pleite gegangen.",
-    "subject": "Pleite gegangen"
+    "subject": "Pleite gegangen",
+    "sender":  "auslaenderbehoerde"
   }
 ]

@@ -26,6 +26,10 @@ class BaseMailboxService @Inject constructor(
         return accountToMessage[accountId].orEmpty()
     }
 
+    override fun removeMessagesForAccountId(accountId: String, message: MailMessageHeader) {
+        accountToMessage[accountId]?.remove(message)
+    }
+
     override fun sendMessageToAccountId(accountId: String, message: MailMessageHeader) {
         accountToMessage[accountId]?.add(message)
     }
@@ -46,7 +50,8 @@ class MailHeaderDataSource @Inject constructor(
                 subject = app.subject,
                 preview = app.preview,
                 received = it.received,
-                id = it.mailId.toString()
+                id = it.mailId.toString(),
+                sender = app.sender
             )
         }
     }
