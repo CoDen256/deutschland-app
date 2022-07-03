@@ -128,6 +128,7 @@
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/menu/file_actions.xml" value="0.1" />
         <entry key="app/src/main/res/menu/main.xml" value="0.25885416666666666" />
+        <entry key="deutschland-app/src/main/res/drawable/ellipse.xml" value="0.176" />
         <entry key="deutschland-app/src/main/res/drawable/ic_launcher_background.xml" value="0.1085" />
         <entry key="deutschland-app/src/main/res/drawable/login_background.xml" value="0.185" />
         <entry key="deutschland-app/src/main/res/drawable/rectangle-black.xml" value="0.1455" />
@@ -140,6 +141,7 @@
         <entry key="deutschland-app/src/main/res/layout/fragment_appointment_item.xml" value="0.21557971014492755" />
         <entry key="deutschland-app/src/main/res/layout/fragment_dashboard.xml" value="0.22" />
         <entry key="deutschland-app/src/main/res/layout/fragment_dashboard_feed_item.xml" value="0.16666666666666666" />
+        <entry key="deutschland-app/src/main/res/layout/fragment_data_safe.xml" value="0.22" />
         <entry key="deutschland-app/src/main/res/layout/fragment_law_registry.xml" value="0.22" />
         <entry key="deutschland-app/src/main/res/layout/fragment_law_registry_item.xml" value="0.5" />
         <entry key="deutschland-app/src/main/res/layout/fragment_mail_box_item.xml" value="0.4081196581196581" />

@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
+import de.app.core.success
 import de.app.core.successOrElse
 import de.app.data.model.FileHeader
 
@@ -46,10 +47,10 @@ class CreateDocumentCallback(
 
 abstract class ResultCallback<I : Any> : ActivityResultCallback<I?> {
     override fun onActivityResult(result: I?) {
-        result.successOrElse(IllegalStateException("No Result for ${this.javaClass.simpleName}"))
-            .mapCatching {
+        result?.success()
+            ?.mapCatching {
                 onSuccess(it)
-            }.onFailure {
+            }?.onFailure {
                 onFailure(it)
             }
     }
