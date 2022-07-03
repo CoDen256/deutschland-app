@@ -54,6 +54,7 @@ data class SingleChoiceField(
     override val id: String,
     val required: Boolean,
     val label: String,
+    val hint: String,
     val options: List<String>
 ): Field, InputField
 

@@ -7,16 +7,23 @@
     android:layout_margin="5dp">
     <TextView
         android:id="@+id/label"
-        android:text="@string/label_placeholder"
         android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"/>
 
-    <Spinner
-        android:id="@+id/field"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"/>
+        android:id="@+id/hint"
+        android:layout_height="wrap_content">
+
+        <AutoCompleteTextView
+            android:id="@+id/field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

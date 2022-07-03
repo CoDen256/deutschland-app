@@ -28,7 +28,7 @@ class SingleChoiceFieldView(
     }
 
     override fun getValue(): FieldValue {
-        return FieldValue(id, binding.field.selectedItem.toString())
+        return FieldValue(id, binding.field.listSelection.toString())
     }
 
     override fun setOnValueChangedListener(handler: () -> Unit) {
@@ -49,11 +49,12 @@ class SingleChoiceFieldView(
 
         fun populate(field: SingleChoiceField, fragment: Fragment): Inflater = apply {
             binding.label.text = field.label
-            binding.field.adapter = ArrayAdapter(
+            binding.hint.hint = field.hint
+            binding.field.setAdapter(ArrayAdapter(
                 fragment.requireContext(),
                 R.layout.application_form_single_choice_item,
                 field.options
-            )
+            ))
             id = field.id
         }
 

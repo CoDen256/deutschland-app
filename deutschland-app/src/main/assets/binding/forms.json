@@ -121,6 +121,7 @@
         "field": {
           "id": "single-1",
           "label": "11. Wählen Sie bitte Art Ihres Visums",
+          "hint": "Visumsart",
           "options": [
             "Schengen-Visa",
             "Nationale Visa",
