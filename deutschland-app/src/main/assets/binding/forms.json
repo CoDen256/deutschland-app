@@ -14,7 +14,7 @@
         "field": {
           "hint": "Muster",
           "id": "text-1",
-          "label": "Vorname",
+          "label": "1. Vorname",
           "required": true
         },
         "type": "TextField"
@@ -23,7 +23,7 @@
         "field": {
           "hint": "Mustermann",
           "id": "text-2",
-          "label": "Nachname",
+          "label": "2. Nachname",
           "required": true
         },
         "type": "TextField"
@@ -32,14 +32,14 @@
         "field": {
           "hint": "Mustermann",
           "id": "text-3",
-          "label": "Geburtsname",
+          "label": "3. Geburtsname",
           "required": false
         },
         "type": "TextField"
       },
       {
         "field": {
-          "label": "Ihre Email-Adresse",
+          "label": "4. Ihre Email-Adresse",
           "id": "email-1",
           "hint": "muster@gmai.com",
           "required": true
@@ -49,7 +49,7 @@
       {
         "field": {
           "id": "radio-1",
-          "label": "Geschlecht",
+          "label": "5. Geschlecht",
           "options": [
             "männlich",
             "weiblich",
@@ -63,7 +63,7 @@
         "field": {
           "hint": "1,2..",
           "id": "number-1",
-          "label": "Anzahl der Kinder",
+          "label": "6. Anzahl der Kinder",
           "required": false
         },
         "type": "NumberField"
@@ -72,7 +72,7 @@
         "field": {
           "hint": "19.10.2000",
           "id": "date-1",
-          "label": "Geburtsdatum",
+          "label": "7. Geburtsdatum",
           "required": true
         },
         "type": "DateField"
@@ -95,8 +95,8 @@
           "id": "multiple-1",
           "label": "",
           "options": [
-            "Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
-            "Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
+            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
+            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
           ],
           "required": true
         },
@@ -104,7 +104,7 @@
       },
       {
         "field": {
-          "text": "Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n1.Aktueller Aufenthaltstitel\n2.Ausweis\n3.Ausgefülltes Formular"
+          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
         },
         "type": "TextInfoField"
       },
@@ -120,7 +120,7 @@
       {
         "field": {
           "id": "single-1",
-          "label": "Wählen Sie bitte Art Ihres Visums",
+          "label": "11. Wählen Sie bitte Art Ihres Visums",
           "options": [
             "Schengen-Visa",
             "Nationale Visa",
@@ -134,7 +134,7 @@
         "field": {
           "hint": "Aktuelles Beruf...\nAusbildung... ",
           "id": "big-1",
-          "label": "Kurzes Lebenslauf",
+          "label": "12. Kurzes Lebenslauf",
           "required": false
         },
         "type": "BigTextField"
