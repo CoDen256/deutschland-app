@@ -9,6 +9,8 @@ import de.app.api.appointment.AppointmentService
 import de.app.databinding.FragmentAppointmentBinding
 import de.app.databinding.FragmentAppointmentItemBinding
 import de.app.ui.components.AccountAwareListFragment
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
@@ -41,12 +43,20 @@ class AppointmentFragment : AccountAwareListFragment<FragmentAppointmentBinding,
             time.text = item.appointment.format(timeFormatter)
             description.text = item.description
             name.text = item.name
+            if (item.appointment.isBefore(LocalDateTime.now())){
+                context?.let {
+                    status.background = it.getDrawable(R.drawable.disabled)
+                }
+            }
         }
     }
 
     override fun loadItems(): List<Appointment> {
-        return appointmentService.getAllAppointmentsByAccountId(account.accountId)
-            .sortedBy { it.appointment }
+        val all = appointmentService.getAllAppointmentsByAccountId(account.accountId)
+        val now = LocalDateTime.now()
+        val enabled = all.filter { it.appointment.isAfter(now) }
+        val disabled = all.filter { it.appointment.isBefore(now) }
+        return enabled.sortedBy { it.appointment } + disabled.sortedByDescending { it.appointment }
     }
 
     override fun setup() {

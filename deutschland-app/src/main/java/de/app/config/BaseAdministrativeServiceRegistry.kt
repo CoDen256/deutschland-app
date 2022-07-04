@@ -24,6 +24,7 @@ import de.app.core.successOrElse
 import de.app.data.model.FileHeader
 import java.io.IOException
 import java.lang.reflect.Type
+import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -85,7 +86,7 @@ class BaseAdministrativeServiceRegistry @Inject constructor(
             account.accountId,
             Application(
                 name = "Antrag zu `${service.name}`",
-                description = "${account.displayName}, Sie haben einen Antrag für '${service.name}' gesendet",
+                description = "${account.displayName}, danke,dass Sie einen Antrag für '${service.name}' gesendet haben. Wir aktualisieren den Status, nachdem wir alle Dokumente verifizieren",
                 serviceId = service.id,
                 accountId = account.accountId,
                 status = ApplicationStatus.SENT,
@@ -97,13 +98,13 @@ class BaseAdministrativeServiceRegistry @Inject constructor(
     private fun dispatchAppointment(account: ServiceAccount, service: AdministrativeService) {
         appointmentService.addAppointmentForAccountId(
             account.accountId, Appointment(
-                name = "Termin zum ${service.name}",
+                name = "Termin zu `${service.name}`",
                 description = "${account.displayName}, Sie haben einen Termin bei ${service.name} vereinbart",
                 address = service.address,
                 additionalInfo = "Bringen Sie bitte alle notwendigen Unterlagen mit",
                 serviceId = service.id,
                 accountId = account.accountId,
-                appointment = LocalDateTime.now().plus(2, ChronoUnit.DAYS)
+                appointment = LocalDateTime.now().plus(2, ChronoUnit.DAYS).plus(50, ChronoUnit.MINUTES)
             )
         )
     }

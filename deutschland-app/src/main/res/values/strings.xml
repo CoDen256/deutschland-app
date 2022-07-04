@@ -81,4 +81,7 @@
     <string name="application_processing">PROCESSING</string>
     <string name="application_done">DONE</string>
     <string name="application_rejected">REJECTED</string>
+    <string name="notify_appointment">%s appointment</string>
+    <string name="notify_appointment_title">Upcoming appointment in %d days!</string>
+    <string name="notify_appointment_text">Appointment on %s!</string>
 </resources>

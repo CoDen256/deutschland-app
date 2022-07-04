@@ -20,15 +20,16 @@ class RepeatedNotificatorTrigger: BroadcastReceiver() {
         const val EMERGENCY_DELAY_SECONDS = 40L
         const val INTERVAL = 1000L*15*1
         const val INITIAL_DELAY = 0L
-        const val repeat = true
+        const val repeat = 5
         const val debug = true
+        private var current = 1
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
         context?.let { ctx ->
-            if (debug) Notify.with(context).content { text ="Heartbeat" }.show()
+            if (debug) Notify.with(context).content { text ="Heartbeat: $current/$repeat" }.show()
             notificator.trigger(ctx)
-            if (repeat) { ctx.scheduleNextAlarm(INTERVAL) }
+            if (current++<repeat) { ctx.scheduleNextAlarm(INTERVAL) }
         }
     }
 }

@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="successful">#C2E9AF</color>
     <color name="failed">#E35151</color>
+    <color name="disabled">#B98B8B8B</color>
 
     <color name="sent">#E3C651</color>
     <color name="rejected">#E35151</color>

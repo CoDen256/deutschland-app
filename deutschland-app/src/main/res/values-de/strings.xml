@@ -81,4 +81,9 @@
     <string name="application_processing">BEARBEITUNG</string>
     <string name="application_done">ERLEDIGT</string>
     <string name="application_rejected">ABGELEHNT</string>
+    <string name="notify_appointment">Termin von %s</string>
+    <string name="notify_appointment_title">Bevorstehender Termin in %d Tagen!</string>
+    <string name="notify_appointment_text">Termin am %s!</string>
+
+
 </resources>

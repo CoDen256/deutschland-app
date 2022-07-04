@@ -78,7 +78,8 @@ class DashboardFragment : AccountAwareListFragment<FragmentDashboardBinding, Fra
                 .take(3)
 
         val appointments = appointmentService.getAllAppointmentsByAccountId(account.accountId)
-            .sortedByDescending { it.appointment }
+            .filter { it.appointment.isAfter(LocalDateTime.now()) }
+            .sortedBy { it.appointment }
             .take(3)
 
         val applications = applicationService.getAllApplicationsByAccountId(account.accountId)

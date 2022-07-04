@@ -2,16 +2,16 @@
   {
     "appointmentId": 0,
     "serviceId": "serv-baum",
-    "description": "Für das Fällen von Bäumen kann aus unterschiedlichen Gründen eine Genehmigung erforderlich sein.",
-    "name": "Genehmigung zum Baumfällen",
+    "description": "Genehmigung für das Fällen von Bäumen. Bitte erscheinen Sie pünktlich zur Abholung!",
+    "name": "Termin zur Abholung von Genehmigung",
     "additionalInfo": "Bitte bringen Sie alle notwendigen Unterlagen mit"
   },
   {
     "appointmentId":  1,
     "serviceId": "serv-tier",
-    "description": "Sie müssen Ihr Tier angemelden werden, ansonsten bekommen Sie eine Strafe.",
-    "name": "Tieranmeldung",
-    "additionalInfo":  "Bitte bringen Sie alle notwendigen Unterlagen mit"
+    "description": "Anmeldung von Tieren. Bitte erscheinen Sie pünktlich zum Termin!",
+    "name": "Termin zur Tieranmeldung",
+    "additionalInfo":  "Vergessen Sie bitte nicht, Ihres Tier mitzubringen"
   },
   {
     "appointmentId":  2,
@@ -23,7 +23,7 @@
   {
     "appointmentId":  3,
     "serviceId": "serv-hausmeister",
-    "description": "Wenn Sie Ihre Wohnung bzw. Ihre Umgebung sicher und sauber erhalten möchten, steht ein Hausmeister-Service zur Verfügung.",
+    "description": "Für sichere Wohnung und Umgebung steht ein Hausmeister-Service zur Verfügung.",
     "name": "Hausmeister Service",
     "additionalInfo":  "Bitte bringen Sie alle notwendigen Unterlagen mit"
   },

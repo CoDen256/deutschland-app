@@ -82,4 +82,8 @@
     <string name="application_processing">ОБРОБКА</string>
     <string name="application_done">ЗРОБЛЕНО</string>
     <string name="application_rejected">ВІДМОВЛЕНО</string>
+    <string name="notify_appointment">зустріч для %s</string>
+    <string name="notify_appointment_title">Попереду зустріч через %d днів</string>
+    <string name="notify_appointment_text">Зустріч: %s!</string>
+
 </resources>

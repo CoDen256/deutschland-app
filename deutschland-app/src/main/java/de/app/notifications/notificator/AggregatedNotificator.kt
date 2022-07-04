@@ -20,7 +20,7 @@ class AggregatedNotificator @Inject constructor(): Notificator {
             law,
             emergency,
 //        application,
-//            appointment
+            appointment
             )
         notificators.forEach{ it.trigger(context) }
     }
