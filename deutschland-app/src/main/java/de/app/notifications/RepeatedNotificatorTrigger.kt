@@ -22,8 +22,8 @@ class RepeatedNotificatorTrigger: BroadcastReceiver() {
         const val MAIL_DELAY_SECONDS = 15L
         const val INTERVAL = 1000L*15*1
         const val INITIAL_DELAY = 0L
-        const val repeat = 5
-        const val debug = true
+        const val repeat = 100
+        const val debug = false
         private var current = 1
     }
 

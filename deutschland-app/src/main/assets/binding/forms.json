@@ -79,6 +79,33 @@
       },
       {
         "field": {
+          "hint": "Merseburg",
+          "id": "text-4-city",
+          "label": "8. Ort",
+          "required": false
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Eberhard-Leibnitz-Strasse 9",
+          "id": "text-5-address",
+          "label": "9. Adresse",
+          "required": false
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "06217",
+          "id": "text-6-postalcode",
+          "label": "10. PLZ",
+          "required": false
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
           "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
         },
         "type": "TextInfoField"
@@ -97,8 +124,8 @@
           "id": "multiple-1",
           "label": "",
           "options": [
-            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
-            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
+            "11. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
+            "12. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
           ],
           "required": true
         },
@@ -106,7 +133,7 @@
       },
       {
         "field": {
-          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
+          "text": "13. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
         },
         "type": "TextInfoField"
       },
@@ -122,7 +149,7 @@
       {
         "field": {
           "id": "single-1",
-          "label": "11. Wählen Sie bitte Art Ihres Visums",
+          "label": "14. Wählen Sie bitte Art Ihres Visums",
           "hint": "Visumsart",
           "options": [
             "Schengen-Visa",
@@ -137,7 +164,7 @@
         "field": {
           "hint": "Aktuelles Beruf...\nAusbildung... ",
           "id": "big-1",
-          "label": "12. Kurzes Lebenslauf",
+          "label": "15. Kurzes Lebenslauf",
           "required": false
         },
         "type": "BigTextField"
