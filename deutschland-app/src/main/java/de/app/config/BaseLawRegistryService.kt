@@ -7,6 +7,7 @@ import de.app.api.law.LawChange
 import de.app.api.law.LawRegistryService
 import de.app.config.common.AssetDataSource
 import de.app.core.range
+import de.app.notifications.RepeatedNotificatorTrigger
 import java.lang.reflect.Type
 import java.time.LocalDateTime
 import javax.inject.Inject
@@ -16,7 +17,6 @@ import javax.inject.Singleton
 class BaseLawRegistryService @Inject constructor(private val source: LawAssetDataSource) :
     LawRegistryService {
 
-    private val secondDelay = 10L
     private val lawChanges: MutableList<LawChange> by lazy {
         fakeFirstLawAsNew(source.data)
     }
@@ -28,7 +28,7 @@ class BaseLawRegistryService @Inject constructor(private val source: LawAssetDat
     private fun fakeFirstLawAsNew(changes: List<LawChange>): MutableList<LawChange> =
         ArrayList(changes).apply {
             replaceAll {
-                if (it.id == 1) it.copy(date= LocalDateTime.now().plusSeconds(secondDelay))
+                if (it.id == 1) it.copy(date= LocalDateTime.now().plusSeconds(RepeatedNotificatorTrigger.LAW_DELAY_SECONDS))
                 else it
             }
         }

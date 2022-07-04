@@ -15,8 +15,12 @@ class AggregatedNotificator @Inject constructor(): Notificator {
     @Inject lateinit var appointment: AppointmentNotificator
 
     override fun trigger(context: Context) {
-        val notificators = listOf(mail, law, emergency,
-        application, appointment
+        val notificators = listOf(
+//            mail,
+            law,
+//            emergency,
+//        application,
+//            appointment
             )
         notificators.forEach{ it.trigger(context) }
     }

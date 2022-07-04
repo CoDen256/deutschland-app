@@ -40,7 +40,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        this.scheduleNextAlarm(RepeatedNotificatorTrigger.INTERVAL)
+        this.scheduleNextAlarm(RepeatedNotificatorTrigger.INITIAL_DELAY)
     }
 }
 

@@ -25,6 +25,9 @@ class LawChangeNotificator @Inject constructor(): BaseNotificator<LawChange>() {
 
     override fun notify(context: Context, data: List<LawChange>) {
         Notify.with(context)
+            .header {
+                icon = R.drawable.ic_menu_laws
+            }
             .asBigText {
                 title = context.getString(R.string.notify_new_law)
                 expandedText = data.first().description

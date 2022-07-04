@@ -1,15 +1,15 @@
 [
   {
-    "date": "2022-07-01T16:52:00",
+    "date": "2022-07-29T00:00:00",
     "id": 1,
-    "name": "Änderung der Handwerksordnung",
-    "description": "In § 113 Absatz 2 Satz 8 werden nach dem Wort „Bemessungsgrundlagen“ die  Wörter „einschließlich der Identifikationsnummer nach dem Identifikationsnummerngesetz“ eingefügt"
+    "name": "Änderung des Onlinezugangsgesetzes",
+    "description": "Das Onlinezugangsgesetz vom 14. August 2017 (BGBl. I S. 3122, 3138), das zuletzt durch Artikel 1 des Gesetzes vom 3. Dezember 2020 (BGBl. I S. 2668) geändert worden ist, wird wie folgt geändert:  In § 2 Absatz 6 werden nach dem Wort „Basisdienste“ die Wörter „, digitale Werkzeuge“ eingefügt. "
   },
   {
     "date": "2022-06-25T00:00:00",
     "id": 2,
-    "name": "Änderung des Onlinezugangsgesetzes",
-    "description": "Das Onlinezugangsgesetz vom 14. August 2017 (BGBl. I S. 3122, 3138), das zuletzt durch Artikel 1 des Gesetzes vom 3. Dezember 2020 (BGBl. I S. 2668) geändert worden ist, wird wie folgt geändert:  In § 2 Absatz 6 werden nach dem Wort „Basisdienste“ die Wörter „, digitale Werkzeuge“ eingefügt. "
+    "name": "Änderung der Handwerksordnung",
+    "description": "In § 113 Absatz 2 Satz 8 werden nach dem Wort „Bemessungsgrundlagen“ die  Wörter „einschließlich der Identifikationsnummer nach dem Identifikationsnummerngesetz“ eingefügt"
   },
   {
     "date": "2022-06-10T00:00:00",
