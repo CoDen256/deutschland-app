@@ -73,13 +73,7 @@ class DashboardFragment : AccountAwareListFragment<FragmentDashboardBinding, Fra
         val cityEmergencies =
             emergencyInfoProvider.getAllEmergenciesForCity(account.address.city)
                 .sortedByDescending { it.dateTime }
-                .take(2)
-
-
-        val countryEmergencies =
-            emergencyInfoProvider.getAllEmergenciesForCountry(account.address.country)
-                .sortedByDescending { it.dateTime }
-                .take(2)
+                .take(3)
 
         val appointments = appointmentService.getAllAppointmentsByAccountId(account.accountId)
             .sortedByDescending { it.appointment }
@@ -91,7 +85,6 @@ class DashboardFragment : AccountAwareListFragment<FragmentDashboardBinding, Fra
 
 
         loaded.addAll(cityEmergencies.map { extractFeedItem(it) })
-        loaded.addAll(countryEmergencies.map { extractFeedItem(it) })
         loaded.addAll(appointments.map { extractFeedItem(it) })
         loaded.addAll(applications.map { extractFeedItem(it) })
 
@@ -149,6 +142,7 @@ class DashboardFragment : AccountAwareListFragment<FragmentDashboardBinding, Fra
                 account.address.postalCode,
                 account.address.city
             )
+            street.text = account.address.address
             welcome.text = when (account) {
                 is CitizenServiceAccount ->
                     "${account.salutation} ${account.firstName} ${account.surname}"

@@ -50,7 +50,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/welcome"
                 tools:text="Burger-ID: 123456" />
-
+            <TextView
+                android:id="@+id/street"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/account_id"
+                tools:text="Eberhard-Leibnitz-Strasse 1" />
             <TextView
                 android:id="@+id/address"
                 android:layout_width="wrap_content"
@@ -60,7 +70,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_id"
+                app:layout_constraintTop_toBottomOf="@+id/street"
                 tools:text="06217, Merseburg" />
 
         </LinearLayout>
