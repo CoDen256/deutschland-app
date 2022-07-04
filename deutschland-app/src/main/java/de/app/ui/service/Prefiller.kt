@@ -20,7 +20,7 @@ class Prefiller {
         )
     val prefillPolicyCompany =
         mapOf<String, (CompanyServiceAccount) -> String>(
-            "name" to {it.fullName},
+            "companyname" to {it.fullName},
             "city" to {it.address.city},
             "postalcode" to {it.address.postalCode},
             "address" to {it.address.address},

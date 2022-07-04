@@ -13,7 +13,7 @@
       {
         "field": {
           "hint": "Muster",
-          "id": "text-1-name",
+          "id": "text-1-name-name",
           "label": "1. Vorname",
           "required": true
         },
@@ -22,7 +22,7 @@
       {
         "field": {
           "hint": "Mustermann",
-          "id": "text-2-surname",
+          "id": "text-2-surna-surnameme",
           "label": "2. Nachname",
           "required": true
         },
@@ -178,7 +178,7 @@
       {
         "field": {
           "hint": "Max",
-          "id": "text-1",
+          "id": "text-1-name",
           "label": "Vorname",
           "required": true
         },
@@ -187,7 +187,7 @@
       {
         "field": {
           "hint": "Mustermann",
-          "id": "text-2",
+          "id": "text-2-surname",
           "label": "Nachname",
           "required": true
         },
@@ -254,7 +254,7 @@
       {
         "field": {
           "hint": "Max",
-          "id": "text-1",
+          "id": "text-1-name",
           "label": "Vorname",
           "required": true
         },
@@ -263,7 +263,7 @@
       {
         "field": {
           "hint": "Mustermann",
-          "id": "text-2",
+          "id": "text-2-surname",
           "label": "Nachname",
           "required": true
         },
@@ -319,7 +319,7 @@
       {
         "field": {
           "hint": "Max",
-          "id": "text-1",
+          "id": "text-1-name",
           "label": "Vorname",
           "required": true
         },
@@ -328,7 +328,7 @@
       {
         "field": {
           "hint": "Mustermann",
-          "id": "text-2",
+          "id": "text-2-surname",
           "label": "Nachname",
           "required": true
         },
@@ -360,7 +360,7 @@
       {
         "field": {
           "hint": "Olaf",
-          "id": "text-3",
+          "id": "text-3-name",
           "label": "Vorname des Kindes",
           "required": true
         },
@@ -369,7 +369,7 @@
       {
         "field": {
           "hint": "Olafmann",
-          "id": "text-4",
+          "id": "text-4-surname",
           "label": "Nachname des Kindes",
           "required": true
         },
@@ -394,7 +394,7 @@
       {
         "field": {
           "hint": "Max",
-          "id": "text-1",
+          "id": "text-1-name",
           "label": "Vorname",
           "required": true
         },
@@ -403,7 +403,7 @@
       {
         "field": {
           "hint": "Mustermann",
-          "id": "text-2",
+          "id": "text-2-surname",
           "label": "Nachname",
           "required": true
         },
@@ -468,7 +468,7 @@
       {
         "field": {
           "hint": "Max",
-          "id": "text-1",
+          "id": "text-1-name",
           "label": "Vorname",
           "required": true
         },
@@ -477,7 +477,7 @@
       {
         "field": {
           "hint": "Mustermann",
-          "id": "text-2",
+          "id": "text-2-surname",
           "label": "Nachname",
           "required": true
         },
@@ -541,8 +541,17 @@
     "fields": [
       {
         "field": {
+          "hint": "Firma GmbH",
+          "id": "text-1-companyname",
+          "label": "Unternehmensname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
           "hint": "Max",
-          "id": "text-1",
+          "id": "text-1-name",
           "label": "Vorname",
           "required": true
         },
@@ -551,7 +560,7 @@
       {
         "field": {
           "hint": "Mustermann",
-          "id": "text-2",
+          "id": "text-2-surname",
           "label": "Nachname",
           "required": true
         },
@@ -593,6 +602,15 @@
     "fields": [
       {
         "field": {
+          "hint": "Firma GmbH",
+          "id": "text-1-companyname",
+          "label": "Unternehmensname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
           "hint": "Max",
           "id": "text-1",
           "label": "Vorname",
@@ -617,6 +635,33 @@
           "required": true
         },
         "type": "EmailField"
+      },
+      {
+        "field": {
+          "hint": "Merseburg",
+          "id": "text-4-city",
+          "label": "Ort",
+          "required": false
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Eberhard-Leibnitz-Strasse 9",
+          "id": "text-5-address",
+          "label": "Adresse",
+          "required": false
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "06217",
+          "id": "text-6-postalcode",
+          "label": "PLZ",
+          "required": false
+        },
+        "type": "TextField"
       },
       {
         "field": {
@@ -661,7 +706,7 @@
       {
         "field": {
           "hint": "Max",
-          "id": "text-1",
+          "id": "text-1-name",
           "label": "Vorname",
           "required": true
         },
@@ -670,7 +715,7 @@
       {
         "field": {
           "hint": "Mustermann",
-          "id": "text-2",
+          "id": "text-2-surname",
           "label": "Nachname",
           "required": true
         },
@@ -731,7 +776,7 @@
       {
         "field": {
           "hint": "Max",
-          "id": "text-1",
+          "id": "text-1-name",
           "label": "Vorname",
           "required": true
         },
@@ -740,7 +785,7 @@
       {
         "field": {
           "hint": "Mustermann",
-          "id": "text-2",
+          "id": "text-2-surname",
           "label": "Nachname",
           "required": true
         },
