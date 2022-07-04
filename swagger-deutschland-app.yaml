@@ -1,0 +1,464 @@
+---
+openapi: 3.0.0
+info:
+  title: Deutschland APP Backend Service
+  description: API zur Ankopplung konkreter Online-Dienste, die konkrete Verwaltungsleitsungen digitalisieren
+  version: 1.0.0
+servers:
+- url: /
+tags:
+- name: admin-service-provider
+  description: Der Verwaltungsleistungsanbieter repräsentiert ein kokreter Online-Dienst, der eine konkrete Verwaltungsleitsung bereitstellt
+- name: app
+  description: Die eigentliche Anwendung, die das Formular der Verwaltungsleistung abfragt und dem Nutzer anzeigt.
+paths:
+  /services:
+    get:
+      tags:
+      - app
+      - admin-service-provider
+      summary: Gibt alle registrierte Verwaltungsleistungen zurück
+      description: Liefert alle zuvor registrierte Verwaltungsleitsungen
+      operationId: getServices
+      responses:
+        "200":
+          description: Liste aller Verwaltungsleistungen
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+    put:
+      tags:
+      - admin-service-provider
+      summary: Aktualisiert die angegebene Verwaltungsleitsung
+      description: Aktualisiert die angegebe Verwaltungsleistung im System hinzu nach der ID
+      operationId: updateService
+      requestBody:
+        description: zu aktualisierende Verwaltungsleistung
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+      responses:
+        "201":
+          description: Die angegebene Verwaltungsleistung wurde aktualisiert
+        "400":
+          description: Ungültige Verwaltungsleistung
+        "409":
+          description: Die angegebene Verwatlungsleistung-ID ist nicht vorhanden
+    post:
+      tags:
+      - admin-service-provider
+      summary: Registriert die angegebene Verwaltungsleitsung
+      description: Fügt die angegebe Verwaltungsleistung im System hinzu
+      operationId: registerService
+      requestBody:
+        description: hinzuzufügende Verwaltungsleistung
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+      responses:
+        "201":
+          description: Die angegebene Verwaltungsleistung wurde hinzugefügt
+        "400":
+          description: Ungültige Verwaltungsleistung
+        "409":
+          description: Die angegebene Verwatlungsleistung-ID ist bereits vorhanden
+  /forms/{serviceId}:
+    get:
+      tags:
+      - app
+      - admin-service-provider
+      summary: Gibt ein Formular zurück nach der angegebenen Verwaltungsleistung-ID
+      description: Das zugewiesene Formular wird zurückgegeben
+      operationId: getForm
+      parameters:
+      - name: serviceId
+        in: path
+        description: ID der Verwaltungsleistung
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Liste aller Verwaltungsleistungen
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+        "404":
+          description: Es gibt kein Formular für die gegebene Verwaltungsleistung
+        "409":
+          description: Die angegebene Leistung wurde nicht gefunden
+  /forms:
+    put:
+      tags:
+      - admin-service-provider
+      summary: Aktualisiert ein Formular für die gegebene Verwaltungsleistung
+      description: Aktualisiert ein Formular, das von der Verwaltungsleistung verwendet wird
+      operationId: updateForm
+      requestBody:
+        description: hinzuzufügende Verwaltungsleistung
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Form'
+      responses:
+        "201":
+          description: Das angegebene Formular wird hinzugefügt bzw. aktualisiert
+        "400":
+          description: Die angegebene Verwaltungsleistung existiert nicht
+    post:
+      tags:
+      - admin-service-provider
+      summary: Fügt ein neues Formular der Leistung hinzu
+      description: Das neue Formular wird einer Verwaltungsleistung zugewiesen
+      operationId: setForm
+      requestBody:
+        description: hinzuzufügende Verwaltungsleistung
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Form'
+      responses:
+        "201":
+          description: Das angegebene Formular wird hinzugefügt
+        "400":
+          description: Die angegebene Verwaltungsleistung existiert nicht
+        "409":
+          description: Die angegebene Verwaltungsleistung hat bereits ein Formular  zugewiesen bekommen
+components:
+  schemas:
+    Service:
+      required:
+      - description
+      - endpoint
+      - id
+      - name
+      - type
+      type: object
+      properties:
+        id:
+          type: string
+          example: serv-halle-aufenthalt
+        description:
+          type: string
+          example: Sie können Ihre Aufenthaltserlaubnis verlängern
+        name:
+          type: string
+          example: Verlängerung der Aufenthaltserlaubnis
+        endpoint:
+          type: string
+          format: url
+          example: https://www.auslaenderbehoerde.de/api/form
+        type:
+          type: string
+          example: CITIZEN
+          enum:
+          - CITIZEN
+          - COMPANY
+          - COMMON
+    Form:
+      required:
+      - fields
+      - paymentRequired
+      - serviceId
+      type: object
+      properties:
+        serviceId:
+          type: string
+          example: serv-halle-aufenthalt
+        paymentRequired:
+          type: boolean
+          example: true
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+    Field:
+      required:
+      - field
+      - type
+      type: object
+      properties:
+        field:
+          anyOf:
+          - $ref: '#/components/schemas/TextInfoField'
+          - $ref: '#/components/schemas/SingleChoiceField'
+          - $ref: '#/components/schemas/BigTextField'
+          - $ref: '#/components/schemas/DateField'
+          - $ref: '#/components/schemas/AttachmentField'
+          - $ref: '#/components/schemas/MultipleChoiceField'
+          - $ref: '#/components/schemas/TextInfoField'
+          - $ref: '#/components/schemas/TextField'
+          - $ref: '#/components/schemas/NumberField'
+          - $ref: '#/components/schemas/RadioChoiceField'
+          - $ref: '#/components/schemas/DocumentInfoField'
+          - $ref: '#/components/schemas/EmailField'
+          - $ref: '#/components/schemas/ImageField'
+        type:
+          type: string
+          example: TextInfoField
+          enum:
+          - SingleChoiceField
+          - BigTextField
+          - DateField
+          - AttachmentField
+          - MultipleChoiceField
+          - TextInfoField
+          - TextField
+          - NumberField
+          - RadioChoiceField
+          - DocumentInfoField
+          - EmailField
+          - ImageField
+    TextInfoField:
+      required:
+      - text
+      type: object
+      properties:
+        text:
+          type: string
+          example: This is a text with useful info
+    TextField:
+      required:
+      - hint
+      - id
+      - label
+      - required
+      type: object
+      properties:
+        label:
+          type: string
+          example: Your name
+        id:
+          type: string
+          example: field-id-0
+        required:
+          type: boolean
+          example: true
+        hint:
+          type: string
+          example: Jane Doe
+    ImageField:
+      required:
+      - imageUri
+      - label
+      type: object
+      properties:
+        imageUri:
+          type: string
+          format: uri
+          example: https://source.unsplash.com/random/1024x1024"
+        label:
+          type: string
+          example: An image of something
+    SingleChoiceField:
+      required:
+      - hint
+      - id
+      - label
+      - options
+      - required
+      type: object
+      properties:
+        required:
+          type: boolean
+          example: true
+        id:
+          type: string
+          example: field-id-0
+        label:
+          type: string
+          example: Select something from the list
+        hint:
+          type: string
+          example: Your choice
+        options:
+          type: array
+          items:
+            type: string
+            example: First Option
+    BigTextField:
+      required:
+      - hint
+      - id
+      - label
+      - required
+      type: object
+      properties:
+        required:
+          type: boolean
+          example: true
+        id:
+          type: string
+          example: field-id-0
+        label:
+          type: string
+          example: Enter a big text
+        hint:
+          type: string
+          example: Please write a lot of lines
+    DateField:
+      required:
+      - hint
+      - id
+      - label
+      - required
+      type: object
+      properties:
+        required:
+          type: boolean
+          example: true
+        id:
+          type: string
+          example: field-id-0
+        label:
+          type: string
+          example: Enter your birthday
+        hint:
+          type: string
+          example: 19.12.2000
+    AttachmentField:
+      required:
+      - id
+      - label
+      - mimeType
+      - required
+      type: object
+      properties:
+        required:
+          type: boolean
+          example: true
+        id:
+          type: string
+          example: field-id-0
+        label:
+          type: string
+          example: Please attach your documents
+        mimeType:
+          type: string
+          format: mime-type
+          example: application/pdf
+    MultipleChoiceField:
+      required:
+      - id
+      - label
+      - options
+      - required
+      type: object
+      properties:
+        required:
+          type: boolean
+          example: true
+        id:
+          type: string
+          example: field-id-0
+        label:
+          type: string
+          example: Choose from multiple options
+        options:
+          type: array
+          items:
+            type: string
+            example: First Option
+    NumberField:
+      required:
+      - hint
+      - id
+      - label
+      - required
+      type: object
+      properties:
+        required:
+          type: boolean
+          example: true
+        id:
+          type: string
+          example: field-id-0
+        label:
+          type: string
+          example: Enter your age
+        hint:
+          type: string
+          example: "10"
+    RadioChoiceField:
+      required:
+      - id
+      - label
+      - options
+      - required
+      type: object
+      properties:
+        required:
+          type: boolean
+          example: true
+        id:
+          type: string
+          example: field-id-0
+        label:
+          type: string
+          example: Please pick on of the choices
+        options:
+          type: array
+          items:
+            type: string
+            example: First Option
+    DocumentInfoField:
+      required:
+      - documents
+      - label
+      type: object
+      properties:
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Document'
+        label:
+          type: string
+          example: This is set of documents
+    EmailField:
+      required:
+      - hint
+      - id
+      - label
+      - required
+      type: object
+      properties:
+        required:
+          type: boolean
+          example: true
+        id:
+          type: string
+          example: field-id-0
+        label:
+          type: string
+          example: Your email address
+        hint:
+          type: string
+          example: example@gmail.com
+    Document:
+      required:
+      - fileUri
+      - mimeType
+      - name
+      type: object
+      properties:
+        mimeType:
+          type: string
+          format: mime-type
+          example: application/pdf
+        fileUri:
+          type: string
+          format: uri
+          example: https://www.clickdimensions.com/links/TestPDFfile.pdf
+        name:
+          type: string
+          example: Filename.pdf

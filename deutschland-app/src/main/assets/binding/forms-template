@@ -1,1 +1,0 @@
- ["SingleChoiceField", "BigTextField", "DateField", "AttachmentField", "MultipleChoiceField", "TextInfoField", "TextField", "NumberField", "RadioChoiceField", "DocumentInfoField", "EmailField", "ImageField",]
