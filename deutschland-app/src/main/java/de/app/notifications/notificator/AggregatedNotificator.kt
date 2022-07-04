@@ -18,7 +18,7 @@ class AggregatedNotificator @Inject constructor(): Notificator {
         val notificators = listOf(
 //            mail,
             law,
-//            emergency,
+            emergency,
 //        application,
 //            appointment
             )

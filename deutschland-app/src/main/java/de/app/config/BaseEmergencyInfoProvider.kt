@@ -8,6 +8,7 @@ import de.app.api.emergency.EmergencyInfoProvider
 import de.app.api.emergency.EmergencySeverity
 import de.app.config.common.AssetDataSource
 import de.app.core.range
+import de.app.notifications.RepeatedNotificatorTrigger
 import java.lang.reflect.Type
 import java.time.LocalDateTime
 import javax.inject.Inject
@@ -18,7 +19,6 @@ class BaseEmergencyInfoProvider @Inject constructor(
     private val dataSource: EmergencyAssetDataSource
 ) : EmergencyInfoProvider {
 
-    private val secondDelay = 10L
     private val emergencies: MutableList<Emergency> by lazy {
         fakeFirstEmergencyAsNew(dataSource.data)
     }
@@ -46,7 +46,7 @@ class BaseEmergencyInfoProvider @Inject constructor(
     private fun fakeFirstEmergencyAsNew(changes: List<Emergency>): MutableList<Emergency> =
         ArrayList(changes).apply {
             replaceAll {
-                if (it.id == 1) it.copy(dateTime = LocalDateTime.now().plusSeconds(secondDelay))
+                if (it.id == 1) it.copy(dateTime = LocalDateTime.now().plusSeconds(RepeatedNotificatorTrigger.EMERGENCY_DELAY_SECONDS))
                 else it
             }
         }

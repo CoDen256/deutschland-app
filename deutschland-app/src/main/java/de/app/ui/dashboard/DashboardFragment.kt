@@ -71,7 +71,9 @@ class DashboardFragment : AccountAwareListFragment<FragmentDashboardBinding, Fra
         val loaded = ArrayList<FeedItem>()
 
         val cityEmergencies =
-            emergencyInfoProvider.getAllEmergenciesForCity(account.address.city)
+            emergencyInfoProvider.getAllEmergenciesForCity(account.address.city,
+                to=LocalDateTime.now()
+            )
                 .sortedByDescending { it.dateTime }
                 .take(3)
 

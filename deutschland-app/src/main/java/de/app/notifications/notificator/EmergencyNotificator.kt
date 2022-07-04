@@ -53,9 +53,9 @@ class EmergencyNotificator @Inject constructor(): Notificator {
 
     }
 
-    private fun emergenciesForCity(country: String) =
+    private fun emergenciesForCity(city: String) =
         service.getAllEmergenciesForCity(
-            country,
+            city,
             from = lastFetch,
             to = LocalDateTime.now()
         )
