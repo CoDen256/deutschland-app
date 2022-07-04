@@ -6,7 +6,12 @@ class ValidatorProvider {
     fun getValidator(field: InputField): FieldValidator = when(field){
         is AttachmentField -> AttachmentFieldValidator()
         is BigTextField -> TextFieldValidator()
-        is DateField -> DateFieldValidator()
+        is DateField -> {
+            if (field.id.endsWith("birthday"))
+                BirthdayDateFieldValidator(field.required)
+            else
+                DateFieldValidator(field.required)
+        }
         is EmailField -> EmailFieldValidator()
         is MultipleChoiceField -> MultipleChoiceFieldValidator()
         is NumberField -> NumberFieldValidator()
