@@ -5,6 +5,7 @@ import android.database.Cursor
 import android.database.MatrixCursor
 import android.provider.BaseColumns
 import android.widget.SearchView
+import kotlinx.coroutines.internal.synchronized
 import java.util.concurrent.Executors
 
 class AddressQueryListener (
@@ -14,6 +15,8 @@ class AddressQueryListener (
     private val onChangeCursorListener: (Cursor) -> Unit
 
 ): SearchView.OnQueryTextListener {
+
+    val executor = Executors.newSingleThreadExecutor()
     override fun onQueryTextSubmit(query: String?): Boolean {
         return true
     }
@@ -21,7 +24,7 @@ class AddressQueryListener (
     override fun onQueryTextChange(newText: String?): Boolean {
         if (newText != null) {
             if (newText.length >= 2) {
-                Executors.newSingleThreadExecutor().execute { searchCity(newText) }
+                executor.execute { searchCity(newText) }
             } else {
                 searchAddressView.suggestionsAdapter.changeCursor(null)
             }
@@ -37,13 +40,16 @@ class AddressQueryListener (
                 SearchManager.SUGGEST_COLUMN_TEXT_1
             )
         )
-
+        var id = 0;
         source
+            .map{
+                it to id++
+            }
             .filter {
-                it.lowercase().contains(text.lowercase())
+                it.first.lowercase().contains(text.lowercase())
             }
             .map {
-                arrayOf<Any>(it.hashCode(), it)
+                arrayOf<Any>(it.second, it.first)
             }
             .forEach {
                 cursor.addRow(it)
