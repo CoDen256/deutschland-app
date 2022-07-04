@@ -87,5 +87,7 @@
     <string name="notify_application">Anträge von %s</string>
     <string name="notify_application_title">Änderung des Antragsstatus</string>
     <string name="notify_application_text">Aktueller Status: %s</string>
-
+    <string name="notify_mail">%s Nachrichten</string>
+    <string name="notify_mail_title">Sie haben eine neue Nachricht bekommen</string>
+    <string name="notify_mail_text">Sender: %s am:%s</string>
 </resources>

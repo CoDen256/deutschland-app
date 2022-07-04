@@ -45,7 +45,7 @@ class MailBoxFragment : AccountAwareListFragment<FragmentMailBoxListBinding, Fra
     }
 
     override fun loadItems() = mailService.getAllMessagesForAccountId(account.accountId)
-        .sortedBy { it.received }
+        .sortedByDescending { it.received }
 
     override fun setup() {
         binding.list.adapter = adapter

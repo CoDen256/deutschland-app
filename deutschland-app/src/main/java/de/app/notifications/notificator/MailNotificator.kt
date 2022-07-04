@@ -11,6 +11,7 @@ import de.app.core.inSeparateThread
 import io.karn.notify.Notify
 import kotlinx.coroutines.runBlocking
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -28,14 +29,15 @@ class MailNotificator @Inject constructor(): Notificator {
 
     override fun trigger(context: Context) {
         inSeparateThread {
-            val mails = ArrayList<MailMessageHeader>()
             runBlocking {
                 manager.getUsers().forEach { user ->
-                    accountManger.getAccountForUser(user).onSuccess {
-                        val ml = service.getAllMessagesForAccountId(it.accountId)
-                        if (ml.isNotEmpty()){
-                            val message = ml.first()
-                            notify(context, message, it)
+                    accountManger.getAccountForUser(user).onSuccess { account ->
+                        val mails = service.getAllMessagesForAccountId(account.accountId)
+                            .filter { it.received.isAfter(lastFetch) &&
+                            it.received.isBefore(LocalDateTime.now())}
+                        mails.forEach {
+                            notify(context, it, account)
+
                         }
                     }
                 }
@@ -48,18 +50,14 @@ class MailNotificator @Inject constructor(): Notificator {
     private fun notify(context: Context, message: MailMessageHeader, account: ServiceAccount) {
         Notify.with(context)
             .header {
-                this.headerText = "Mail! for ${account.displayName}"
+                this.headerText = context.getString(R.string.notify_mail, account.displayName)
                 this.icon = R.drawable.ic_menu_mail
             }
             .asBigText {
-                this.title = "You have a new message"
-                this.bigText = message.preview
+                this.title = context.getString(R.string.notify_mail_title)
+                this.bigText = context.getString(R.string.notify_mail_text, message.sender, message.received.format(
+                    DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")))
                 this.expandedText = message.preview
-    //                                    this.conversationTitle = "You have a new mail"
-    //                                    this.userDisplayName = it.displayName
-    //                                    this.messages = listOf(
-    //
-    //                                    )
             }.show()
     }
 

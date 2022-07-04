@@ -87,4 +87,7 @@
     <string name="notify_application">%s applications</string>
     <string name="notify_application_title">Update of an application status!</string>
     <string name="notify_application_text">Current status: %s</string>
+    <string name="notify_mail">%s mails</string>
+    <string name="notify_mail_title">You have a new mail message!</string>
+    <string name="notify_mail_text">From: %s on %s</string>
 </resources>

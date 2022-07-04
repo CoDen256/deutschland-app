@@ -16,7 +16,7 @@ class AggregatedNotificator @Inject constructor(): Notificator {
 
     override fun trigger(context: Context) {
         val notificators = listOf(
-//            mail,
+            mail,
             law,
             emergency,
         application,

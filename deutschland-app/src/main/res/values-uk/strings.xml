@@ -88,4 +88,7 @@
     <string name="notify_application">Заява для %s </string>
     <string name="notify_application_title">Онова вашої заяви</string>
     <string name="notify_application_text">Поточний стан: %s</string>
+    <string name="notify_mail">%s пошта</string>
+    <string name="notify_mail_title">У вас нове повмлення</string>
+    <string name="notify_mail_text">Від: %s %s</string>
 </resources>
