@@ -58,11 +58,19 @@ class AdministrativeServiceFragment : AccountAwareFragment<FragmentAdministrativ
         // Inflate submit button
         submitButtonView = inflateSubmitButton(inflater, root)
 
+        prefillInputFields()
         observeInputFields()
         observeSubmitButton()
 
         observeFormState()
         observeResult()
+    }
+
+    private fun prefillInputFields() {
+        val prefiller = Prefiller()
+        inputFields.forEach { field ->
+            field.prefill { prefiller.prefill(it, account) }
+        }
     }
 
     private fun inflateFields(

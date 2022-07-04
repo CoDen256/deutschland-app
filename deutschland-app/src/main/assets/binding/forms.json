@@ -13,7 +13,7 @@
       {
         "field": {
           "hint": "Muster",
-          "id": "text-1",
+          "id": "text-1-name",
           "label": "1. Vorname",
           "required": true
         },
@@ -22,7 +22,7 @@
       {
         "field": {
           "hint": "Mustermann",
-          "id": "text-2",
+          "id": "text-2-surname",
           "label": "2. Nachname",
           "required": true
         },
@@ -71,7 +71,7 @@
       {
         "field": {
           "hint": "19.10.2000",
-          "id": "date-1",
+          "id": "date-1-birthday",
           "label": "7. Geburtsdatum",
           "required": true
         },

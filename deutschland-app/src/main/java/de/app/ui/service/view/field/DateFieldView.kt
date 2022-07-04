@@ -8,6 +8,7 @@ import de.app.databinding.ApplicationFormDateBinding
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue
 import de.app.ui.util.afterTextChanged
+import de.app.ui.util.editable
 import de.app.ui.util.showDatePicker
 
 class DateFieldView(
@@ -35,6 +36,11 @@ class DateFieldView(
         }
     }
 
+    override fun prefill(prefiller: (String) -> String?) {
+        prefiller(id)?.let {
+            binding.field.text = it.editable()
+        }
+    }
     class Inflater {
         private lateinit var binding: ApplicationFormDateBinding
         private lateinit var id: String

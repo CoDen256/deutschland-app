@@ -10,4 +10,5 @@ interface InputFieldView: FieldView {
 
     fun setOnValueChangedListener(handler: () -> Unit)
 
+    fun prefill(prefiller: (String) -> String?){}
 }

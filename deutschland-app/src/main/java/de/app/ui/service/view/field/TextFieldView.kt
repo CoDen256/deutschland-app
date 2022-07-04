@@ -7,6 +7,7 @@ import de.app.databinding.ApplicationFormTextBinding
 import de.app.ui.service.data.state.FormState
 import de.app.ui.service.data.value.FieldValue
 import de.app.ui.util.afterTextChanged
+import de.app.ui.util.editable
 
 class TextFieldView(
     private val binding: ApplicationFormTextBinding,
@@ -33,6 +34,11 @@ class TextFieldView(
         }
     }
 
+    override fun prefill(prefiller: (String) -> String?) {
+        prefiller(id)?.let {
+            binding.field.text = it.editable()
+        }
+    }
     class Inflater {
         private lateinit var binding: ApplicationFormTextBinding
         private lateinit var id: String
