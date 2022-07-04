@@ -145,21 +145,14 @@
     ]
   },
   {
-    "serviceId": "serv-rechte",
-    "paymentRequired":  false,
+    "serviceId": "serv-tier",
+    "paymentRequired": true,
     "fields": [
       {
         "field": {
-          "imageUri": "https://www.oldenburg-reisen.ch/images/content/ReiseHinweise/1200px-Auswrtiges_Amt_Logo.svg.png",
-          "label": ""
-        },
-        "type": "ImageField"
-      },
-      {
-        "field": {
-          "hint": "Muster",
+          "hint": "Max",
           "id": "text-1",
-          "label": "1. Vorname",
+          "label": "Vorname",
           "required": true
         },
         "type": "TextField"
@@ -168,143 +161,74 @@
         "field": {
           "hint": "Mustermann",
           "id": "text-2",
-          "label": "2. Nachname",
+          "label": "Nachname",
           "required": true
         },
         "type": "TextField"
       },
       {
         "field": {
-          "hint": "Mustermann",
-          "id": "text-3",
-          "label": "3. Geburtsname",
-          "required": false
-        },
-        "type": "TextField"
-      },
-      {
-        "field": {
-          "label": "4. Ihre Email-Adresse",
-          "id": "email-1",
-          "hint": "muster@gmai.com",
-          "required": true
-        },
-        "type": "EmailField"
-      },
-      {
-        "field": {
-          "id": "radio-1",
-          "label": "5. Geschlecht",
+          "id": "single-1",
+          "label": "Ihres Tier",
+          "hint": "Tier",
           "options": [
-            "männlich",
-            "weiblich",
-            "diverse"
+            "Katze",
+            "Hund",
+            "Maus",
+            "Kaninchen"
           ],
           "required": true
         },
-        "type": "RadioChoiceField"
+        "type": "SingleChoiceField"
       },
       {
         "field": {
-          "hint": "1,2..",
-          "id": "number-1",
-          "label": "6. Anzahl der Kinder",
-          "required": false
-        },
-        "type": "NumberField"
-      },
-      {
-        "field": {
-          "hint": "19.10.2000",
-          "id": "date-1",
-          "label": "7. Geburtsdatum",
+          "hint": "Krankheit 1..\nKrankheit 2..",
+          "id": "big-1",
+          "label": "Beschreiben Sie mögliche Krankheiten Ihres Tieres",
           "required": true
         },
-        "type": "DateField"
-      },
-      {
-        "field": {
-          "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
-        },
-        "type": "TextInfoField"
-      },
-      {
-        "field": {
-          "documents": [
-            15
-          ],
-          "label": "Antrag auf Erteilung eines Aufenthaltstitels"
-        },
-        "type": "DocumentInfoField"
-      },
-      {
-        "field": {
-          "id": "multiple-1",
-          "label": "",
-          "options": [
-            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
-            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
-          ],
-          "required": true
-        },
-        "type": "MultipleChoiceField"
-      },
-      {
-        "field": {
-          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
-        },
-        "type": "TextInfoField"
+        "type": "BigTextField"
       },
       {
         "field": {
           "id": "attachment-1",
-          "label": "",
-          "mimeType": "application/pdf",
+          "label": "Fügen Sie ein Bild vom Tier bei",
+          "mimeType": "application/pdf,",
           "required": true
         },
         "type": "AttachmentField"
       },
       {
         "field": {
-          "id": "single-1",
-          "label": "11. Wählen Sie bitte Art Ihres Visums",
-          "hint": "Visumsart",
-          "options": [
-            "Schengen-Visa",
-            "Nationale Visa",
-            "Studentenvisa"
-          ],
-          "required": false
+          "hint": "1..20",
+          "id": "number-1",
+          "label": "Wie alt ist Ihres Tier",
+          "required": true
         },
-        "type": "SingleChoiceField"
+        "type": "NumberField"
       },
       {
         "field": {
-          "hint": "Aktuelles Beruf...\nAusbildung... ",
-          "id": "big-1",
-          "label": "12. Kurzes Lebenslauf",
-          "required": false
+          "hint": "muster@gmail.com",
+          "id": "email-1",
+          "label": "Ihre Email-Adresse",
+          "required": true
         },
-        "type": "BigTextField"
+        "type": "EmailField"
       }
     ]
+
   },
   {
-    "serviceId": "serv-daten",
-    "paymentRequired":  false,
+    "serviceId": "serv-hausmeister",
+    "paymentRequired": false,
     "fields": [
       {
         "field": {
-          "imageUri": "https://www.oldenburg-reisen.ch/images/content/ReiseHinweise/1200px-Auswrtiges_Amt_Logo.svg.png",
-          "label": ""
-        },
-        "type": "ImageField"
-      },
-      {
-        "field": {
-          "hint": "Muster",
+          "hint": "Max",
           "id": "text-1",
-          "label": "1. Vorname",
+          "label": "Vorname",
           "required": true
         },
         "type": "TextField"
@@ -313,82 +237,37 @@
         "field": {
           "hint": "Mustermann",
           "id": "text-2",
-          "label": "2. Nachname",
+          "label": "Nachname",
           "required": true
         },
         "type": "TextField"
       },
       {
         "field": {
-          "hint": "Mustermann",
+          "hint": "Geben Sie Ihre Adresse ein",
           "id": "text-3",
-          "label": "3. Geburtsname",
-          "required": false
+          "label": "Adresse",
+          "required": true
         },
         "type": "TextField"
       },
       {
         "field": {
-          "label": "4. Ihre Email-Adresse",
-          "id": "email-1",
-          "hint": "muster@gmai.com",
-          "required": true
-        },
-        "type": "EmailField"
-      },
-      {
-        "field": {
-          "id": "radio-1",
-          "label": "5. Geschlecht",
-          "options": [
-            "männlich",
-            "weiblich",
-            "diverse"
-          ],
-          "required": true
-        },
-        "type": "RadioChoiceField"
-      },
-      {
-        "field": {
-          "hint": "1,2..",
-          "id": "number-1",
-          "label": "6. Anzahl der Kinder",
-          "required": false
-        },
-        "type": "NumberField"
-      },
-      {
-        "field": {
-          "hint": "19.10.2000",
+          "hint": "Ab wann beginnt das Dienst vom Hausmeister",
           "id": "date-1",
-          "label": "7. Geburtsdatum",
+          "label": "Date von Begin",
           "required": true
         },
         "type": "DateField"
       },
       {
         "field": {
-          "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
-        },
-        "type": "TextInfoField"
-      },
-      {
-        "field": {
-          "documents": [
-            15
-          ],
-          "label": "Antrag auf Erteilung eines Aufenthaltstitels"
-        },
-        "type": "DocumentInfoField"
-      },
-      {
-        "field": {
           "id": "multiple-1",
-          "label": "",
+          "label": "Diensten",
           "options": [
-            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
-            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
+            "Mülltrennung",
+            "Garten",
+            "Sauber erhalten"
           ],
           "required": true
         },
@@ -396,350 +275,25 @@
       },
       {
         "field": {
-          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
-        },
-        "type": "TextInfoField"
-      },
-      {
-        "field": {
-          "id": "attachment-1",
-          "label": "",
-          "mimeType": "application/pdf",
+          "hint": "Wohnungsgrösse",
+          "id": "number-11",
+          "label": "Wohnungsgrösse",
           "required": true
-        },
-        "type": "AttachmentField"
-      },
-      {
-        "field": {
-          "id": "single-1",
-          "label": "11. Wählen Sie bitte Art Ihres Visums",
-          "hint": "Visumsart",
-          "options": [
-            "Schengen-Visa",
-            "Nationale Visa",
-            "Studentenvisa"
-          ],
-          "required": false
-        },
-        "type": "SingleChoiceField"
-      },
-      {
-        "field": {
-          "hint": "Aktuelles Beruf...\nAusbildung... ",
-          "id": "big-1",
-          "label": "12. Kurzes Lebenslauf",
-          "required": false
-        },
-        "type": "BigTextField"
-      }
-    ]
-  },
-  {
-    "serviceId": "serv-pleitier",
-    "paymentRequired":  false,
-    "fields": [
-      {
-        "field": {
-          "imageUri": "https://www.oldenburg-reisen.ch/images/content/ReiseHinweise/1200px-Auswrtiges_Amt_Logo.svg.png",
-          "label": ""
-        },
-        "type": "ImageField"
-      },
-      {
-        "field": {
-          "hint": "Muster",
-          "id": "text-1",
-          "label": "1. Vorname",
-          "required": true
-        },
-        "type": "TextField"
-      },
-      {
-        "field": {
-          "hint": "Mustermann",
-          "id": "text-2",
-          "label": "2. Nachname",
-          "required": true
-        },
-        "type": "TextField"
-      },
-      {
-        "field": {
-          "hint": "Mustermann",
-          "id": "text-3",
-          "label": "3. Geburtsname",
-          "required": false
-        },
-        "type": "TextField"
-      },
-      {
-        "field": {
-          "label": "4. Ihre Email-Adresse",
-          "id": "email-1",
-          "hint": "muster@gmai.com",
-          "required": true
-        },
-        "type": "EmailField"
-      },
-      {
-        "field": {
-          "id": "radio-1",
-          "label": "5. Geschlecht",
-          "options": [
-            "männlich",
-            "weiblich",
-            "diverse"
-          ],
-          "required": true
-        },
-        "type": "RadioChoiceField"
-      },
-      {
-        "field": {
-          "hint": "1,2..",
-          "id": "number-1",
-          "label": "6. Anzahl der Kinder",
-          "required": false
         },
         "type": "NumberField"
-      },
-      {
-        "field": {
-          "hint": "19.10.2000",
-          "id": "date-1",
-          "label": "7. Geburtsdatum",
-          "required": true
-        },
-        "type": "DateField"
-      },
-      {
-        "field": {
-          "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
-        },
-        "type": "TextInfoField"
-      },
-      {
-        "field": {
-          "documents": [
-            15
-          ],
-          "label": "Antrag auf Erteilung eines Aufenthaltstitels"
-        },
-        "type": "DocumentInfoField"
-      },
-      {
-        "field": {
-          "id": "multiple-1",
-          "label": "",
-          "options": [
-            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
-            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
-          ],
-          "required": true
-        },
-        "type": "MultipleChoiceField"
-      },
-      {
-        "field": {
-          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
-        },
-        "type": "TextInfoField"
-      },
-      {
-        "field": {
-          "id": "attachment-1",
-          "label": "",
-          "mimeType": "application/pdf",
-          "required": true
-        },
-        "type": "AttachmentField"
-      },
-      {
-        "field": {
-          "id": "single-1",
-          "label": "11. Wählen Sie bitte Art Ihres Visums",
-          "hint": "Visumsart",
-          "options": [
-            "Schengen-Visa",
-            "Nationale Visa",
-            "Studentenvisa"
-          ],
-          "required": false
-        },
-        "type": "SingleChoiceField"
-      },
-      {
-        "field": {
-          "hint": "Aktuelles Beruf...\nAusbildung... ",
-          "id": "big-1",
-          "label": "12. Kurzes Lebenslauf",
-          "required": false
-        },
-        "type": "BigTextField"
       }
     ]
-  },
-  {
-    "serviceId": "serv-baum",
-    "paymentRequired":  false,
-    "fields": [
-      {
-        "field": {
-          "imageUri": "https://www.oldenburg-reisen.ch/images/content/ReiseHinweise/1200px-Auswrtiges_Amt_Logo.svg.png",
-          "label": ""
-        },
-        "type": "ImageField"
-      },
-      {
-        "field": {
-          "hint": "Muster",
-          "id": "text-1",
-          "label": "1. Vorname",
-          "required": true
-        },
-        "type": "TextField"
-      },
-      {
-        "field": {
-          "hint": "Mustermann",
-          "id": "text-2",
-          "label": "2. Nachname",
-          "required": true
-        },
-        "type": "TextField"
-      },
-      {
-        "field": {
-          "hint": "Mustermann",
-          "id": "text-3",
-          "label": "3. Geburtsname",
-          "required": false
-        },
-        "type": "TextField"
-      },
-      {
-        "field": {
-          "label": "4. Ihre Email-Adresse",
-          "id": "email-1",
-          "hint": "muster@gmai.com",
-          "required": true
-        },
-        "type": "EmailField"
-      },
-      {
-        "field": {
-          "id": "radio-1",
-          "label": "5. Geschlecht",
-          "options": [
-            "männlich",
-            "weiblich",
-            "diverse"
-          ],
-          "required": true
-        },
-        "type": "RadioChoiceField"
-      },
-      {
-        "field": {
-          "hint": "1,2..",
-          "id": "number-1",
-          "label": "6. Anzahl der Kinder",
-          "required": false
-        },
-        "type": "NumberField"
-      },
-      {
-        "field": {
-          "hint": "19.10.2000",
-          "id": "date-1",
-          "label": "7. Geburtsdatum",
-          "required": true
-        },
-        "type": "DateField"
-      },
-      {
-        "field": {
-          "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
-        },
-        "type": "TextInfoField"
-      },
-      {
-        "field": {
-          "documents": [
-            15
-          ],
-          "label": "Antrag auf Erteilung eines Aufenthaltstitels"
-        },
-        "type": "DocumentInfoField"
-      },
-      {
-        "field": {
-          "id": "multiple-1",
-          "label": "",
-          "options": [
-            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
-            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
-          ],
-          "required": true
-        },
-        "type": "MultipleChoiceField"
-      },
-      {
-        "field": {
-          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
-        },
-        "type": "TextInfoField"
-      },
-      {
-        "field": {
-          "id": "attachment-1",
-          "label": "",
-          "mimeType": "application/pdf",
-          "required": true
-        },
-        "type": "AttachmentField"
-      },
-      {
-        "field": {
-          "id": "single-1",
-          "label": "11. Wählen Sie bitte Art Ihres Visums",
-          "hint": "Visumsart",
-          "options": [
-            "Schengen-Visa",
-            "Nationale Visa",
-            "Studentenvisa"
-          ],
-          "required": false
-        },
-        "type": "SingleChoiceField"
-      },
-      {
-        "field": {
-          "hint": "Aktuelles Beruf...\nAusbildung... ",
-          "id": "big-1",
-          "label": "12. Kurzes Lebenslauf",
-          "required": false
-        },
-        "type": "BigTextField"
-      }
-    ]
+
   },
   {
     "serviceId": "serv-kita",
-    "paymentRequired":  false,
+    "paymentRequired": false,
     "fields": [
       {
         "field": {
-          "imageUri": "https://www.oldenburg-reisen.ch/images/content/ReiseHinweise/1200px-Auswrtiges_Amt_Logo.svg.png",
-          "label": ""
-        },
-        "type": "ImageField"
-      },
-      {
-        "field": {
-          "hint": "Muster",
+          "hint": "Max",
           "id": "text-1",
-          "label": "1. Vorname",
+          "label": "Vorname",
           "required": true
         },
         "type": "TextField"
@@ -748,7 +302,73 @@
         "field": {
           "hint": "Mustermann",
           "id": "text-2",
-          "label": "2. Nachname",
+          "label": "Nachname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "id": "single-1",
+          "label": "Termin",
+          "hint":  "Uhrzeit",
+          "options": [
+            "Bis 13:00",
+            "Bis 15:00",
+            "Bis 17:00"
+          ],
+          "required": true
+        },
+        "type": "SingleChoiceField"
+      },
+      {
+        "field": {
+          "hint": "muster@gmail.com",
+          "id": "email-1",
+          "label": "Ihre Email-Adresse",
+          "required": true
+        },
+        "type": "EmailField"
+      },
+      {
+        "field": {
+          "hint": "Olaf",
+          "id": "text-3",
+          "label": "Vorname des Kindes",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Olafmann",
+          "id": "text-4",
+          "label": "Nachname des Kindes",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Fähigkeiten...",
+          "id": "big-1",
+          "label": "Beschreiben Sie die Fähigkeiten Ihres Kindes",
+          "required": true
+        },
+        "type": "BigTextField"
+      }
+    ]
+
+  },
+  {
+    "serviceId": "serv-baum",
+    "paymentRequired": true,
+    "fields": [
+      {
+        "field": {
+          "hint": "Max",
+          "id": "text-1",
+          "label": "Vorname",
           "required": true
         },
         "type": "TextField"
@@ -756,135 +376,73 @@
       {
         "field": {
           "hint": "Mustermann",
-          "id": "text-3",
-          "label": "3. Geburtsname",
-          "required": false
+          "id": "text-2",
+          "label": "Nachname",
+          "required": true
         },
         "type": "TextField"
       },
       {
         "field": {
-          "label": "4. Ihre Email-Adresse",
-          "id": "email-1",
-          "hint": "muster@gmai.com",
-          "required": true
-        },
-        "type": "EmailField"
-      },
-      {
-        "field": {
-          "id": "radio-1",
-          "label": "5. Geschlecht",
+          "id": "single-1",
+          "label": "Um was handelt es sich?",
+          "hint": "Typ",
           "options": [
-            "männlich",
-            "weiblich",
-            "diverse"
+            "Baum",
+            "Busche"
           ],
           "required": true
         },
-        "type": "RadioChoiceField"
-      },
-      {
-        "field": {
-          "hint": "1,2..",
-          "id": "number-1",
-          "label": "6. Anzahl der Kinder",
-          "required": false
-        },
-        "type": "NumberField"
-      },
-      {
-        "field": {
-          "hint": "19.10.2000",
-          "id": "date-1",
-          "label": "7. Geburtsdatum",
-          "required": true
-        },
-        "type": "DateField"
-      },
-      {
-        "field": {
-          "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
-        },
-        "type": "TextInfoField"
-      },
-      {
-        "field": {
-          "documents": [
-            15
-          ],
-          "label": "Antrag auf Erteilung eines Aufenthaltstitels"
-        },
-        "type": "DocumentInfoField"
-      },
-      {
-        "field": {
-          "id": "multiple-1",
-          "label": "",
-          "options": [
-            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
-            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
-          ],
-          "required": true
-        },
-        "type": "MultipleChoiceField"
-      },
-      {
-        "field": {
-          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
-        },
-        "type": "TextInfoField"
+        "type": "SingleChoiceField"
       },
       {
         "field": {
           "id": "attachment-1",
-          "label": "",
-          "mimeType": "application/pdf",
+          "label": "Fügen Sie das Bild von den Pflanzen bei, die gesägt werden sollen",
+          "mimeType": "application/pdf,",
           "required": true
         },
         "type": "AttachmentField"
       },
       {
         "field": {
-          "id": "single-1",
-          "label": "11. Wählen Sie bitte Art Ihres Visums",
-          "hint": "Visumsart",
-          "options": [
-            "Schengen-Visa",
-            "Nationale Visa",
-            "Studentenvisa"
-          ],
-          "required": false
+          "hint": "1,2,3...",
+          "id": "number-1",
+          "label": "Wie viele Pflanzen müssen wir beachten?",
+          "required": true
         },
-        "type": "SingleChoiceField"
+        "type": "NumberField"
       },
       {
         "field": {
-          "hint": "Aktuelles Beruf...\nAusbildung... ",
-          "id": "big-1",
-          "label": "12. Kurzes Lebenslauf",
-          "required": false
+          "hint": "muster@gmail.com",
+          "id": "email-1",
+          "label": "Ihre Email-Adresse",
+          "required": true
         },
-        "type": "BigTextField"
+        "type": "EmailField"
+      },
+      {
+        "field": {
+          "hint": "10.10.2022",
+          "id": "date-1",
+          "label": "Datum eines für Sie passenden Termines",
+          "required": true
+        },
+        "type": "DateField"
       }
     ]
+
   },
   {
     "serviceId": "serv-einkommen",
-    "paymentRequired":  false,
+    "paymentRequired": false,
     "fields": [
       {
         "field": {
-          "imageUri": "https://www.oldenburg-reisen.ch/images/content/ReiseHinweise/1200px-Auswrtiges_Amt_Logo.svg.png",
-          "label": ""
-        },
-        "type": "ImageField"
-      },
-      {
-        "field": {
-          "hint": "Muster",
+          "hint": "Max",
           "id": "text-1",
-          "label": "1. Vorname",
+          "label": "Vorname",
           "required": true
         },
         "type": "TextField"
@@ -893,143 +451,72 @@
         "field": {
           "hint": "Mustermann",
           "id": "text-2",
-          "label": "2. Nachname",
+          "label": "Nachname",
           "required": true
         },
         "type": "TextField"
       },
       {
         "field": {
-          "hint": "Mustermann",
-          "id": "text-3",
-          "label": "3. Geburtsname",
-          "required": false
-        },
-        "type": "TextField"
-      },
-      {
-        "field": {
-          "label": "4. Ihre Email-Adresse",
-          "id": "email-1",
-          "hint": "muster@gmai.com",
-          "required": true
-        },
-        "type": "EmailField"
-      },
-      {
-        "field": {
-          "id": "radio-1",
-          "label": "5. Geschlecht",
+          "id": "single-1",
+          "label": "Typ",
+          "hint": "Typ",
           "options": [
-            "männlich",
-            "weiblich",
-            "diverse"
+            "Firma",
+            "Privat"
           ],
           "required": true
         },
-        "type": "RadioChoiceField"
-      },
-      {
-        "field": {
-          "hint": "1,2..",
-          "id": "number-1",
-          "label": "6. Anzahl der Kinder",
-          "required": false
-        },
-        "type": "NumberField"
-      },
-      {
-        "field": {
-          "hint": "19.10.2000",
-          "id": "date-1",
-          "label": "7. Geburtsdatum",
-          "required": true
-        },
-        "type": "DateField"
-      },
-      {
-        "field": {
-          "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
-        },
-        "type": "TextInfoField"
-      },
-      {
-        "field": {
-          "documents": [
-            15
-          ],
-          "label": "Antrag auf Erteilung eines Aufenthaltstitels"
-        },
-        "type": "DocumentInfoField"
-      },
-      {
-        "field": {
-          "id": "multiple-1",
-          "label": "",
-          "options": [
-            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
-            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
-          ],
-          "required": true
-        },
-        "type": "MultipleChoiceField"
-      },
-      {
-        "field": {
-          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
-        },
-        "type": "TextInfoField"
+        "type": "SingleChoiceField"
       },
       {
         "field": {
           "id": "attachment-1",
-          "label": "",
-          "mimeType": "application/pdf",
+          "label": "Fügen Sie die Datei Ihrer Ausgaben bei",
+          "mimeType": "application/pdf,",
           "required": true
         },
         "type": "AttachmentField"
       },
       {
         "field": {
-          "id": "single-1",
-          "label": "11. Wählen Sie bitte Art Ihres Visums",
-          "hint": "Visumsart",
-          "options": [
-            "Schengen-Visa",
-            "Nationale Visa",
-            "Studentenvisa"
-          ],
-          "required": false
+          "hint": "1000 Euro..",
+          "id": "number-1",
+          "label": "Geld insgesamt (Euro)",
+          "required": true
         },
-        "type": "SingleChoiceField"
+        "type": "NumberField"
       },
       {
         "field": {
-          "hint": "Aktuelles Beruf...\nAusbildung... ",
-          "id": "big-1",
-          "label": "12. Kurzes Lebenslauf",
-          "required": false
+          "hint": "muster@gmail.com",
+          "id": "email-1",
+          "label": "Ihre Email-Adresse",
+          "required": true
         },
-        "type": "BigTextField"
+        "type": "EmailField"
+      },
+      {
+        "field": {
+          "hint": "19.10.2022",
+          "id": "date-1",
+          "label": "Datum eines für Sie passenden Termines",
+          "required": true
+        },
+        "type": "DateField"
       }
     ]
+
   },
   {
-    "serviceId": "serv-tier",
-    "paymentRequired":  false,
+    "serviceId": "serv-rechte",
+    "paymentRequired": false,
     "fields": [
       {
         "field": {
-          "imageUri": "https://www.oldenburg-reisen.ch/images/content/ReiseHinweise/1200px-Auswrtiges_Amt_Logo.svg.png",
-          "label": ""
-        },
-        "type": "ImageField"
-      },
-      {
-        "field": {
-          "hint": "Muster",
+          "hint": "Max",
           "id": "text-1",
-          "label": "1. Vorname",
+          "label": "Vorname",
           "required": true
         },
         "type": "TextField"
@@ -1038,7 +525,50 @@
         "field": {
           "hint": "Mustermann",
           "id": "text-2",
-          "label": "2. Nachname",
+          "label": "Nachname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Beschreibung",
+          "id": "big-1",
+          "label": "Verfassen Sie aussagekräftige Erklärung, wie Ihre rechte beeinträchtigt worden sind",
+          "required": false
+        },
+        "type": "BigTextField"
+      },
+      {
+        "field": {
+          "hint": "muster@gmail.com",
+          "id": "email-1",
+          "label": "Ihre Email-Adresse",
+          "required": true
+        },
+        "type": "EmailField"
+      },
+      {
+        "field": {
+          "hint": "19.10.2022",
+          "id": "date-1",
+          "label": "Datum eines für Sie passenden Termines",
+          "required": true
+        },
+        "type": "DateField"
+      }
+    ]
+
+  },
+  {
+    "serviceId": "serv-daten",
+    "paymentRequired": false,
+    "fields": [
+      {
+        "field": {
+          "hint": "Max",
+          "id": "text-1",
+          "label": "Vorname",
           "required": true
         },
         "type": "TextField"
@@ -1046,103 +576,40 @@
       {
         "field": {
           "hint": "Mustermann",
-          "id": "text-3",
-          "label": "3. Geburtsname",
-          "required": false
+          "id": "text-2",
+          "label": "Nachname",
+          "required": true
         },
         "type": "TextField"
       },
       {
         "field": {
-          "label": "4. Ihre Email-Adresse",
+          "hint": "muster@gmail.com",
           "id": "email-1",
-          "hint": "muster@gmai.com",
+          "label": "Ihre Email-Adresse",
           "required": true
         },
         "type": "EmailField"
       },
       {
         "field": {
-          "id": "radio-1",
-          "label": "5. Geschlecht",
-          "options": [
-            "männlich",
-            "weiblich",
-            "diverse"
-          ],
-          "required": true
-        },
-        "type": "RadioChoiceField"
-      },
-      {
-        "field": {
-          "hint": "1,2..",
-          "id": "number-1",
-          "label": "6. Anzahl der Kinder",
-          "required": false
-        },
-        "type": "NumberField"
-      },
-      {
-        "field": {
-          "hint": "19.10.2000",
+          "hint": "20.10.2022",
           "id": "date-1",
-          "label": "7. Geburtsdatum",
+          "label": "Datum eines für Sie passenden Termines",
           "required": true
         },
         "type": "DateField"
       },
       {
         "field": {
-          "text": "Anbei finden Sie alle notwendigen Informationen bezüglich der Beantragung"
-        },
-        "type": "TextInfoField"
-      },
-      {
-        "field": {
-          "documents": [
-            15
-          ],
-          "label": "Antrag auf Erteilung eines Aufenthaltstitels"
-        },
-        "type": "DocumentInfoField"
-      },
-      {
-        "field": {
-          "id": "multiple-1",
-          "label": "",
-          "options": [
-            "8. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
-            "9. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
-          ],
-          "required": true
-        },
-        "type": "MultipleChoiceField"
-      },
-      {
-        "field": {
-          "text": "10. Anbei laden Sie bitte alle notwendigen unterlagen hoch:\n\t1. Aktueller Aufenthaltstitel\n\t2. Ausweis\n\t3. Ausgefülltes Formular"
-        },
-        "type": "TextInfoField"
-      },
-      {
-        "field": {
-          "id": "attachment-1",
-          "label": "",
-          "mimeType": "application/pdf",
-          "required": true
-        },
-        "type": "AttachmentField"
-      },
-      {
-        "field": {
           "id": "single-1",
-          "label": "11. Wählen Sie bitte Art Ihres Visums",
-          "hint": "Visumsart",
+          "label": "Welche Daten Sie ändern wollen",
+          "hint": "Typ",
           "options": [
-            "Schengen-Visa",
-            "Nationale Visa",
-            "Studentenvisa"
+            "Name",
+            "Adresse",
+            "Aktionenname",
+            "CEO"
           ],
           "required": false
         },
@@ -1150,13 +617,145 @@
       },
       {
         "field": {
-          "hint": "Aktuelles Beruf...\nAusbildung... ",
+          "hint": "Neuer Firmenname GmbH",
+          "id": "text-3",
+          "label": "Neuen Wert",
+          "required": true
+        },
+        "type": "TextField"
+      }
+    ]
+
+  },
+  {
+    "serviceId": "serv-pleitier",
+    "paymentRequired": false,
+    "fields": [
+      {
+        "field": {
+          "hint": "Max",
+          "id": "text-1",
+          "label": "Vorname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-2",
+          "label": "Nachname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "muster@gmail.com",
+          "id": "email-1",
+          "label": "Ihre Email-Adresse",
+          "required": true
+        },
+        "type": "EmailField"
+      },
+      {
+        "field": {
+          "hint": "20.10.2022",
+          "id": "date-1",
+          "label": "Datum eines für Sie passenden Termines",
+          "required": true
+        },
+        "type": "DateField"
+      },
+      {
+        "field": {
+          "id": "single-1",
+          "label": "Geben Sie das Grund, warum Sie kein Geld mehr haben",
+          "hint": "Grund",
+          "options": [
+            "Schlechter Managment",
+            "Zu viele Steuern",
+            "Kredit mit Hohen Prozeten",
+            "Schlechte Plannung"
+          ],
+          "required": false
+        },
+        "type": "SingleChoiceField"
+      },
+      {
+        "field": {
+          "id": "single-2",
+          "label": "Beratung mit Anwalt",
+          "options": [
+            "Ja",
+            "Nein"
+          ],
+          "required": false
+        },
+        "type": "RadioChoiceField"
+      }
+    ]
+
+  },
+  {
+    "serviceId": "serv-anwalt",
+    "paymentRequired": true,
+    "fields": [
+      {
+        "field": {
+          "hint": "Max",
+          "id": "text-1",
+          "label": "Vorname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Mustermann",
+          "id": "text-2",
+          "label": "Nachname",
+          "required": true
+        },
+        "type": "TextField"
+      },
+      {
+        "field": {
+          "hint": "Verfassen Sie aussagekräftige Erklärung, welche Situation Sie zum Lösen haben",
           "id": "big-1",
-          "label": "12. Kurzes Lebenslauf",
+          "label": "Beschreibung",
           "required": false
         },
         "type": "BigTextField"
+      },
+      {
+        "field": {
+          "hint": "muster@gmail.com",
+          "id": "email-1",
+          "label": "Ihre Email-Adresse",
+          "required": true
+        },
+        "type": "EmailField"
+      },
+      {
+        "field": {
+          "hint": "20.10.2022",
+          "id": "date-1",
+          "label": "Datum eines für Sie passenden Termines",
+          "required": true
+        },
+        "type": "DateField"
+      },
+      {
+        "field": {
+          "hint": "015799988877",
+          "id": "number-1",
+          "label": "Ihre Telefonnummer",
+          "required": false
+        },
+        "type": "NumberField"
       }
     ]
+
   }
 ]
