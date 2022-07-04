@@ -1,0 +1,205 @@
+ImageField:
+  properties:
+    imageUri:
+      type: string
+      format: url
+      example: https://source.unsplash.com/random/1024x1024?sig=123123123"
+    label:
+      type: string
+      example: name
+  required:
+    - required
+    - hint
+    - id
+    - label
+  type: object
+SingleChoiceField:
+  properties:
+    required:
+      type: boolean
+      example: true
+    id:
+      type: string
+      example: field-id-0
+    label:
+      type: string
+      example: name
+    hint:
+      type: string
+      example: Jane Doe
+    options:
+      type: array
+      items:
+        type: string
+      example: [ First Option ]
+  required:
+    - required
+    - id
+    - label
+    - options
+    - hint
+  type: object
+
+BigTextField:
+  properties:
+    required:
+      type: boolean
+      example: true
+    id:
+      type: string
+      example: field-id-0
+    label:
+      type: string
+      example: name
+    hint:
+      type: string
+      example: Jane Doe
+  required:
+    - required
+    - hint
+    - id
+    - label
+  type: object
+
+DateField:
+  properties:
+    required:
+      type: boolean
+      example: true
+    id:
+      type: string
+      example: field-id-0
+    label:
+      type: string
+      example: name
+    hint:
+      type: string
+      example: Jane Doe
+  required:
+    - required
+    - hint
+    - id
+    - label
+  type: object
+AttachmentField:
+  properties:
+    required:
+      type: boolean
+      example: true
+    id:
+      type: string
+      example: field-id-0
+    label:
+      type: string
+      example: name
+    mimeType:
+      type: string
+      format: mimeType
+      example: "application/pdf"
+  required:
+    - required
+    - hint
+    - id
+    - label
+  type: object
+
+MultipleChoiceField:
+  properties:
+    required:
+      type: boolean
+      example: true
+    id:
+      type: string
+      example: field-id-0
+    label:
+      type: string
+      example: name
+    options:
+      type: array
+      items:
+        type: string
+      example: [ First Option ]
+  required:
+    - required
+    - id
+    - label
+    - options
+    type: object
+
+  NumberField:
+    properties:
+      required:
+        type: boolean
+        example: true
+      id:
+        type: string
+        example: field-id-0
+      label:
+        type: string
+        example: name
+      hint:
+        type: string
+        example: Jane Doe
+    required:
+      - required
+      - hint
+      - id
+      - label
+    type: object
+  RadioChoiceField:
+    properties:
+      required:
+        type: boolean
+        example: true
+      id:
+        type: string
+        example: field-id-0
+      label:
+        type: string
+        example: name
+      options:
+        type: array
+        items:
+          type: string
+        example: [ First Option ]
+    required:
+      - required
+      - id
+      - label
+      - options
+    type: object
+
+  DocumentInfoField:
+    properties:
+      documents:
+        type: array
+        items:
+          $ref: '#/components/schemas/Document'
+      label:
+        type: string
+        example: name
+    required:
+      - label
+      - documents
+    type: object
+
+  EmailField:
+    properties:
+      required:
+        type: boolean
+        example: true
+      id:
+        type: string
+        example: field-id-0
+      label:
+        type: string
+        example: email@gmail.com
+      hint:
+        type: string
+        example: Jane Doe
+    required:
+      - required
+      - hint
+      - id
+      - label
+    type: object
