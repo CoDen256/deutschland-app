@@ -65,6 +65,8 @@ class AdminServiceViewModel internal constructor(
     }
 
     fun submit(data: FormValue) {
+        formDataChanged(data)
+        if (formState.value?.isDataValid != true) return
         val submittedForm = SubmittedForm(ArrayList<SubmittedField>().apply {
             data.values.forEach {
                 add(SubmittedField(it.id, it.value))

@@ -13,8 +13,8 @@
       {
         "field": {
           "hint": "Muster",
-          "id": "text-1-name-name",
-          "label": "1. Vorname",
+          "id": "text-1-name",
+          "label": "1. Vorname *",
           "required": true
         },
         "type": "TextField"
@@ -22,8 +22,8 @@
       {
         "field": {
           "hint": "Mustermann",
-          "id": "text-2-surna-surnameme",
-          "label": "2. Nachname",
+          "id": "text-2-surname",
+          "label": "2. Nachname *",
           "required": true
         },
         "type": "TextField"
@@ -42,7 +42,7 @@
           "label": "4. Ihre Email-Adresse",
           "id": "email-1",
           "hint": "muster@gmai.com",
-          "required": true
+          "required": false
         },
         "type": "EmailField"
       },
@@ -55,7 +55,7 @@
             "weiblich",
             "diverse"
           ],
-          "required": true
+          "required": false
         },
         "type": "RadioChoiceField"
       },
@@ -72,7 +72,7 @@
         "field": {
           "hint": "19.10.2000",
           "id": "date-1-birthday",
-          "label": "7. Geburtsdatum",
+          "label": "7. Geburtsdatum *",
           "required": true
         },
         "type": "DateField"
@@ -81,8 +81,8 @@
         "field": {
           "hint": "Merseburg",
           "id": "text-4-city",
-          "label": "8. Ort",
-          "required": false
+          "label": "8. Ort *",
+          "required": true
         },
         "type": "TextField"
       },
@@ -90,8 +90,8 @@
         "field": {
           "hint": "Eberhard-Leibnitz-Strasse 9",
           "id": "text-5-address",
-          "label": "9. Adresse",
-          "required": false
+          "label": "9. Adresse *",
+          "required": true
         },
         "type": "TextField"
       },
@@ -99,8 +99,8 @@
         "field": {
           "hint": "06217",
           "id": "text-6-postalcode",
-          "label": "10. PLZ",
-          "required": false
+          "label": "10. PLZ *",
+          "required": true
         },
         "type": "TextField"
       },
@@ -127,7 +127,7 @@
             "11. Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden",
             "12. Sie erklären sich damit einverstanden, dass Ihre Daten aus Service Konto abgefragt werden"
           ],
-          "required": true
+          "required": false
         },
         "type": "MultipleChoiceField"
       },
@@ -142,7 +142,7 @@
           "id": "attachment-1",
           "label": "",
           "mimeType": "application/pdf",
-          "required": true
+          "required": false
         },
         "type": "AttachmentField"
       },
