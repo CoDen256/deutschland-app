@@ -22,6 +22,8 @@ import de.app.config.common.*
 import de.app.core.success
 import de.app.core.successOrElse
 import de.app.data.model.FileHeader
+import de.app.notifications.RepeatedNotificatorTrigger.Companion.APPLICATION_DELAY_SECONDS
+import de.app.notifications.RepeatedNotificatorTrigger.Companion.MAIL_DELAY_SECONDS
 import java.io.IOException
 import java.lang.reflect.Type
 import java.time.DayOfWeek
@@ -85,12 +87,12 @@ class BaseAdministrativeServiceRegistry @Inject constructor(
         applicationService.addApplicationForAccountId(
             account.accountId,
             Application(
-                name = "Antrag zu `${service.name}`",
-                description = "${account.displayName}, danke,dass Sie einen Antrag für '${service.name}' gesendet haben. Wir aktualisieren den Status, nachdem wir alle Dokumente verifizieren",
+                name = "Beantragung von `${service.name}`",
+                description = "${account.displayName}, Danke für das Zusenden von Antrag für `${service.name}`, wir fangen gleich mit der Verifikation des Antrags an",
                 serviceId = service.id,
                 accountId = account.accountId,
                 status = ApplicationStatus.SENT,
-                applicationDate = LocalDateTime.now()
+                applicationDate = LocalDateTime.now().plusSeconds(APPLICATION_DELAY_SECONDS)
             )
         )
     }
@@ -113,9 +115,9 @@ class BaseAdministrativeServiceRegistry @Inject constructor(
         mailboxService.sendMessageToAccountId(
             account.accountId,
             MailMessageHeader(
-                "Your application has been received",
-                preview = "Thank you for sending application to ${service.name}, ${account.displayName}",
-                received = LocalDateTime.now(),
+                "Beantragung von `${service.name}`",
+                preview = "${account.displayName}, Sie haben einen Antrag für `${service.name}` gesendet. Wir teilen Ihnen den Status des Antrags mit, sobald etwas sich ändert.",
+                received = LocalDateTime.now().plusSeconds(MAIL_DELAY_SECONDS),
                 id = UUID.randomUUID().toString(),
                 sender = service.email
             )

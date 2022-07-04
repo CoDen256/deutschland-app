@@ -18,6 +18,8 @@ class RepeatedNotificatorTrigger: BroadcastReceiver() {
     companion object {
         const val LAW_DELAY_SECONDS = 20L
         const val EMERGENCY_DELAY_SECONDS = 40L
+        const val APPLICATION_DELAY_SECONDS = 15L
+        const val MAIL_DELAY_SECONDS = 15L
         const val INTERVAL = 1000L*15*1
         const val INITIAL_DELAY = 0L
         const val repeat = 5

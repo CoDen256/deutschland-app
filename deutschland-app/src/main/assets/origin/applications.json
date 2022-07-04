@@ -8,7 +8,7 @@
     {
       "applicationId":  1,
       "serviceId": "serv-tier",
-      "description": "Sie müssen Ihr Tier angemelden werden, ansonsten bekommen Sie eine Strafe.",
+      "description": "Sie müssen Ihr Tier anmelden, ansonsten bekommen Sie eine Strafe.",
       "name": "Tieranmeldung"
     },
     {
