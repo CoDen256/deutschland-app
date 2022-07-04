@@ -11,6 +11,7 @@ import de.app.api.mail.MailboxService
 import de.app.databinding.FragmentMailBoxItemBinding
 import de.app.databinding.FragmentMailBoxListBinding
 import de.app.ui.components.AccountAwareListFragment
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
@@ -45,6 +46,7 @@ class MailBoxFragment : AccountAwareListFragment<FragmentMailBoxListBinding, Fra
     }
 
     override fun loadItems() = mailService.getAllMessagesForAccountId(account.accountId)
+        .filter { it.received.isBefore(LocalDateTime.now()) }
         .sortedByDescending { it.received }
 
     override fun setup() {

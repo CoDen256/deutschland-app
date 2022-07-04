@@ -11,6 +11,7 @@ import de.app.api.applications.ApplicationStatus
 import de.app.databinding.FragmentApplicationBinding
 import de.app.databinding.FragmentApplicationItemBinding
 import de.app.ui.components.AccountAwareListFragment
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
@@ -56,6 +57,7 @@ class ApplicationFragment : AccountAwareListFragment<FragmentApplicationBinding,
 
     override fun loadItems(): List<Application> {
         return applicationService.getAllApplicationsByAccountId(account.accountId)
+            .filter { it.applicationDate.isBefore(LocalDateTime.now()) }
             .sortedByDescending { it.applicationDate }
     }
 
