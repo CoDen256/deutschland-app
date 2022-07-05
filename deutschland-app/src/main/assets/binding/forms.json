@@ -112,9 +112,7 @@
       },
       {
         "field": {
-          "documents": [
-            15
-          ],
+          "documents": [5],
           "label": "Antrag auf Erteilung eines Aufenthaltstitels"
         },
         "type": "DocumentInfoField"
@@ -308,6 +306,13 @@
           "required": true
         },
         "type": "NumberField"
+      },
+      {
+        "field": {
+          "documents": [8],
+          "label": "Mietzuschuss"
+        },
+        "type": "DocumentInfoField"
       }
     ]
 
@@ -360,7 +365,7 @@
       {
         "field": {
           "hint": "Olaf",
-          "id": "text-3-name",
+          "id": "text-3",
           "label": "Vorname des Kindes",
           "required": true
         },
@@ -369,7 +374,7 @@
       {
         "field": {
           "hint": "Olafmann",
-          "id": "text-4-surname",
+          "id": "text-4",
           "label": "Nachname des Kindes",
           "required": true
         },
@@ -383,6 +388,13 @@
           "required": true
         },
         "type": "BigTextField"
+      },
+      {
+        "field": {
+          "documents": [7, 3],
+          "label": "Antrag auf Kindergeld und Anmeldebescheinigung"
+        },
+        "type": "DocumentInfoField"
       }
     ]
 
@@ -592,6 +604,13 @@
           "required": true
         },
         "type": "DateField"
+      },
+      {
+        "field": {
+          "documents": [6],
+          "label": "Beantragung einer Klage bei Gericht"
+        },
+        "type": "DocumentInfoField"
       }
     ]
 

@@ -1,56 +1,92 @@
 [
   {
     "mailId": 0,
-    "preview": "Ich schaffe es leider nicht an dem Termin rechzeitig zu kommen. Würde gern nach eine Woche verschieben.",
-    "subject": "Termin mit Sozialamt vershieben",
+    "preview": "Wir müssen leider ihren Termin zum Sozialamt absagen und einen neuen in einer Woche anbieten.",
+    "subject": "Termin zum Sozialamt",
     "sender": "sozialamt@info.gov"
   },
   {
-    "mailId":  1,
-    "preview": "Ich würde gern 2 Tieren gleichzeitig anmelden. Und zwar, eine Katze und ein Hund.",
-    "subject": "2 Tiere anmelden",
-    "sender":  "tier-anmeldung@info.com"
+    "mailId": 1,
+    "preview": "Sie haben 2 Tiere erfolgreich angemeldet!",
+    "subject": "Anmeldung von Tieren",
+    "sender": "tier-anmeldung@info.com"
   },
   {
-    "mailId":  2,
-    "preview": "Es tut mir leid, aber ich muss mitteilen, dass nicht alle Bäume gesägt wurde. Dafür bräuchte ich noch ein Termin.",
+    "mailId": 2,
+    "preview": "Es tut uns leid, aber wir müssen mitteilen, dass nicht alle Bäume gesägt wurden. Deshalb bieten wir um einen neuen Termin",
     "subject": "Nicht alle Bäume wurde gesägt.",
-    "sender":  "baum-faellen@info.com"
+    "sender": "baum-faellen@info.com"
   },
   {
-    "mailId":  3,
-    "preview": "Als ich ein Termin bei Ausländerbehörde hatte, habe ich aus Versehen falsche Daten eingegeben. Ich bitte um noch einen Termin, um richtige Daten anzugeben.",
-    "subject": "Angaben gefälscht",
-    "sender":  "@info.com"
+    "mailId": 3,
+    "preview": "Leider haben wir Ihre Unterlagen verloren, wir bitten um Entschuldigung und brauchen noch einen Termin",
+    "subject": "Unterlagen verloren",
+    "sender": "auslaenderbehoerde@info.com"
   },
   {
-    "mailId":  4,
-    "preview": "Aktueller Hausmeister macht passt mir nicht, würde ich ihn wecheln.",
-    "subject": "Hausmeister wechseln",
-    "sender":  "wohnheim@info.com"
+    "mailId": 4,
+    "preview": "Vielen Dank für das Zusenden des Antrags. Wir informieren Sie umgehend, sobald ein Hausmeister verfügbar ist",
+    "subject": "Hausmeister anfragen",
+    "sender": "wohnheim@info.com"
   },
   {
-    "mailId":  5,
-    "preview": "Ich habe ein neues Tier gehabt! Sofort melde ich es!",
-    "subject": "Neues Tier",
-    "sender":  "tier-anmeldung@info.com"
+    "mailId": 5,
+    "preview": "Wir bitten Sie um zusätzliche Angaben bezüglich Ihres Tieres",
+    "subject": "Angaben zur Tieranmeldung",
+    "sender": "tier-anmeldung@info.com"
   },
   {
-    "mailId":  6,
-    "preview": "Die Bäume um mein Haus herum sind überall! Ich bitte um Hilfe.",
-    "subject": "Bäume müssen gesägt werden",
-    "sender":  "baum-faellen@info.com"
+    "mailId": 6,
+    "preview": "Vielen Dank für Ihren Antrag auf Fällen von Bäumen. Wir machen es umgehend, sobald alle Daten verifiziert werden",
+    "subject": "Baum fällen",
+    "sender": "baum-faellen@info.com"
   },
   {
-    "mailId":  7,
-    "preview": "Die Adresse der Hauptabteilung unserer Firma wurde geänder. Nun es lautet: ´Berlin, Kantstrasse 1´",
-    "subject": "Headquaters Adresse ändern",
-    "sender":  "firma@info.com"
+    "mailId": 7,
+    "preview": "Die Adresse der Hauptabteilung Ihrer Firma wurde geändert. Nun lautet es: ´Berlin, Kantstrasse 1´",
+    "subject": "Datenänderung",
+    "sender": "firma@info.com"
   },
   {
-    "mailId":  8,
+    "mailId": 8,
     "preview": "Wir müssen mitteilen, dass unsre Firma aktuell kein Geld hat, um Kredit zu tilgen. Wir sind Pleite gegangen.",
     "subject": "Pleite gegangen",
-    "sender":  "firma@info.com"
+    "sender": "firma-service@info.com"
+  },
+  {
+    "mailId": 9,
+    "preview": "Wir müssen mitteilen, dass Ihre Karte  leider gesperrt wurde. Zur Klärung der Details rufen Sie uns bitte unter der Hotline an: (069) 910-10000.",
+    "subject": "Gesperrte Konto",
+    "sender": "deutschebank@gmail.com"
+  },
+  {
+    "mailId": 10,
+    "preview": "Sie haben sich für einen Vertrag beworben. Wir werden Ihre Bewerbung innerhalb weniger Tage prüfen und einen Termin für Sie vereinbaren.",
+    "subject": "Vertrag Telekom",
+    "sender": "telekom@gmail.com"
+  },
+  {
+    "mailId": 11,
+    "preview": "Ihre Anfrage zur Wiederherstellung Ihrer Krankenkassearte wurde akzeptiert.",
+    "subject": "Krankenkassekarte",
+    "sender": "barmer@gmail.com"
+  },
+  {
+    "mailId": 12,
+    "preview": "Wir empfehlen Ihnen, sich jährlich auf *Krankheitsname* untersuchen zu lassen.",
+    "subject": "Ihre Gesundheit liegt uns am Herzen",
+    "sender": "barmer@gmail.com"
+  },
+  {
+    "mailId": 13,
+    "preview": "Leider konnten wir Ihnen keine neue Karte zustellen. Bitte überprüfen Sie, ob Ihre Adresse korrekt ist.",
+    "subject": "Lieferungsprobleme",
+    "sender": "deutschebank@gmail.com"
+  },
+  {
+    "mailId": 14,
+    "preview": "Wir müssen Sie darüber informieren, dass Ihre Aufenthaltserlaubnis am 30.09.2022 abläuft. Bitte beantragen Sie die Verlängerung Ihrer Aufenthaltserlaubnis bis zum 15.07.2022.",
+    "subject": "Befristete Aufenthaltstitel",
+    "sender": "auslaenderbehoerde@gmail.com"
   }
 ]
