@@ -17,29 +17,29 @@
     "appointmentId":  2,
     "serviceId": "serv-rechte",
     "description": "Wenn Rechte Ihrer Firma beeinträchtigt wurden, können Sie eine Klage bei Gericht einreichen",
-    "name": "Klage bei Gericht einreichen",
-    "additionalInfo":  "Bitte bringen Sie alle notwendigen Unterlagen mit"
+    "name": "Termin zur Einreichung von Klage",
+    "additionalInfo":  "Bitte bringen Sie den Antrag auf die Klage mit"
   },
   {
     "appointmentId":  3,
     "serviceId": "serv-hausmeister",
-    "description": "Für sichere Wohnung und Umgebung steht ein Hausmeister-Service zur Verfügung.",
-    "name": "Hausmeister Service",
-    "additionalInfo":  "Bitte bringen Sie alle notwendigen Unterlagen mit"
+    "description": "Bitte bleiben Sie zuhause, der Hausmeister kommt zu Ihnen zu einem vereinbarten Termin",
+    "name": "Hausmeister Besuch",
+    "additionalInfo":  "Bitte bleiben Sie zuhause"
   },
   {
     "appointmentId":  4,
-    "serviceId": "serv-baum",
-    "description": "Wenn die Bäume vor Ihrem Haus zu hoch gewachsen sind oder stören Ihnen, sollen sie gesägt werden.",
-    "name": "Bäume sägen",
+    "serviceId": "serv-daten",
+    "description": "Falls Sie beliebige Daten zur Firma ändern wollen, z.B Name, Adresse usw, können Sie es beantragen..",
+    "name": "Stammdaten ändern",
     "additionalInfo":  "Bitte bringen Sie alle notwendigen Unterlagen mit"
   },
   {
     "appointmentId": 5,
     "serviceId": "serv-aufenthalt",
-    "description": "Sie können Ihre Aufenthaltserlaubnis zur Fortsetzung eines im EU-Ausland begonnenen Studiums vor Ablauf ihrer Geltungsdauer verlängern lassen",
-    "name": "Verlängerung der Aufenthaltserlaubnis",
-    "additionalInfo":  "Bitte bringen Sie alle notwendigen Unterlagen mit"
+    "description": "Ihre Aufenthaltserlaubnis ist fertig. Bitte holen Sie die Erlaubnis bei uns ab.",
+    "name": "Termin zur Abholung von Aufenthaltstitel ",
+    "additionalInfo":  "Bitte bringen Sie den Ausweis mit"
   },
   {
     "appointmentId":  6,
@@ -53,13 +53,6 @@
     "serviceId": "serv-einkommen",
     "description": "Jedes Quartal sollen Sie ein Einkommensübersicht zur Verfügung stellen. Damit beantragen Sie einen.",
     "name": "Einkommensübersicht beantragen",
-    "additionalInfo":  "Bitte bringen Sie alle notwendigen Unterlagen mit"
-  },
-  {
-    "appointmentId":  8,
-    "serviceId": "serv-daten",
-    "description": "Falls Sie beliebige Daten zur Firma ändern wollen, z.B Name, Adresse usw, können Sie es beantragen..",
-    "name": "Stammdaten ändern",
     "additionalInfo":  "Bitte bringen Sie alle notwendigen Unterlagen mit"
   }
 ]
