@@ -254,7 +254,7 @@
           "hint": "Max",
           "id": "text-1-name",
           "label": "Vorname",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -263,7 +263,7 @@
           "hint": "Mustermann",
           "id": "text-2-surname",
           "label": "Nachname",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -272,16 +272,16 @@
           "hint": "Geben Sie Ihre Adresse ein",
           "id": "text-3",
           "label": "Adresse",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
       {
         "field": {
-          "hint": "Ab wann beginnt das Dienst vom Hausmeister",
+          "hint": "05.07.2022",
           "id": "date-1",
-          "label": "Date von Begin",
-          "required": true
+          "label": "Ab wann beginnt das Dienst vom Hausmeister",
+          "required": false
         },
         "type": "DateField"
       },
@@ -294,7 +294,7 @@
             "Garten",
             "Sauber erhalten"
           ],
-          "required": true
+          "required": false
         },
         "type": "MultipleChoiceField"
       },
@@ -303,7 +303,7 @@
           "hint": "Wohnungsgrösse",
           "id": "number-11",
           "label": "Wohnungsgrösse",
-          "required": true
+          "required": false
         },
         "type": "NumberField"
       },
@@ -326,7 +326,7 @@
           "hint": "Max",
           "id": "text-1-name",
           "label": "Vorname",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -335,7 +335,7 @@
           "hint": "Mustermann",
           "id": "text-2-surname",
           "label": "Nachname",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -349,7 +349,7 @@
             "Bis 15:00",
             "Bis 17:00"
           ],
-          "required": true
+          "required": false
         },
         "type": "SingleChoiceField"
       },
@@ -358,7 +358,7 @@
           "hint": "muster@gmail.com",
           "id": "email-1",
           "label": "Ihre Email-Adresse",
-          "required": true
+          "required": false
         },
         "type": "EmailField"
       },
@@ -367,7 +367,7 @@
           "hint": "Olaf",
           "id": "text-3",
           "label": "Vorname des Kindes",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -376,7 +376,7 @@
           "hint": "Olafmann",
           "id": "text-4",
           "label": "Nachname des Kindes",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -385,7 +385,7 @@
           "hint": "Fähigkeiten...",
           "id": "big-1",
           "label": "Beschreiben Sie die Fähigkeiten Ihres Kindes",
-          "required": true
+          "required": false
         },
         "type": "BigTextField"
       },
@@ -408,7 +408,7 @@
           "hint": "Max",
           "id": "text-1-name",
           "label": "Vorname",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -417,7 +417,7 @@
           "hint": "Mustermann",
           "id": "text-2-surname",
           "label": "Nachname",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -430,7 +430,7 @@
             "Baum",
             "Busche"
           ],
-          "required": true
+          "required": false
         },
         "type": "SingleChoiceField"
       },
@@ -439,7 +439,7 @@
           "id": "attachment-1",
           "label": "Fügen Sie das Bild von den Pflanzen bei, die gesägt werden sollen",
           "mimeType": "application/pdf,",
-          "required": true
+          "required": false
         },
         "type": "AttachmentField"
       },
@@ -448,7 +448,7 @@
           "hint": "1,2,3...",
           "id": "number-1",
           "label": "Wie viele Pflanzen müssen wir beachten?",
-          "required": true
+          "required": false
         },
         "type": "NumberField"
       },
@@ -457,7 +457,7 @@
           "hint": "muster@gmail.com",
           "id": "email-1",
           "label": "Ihre Email-Adresse",
-          "required": true
+          "required": false
         },
         "type": "EmailField"
       },
@@ -466,7 +466,7 @@
           "hint": "10.10.2022",
           "id": "date-1",
           "label": "Datum eines für Sie passenden Termines",
-          "required": true
+          "required": false
         },
         "type": "DateField"
       }
@@ -491,7 +491,7 @@
           "hint": "Mustermann",
           "id": "text-2-surname",
           "label": "Nachname",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -504,7 +504,7 @@
             "Firma",
             "Privat"
           ],
-          "required": true
+          "required": false
         },
         "type": "SingleChoiceField"
       },
@@ -513,7 +513,7 @@
           "id": "attachment-1",
           "label": "Fügen Sie die Datei Ihrer Ausgaben bei",
           "mimeType": "application/pdf,",
-          "required": true
+          "required": false
         },
         "type": "AttachmentField"
       },
@@ -531,7 +531,7 @@
           "hint": "muster@gmail.com",
           "id": "email-1",
           "label": "Ihre Email-Adresse",
-          "required": true
+          "required": false
         },
         "type": "EmailField"
       },
@@ -540,7 +540,7 @@
           "hint": "19.10.2022",
           "id": "date-1",
           "label": "Datum eines für Sie passenden Termines",
-          "required": true
+          "required": false
         },
         "type": "DateField"
       }
@@ -556,7 +556,7 @@
           "hint": "Firma GmbH",
           "id": "text-1-companyname",
           "label": "Unternehmensname",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -574,7 +574,7 @@
           "hint": "Mustermann",
           "id": "text-2-surname",
           "label": "Nachname",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -592,7 +592,7 @@
           "hint": "muster@gmail.com",
           "id": "email-1",
           "label": "Ihre Email-Adresse",
-          "required": true
+          "required": false
         },
         "type": "EmailField"
       },
@@ -624,7 +624,7 @@
           "hint": "Firma GmbH",
           "id": "text-1-companyname",
           "label": "Unternehmensname",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -633,7 +633,7 @@
           "hint": "Max",
           "id": "text-1",
           "label": "Vorname",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -642,7 +642,7 @@
           "hint": "Mustermann",
           "id": "text-2",
           "label": "Nachname",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -651,7 +651,7 @@
           "hint": "muster@gmail.com",
           "id": "email-1",
           "label": "Ihre Email-Adresse",
-          "required": true
+          "required": false
         },
         "type": "EmailField"
       },
@@ -660,7 +660,7 @@
           "hint": "Merseburg",
           "id": "text-4-city",
           "label": "Ort",
-          "required": false
+          "required": true
         },
         "type": "TextField"
       },
@@ -687,7 +687,7 @@
           "hint": "20.10.2022",
           "id": "date-1",
           "label": "Datum eines für Sie passenden Termines",
-          "required": true
+          "required": false
         },
         "type": "DateField"
       },
@@ -702,7 +702,7 @@
             "Aktionenname",
             "CEO"
           ],
-          "required": false
+          "required": true
         },
         "type": "SingleChoiceField"
       },
@@ -711,7 +711,7 @@
           "hint": "Neuer Firmenname GmbH",
           "id": "text-3",
           "label": "Neuen Wert",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       }
@@ -736,7 +736,7 @@
           "hint": "Mustermann",
           "id": "text-2-surname",
           "label": "Nachname",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -745,7 +745,7 @@
           "hint": "muster@gmail.com",
           "id": "email-1",
           "label": "Ihre Email-Adresse",
-          "required": true
+          "required": false
         },
         "type": "EmailField"
       },
@@ -754,7 +754,7 @@
           "hint": "20.10.2022",
           "id": "date-1",
           "label": "Datum eines für Sie passenden Termines",
-          "required": true
+          "required": false
         },
         "type": "DateField"
       },
@@ -806,7 +806,7 @@
           "hint": "Mustermann",
           "id": "text-2-surname",
           "label": "Nachname",
-          "required": true
+          "required": false
         },
         "type": "TextField"
       },
@@ -824,7 +824,7 @@
           "hint": "muster@gmail.com",
           "id": "email-1",
           "label": "Ihre Email-Adresse",
-          "required": true
+          "required": false
         },
         "type": "EmailField"
       },
@@ -833,7 +833,7 @@
           "hint": "20.10.2022",
           "id": "date-1",
           "label": "Datum eines für Sie passenden Termines",
-          "required": true
+          "required": false
         },
         "type": "DateField"
       },
