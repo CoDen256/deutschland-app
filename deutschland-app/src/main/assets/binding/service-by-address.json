@@ -1,38 +1,38 @@
 [
   {
-    "serviceId": "serv-aufenthalt",
-    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
-  },
-  {
     "serviceId": "serv-rechte",
-    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
+    "addressIds": [9,1,2,4,13,14]
   },
   {
     "serviceId": "serv-daten",
-    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
+    "addressIds": [9,1,2,6,8,13,14]
   },
   {
     "serviceId": "serv-pleitier",
-    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
+    "addressIds": [9,1,8,6,13,14]
   },
   {
     "serviceId": "serv-baum",
-    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
+    "addressIds": [9,4,5,6,8]
   },
   {
     "serviceId": "serv-kita",
-    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
+    "addressIds": [1,2,4,13,5,6]
   },
   {
     "serviceId": "serv-einkommen",
-    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
+    "addressIds": [9,5,6,8,13,14]
   },
   {
     "serviceId": "serv-tier",
-    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
+    "addressIds": [9,1,2,8,13,14]
   },
   {
     "serviceId": "serv-hausmeister",
-    "addressIds": [0,1,2,3,4,5,6,8,13,14,15,16]
+    "addressIds": [9,1,2,4,14, 13,5,6]
+  },
+  {
+    "serviceId": "serv-aufenthalt",
+    "addressIds": [9,1,2,14]
   }
 ]

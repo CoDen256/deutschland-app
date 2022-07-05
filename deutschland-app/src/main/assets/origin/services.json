@@ -34,7 +34,7 @@
   {
     "id": "serv-baum",
     "description": "Wenn die Bäume vor Ihrem Haus zu hoch gewachsen sind oder stören Ihnen, sollen sie gesägt werden.",
-    "name": "Bäume sägen",
+    "name": "Baum fällen",
     "endpoint":  "https://www.de-app.de/api/",
     "type":  "COMMON",
     "email":  "serv@baum.com"
